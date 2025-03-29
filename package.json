@@ -25,6 +25,8 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@portabletext/to-html": "^2.0.14",
+		"@sanity/client": "^6.28.4",
 		"daisyui": "^5.0.9"
 	}
 }
