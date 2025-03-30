@@ -19,8 +19,9 @@ export async function load() {
                 module.text_html = toHTML(module.text);
             }
         );
+        const sorted_data = data.sort((lhs: { order: number }, rhs: { order: number }) => lhs.order - rhs.order);
         return {
-            modules: data
+            modules: sorted_data
         };
     }
     return {

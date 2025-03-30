@@ -6,3 +6,17 @@
 @plugin 'daisyui' {
     themes: light --default, dark --prefersdark, cupcake;
 }
+
+.rich-text ul {
+    margin-left: 10px;
+    padding-left: 5px;
+    list-style-position: inside;
+}
+
+.rich-text ul li {
+    list-style-type: circle;
+}
+
+.rich-text ul li li {
+    list-style-type: square
+}
