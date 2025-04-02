@@ -16,6 +16,7 @@
             <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li><a href="/">Home</a></li>
                 <li><a href="/plans">Training Plans</a></li>
+                <li><a href="/modules">All Modules</a></li>
             </ul>
         </div>
     </div>
@@ -25,6 +26,7 @@
         <ul class="menu menu-horizontal px-1">
             <li><a href="/">Home</a></li>
             <li><a href="/plans">Training Plans</a></li>
+            <li><a href="/modules">All Modules</a></li>
         </ul>
     </div>
 
