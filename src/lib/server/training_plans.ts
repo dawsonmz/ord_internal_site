@@ -52,7 +52,6 @@ export async function loadTrainingPlans(): Promise<Map<String, TrainingPlan[]>> 
 
                 if (!trainingPlansBySeason.has(trainingPlan.season)) {
                     trainingPlansBySeason.set(trainingPlan.season, []);
-                    
                 }
                 trainingPlansBySeason.get(trainingPlan.season)!.push(trainingPlan);
             }
