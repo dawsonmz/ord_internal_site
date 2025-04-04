@@ -1,5 +1,15 @@
+import { loadSeasons } from "$lib/server/seasons";
 import { loadTrainingPlans } from "$lib/server/training_plans";
 
 export async function load() {
-    return { training_plans: await loadTrainingPlans() };
+    let [seasonData, trainingPlanData] = await Promise.all(
+        [
+            loadSeasons(),
+            loadTrainingPlans(),
+        ]
+    );
+    return {
+        seasons: seasonData,
+        training_plans: trainingPlanData,
+    };
 }

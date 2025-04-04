@@ -14,6 +14,10 @@ export interface Module {
     text_html: String,
 }
 
+export interface ModuleRef {
+    _ref: String,
+}
+
 export async function loadModules(): Promise<Module[]> {
     let moduleData: Module[] = await sanityClientCredentials.option.fetch(`*[_type == "module"]`);
     if (moduleData) {

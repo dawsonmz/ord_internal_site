@@ -1,12 +1,13 @@
 import { sanityClientCredentials } from "./sanity";
-import { type Module, loadModules } from "./modules";
+import { type Module, type ModuleRef, loadModules } from "./modules";
+import { type SeasonRef } from "./seasons";
 
 export interface TrainingPlan {
     _id: String,
     lesson_number: Number,
-    season: String,
+    season: SeasonRef,
     date_time: Date,
-    modules: String[],
+    modules: ModuleRef[],
 
     // Computed fields:
     date_text: String,
@@ -14,7 +15,7 @@ export interface TrainingPlan {
 }
 
 /**
- * @returns A map where the key is the season, and the value is a list of training plans for that season.
+ * @returns A map where the key is a reference to the season, and the value is a list of training plans for that season.
  *          Training plans within a season are sorted in increasing order by lesson number.
  */
 export async function loadTrainingPlans(): Promise<Map<String, TrainingPlan[]>> {
@@ -26,23 +27,22 @@ export async function loadTrainingPlans(): Promise<Map<String, TrainingPlan[]>> 
     );
 
     if (moduleData && trainingPlanData) {
-        let trainingPlansBySeason = new Map<String, TrainingPlan[]>();
-
-        let modulesByName = new Map<String, Module>();
+        let modulesById = new Map<String, Module>();
         moduleData.forEach(
             (module: Module) => {
-                modulesByName.set(module.name, module);
+                modulesById.set(module._id, module);
             }
         );
 
+        let trainingPlansBySeasonId = new Map<String, TrainingPlan[]>();
         trainingPlanData.forEach(
             (trainingPlan: TrainingPlan) => {
                 let moduleStartTime: Date = new Date(trainingPlan.date_time);
                 trainingPlan.date_text = moduleStartTime.toLocaleDateString("no-NO");
 
                 trainingPlan.module_objects = trainingPlan.modules.map(
-                    (moduleName: String) => {
-                        const module: Module = modulesByName.get(moduleName)!;
+                    (moduleRef: ModuleRef) => {
+                        const module: Module = modulesById.get(moduleRef._ref)!;
                         let moduleCopy = {...module};
                         moduleCopy.start_time = moduleStartTime.toLocaleTimeString("no-NO", { timeStyle: "short" });
                         moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module!.minutes.valueOf());
@@ -50,19 +50,19 @@ export async function loadTrainingPlans(): Promise<Map<String, TrainingPlan[]>> 
                     }
                 );
 
-                if (!trainingPlansBySeason.has(trainingPlan.season)) {
-                    trainingPlansBySeason.set(trainingPlan.season, []);
+                if (!trainingPlansBySeasonId.has(trainingPlan.season._ref)) {
+                    trainingPlansBySeasonId.set(trainingPlan.season._ref, []);
                 }
-                trainingPlansBySeason.get(trainingPlan.season)!.push(trainingPlan);
+                trainingPlansBySeasonId.get(trainingPlan.season._ref)!.push(trainingPlan);
             }
         )
 
-        trainingPlansBySeason.forEach(
-            (plans: TrainingPlan[], _season: String, _map: Map<String, TrainingPlan[]>) => {
+        trainingPlansBySeasonId.forEach(
+            (plans: TrainingPlan[], _seasonRef: String, _map: Map<String, TrainingPlan[]>) => {
                 plans.sort((lhs, rhs) => lhs.lesson_number.valueOf() - rhs.lesson_number.valueOf());
             }
         );
-        return trainingPlansBySeason;
+        return trainingPlansBySeasonId;
     } else {
         throw new Error("Failed to load training plan data.");
     }
