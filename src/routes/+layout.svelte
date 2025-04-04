@@ -15,18 +15,31 @@
             </div>
             <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 <li><a href="/">Home</a></li>
-                <li><a href="/plans">Training Plans</a></li>
-                <li><a href="/modules">All Modules</a></li>
+                <li>
+                    <a href="/beginners">Beginners</a>
+                    <ul class="p-2">
+                        <li><a href="/beginners/plans">Training Plans</a></li>
+                        <li><a href="/beginners/modules">All Modules</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
 
     <!-- Large screen center links for subpages. -->
     <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
+        <ul class="menu menu-horizontal px-1 z-1">
             <li><a href="/">Home</a></li>
-            <li><a href="/plans">Training Plans</a></li>
-            <li><a href="/modules">All Modules</a></li>
+            <li>
+                <!-- Use dropdown for this instead. -->
+                <details>
+                    <summary><a href="/beginners">Beginners</a></summary>
+                    <ul class="p-1 w-32">
+                        <li><a href="/beginners/plans">Training Plans</a></li>
+                        <li><a href="/beginners/modules">All Modules</a></li>
+                    </ul>
+                </details>
+            </li>
         </ul>
     </div>
 

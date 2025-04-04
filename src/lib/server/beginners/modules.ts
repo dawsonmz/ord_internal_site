@@ -1,5 +1,5 @@
 import { toHTML } from "@portabletext/to-html";
-import { sanityClientCredentials } from "./sanity";
+import { sanityClientCredentials } from "$lib/server/sanity";
 
 export interface Module {
     _id: String,

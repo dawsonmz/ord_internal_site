@@ -1,6 +1,6 @@
-import { sanityClientCredentials } from "./sanity";
+import { sanityClientCredentials } from "$lib/server/sanity";
+import { type SeasonRef } from "$lib/server/seasons";
 import { type Module, type ModuleRef, loadModules } from "./modules";
-import { type SeasonRef } from "./seasons";
 
 export interface TrainingPlan {
     _id: String,
