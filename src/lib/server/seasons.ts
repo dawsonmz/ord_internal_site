@@ -1,4 +1,5 @@
-import { sanityClientCredentials } from "./sanity";
+import { InternalError } from "$lib/server/errors";
+import { sanityClientCredentials } from "$lib/server/sanity";
 
 export interface Season {
     _id: String,
@@ -18,7 +19,7 @@ export interface SeasonRef {
  * @returns All seasons, sorted in descending order by time (most recent seasons first)
  */
 export async function loadSeasons(): Promise<Season[]> {
-    let seasonData: Season[] = await sanityClientCredentials.option.fetch(`*[_type == "season"]`);
+    const seasonData: Season[] = await sanityClientCredentials.option.fetch(`*[_type == "season"]`);
     if (seasonData) {
         seasonData.forEach(
             (season: Season) => {
@@ -39,6 +40,6 @@ export async function loadSeasons(): Promise<Season[]> {
         );
         return seasonData;
     } else {
-        throw new Error("Failed to load module data.");
+        throw new InternalError("Failed to load module data");
     }
 }
