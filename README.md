@@ -12,7 +12,7 @@ npm run dev
 
 The local instance will be hosted at http://localhost:5173.
 
-## sanity
+## Sanity
 
 Sanity project that defines the schema and setup for Sanity Studio used by the webapp. To run Sanity Studio locally, navigate to the /ord_app/sanity directory:
 
