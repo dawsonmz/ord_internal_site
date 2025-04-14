@@ -1,38 +1,23 @@
-# sv
+# Oslo Roller Derby Website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Placeholder README.
 
-## Creating a project
+## webapp
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+SvelteKit project for the webapp itself. To run locally, navigate to the /ord_app/webapp directory:
 
 ```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+The local instance will be hosted at http://localhost:5173.
 
-To create a production version of your app:
+## sanity
+
+Sanity project that defines the schema and setup for Sanity Studio used by the webapp. To run Sanity Studio locally, navigate to the /ord_app/sanity directory:
 
 ```bash
-npm run build
+npm run dev
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+The local instance will be hosted at http://localhost:3333. Note that it is still connected to actual CMS backend, so any changes to documents made there will be reflected in production.

@@ -1,0 +1,13 @@
+{
+	"/": [],
+	"/beginners": [],
+	"/beginners/modules": [
+		"src/routes/beginners/modules/+page.server.ts"
+	],
+	"/beginners/plans": [
+		"src/routes/beginners/plans/+page.server.ts"
+	],
+	"/beginners/plans/[season]-[number]": [
+		"src/routes/beginners/plans/[season]-[number]/+page.server.ts"
+	]
+}
