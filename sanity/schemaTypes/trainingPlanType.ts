@@ -32,7 +32,10 @@ export const trainingPlanType = {
                 {
                     type: 'reference',
                     to: [{ type: 'module' }],
-                }
+                    options: {
+                        disableNew: true,
+                    },
+                },
             ],
         },
     ],

@@ -46,7 +46,7 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
             }
             trainingPlanSummariesBySeasonId.get(trainingPlanSummary.season._ref)!.push(trainingPlanSummary);
         }
-    )
+    );
 
     trainingPlanSummariesBySeasonId.forEach(
         (plans: TrainingPlanSummary[], _seasonRef: String, _map: Map<String, TrainingPlanSummary[]>) => {

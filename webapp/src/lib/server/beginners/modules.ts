@@ -4,9 +4,10 @@ import { sanityClientCredentials } from "$lib/server/sanity";
 
 export interface Module {
     _id: String,
+    _createdAt: String,
     name: String,
     title: String,
-    order: Number,
+    category: String,
     minutes: Number,
     text: [],
 

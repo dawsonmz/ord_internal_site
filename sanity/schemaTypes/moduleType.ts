@@ -9,9 +9,18 @@ export const moduleType = {
             type: 'string',
         },
         {
-            name: 'order',
-            title: 'Order',
-            type: 'number',
+            name: 'category',
+            title: 'Category',
+            type: 'string',
+            options: {
+                list: [
+                    'Routine',
+                    'First training',
+                    'Laterals',
+                    'Transitions',
+                    'C-cuts',
+                ],
+            },
         },
         {
             name: 'minutes',
@@ -28,13 +37,13 @@ export const moduleType = {
     preview: {
         select: {
             title: 'title',
-            order: 'order',
+            category: 'category',
             minutes: 'minutes',
         },
-        prepare(selection: { title: String; order: Number; minutes: Number; }) {
-            const { title, order, minutes } = selection;
+        prepare(selection: { title: String; category: String; minutes: Number; }) {
+            const { title, category, minutes } = selection;
             return {
-                title: `${order}: ${title}`,
+                title: `[${category}] ${title}`,
                 subtitle: `${minutes} min`,
             };
         },
