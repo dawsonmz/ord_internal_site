@@ -18,6 +18,7 @@
                 <li>
                     <a href="/beginners">Beginners</a>
                     <ul class="p-2">
+                        <li><a href="/beginners">About</a></li>
                         <li><a href="/beginners/plans">Training Plans</a></li>
                         <li><a href="/beginners/modules">All Modules</a></li>
                     </ul>
@@ -31,14 +32,14 @@
         <ul class="menu menu-horizontal px-1 z-1">
             <li><a href="/">Home</a></li>
             <li>
-                <!-- Use dropdown for this instead. -->
-                <details>
-                    <summary><a href="/beginners">Beginners</a></summary>
-                    <ul class="p-1 w-32">
+                <div class="dropdown">
+                    <div tabindex="0" role="button"class="btn-ghost lg:flex">Beginners</div>
+                    <ul tabindex="-1" class="menu menu-md dropdown-content bg-base-100 rounded-box z-1 mt-1 w-40 p-1 shadow">
+                        <li><a href="/beginners">About</a></li>
                         <li><a href="/beginners/plans">Training Plans</a></li>
                         <li><a href="/beginners/modules">All Modules</a></li>
                     </ul>
-                </details>
+                </div>
             </li>
         </ul>
     </div>
