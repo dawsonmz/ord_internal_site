@@ -1,35 +1,35 @@
-node_modules
-/.pnp
-.pnp.js
+*/node_modules
+*/.pnp
+*/.pnp.js
 
 # Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
-/dist
-/.sanity
+*/.output
+*/.vercel
+*/.netlify
+*/.wrangler
+*/.svelte-kit
+*/build
+*/dist
+*/.sanity
 
 # Env
-.env
-.env.*
-!.env.example
-!.env.test
+**/.env
+**/.env.*
+**/!.env.example
+**/!.env.test
 
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Logs
-/logs
-*.log
+**/logs
+**/*.log
 
 # Miscellaneous
-.DS_Store
-Thumbs.db
-/coverage
-*.pem
-*.tsbuildinfo
-*.local
+**/.DS_Store
+**/Thumbs.db
+**/coverage
+**/*.pem
+**/*.tsbuildinfo
+**/*.local

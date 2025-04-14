@@ -1,1 +1,0 @@
-export { default as component } from "../../../../src/routes/beginners/plans/[season]-[number]/+page.svelte";
