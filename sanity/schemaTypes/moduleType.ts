@@ -25,4 +25,18 @@ export const moduleType = {
             of: [ { type: 'block' } ],
         },
     ],
+    preview: {
+        select: {
+            title: 'title',
+            order: 'order',
+            minutes: 'minutes',
+        },
+        prepare(selection: { title: String; order: Number; minutes: Number; }) {
+            const { title, order, minutes } = selection;
+            return {
+                title: `${order}: ${title}`,
+                subtitle: `${minutes} min`,
+            };
+        },
+    },
 };

@@ -20,6 +20,11 @@ export const trainingPlanType = {
             type: 'datetime',
         },
         {
+            name: 'summary',
+            title: 'Summary',
+            type: 'string',
+        },
+        {
             name: 'modules',
             title: 'Modules',
             type: 'array',
@@ -41,8 +46,8 @@ export const trainingPlanType = {
         prepare(selection: { season: String; year: String; lesson_number: Number; date_time: String; }) {
             const { season, year, lesson_number, date_time } = selection;
             return {
-                title: `${season} ${year} - lesson ${lesson_number}`,
-                subtitle: new Date(date_time.valueOf()).toLocaleDateString('no-NO', { dateStyle: 'short' }),
+                title: `${season} ${year} - Lesson ${lesson_number}`,
+                subtitle: new Date(date_time.valueOf()).toLocaleDateString('en-GB', { dateStyle: 'full' }),
             };
         },
     },

@@ -13,15 +13,15 @@
 }
 
 .rich-text ul {
-    margin-left: 10px;
-    padding-left: 5px;
-    list-style-position: inside;
+    list-style-position: outside;
 }
 
 .rich-text ul li {
     list-style-type: circle;
+    margin-left: 32px;
 }
 
 .rich-text ul li li {
-    list-style-type: square
+    list-style-type: square;
+    margin-left: 24px;
 }

@@ -8,6 +8,7 @@ export interface TrainingPlan {
     lesson_number: Number,
     season: SeasonRef,
     date_time: Date,
+    summary: String,
     modules: ModuleRef[],
 
     // Computed fields:
@@ -19,6 +20,7 @@ export interface TrainingPlanSummary {
     lesson_number: Number,
     season: SeasonRef,
     date_time: Date,
+    summary: String,
 
     // Computed fields:
     date_text: String,
@@ -26,7 +28,7 @@ export interface TrainingPlanSummary {
 
 /**
  * @returns A map where the key is a reference to the season, and the value is a list of training plan summaries
- *          for that season. Training plan summaries within a season are sorted in increasing order by lesson number.
+ *          for that season. Training plan summaries within a season are sorted in decreasing order by lesson number.
  */
 export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingPlanSummary[]>> {
     const trainingPlanSummaryData: TrainingPlanSummary[] = await sanityClientCredentials.option.fetch(`*[_type == "training_plan"]`);
@@ -38,7 +40,7 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
     trainingPlanSummaryData.forEach(
         (trainingPlanSummary: TrainingPlanSummary) => {
             const startTime: Date = new Date(trainingPlanSummary.date_time);
-            trainingPlanSummary.date_text = startTime.toLocaleDateString("no-NO");
+            trainingPlanSummary.date_text = formatDateText(startTime);
             if (!trainingPlanSummariesBySeasonId.has(trainingPlanSummary.season._ref)) {
                 trainingPlanSummariesBySeasonId.set(trainingPlanSummary.season._ref, []);
             }
@@ -48,7 +50,7 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
 
     trainingPlanSummariesBySeasonId.forEach(
         (plans: TrainingPlanSummary[], _seasonRef: String, _map: Map<String, TrainingPlanSummary[]>) => {
-            plans.sort((lhs, rhs) => lhs.lesson_number.valueOf() - rhs.lesson_number.valueOf());
+            plans.sort((lhs, rhs) => rhs.lesson_number.valueOf() - lhs.lesson_number.valueOf());
         }
     );
     return trainingPlanSummariesBySeasonId;
@@ -93,7 +95,7 @@ export async function loadTrainingPlan(seasonShortText: String, lessonNumber: St
 
     const trainingPlan = trainingPlanData[0];
     const moduleStartTime: Date = new Date(trainingPlan.date_time);
-    trainingPlan.date_text = moduleStartTime.toLocaleDateString("no-NO");
+    trainingPlan.date_text = formatDateText(moduleStartTime);
 
     trainingPlan.module_objects = trainingPlan.modules.map(
         (moduleRef: ModuleRef) => {
@@ -106,4 +108,15 @@ export async function loadTrainingPlan(seasonShortText: String, lessonNumber: St
     );
 
     return trainingPlan;
+}
+
+function formatDateText(date: Date): String {
+    // Using en-GB formatting for English day-of-week and month names.
+    return date.toLocaleDateString(
+        "en-GB",
+        {
+            dateStyle: "full",
+            timeZone: "Europe/Oslo",
+        }
+    );
 }
