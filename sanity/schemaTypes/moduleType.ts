@@ -28,8 +28,14 @@ export const moduleType = {
             type: 'number',
         },
         {
-            name: 'text',
-            title: 'Text',
+            name: 'short_text',
+            title: 'Short Text',
+            type: 'array',
+            of: [ { type: 'block' } ],
+        },
+        {
+            name: 'detailed_text',
+            title: 'Detailed Text',
             type: 'array',
             of: [ { type: 'block' } ],
         },
@@ -40,8 +46,8 @@ export const moduleType = {
             category: 'category',
             minutes: 'minutes',
         },
-        prepare(selection: { title: String; category: String; minutes: Number; }) {
-            const { title, category, minutes } = selection;
+        prepare(value: Record<string, any>) {
+            const { title, category, minutes } = value;
             return {
                 title: `[${category}] ${title}`,
                 subtitle: `${minutes} min`,

@@ -46,8 +46,8 @@ export const trainingPlanType = {
             lesson_number: 'lesson_number',
             date_time: 'date_time',
         },
-        prepare(selection: { season: String; year: String; lesson_number: Number; date_time: String; }) {
-            const { season, year, lesson_number, date_time } = selection;
+        prepare(value: Record<string, any>) {
+            const { season, year, lesson_number, date_time } = value;
             return {
                 title: `${season} ${year} - Lesson ${lesson_number}`,
                 subtitle: new Date(date_time.valueOf()).toLocaleDateString('en-GB', { dateStyle: 'full' }),

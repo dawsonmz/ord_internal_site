@@ -17,11 +17,16 @@
 }
 
 .rich-text ul li {
-    list-style-type: circle;
+    list-style-type: disc;
     margin-left: 16px;
 }
 
 .rich-text ul li li {
     list-style-type: square;
+    margin-left: 24px;
+}
+
+.rich-text ul li li li {
+    list-style-type: circle;
     margin-left: 24px;
 }

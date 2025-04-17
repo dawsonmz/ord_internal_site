@@ -25,8 +25,8 @@ export const seasonType = {
             season: 'season',
             year: 'year',
         },
-        prepare(selection: { season: String; year: Number }) {
-            const { season, year } = selection;
+        prepare(value: Record<string, any>) {
+            const { season, year } = value;
             return {
                 title: `${season} ${year}`,
             };

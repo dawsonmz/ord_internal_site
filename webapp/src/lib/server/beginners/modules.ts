@@ -9,11 +9,13 @@ export interface Module {
     title: String,
     category: String,
     minutes: Number,
-    text: [],
+    short_text: [],
+    detailed_text: [],
 
     // Computed fields:
     start_time: String,
-    text_html: String,
+    short_text_html: String,
+    detailed_text_html: String,
 }
 
 export interface ModuleRef {
@@ -25,7 +27,8 @@ export async function loadModules(): Promise<Module[]> {
     if (moduleData) {
         moduleData.forEach(
             (module: Module) => {
-                module.text_html = toHTML(module.text);
+                module.short_text_html = toHTML(module.short_text);
+                module.detailed_text_html = toHTML(module.detailed_text);
             }
         );
         return moduleData;
