@@ -28,7 +28,7 @@ export interface TrainingPlanSummary {
 
 /**
  * @returns A map where the key is a reference to the season, and the value is a list of training plan summaries
- *          for that season. Training plan summaries within a season are sorted in decreasing order by lesson number.
+ *          for that season. Training plan summaries within a season are sorted in increasing order by lesson number.
  */
 export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingPlanSummary[]>> {
     const trainingPlanSummaryData: TrainingPlanSummary[] = await sanityClientCredentials.option.fetch(`*[_type == "training_plan"]`);
@@ -50,7 +50,7 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
 
     trainingPlanSummariesBySeasonId.forEach(
         (plans: TrainingPlanSummary[], _seasonRef: String, _map: Map<String, TrainingPlanSummary[]>) => {
-            plans.sort((lhs, rhs) => rhs.lesson_number.valueOf() - lhs.lesson_number.valueOf());
+            plans.sort((lhs, rhs) => lhs.lesson_number.valueOf() - rhs.lesson_number.valueOf());
         }
     );
     return trainingPlanSummariesBySeasonId;

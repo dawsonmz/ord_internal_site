@@ -3,6 +3,10 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
+@plugin 'daisyui' {
+    themes: light --default, dark --prefersdark;
+}
+
 .rich-text p {
     margin-top: 2px;
     margin-bottom: 2px;
@@ -14,7 +18,7 @@
 
 .rich-text ul li {
     list-style-type: circle;
-    margin-left: 32px;
+    margin-left: 16px;
 }
 
 .rich-text ul li li {
