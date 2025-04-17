@@ -3,13 +3,14 @@
 </script>
 
 {#if data.modulesByCategory}
-    <div class="flex flex-col items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 mx-5">
         {#each ['Routine', 'First training'] as category}
-            <div class="text-2xl font-semibold mt-4 w-2xl">Category: {category}</div>
+            <div class="lg:col-start-2 lg:col-span-3 text-4xl font-bold">Category: {category}</div>
             {#each data.modulesByCategory.get(category)! as module}
-                <div class="text-lg font-semibold mt-5 mb-2 w-2xl">{module.title}</div>
-                <div class="w-2xl"><div class="badge badge-secondary badge-lg font-semibold pl-2 pr-2 pt-3 pb-3.5">{module.minutes} min</div></div>
-                <div class="rich-text w-2xl">{@html module.text_html}</div>
+                <div class="rich-text lg:col-start-2 lg:col-span-3">
+                    <div class="text-lg font-semibold">{module.title} ({module.minutes} min)</div>
+                    {@html module.text_html}
+                </div>
             {/each}
         {/each}
     </div>

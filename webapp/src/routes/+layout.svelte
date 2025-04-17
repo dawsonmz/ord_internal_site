@@ -7,7 +7,7 @@
     const route = page.route.id;
 </script>
 
-<div class="flex justify-center font-bold text-lg">
+<div class="flex justify-center border-b-1 border-gray-300 font-bold text-lg pb-2 mb-4">
     <div class="flex justify-center items-center relative size-40">
         <a class="{route === '/about' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/about" data-sveltekit-reload>About Us</a>
     </div>
@@ -24,6 +24,5 @@
         <a class="{route === '/beginners/modules' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners/modules" data-sveltekit-reload>All Modules</a>
     </div>
 </div>
-<div class="divider"></div>
 
 {@render children()}

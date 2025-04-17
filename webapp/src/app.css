@@ -3,10 +3,6 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-@plugin 'daisyui' {
-    themes: light --default, dark --prefersdark, cupcake;
-}
-
 .rich-text p {
     margin-top: 2px;
     margin-bottom: 2px;

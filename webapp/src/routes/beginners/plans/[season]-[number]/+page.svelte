@@ -3,16 +3,15 @@
 </script>
 
 {#if data.training_plan}
-    <div class="flex flex-col items-center">
-        <div class="text-4xl font-bold ml-2 mr-2 mb-2">Lesson {data.training_plan.lesson_number}</div>
-        <div class="text-2xl font-semibold ml-2 mr-2">{data.training_plan.date_text}</div>
-        <div class="rich-text m-2 max-w-2xl">
-            {#each data.training_plan.module_objects as module}
-                <div class="badge badge-neutral badge-outline badge-lg font-semibold mt-4 mb-1 pl-2 pr-2 pt-3 pb-3.5">{module.start_time} - {module.minutes} min</div>
-                <div class="text-md font-bold ml-2 mb-1">{module.title}</div>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 mx-5">
+        <div class="lg:col-start-2 lg:col-span-3 text-4xl font-bold">Lesson {data.training_plan.lesson_number}</div>
+        <div class="lg:col-start-2 lg:col-span-3 text-2xl font-semibold">{data.training_plan.date_text}</div>
+        {#each data.training_plan.module_objects as module}
+            <div class="rich-text lg:col-start-2 lg:col-span-3">
+                <div class="text-lg font-semibold mb-1">{module.start_time} - {module.title} ({module.minutes} min)</div>
                 {@html module.text_html}
-            {/each}
-        </div>
+            </div>
+        {/each}
     </div>
 {:else}
     <div>No data found.</div>
