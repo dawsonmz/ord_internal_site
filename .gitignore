@@ -18,6 +18,9 @@ node_modules
 !.env.example
 !.env.test
 
+# Config
+sanity.cli.ts
+
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
