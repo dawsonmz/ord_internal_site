@@ -1,21 +1,14 @@
 <script lang="ts">
-    import Module from '$lib/components/module.svelte';
+    import ModuleGroup from '$lib/components/module_group.svelte';
 
-    export let data;
-    let index = 0;
-    let incrementIndex = () => {
-        index++;
-        return index;
-    };
+    let { data } = $props();
 </script>
 
-{#if data.modulesByCategory}
+{#if data.modules_by_category}
     <div class="grid grid-cols-1 gap-4 mx-5 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60">
-        {#each ['Routine', 'First training'] as category}
+        {#each data.categories as category}
             <div class="text-3xl font-bold mt-2">Category: {category}</div>
-            {#each data.modulesByCategory.get(category)! as module}
-                <Module module={module} index={incrementIndex()} />
-            {/each}
+            <ModuleGroup modules={data.modules_by_category.get(category)!} prefix={category.replaceAll(' ', '').toLowerCase()} />
         {/each}
     </div>
 {:else}

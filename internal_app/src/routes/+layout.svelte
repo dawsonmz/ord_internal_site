@@ -1,14 +1,21 @@
 <script lang="ts">
     import '../app.css';
+    import { afterNavigate } from '$app/navigation';
     import logo from '$lib/assets/ord-logo.svg';
-    import { page } from '$app/state';
     
     let { children } = $props();
-    const route = page.route.id;
+
+    let route = $state('');
+    let drawerChecked = $state(false);
+
+    afterNavigate(() => {
+        route = window.location.pathname;
+        drawerChecked = false;
+    });
 </script>
 
-<div class="drawer">
-    <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
+<div class="drawer z-1">
+    <input id="nav-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerChecked} />
     <div class="drawer-content flex flex-col">
         <div class="flex justify-center border-b-1 border-gray-300 font-bold text-lg pb-2 my-2">
             <!-- Hamburger menu with side-drawer for navigation on small screens. Logo still shows. -->
@@ -25,19 +32,19 @@
 
             <!-- Normal navigation on medium or larger screens. -->
             <div class="flex max-md:hidden justify-center items-center relative size-40">
-                <a class="{route === '/about' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/about" data-sveltekit-reload>About Us</a>
+                <a class="{route === '/about' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/about">About Us</a>
             </div>
             <div class="flex max-md:hidden justify-center items-center relative size-40">
-                <a class="{route === '/beginners' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners" data-sveltekit-reload>Beginners</a>
+                <a class="{route === '/beginners' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners">Beginners</a>
             </div>
             <div class="flex max-md:grow justify-center items-center relative size-40 max-md:size-20 ml-5 mr-5">
-                <a href="/" data-sveltekit-reload><img class="w-140 h-140 max-md:w-20 max-md:h-20" src={logo} alt="Oslo Roller Derby logo" /></a>
+                <a href="/"><img class="w-140 h-140 max-md:w-20 max-md:h-20" src={logo} alt="Oslo Roller Derby logo" /></a>
             </div>
             <div class="flex max-md:hidden justify-center items-center relative size-40">
-                <a class="{route?.startsWith('/beginners/plans') ?? false ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners/plans" data-sveltekit-reload>Training Plans</a>
+                <a class="{route.startsWith('/beginners/plans') ?? false ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners/plans">Training Plans</a>
             </div>
             <div class="flex max-md:hidden justify-center items-center relative size-40">
-                <a class="{route === '/beginners/modules' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners/modules" data-sveltekit-reload>All Modules</a>
+                <a class="{route === '/beginners/modules' ? 'text-blue-800' : 'text-blue-500'} hover:text-blue-300" href="/beginners/modules">All Modules</a>
             </div>
 
             <!-- For symmetric spacing with the dropdown menu on the left side on small screens. -->
@@ -46,13 +53,13 @@
     </div>
 
     <!-- Side-drawer content. -->
-    <div class="drawer-side z-50">
+    <div class="drawer-side">
         <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
         <ul class="menu bg-base-200 min-h-full w-60 p-4">
-            <li><a href="/about" data-sveltekit-reload>About Us</a></li>
-            <li><a href="/beginners" data-sveltekit-reload>Beginners</a></li>
-            <li><a href="/beginners/plans" data-sveltekit-reload>Training Plans</a></li>
-            <li><a href="/beginners/modules" data-sveltekit-reload>All Modules</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/beginners">Beginners</a></li>
+            <li><a href="/beginners/plans">Training Plans</a></li>
+            <li><a href="/beginners/modules">All Modules</a></li>
         </ul>
     </div>
 </div>

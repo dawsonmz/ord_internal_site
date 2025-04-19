@@ -23,12 +23,14 @@ export interface ModuleRef {
 }
 
 export async function loadModules(): Promise<Module[]> {
-    const moduleData: Module[] = await sanityClientCredentials.option.fetch(`*[_type == "module"]`);
+    const moduleData: Module[] = await sanityClientCredentials.option.fetch(`*[_type == "module"] | order(_createdAt asc)`);
     if (moduleData) {
         moduleData.forEach(
             (module: Module) => {
                 module.short_text_html = toHTML(module.short_text);
-                module.detailed_text_html = toHTML(module.detailed_text);
+                if (module.detailed_text) {
+                    module.detailed_text_html = toHTML(module.detailed_text);
+                }
             }
         );
         return moduleData;
