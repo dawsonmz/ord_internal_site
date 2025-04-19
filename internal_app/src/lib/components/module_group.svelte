@@ -23,17 +23,15 @@
     <button class="btn" onclick={showAllDetailed}>Show all detailed</button>
 </div>
 {#each modules as module, index}
-    <div class="rich-text">
-        <div class="text-lg font-semibold mb-2">{module.start_time ? `${module.start_time} - ` : ''}{module.title} ({module.minutes} min)</div>
-        <div class="tabs tabs-box bg-gray-50 shadow-lg">
-            <input type="radio" name="module_tabs_{prefix}_{index}" class="tab font-semibold m-1" aria-label="Short" value="short" bind:group={showStates[index]} />
-            <div class="tab-content module-short-text p-3">{@html module.short_text_html}</div>
+    <div class="text-lg font-semibold mb-2">{module.start_time ? `${module.start_time} - ` : ''}{module.title} ({module.minutes} min)</div>
+    <div class="tabs tabs-box shadow-lg">
+        <input type="radio" name="module_tabs_{prefix}_{index}" class="tab font-semibold checked:text-base-content m-1" aria-label="Short" value="short" bind:group={showStates[index]} />
+        <div class="tab-content rich-text p-3">{@html module.short_text_html}</div>
 
-            <input type="radio" name="module_tabs_{prefix}_{index}" class="tab font-semibold m-1" aria-label="Detailed" value="detailed" bind:group={showStates[index]} disabled="{!module.detailed_text}" />
-            <div class="tab-content module-detailed-text p-3">{@html module.detailed_text_html}</div>
-            
-            <input type="radio" name="module_tabs_{prefix}_{index}" class="tab font-semibold m-1" aria-label="Resources" disabled="{!module.resources}" />
-            <div class="tab-content p-3">Additional resources</div>
-        </div>
+        <input type="radio" name="module_tabs_{prefix}_{index}" class="tab font-semibold checked:text-base-content m-1" aria-label="Detailed" value="detailed" bind:group={showStates[index]} disabled="{!module.detailed_text}" />
+        <div class="tab-content rich-text p-3">{@html module.detailed_text_html}</div>
+        
+        <input type="radio" name="module_tabs_{prefix}_{index}" class="tab font-semibold checked:text-base-content m-1" aria-label="Resources" disabled="{!module.resources}" />
+        <div class="tab-content rich-text p-3">Additional resources</div>
     </div>
 {/each}

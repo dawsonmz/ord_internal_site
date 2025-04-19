@@ -20,20 +20,19 @@
 </script>
 <svelte:window on:keyup={onKeyUp} />
 
-<div class="drawer z-1">
+<div class="drawer bg-base z-1">
     <input id="nav-drawer" type="checkbox" class="drawer-toggle" bind:checked={drawerChecked} />
     <div class="drawer-content flex flex-col">
-        <div class="flex justify-center border-b-1 border-gray-300 font-bold text-lg pb-2 my-2">
+        <div class="flex justify-center font-bold text-lg pb-2 my-2">
             <!-- Hamburger menu for navigation. -->
             <div class="flex items-center mx-2 sm:mx-5">
-                <label for="nav-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <label for="nav-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost m-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M 4, 6 h 16
                                M 4,12 h 16
                                M 4,18 h 16" />
                     </svg>
-                    
                 </label>
             </div>
 
@@ -50,18 +49,18 @@
     <!-- Navigation side-drawer content. -->
     <div class="drawer-side">
         <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu bg-base-200 min-h-full w-60 p-4">
+        <ul class="menu bg-base-100 font-semibold min-h-full w-60 p-4">
             <li><a href="/">Home</a></li>
             <li><a href="/beginner-plans">Beginner Training Plans</a></li>
             <li><a href="/beginner-modules">All Beginner Modules</a></li>
             <li>
                 <button tabindex="0" aria-label="close menu" onclick={closeSideDrawer}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current w-4 h-4" fill="none" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M  4,4 L 20,20
                                  M 20,4 L 4,20" />
                     </svg>
-                    Close menu
+                    Close
                 </button>
             </li>
         </ul>
