@@ -4,8 +4,8 @@ export const trainingPlanType = {
     type: 'document',
     fields: [
         {
-            name: 'lesson_number',
-            title: 'Lesson Number',
+            name: 'training_number',
+            title: 'Training Number',
             type: 'number',
         },
         {
@@ -43,13 +43,13 @@ export const trainingPlanType = {
         select: {
             season: 'season.season',
             year: 'season.year',
-            lesson_number: 'lesson_number',
+            training_number: 'training_number',
             date_time: 'date_time',
         },
         prepare(value: Record<string, any>) {
-            const { season, year, lesson_number, date_time } = value;
+            const { season, year, training_number, date_time } = value;
             return {
-                title: `${season} ${year} - Lesson ${lesson_number}`,
+                title: `${season} ${year} - Training ${training_number}`,
                 subtitle: new Date(date_time.valueOf()).toLocaleDateString('en-GB', { dateStyle: 'full' }),
             };
         },

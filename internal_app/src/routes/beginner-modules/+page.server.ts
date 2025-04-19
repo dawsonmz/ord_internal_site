@@ -1,4 +1,4 @@
-import { type Module, loadModules } from "$lib/server/beginners/modules";
+import { type Module, loadModules } from "$lib/server/modules";
 
 export async function load() {
     const modules = await loadModules();

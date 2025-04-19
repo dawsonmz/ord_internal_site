@@ -1,11 +1,11 @@
 import { InternalError, NotFoundError } from "$lib/server/errors";
 import { sanityClientCredentials } from "$lib/server/sanity";
 import { type SeasonRef, loadSeasons } from "$lib/server/seasons";
-import { type Module, type ModuleRef, loadModules } from "$lib/server/beginners/modules";
+import { type Module, type ModuleRef, loadModules } from "$lib/server/modules";
 
 export interface TrainingPlan {
     _id: String,
-    lesson_number: Number,
+    training_number: Number,
     season: SeasonRef,
     date_time: Date,
     summary: String,
@@ -17,7 +17,7 @@ export interface TrainingPlan {
 }
 
 export interface TrainingPlanSummary {
-    lesson_number: Number,
+    training_number: Number,
     season: SeasonRef,
     date_time: Date,
     summary: String,
@@ -28,7 +28,7 @@ export interface TrainingPlanSummary {
 
 /**
  * @returns A map where the key is a reference to the season, and the value is a list of training plan summaries
- *          for that season. Training plan summaries within a season are sorted in increasing order by lesson number.
+ *          for that season. Training plan summaries within a season are sorted in increasing order by training number.
  */
 export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingPlanSummary[]>> {
     const trainingPlanSummaryData: TrainingPlanSummary[] = await sanityClientCredentials.option.fetch(`*[_type == "training_plan"]`);
@@ -50,7 +50,7 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
 
     trainingPlanSummariesBySeasonId.forEach(
         (plans: TrainingPlanSummary[], _seasonRef: String, _map: Map<String, TrainingPlanSummary[]>) => {
-            plans.sort((lhs, rhs) => lhs.lesson_number.valueOf() - rhs.lesson_number.valueOf());
+            plans.sort((lhs, rhs) => lhs.training_number.valueOf() - rhs.training_number.valueOf());
         }
     );
     return trainingPlanSummariesBySeasonId;
@@ -58,11 +58,11 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
 
 /**
  * @param seasonShortText The short_text field of the season where the training plan belongs, e.g. spring2025
- * @param lessonNumber The lesson number for the training plan, provided as a string
- * @returns The training plan with the given season and lesson number
+ * @param trainingNumber The training number for the training plan, provided as a string
+ * @returns The training plan with the given season and training number
  */
-export async function loadTrainingPlan(seasonShortText: String, lessonNumber: String): Promise<TrainingPlan> {
-    if (!lessonNumber.match(/^\d+$/)) {
+export async function loadTrainingPlan(seasonShortText: String, trainingNumber: String): Promise<TrainingPlan> {
+    if (!trainingNumber.match(/^\d+$/)) {
         throw new NotFoundError("Training plan not found")
     }
     const [seasonData, moduleData] = await Promise.all(
@@ -85,12 +85,12 @@ export async function loadTrainingPlan(seasonShortText: String, lessonNumber: St
     );
 
     const trainingPlanData: TrainingPlan[] = await sanityClientCredentials.option.fetch(
-        `*[_type == "training_plan" && season._ref == "` + season._id + `" && lesson_number == ` + lessonNumber + `]`
+        `*[_type == "training_plan" && season._ref == "` + season._id + `" && training_number == ` + trainingNumber + `]`
     );
     if (!trainingPlanData.length) {
         throw new NotFoundError("Training plan not found");
     } else if (trainingPlanData.length > 1) {
-        throw new InternalError("Multiple training plans with the same season and lesson number were found");
+        throw new InternalError("Multiple training plans with the same season and training number were found");
     }
 
     const trainingPlan = trainingPlanData[0];

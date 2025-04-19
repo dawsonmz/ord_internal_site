@@ -1,5 +1,5 @@
 import { loadSeasons } from "$lib/server/seasons";
-import { loadTrainingPlanSummaries } from "$lib/server/beginners/training_plans";
+import { loadTrainingPlanSummaries } from "$lib/server/training_plans";
 
 export async function load() {
     const [seasonData, trainingPlanSummaryData] = await Promise.all(

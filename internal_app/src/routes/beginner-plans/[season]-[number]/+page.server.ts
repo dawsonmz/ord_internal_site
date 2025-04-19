@@ -1,5 +1,5 @@
 import { NotFoundError } from "$lib/server/errors.js";
-import { loadTrainingPlan } from "$lib/server/beginners/training_plans";
+import { loadTrainingPlan } from "$lib/server/training_plans";
 
 export async function load({ params }) {
     try {
