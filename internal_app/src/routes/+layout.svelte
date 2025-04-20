@@ -1,7 +1,7 @@
 <script lang="ts">
     import '../app.css';
     import { afterNavigate } from '$app/navigation';
-    import { Modal } from '@skeletonlabs/skeleton-svelte';
+    import { AppBar, Modal } from '@skeletonlabs/skeleton-svelte';
     import logo from '$lib/assets/ord-logo.svg';
     
     let { children } = $props();
@@ -14,9 +14,8 @@
     afterNavigate(() => closeDrawer());
 </script>
 
-<div class="flex justify-between font-bold text-lg pb-2 my-2">
-    <div class="flex items-center mx-2 sm:mx-5">
-        <!-- Hamburger menu which opens the side drawer. -->
+<AppBar base="mb-5" leadBase="place-self-center">
+    {#snippet lead()}
         <Modal
             open={drawerState}
             onOpenChange={(e) => (drawerState = e.open)}
@@ -29,7 +28,16 @@
             transitionsPositionerOut={{ x: -400, duration: 300 }}
         >
             {#snippet trigger()}
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current group-hover:stroke-[var(--link-hover-color)] w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="stroke-current
+                           group-hover:stroke-[var(--link-hover-color)]
+                           group-active:stroke-[var(--link-active-color)]
+                           w-6 h-6
+                           sm:w-8 sm:h-8"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
                     <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -41,14 +49,15 @@
                 </svg>
             {/snippet}
             {#snippet content()}
-                <div class="side-nav flex flex-col m-5">
+                <div class="side-nav flex flex-col">
+                    <img class="w-28 h-28 m-4" src={logo} alt="Oslo Roller Derby logo" />
                     <div>General</div>
-                    <a href="/">Home</a>
+                    <a class="link" href="/">Home</a>
                     <div>Teams</div>
-                    <a href="#top"><em>Under Construction</em></a>
+                    <a class="link" href="#top"><em>Under Construction</em></a>
                     <div>Beginners</div>
-                    <a href="/beginner-plans">Training Plans</a>
-                    <a href="/beginner-modules">All Modules</a>
+                    <a class="link" href="/beginner-plans">Training Plans</a>
+                    <a class="link" href="/beginner-modules">Modules</a>
                 </div>
                 <button type="button" class="place-self-start text-lg hover:text-[var(--link-hover-color)] m-5" aria-label="close menu" onclick={closeDrawer}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current inline-block w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -64,15 +73,10 @@
                 </button>
             {/snippet}
         </Modal>
-    </div>
-
-    <!-- ORD logo. -->
-    <div class="size-25 sm:size-32">
-        <a href="/"><img class="w-25 h-25 sm:w-32 sm:h-32" src={logo} alt="Oslo Roller Derby logo" /></a>
-    </div>
-
-    <!-- Hidden div for symmetric placement. -->
-    <div class="flex w-10 h-10 mx-2 sm:mx-5"></div>
-</div>
+    {/snippet}
+    {#snippet trail()}
+        <a href="/"><img class="w-20 h-20" src={logo} alt="Oslo Roller Derby logo" /></a>
+    {/snippet}
+</AppBar>
 
 {@render children()}

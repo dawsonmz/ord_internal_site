@@ -1,6 +1,6 @@
 <script lang="ts">
     import ModuleGroup from '$lib/components/module_group.svelte';
-    
+
     let { data } = $props();
 </script>
 
