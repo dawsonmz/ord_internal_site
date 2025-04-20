@@ -8,7 +8,7 @@
     <div class="grid grid-cols-1 gap-4 mx-5 sm:mx-10 md:mx-20 lg:mx-40 xl:mx-60">
         {#each data.categories as category}
             <div class="text-3xl font-bold mt-2">Category: {category}</div>
-            <ModuleGroup modules={data.modules_by_category.get(category)!} prefix={category.replaceAll(' ', '').toLowerCase()} />
+            <ModuleGroup modules={data.modules_by_category.get(category)!} />
         {/each}
     </div>
 {:else}

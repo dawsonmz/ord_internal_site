@@ -13,11 +13,12 @@
                            class="btn-like
                                   rounded-xl
                                   border-2
-                                  border-base-200
+                                  border-surface-200
                                   shadow-2xl
                                   hover:bg-[var(--btn-hover-color)]
                                   hover:border-[var(--btn-hover-color)]
-                                  p-5">
+                                  p-5"
+                        >
                             <div class="text-3xl font-semibold mb-4">Training {trainingPlanSummary.training_number}</div>
                             <div class="text-lg font-semibold">{trainingPlanSummary.date_text}</div>
                             <div class="text-md">{trainingPlanSummary.summary}</div>

@@ -1,14 +1,15 @@
 @import 'tailwindcss';
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton/optional/presets';
+@import '@skeletonlabs/skeleton/themes/hamlindigo';
+
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
 
-@plugin 'daisyui' {
-    themes: bumblebee --default, dark --prefersdark;
-}
-
 :root {
-    --btn-hover-color: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    --btn-hover-color: color-mix(in oklab, var(--btn-color, var(--color-surface-200)), #000 7%);
 }
 
 .btn-like {
@@ -17,7 +18,7 @@
     transition-duration: 0.4s;
     @media (hover: hover) {
         &:hover {
-            --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+            --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-surface-200)), #000 7%);
         }
     }
     &:active {
