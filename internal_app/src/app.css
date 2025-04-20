@@ -9,7 +9,10 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-    --btn-hover-color: color-mix(in oklab, var(--btn-color, var(--color-surface-200)), #000 7%);
+    --link-hover-color: var(--color-primary-600);
+    --link-active-color: var(--color-primary-800);
+    --btn-hover-color: var(--color-primary-600);
+    --btn-active-color: var(--color-primary-800);
 }
 
 .btn-like {
@@ -18,11 +21,33 @@
     transition-duration: 0.4s;
     @media (hover: hover) {
         &:hover {
-            --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-surface-200)), #000 7%);
+            --btn-bg: var(--btn-hover-color);
         }
     }
     &:active {
-        translate: 0 0.5px;
+        background-color: var(--btn-active-color);
+    }
+}
+
+/* font-bold text-xl my-3 */
+.side-nav div {
+    font-weight: var(--font-weight-bold);
+    font-size: calc(1.25rem * var(--text-scaling));
+    line-height: var(--tw-leading, calc(calc(1.75 / 1.25) * var(--text-scaling)));
+    margin-block: calc(var(--spacing) * 3);
+}
+
+/* mx-3 my-3 */
+.side-nav a {
+    margin-inline: calc(var(--spacing) * 3);
+    margin-block: calc(var(--spacing) * 3);
+    &:hover {
+        @media (hover: hover) {
+            color: var(--link-hover-color);
+        }
+    }
+    &:active {
+        color: var(--link-active-color);
     }
 }
 
