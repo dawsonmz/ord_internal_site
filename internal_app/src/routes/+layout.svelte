@@ -1,6 +1,7 @@
 <script lang="ts">
     import '../app.css';
     import { afterNavigate } from '$app/navigation';
+    import { MenuIcon, XIcon } from '@lucide/svelte';
     import { AppBar, Modal } from '@skeletonlabs/skeleton-svelte';
     import logo from '$lib/assets/ord-logo.svg';
     
@@ -14,62 +15,37 @@
     afterNavigate(() => closeDrawer());
 </script>
 
-<AppBar base="mb-5" leadBase="place-self-center">
+<AppBar base="px-6 mb-5" leadBase="self-center flex h-[24px]">
     {#snippet lead()}
         <Modal
             open={drawerState}
             onOpenChange={(e) => (drawerState = e.open)}
-            triggerBase="btn group"
-            contentBase="flex flex-col text-md bg-surface-100-900 p-4 space-y-4 shadow-xl w-screen sm:w-[400px] h-screen"
-            positionerJustify="justify-start"
+            triggerBase="link flex items-center gap-3"
+            contentBase="flex flex-col bg-surface-100-900 text-md p-6 space-y-4 shadow-2xl w-screen sm:w-[400px] h-screen"
+            positionerJustify=""
             positionerAlign=""
             positionerPadding=""
             transitionsPositionerIn={{ x: -400, duration: 300 }}
             transitionsPositionerOut={{ x: -400, duration: 300 }}
         >
             {#snippet trigger()}
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="stroke-current
-                           group-hover:stroke-[var(--link-hover-color)]
-                           group-active:stroke-[var(--link-active-color)]
-                           w-6 h-6
-                           sm:w-8 sm:h-8"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M 4, 6 h 16
-                           M 4,12 h 16
-                           M 4,18 h 16"
-                    />
-                </svg>
+                <MenuIcon aria-label="open navigation menu" />
+                <span class="text-lg font-semibold">Menu</span>
             {/snippet}
             {#snippet content()}
-                <div class="side-nav flex flex-col">
-                    <img class="w-28 h-28 m-4" src={logo} alt="Oslo Roller Derby logo" />
-                    <div>General</div>
-                    <a class="link" href="/">Home</a>
-                    <div>Teams</div>
-                    <a class="link" href="#top"><em>Under Construction</em></a>
-                    <div>Beginners</div>
-                    <a class="link" href="/beginner-plans">Training Plans</a>
-                    <a class="link" href="/beginner-modules">Modules</a>
+                <img class="self-center w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
+                <div class="side-nav-header">General</div>
+                <div class="side-nav-link"><a class="link" href="/">Home</a></div>
+                <div class="side-nav-header">Teams</div>
+                <div class="side-nav-link"><a class="link" href="#top"><em>Under Construction</em></a></div>
+                <div class="side-nav-header">Beginners</div>
+                <div class="side-nav-link"><a class="link" href="/beginner-plans">Training Plans</a></div>
+                <div class="side-nav-link"><a class="link" href="/beginner-modules">Modules</a></div>
 
-                    <button type="button" class="place-self-start text-lg font-semibold hover:text-[var(--link-hover-color)] mt-10" aria-label="close menu" onclick={closeDrawer}>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current inline-block w-4 h-4" fill="none" viewBox="0 0 24 24">
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="3"
-                                d="M  4,4 L 20,20
-                                   M 20,4 L 4,20"
-                            />
-                        </svg>
-                        Close
+                <div class="mt-5">
+                    <button type="button" class="link flex items-center gap-1" onclick={closeDrawer}>
+                        <XIcon aria-label="close navigation menu"  />
+                        <span class="text-lg font-semibold">Close</span>
                     </button>
                 </div>
             {/snippet}

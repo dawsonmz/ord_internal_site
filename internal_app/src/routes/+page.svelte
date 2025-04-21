@@ -12,11 +12,11 @@
     <div class="text-2xl font-semibold">Beginners Training</div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10 ml-1">
         <a href="/beginner-plans" class="link-card">
-            <div class="text-2xl font-semibold mb-2">Training Plans</div>
+            <div class="text-xl font-semibold mb-2">Training Plans</div>
             <div>View training plans arranged for specific beginners training sessions.</div>
         </a>
         <a href="/beginner-modules" class="link-card">
-            <div class="text-2xl font-semibold mb-2">Modules</div>
+            <div class="text-xl font-semibold mb-2">Modules</div>
             <div>View the individual modules (drills, exercises, etc.) which are assembled into beginners training plans.</div>
         </a>
     </div>

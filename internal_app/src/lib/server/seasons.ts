@@ -40,6 +40,6 @@ export async function loadSeasons(): Promise<Season[]> {
         );
         return seasonData;
     } else {
-        throw new InternalError("Failed to load module data");
+        throw new InternalError("Failed to load season data");
     }
 }
