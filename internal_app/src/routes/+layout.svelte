@@ -20,7 +20,7 @@
             open={drawerState}
             onOpenChange={(e) => (drawerState = e.open)}
             triggerBase="btn group"
-            contentBase="flex flex-col justify-between text-md bg-surface-100-900 p-4 space-y-4 shadow-xl w-screen sm:w-[400px] h-screen"
+            contentBase="flex flex-col text-md bg-surface-100-900 p-4 space-y-4 shadow-xl w-screen sm:w-[400px] h-screen"
             positionerJustify="justify-start"
             positionerAlign=""
             positionerPadding=""
@@ -58,19 +58,20 @@
                     <div>Beginners</div>
                     <a class="link" href="/beginner-plans">Training Plans</a>
                     <a class="link" href="/beginner-modules">Modules</a>
+
+                    <button type="button" class="place-self-start text-lg font-semibold hover:text-[var(--link-hover-color)] mt-10" aria-label="close menu" onclick={closeDrawer}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current inline-block w-4 h-4" fill="none" viewBox="0 0 24 24">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="3"
+                                d="M  4,4 L 20,20
+                                   M 20,4 L 4,20"
+                            />
+                        </svg>
+                        Close
+                    </button>
                 </div>
-                <button type="button" class="place-self-start text-lg hover:text-[var(--link-hover-color)] m-5" aria-label="close menu" onclick={closeDrawer}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current inline-block w-4 h-4" fill="none" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M  4,4 L 20,20
-                               M 20,4 L 4,20"
-                        />
-                    </svg>
-                    Close
-                </button>
             {/snippet}
         </Modal>
     {/snippet}
