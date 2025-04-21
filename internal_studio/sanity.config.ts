@@ -7,8 +7,8 @@ export default defineConfig({
     name: 'default',
     title: 'ORD Internal',
 
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
-    dataset: process.env.SANITY_STUDIO_DATASET!,
+    projectId: 'vh55mhjn',
+    dataset: 'internal',
 
     plugins: [structureTool(), visionTool()],
 
