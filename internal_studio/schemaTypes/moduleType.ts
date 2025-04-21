@@ -11,16 +11,8 @@ export const moduleType = {
         {
             name: 'category',
             title: 'Category',
-            type: 'string',
-            options: {
-                list: [
-                    'Routine',
-                    'First training',
-                    'Laterals',
-                    'Transitions',
-                    'C-cuts',
-                ],
-            },
+            type: 'reference',
+            to: [{ type: 'module_category' }],
         },
         {
             name: 'minutes',
@@ -43,13 +35,13 @@ export const moduleType = {
     preview: {
         select: {
             title: 'title',
-            category: 'category',
+            category: 'category.name',
             minutes: 'minutes',
         },
         prepare(value: Record<string, any>) {
             const { title, category, minutes } = value;
             return {
-                title: `[${category}] ${title}`,
+                title: `${category}: ${title}`,
                 subtitle: `${minutes} min`,
             };
         },
