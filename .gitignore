@@ -1,16 +1,16 @@
 node_modules
-*/.pnp
-.pnp.js
 
 # Output
 .output
 .vercel
 .netlify
 .wrangler
-/*/.svelte-kit
-/*/build
-/*/dist
-/*/.sanity
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Env
 .env
@@ -21,15 +21,3 @@ node_modules
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-
-# Logs
-/*/logs
-*.log
-
-# Miscellaneous
-.DS_Store
-Thumbs.db
-/*/coverage
-*.pem
-*.tsbuildinfo
-*.local
