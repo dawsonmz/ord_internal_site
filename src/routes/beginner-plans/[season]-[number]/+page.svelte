@@ -17,8 +17,8 @@
 
 <div class="flex flex-col gap-6 mx-8">
     <div>
-        <div class="text-3xl font-bold mb-2">Beginners Training {trainingPlan.training_number}</div>
-        <div class="text-xl font-semibold">{trainingPlan.date_text}</div>
+        <div class="text-2xl mb-2">Beginners Training {trainingPlan.training_number}</div>
+        <div class="text-lg">{trainingPlan.date_text}</div>
     </div>
     <ModuleGroup modules={trainingPlan.module_objects} />
 </div>

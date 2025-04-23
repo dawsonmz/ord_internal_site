@@ -21,10 +21,10 @@
 >
     <div class="flex items-center gap-2 mb-2">
         <ArrowRight class="inline" />
-        <div class="text-2xl font-semibold">{title}</div>
+        <div class="text-2xl">{title}</div>
     </div>
     {#if subtitle}
-        <div class="text-lg font-semibold">{subtitle}</div>
+        <div class="text-lg">{subtitle}</div>
     {/if}
     <div>{description}</div>
 </a>

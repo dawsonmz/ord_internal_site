@@ -16,6 +16,6 @@
 </Crumb>
 
 <div class="flex flex-col gap-6 mx-8">
-    <div class="text-3xl font-semibold">Category: {category}</div>
+    <div class="text-2xl font-semibold">Category: {category}</div>
     <ModuleGroup modules={data.modules} />
 </div>

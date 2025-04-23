@@ -26,8 +26,10 @@
 {#each modules as module, index}
     <div>
         <div class="text-lg font-semibold">{module.title}</div>
-        <div class="text-lg font-semibold">
-            {module.start_time ? `${module.start_time} - ` : ''}
+        <div class="text-lg">
+            {#if module.start_time} 
+                <span class="mr-2">{module.start_time}</span>
+            {/if}
             <span class="badge preset-tonal-tertiary text-lg px-2 py-0">{module.minutes} min</span>
         </div>
         <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>

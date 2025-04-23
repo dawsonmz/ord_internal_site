@@ -30,7 +30,7 @@
         >
             {#snippet trigger()}
                 <MenuIcon aria-label="open navigation menu" />
-                <span class="text-lg font-semibold">Menu</span>
+                <span class="text-lg">Menu</span>
             {/snippet}
             {#snippet content()}
                 <img class="self-center w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
