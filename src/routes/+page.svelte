@@ -4,9 +4,9 @@
 </script>
 
 <div class="flex flex-col gap-6 mx-8">
-    <div class="text-2xl font-semibold">Welcome</div>
+    <div class="text-2xl font-semibold">About</div>
     <div class="ml-1">
-        <p>Welcome to the Oslo Roller Derby internal website! If you have any feedback or questions, please reach out to Creek.</p>
+        <p>Welcome to the Oslo Roller Derby internal website! If you have any questions or feedback, please reach out to Creek.</p>
     </div>
 
     <div class="text-2xl font-semibold">Team Resources</div>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import ArrowRight from "@lucide/svelte/icons/arrow-right";
+
     let { title, subtitle="", description, url } = $props();
 </script>
 
@@ -7,15 +9,20 @@
           rounded-md
           border-surface-200
           shadow-2xl
-          hover:bg-[var(--btn-hover-color)]
-          hover:border-[var(--btn-hover-color)]
-          active:bg-[var(--btn-active-color)]
-          active:border-[var(--btn-active-color)]
-          transition-all
+          transition-colors
           ease-[cubic-bezier(0,0,0.2,1)]
-          duration-300 p-5"
+          duration-300
+          hover:border-3
+          hover:border-[var(--btn-hover-color)]
+          active:bg-[var(--btn-hover-color)]
+          active:border-[var(--btn-hover-color)]
+          p-5
+          hover:p-4.5"
 >
-    <div class="text-2xl font-semibold mb-2">{title}</div>
+    <div class="flex items-center gap-2 mb-2">
+        <ArrowRight class="inline" />
+        <div class="text-2xl font-semibold">{title}</div>
+    </div>
     {#if subtitle}
         <div class="text-lg font-semibold">{subtitle}</div>
     {/if}

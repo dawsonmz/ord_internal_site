@@ -60,3 +60,5 @@
 </AppBar>
 
 {@render children()}
+
+<footer class="mt-20"></footer>
