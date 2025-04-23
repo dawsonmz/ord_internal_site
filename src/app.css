@@ -11,8 +11,9 @@
 :root {
     --link-hover-color: var(--color-surface-400);
     --link-active-color: var(--color-surface-300);
-    --btn-hover-color: var(--color-surface-300);
-    --btn-active-color: var(--color-surface-100);
+    --button-hover-color: var(--color-surface-700);
+    --button-active-color: var(--color-surface-900);
+    --button-inverse-color: var(--color-surface-100);
 }
 
 .link {
@@ -26,20 +27,9 @@
     }
 }
 
-.bg-hover {
-    &:hover {
-        @media (hover: hover) {
-            background-color: var(--btn-hover-color);
-        }
-    }
-    &:active {
-        background-color: var(--btn-active-color);
-    }
-}
-
 .rich-text p {
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 .rich-text ul {
@@ -52,11 +42,11 @@
 }
 
 .rich-text ul li li {
-    list-style-type: square;
+    list-style-type: circle;
     margin-left: 24px;
 }
 
 .rich-text ul li li li {
-    list-style-type: circle;
+    list-style-type: square;
     margin-left: 24px;
 }

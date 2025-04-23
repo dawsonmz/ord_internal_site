@@ -22,7 +22,7 @@
         />
         <LinkCard
             title="Modules"
-            description="View the individual modules (drills, exercises, etc.) which are assembled into beginners training plans."
+            description="View individual explanations and drills which are assembled into beginners training plans."
             url="/beginner-modules"
         />
     </LinkCardGrid>

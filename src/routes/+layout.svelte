@@ -38,7 +38,7 @@
                 <div class="font-bold text-xl">General</div>
                 <div class="mx-5"><a class="link" href="/">Home</a></div>
 
-                <div class="font-bold text-xl">Teams</div>
+                <div class="font-bold text-xl">Team Resources</div>
                 <div class="mx-5"><a class="link" href="#top"><em>Under Construction</em></a></div>
 
                 <div class="font-bold text-xl">Beginners</div>

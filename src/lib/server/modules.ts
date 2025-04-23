@@ -45,9 +45,9 @@ export async function loadModules(): Promise<Module[]> {
     moduleData.forEach(
         (module: Module) => {
             module.module_category = moduleCategoriesById.get(module.category._ref)!;
-            module.short_text_html = toHTML(module.short_text);
+            module.short_text_html = toHTML(module.short_text).replaceAll('<p></p>', '<br />');
             if (module.detailed_text) {
-                module.detailed_text_html = toHTML(module.detailed_text);
+                module.detailed_text_html = toHTML(module.detailed_text).replaceAll('<p></p>', '<br />');
             }
         }
     );

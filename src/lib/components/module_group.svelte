@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Tabs } from '@skeletonlabs/skeleton-svelte';
+    import Button from '$lib/components/ui/button.svelte';
 
     let { modules } = $props();
     let tabStates = $state(new Array<string>(modules.length).fill('short'));
@@ -19,18 +20,18 @@
     }
 </script>
 
-<div>
-    <button class="btn preset-tonal-primary bg-hover" onclick={showAllShort}>Collapse All</button>
-    <button class="btn preset-tonal-primary bg-hover" onclick={showAllDetailed}>Expand All</button>
+<div class="flex gap-2">
+    <Button clickAction={showAllShort}>Collapse All</Button>
+    <Button clickAction={showAllDetailed}>Expand All</Button>
 </div>
 {#each modules as module, index}
     <div>
-        <div class="text-lg font-semibold">{module.title}</div>
-        <div class="text-lg">
+        <div class="text-lg font-semibold mb-1">{module.title}</div>
+        <div class="text-base">
             {#if module.start_time} 
                 <span class="mr-2">{module.start_time}</span>
             {/if}
-            <span class="badge preset-tonal-tertiary text-lg px-2 py-0">{module.minutes} min</span>
+            <span class="badge preset-tonal-tertiary shadow-xs text-base px-2 py-0">{module.minutes} min</span>
         </div>
         <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
             {#snippet list()}
