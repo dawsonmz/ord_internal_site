@@ -13,6 +13,7 @@ export interface TrainingPlan {
 
     // Computed fields:
     date_text: String,
+    season_text: String,
     module_objects: Module[],
 }
 
@@ -96,6 +97,7 @@ export async function loadTrainingPlan(seasonShortText: String, trainingNumber: 
     const trainingPlan = trainingPlanData[0];
     const moduleStartTime: Date = new Date(trainingPlan.date_time);
     trainingPlan.date_text = formatDateText(moduleStartTime);
+    trainingPlan.season_text = season.display_text;
 
     trainingPlan.module_objects = trainingPlan.modules.map(
         (moduleRef: ModuleRef) => {

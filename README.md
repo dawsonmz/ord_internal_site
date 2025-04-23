@@ -2,7 +2,7 @@
 
 SvelteKit project for the internal ORD website. Hosted on Cloudflare Pages with automatic deployments from the `main` branch.
 
-To run locally, navigate to the /ord_app/internal directory and run:
+To run locally:
 
 ```bash
 npm run dev

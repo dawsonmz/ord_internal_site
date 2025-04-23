@@ -21,7 +21,7 @@
             open={drawerState}
             onOpenChange={(e) => (drawerState = e.open)}
             triggerBase="link flex items-center gap-3"
-            contentBase="flex flex-col bg-surface-100-900 text-md p-6 space-y-4 shadow-2xl w-screen sm:w-[400px] h-screen"
+            contentBase="flex flex-col bg-surface-100-900 shadow-2xl w-screen sm:w-[400px] h-screen gap-4 p-6"
             positionerJustify=""
             positionerAlign=""
             positionerPadding=""
@@ -34,15 +34,18 @@
             {/snippet}
             {#snippet content()}
                 <img class="self-center w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-                <div class="side-nav-header">General</div>
-                <div class="side-nav-link"><a class="link" href="/">Home</a></div>
-                <div class="side-nav-header">Teams</div>
-                <div class="side-nav-link"><a class="link" href="#top"><em>Under Construction</em></a></div>
-                <div class="side-nav-header">Beginners</div>
-                <div class="side-nav-link"><a class="link" href="/beginner-plans">Training Plans</a></div>
-                <div class="side-nav-link"><a class="link" href="/beginner-modules">Modules</a></div>
 
-                <div class="mt-5">
+                <div class="font-bold text-xl">General</div>
+                <div class="mx-5"><a class="link" href="/">Home</a></div>
+
+                <div class="font-bold text-xl">Teams</div>
+                <div class="mx-5"><a class="link" href="#top"><em>Under Construction</em></a></div>
+
+                <div class="font-bold text-xl">Beginners</div>
+                <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
+                <div class="mx-5"><a class="link" href="/beginner-modules">Modules</a></div>
+
+                <div class="mt-3">
                     <button type="button" class="link flex items-center gap-1" onclick={closeDrawer}>
                         <XIcon aria-label="close navigation menu"  />
                         <span class="text-lg font-semibold">Close</span>
@@ -55,5 +58,9 @@
         <a href="/"><img class="w-20 h-20" src={logo} alt="Oslo Roller Derby logo" /></a>
     {/snippet}
 </AppBar>
+
+<ul class="breadcrumb">
+    <li></li>
+</ul>
 
 {@render children()}
