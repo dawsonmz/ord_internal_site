@@ -59,8 +59,4 @@
     {/snippet}
 </AppBar>
 
-<ul class="breadcrumb">
-    <li></li>
-</ul>
-
 {@render children()}

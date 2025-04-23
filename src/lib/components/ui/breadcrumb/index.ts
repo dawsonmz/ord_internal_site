@@ -1,15 +1,13 @@
-import Root from "./breadcrumb.svelte";
-import Item from "./breadcrumb-item.svelte";
-import Separator from "./breadcrumb-separator.svelte";
-import Link from "./breadcrumb-link.svelte";
-import List from "./breadcrumb-list.svelte";
-import Page from "./breadcrumb-page.svelte";
+import Crumb from './crumb.svelte';
+import CrumbHome from './crumb_home.svelte';
+import CrumbLink from './crumb_link.svelte';
+import CrumbPage from './crumb_page.svelte';
+import CrumbSeparator from './crumb_separator.svelte';
 
 export {
-    Root as Breadcrumb,
-    Item as BreadcrumbItem,
-    Separator as BreadcrumbSeparator,
-    Link as BreadcrumbLink,
-    List as BreadcrumbList,
-    Page as BreadcrumbPage,
+    Crumb,
+    CrumbHome,
+    CrumbLink,
+    CrumbPage,
+    CrumbSeparator,
 };

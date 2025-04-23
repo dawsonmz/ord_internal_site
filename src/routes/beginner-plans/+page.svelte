@@ -1,18 +1,16 @@
 <script lang="ts">
-    import { Breadcrumb, BreadcrumbList, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "$lib/components/ui/breadcrumb/index.js";
+    import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from "$lib/components/ui/breadcrumb/index.js";
     import LinkCard from '$lib/components/ui/link_card.svelte';
     import LinkCardGrid from '$lib/components/ui/link_card_grid.svelte';
 
     let { data } = $props();
 </script>
 
-<Breadcrumb class="mx-8 mb-5">
-    <BreadcrumbList>
-        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-        <BreadcrumbSeparator />
-        <BreadcrumbPage>Beginner Training Plans</BreadcrumbPage>
-    </BreadcrumbList>
-</Breadcrumb>
+<Crumb baseClasses="mx-8 mb-5">
+    <CrumbHome />
+    <CrumbSeparator />
+    <CrumbPage>Beginner Plans</CrumbPage>
+</Crumb>
 
 <div class="flex flex-col gap-10 mx-8">
     {#each data.seasons as season}
