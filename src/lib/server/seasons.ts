@@ -24,7 +24,7 @@ export async function loadSeasons(): Promise<Season[]> {
         seasonData.forEach(
             (season: Season) => {
                 season.display_text = `${season.season} ${season.year}`;
-                season.short_text = `${season.season.toLowerCase()}${season.year}`
+                season.short_text = `${season.season.toLowerCase()}${season.year}`;
             }
         );
         seasonData.sort(

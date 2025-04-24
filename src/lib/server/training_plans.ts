@@ -103,7 +103,7 @@ export async function loadTrainingPlan(seasonShortText: String, trainingNumber: 
         (moduleRef: ModuleRef) => {
             const module: Module = modulesById.get(moduleRef._ref)!;
             const moduleCopy = {...module};
-            moduleCopy.start_time = moduleStartTime.toLocaleTimeString("no-NO", { timeStyle: "short" });
+            moduleCopy.start_time = formatTimeText(moduleStartTime);
             moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module!.minutes.valueOf());
             return moduleCopy;
         }
@@ -118,6 +118,16 @@ function formatDateText(date: Date): String {
         "en-GB",
         {
             dateStyle: "full",
+            timeZone: "Europe/Oslo",
+        }
+    );
+}
+
+function formatTimeText(date: Date): String {
+    return date.toLocaleTimeString(
+        "en-GB",
+        {
+            timeStyle: "short",
             timeZone: "Europe/Oslo",
         }
     );

@@ -9,7 +9,7 @@
           rounded-md
           border-surface-200
           max-w-90
-          shadow-2xl
+          shadow-lg
           p-5
           transition-colors
           ease-[cubic-bezier(0,0,0.2,1)]
