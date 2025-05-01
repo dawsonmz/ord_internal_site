@@ -18,10 +18,10 @@
             <LinkCardGrid header={season.display_text.valueOf()}>
                 {#each data.training_plan_summaries.get(season._id)! as trainingPlanSummary}
                     <LinkCard
-                        title="Training {trainingPlanSummary.training_number}"
+                        title="Training {trainingPlanSummary.training_label}"
                         subtitle={trainingPlanSummary.date_text.valueOf()}
                         description={trainingPlanSummary.summary}
-                        url="/beginner-plans/{season.short_text}-{trainingPlanSummary.training_number}"
+                        url="/beginner-plans/{season.short_text}-{trainingPlanSummary.training_label}"
                     />
                 {/each}
             </LinkCardGrid>

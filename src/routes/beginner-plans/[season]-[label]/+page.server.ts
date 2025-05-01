@@ -3,7 +3,7 @@ import { loadTrainingPlan } from "$lib/server/training_plans";
 
 export async function load({ params }) {
     try {
-        const trainingPlan = await loadTrainingPlan(params.season, params.number);
+        const trainingPlan = await loadTrainingPlan(params.season, params.label);
         return { training_plan: trainingPlan };
     } catch (error) {
         return {
