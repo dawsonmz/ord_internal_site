@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from "$lib/components/ui/breadcrumb/index.js";
+    import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/ui/breadcrumb/index.js';
     import LinkCard from '$lib/components/ui/link_card.svelte';
     import LinkCardGrid from '$lib/components/ui/link_card_grid.svelte';
 

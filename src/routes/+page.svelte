@@ -6,13 +6,16 @@
 <div class="flex flex-col gap-6 mx-8">
     <div class="text-2xl">About</div>
     <div class="ml-1">
-        <p>Welcome to the Oslo Roller Derby internal website! If you have any questions or feedback, please reach out to Creek.</p>
+        <p>Welcome to the Oslo Roller Derby internal website!</p>
     </div>
 
-    <div class="text-2xl">Team Resources</div>
-    <div class="ml-1">
-        <p><em>Under construction.</em></p>
-    </div>
+    <LinkCardGrid header="Team Resources">
+        <LinkCard
+            title="Skater Vault"
+            description="View skater numbers and derby names currently registered with ORD."
+            url="/skater-vault"
+        />
+    </LinkCardGrid>
 
     <LinkCardGrid header="Beginners Training">
         <LinkCard

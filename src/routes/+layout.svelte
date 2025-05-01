@@ -45,7 +45,7 @@
                     <div class="mx-5"><a class="link" href="/">Home</a></div>
 
                     <div class="font-semibold text-xl">Team Resources</div>
-                    <div class="mx-5"><a class="link" href="#top"><em>Under Construction</em></a></div>
+                    <div class="mx-5"><a class="link" href="/skater-vault">Skater Vault</a></div>
 
                     <div class="font-semibold text-xl">Beginners</div>
                     <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
