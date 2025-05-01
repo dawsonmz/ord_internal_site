@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/ui/breadcrumb/index.js';
-    import HouseIcon from '@lucide/svelte/icons/house';
     import ModuleGroup from '$lib/components/module_group.svelte';
+    import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/ui/breadcrumb/index.js';
 
     let { data } = $props();
     const trainingPlan = data.training_plan!;

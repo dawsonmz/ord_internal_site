@@ -21,7 +21,7 @@
             open={drawerState}
             onOpenChange={(e) => (drawerState = e.open)}
             triggerBase="link flex items-center gap-3"
-            contentBase="flex flex-col bg-surface-100-900 shadow-2xl w-screen sm:w-[400px] h-screen gap-4 p-6"
+            contentBase="flex flex-col justify-between bg-surface-100-900 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
             positionerJustify=""
             positionerAlign=""
             positionerPadding=""
@@ -33,23 +33,29 @@
                 <span class="text-lg">Menu</span>
             {/snippet}
             {#snippet content()}
-                <img class="self-center w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <button type="button" class="link flex items-center gap-1 mt-5" onclick={closeDrawer}>
+                            <XIcon aria-label="close navigation menu"  />
+                            <span class="text-lg">Close</span>
+                        </button>
+                    </div>
 
-                <div class="font-bold text-xl">General</div>
-                <div class="mx-5"><a class="link" href="/">Home</a></div>
+                    <div class="font-semibold text-xl">General</div>
+                    <div class="mx-5"><a class="link" href="/">Home</a></div>
 
-                <div class="font-bold text-xl">Team Resources</div>
-                <div class="mx-5"><a class="link" href="#top"><em>Under Construction</em></a></div>
+                    <div class="font-semibold text-xl">Team Resources</div>
+                    <div class="mx-5"><a class="link" href="#top"><em>Under Construction</em></a></div>
 
-                <div class="font-bold text-xl">Beginners</div>
-                <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
-                <div class="mx-5"><a class="link" href="/beginner-modules">Modules</a></div>
-
-                <div class="mt-3">
-                    <button type="button" class="link flex items-center gap-1" onclick={closeDrawer}>
-                        <XIcon aria-label="close navigation menu"  />
-                        <span class="text-lg font-semibold">Close</span>
-                    </button>
+                    <div class="font-semibold text-xl">Beginners</div>
+                    <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
+                    <div class="mx-5"><a class="link" href="/beginner-modules">Modules</a></div>
+                </div>
+                <div class="flex mb-5">
+                    <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
+                    <span class="self-center ml-5">
+                        Questions or feedback?<br />Contact Creek!
+                    </span>
                 </div>
             {/snippet}
         </Modal>
