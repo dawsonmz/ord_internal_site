@@ -20,7 +20,7 @@
     <Modal
         open={drawerState}
         onOpenChange={(e) => (drawerState = e.open)}
-        triggerBase="link flex items-center gap-3"
+        triggerBase="flex items-center gap-3 hover:text-[var(--link-hover-color)] active:text-[var(--link-active-color)]"
         contentBase="flex flex-col justify-between bg-surface-100-900 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
         positionerJustify=""
         positionerAlign=""
@@ -34,8 +34,12 @@
       {/snippet}
       {#snippet content()}
         <div class="flex flex-col gap-4">
-          <div>
-            <button type="button" class="link flex items-center gap-1 mt-5" onclick={closeDrawer}>
+          <div class="mt-5 mb-8">
+            <button
+                type="button"
+                class="flex items-center gap-1 hover:text-[var(--link-hover-color)] active:text-[var(--link-active-color)]"
+                onclick={closeDrawer}
+            >
               <XIcon aria-label="close navigation menu"  />
               <span class="text-lg">Close</span>
             </button>
