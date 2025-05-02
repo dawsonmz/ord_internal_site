@@ -5,9 +5,9 @@ import CrumbPage from './crumb_page.svelte';
 import CrumbSeparator from './crumb_separator.svelte';
 
 export {
-    Crumb,
-    CrumbHome,
-    CrumbLink,
-    CrumbPage,
-    CrumbSeparator,
+  Crumb,
+  CrumbHome,
+  CrumbLink,
+  CrumbPage,
+  CrumbSeparator,
 };

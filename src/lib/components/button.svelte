@@ -1,5 +1,5 @@
 <script lang="ts">
-    let { baseClasses="", clickAction, children } = $props();
+  let { baseClasses="", clickAction, children } = $props();
 </script>
 
 <button
@@ -20,5 +20,5 @@
            {baseClasses}"
     onclick={clickAction}
 >
-    {@render children()}
+  {@render children()}
 </button>
