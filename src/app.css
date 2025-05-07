@@ -9,11 +9,11 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-  --link-hover-color: var(--color-surface-400);
-  --link-active-color: var(--color-surface-300);
-  --button-hover-color: var(--color-surface-700);
-  --button-active-color: var(--color-surface-900);
-  --button-inverse-color: var(--color-surface-100);
+  --link-hover-color: var(--color-tertiary-400);
+  --link-active-color: var(--color-tertiary-300);
+  --button-hover-color: var(--color-tertiary-700);
+  --button-active-color: var(--color-tertiary-900);
+  --button-inverse-color: var(--color-tertiary-100);
 }
 
 .link {

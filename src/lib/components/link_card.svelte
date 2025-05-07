@@ -7,7 +7,7 @@
 <a href="{url}"
     class="border-1
            rounded-md
-           border-surface-200
+           border-surface-200-800
            max-w-90
            shadow-lg
            p-5

@@ -31,7 +31,7 @@
       {#if module.start_time} 
         <span class="mr-2">{module.start_time}</span>
       {/if}
-      <span class="badge preset-tonal-tertiary shadow-xs text-base px-2 py-0">{module.minutes} min</span>
+      <span class="badge preset-tonal-primary shadow-xs text-base px-2 py-0">{module.minutes} min</span>
     </div>
     <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
       {#snippet list()}

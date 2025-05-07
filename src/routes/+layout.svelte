@@ -15,13 +15,13 @@
   afterNavigate(() => closeDrawer());
 </script>
 
-<AppBar base="px-6 mb-5" leadBase="self-center flex h-[24px]">
+<AppBar base="bg-tertiary-50-950 px-6 mb-5" leadBase="self-center flex h-[24px]">
   {#snippet lead()}
     <Modal
         open={drawerState}
         onOpenChange={(e) => (drawerState = e.open)}
         triggerBase="flex items-center gap-3 hover:text-[var(--link-hover-color)] active:text-[var(--link-active-color)]"
-        contentBase="flex flex-col justify-between bg-surface-100-900 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
+        contentBase="flex flex-col justify-between bg-tertiary-50-950 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
         positionerJustify=""
         positionerAlign=""
         positionerPadding=""
