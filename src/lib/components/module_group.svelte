@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { PortableText } from '@portabletext/svelte';
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
   import Button from '$lib/components/button.svelte';
 
@@ -21,8 +22,8 @@
 </script>
 
 <div class="flex gap-2">
-  <Button clickAction={showAllShort}>Collapse All</Button>
-  <Button clickAction={showAllDetailed}>Expand All</Button>
+  <Button clickAction={showAllShort}>All Short</Button>
+  <Button clickAction={showAllDetailed}>All Detailed</Button>
 </div>
 {#each modules as module, index}
   <div>
@@ -40,21 +41,28 @@
           <Tabs.Control value="detailed" disabled={!module.detailed_text}>Detailed</Tabs.Control>
         {/if}
         {#if module.resources}
-          <Tabs.Control value="resources" disabled>Resources</Tabs.Control>
+          <Tabs.Control value="resources" disabled={!module.resources}>Resources</Tabs.Control>
         {/if}
       {/snippet}
       {#snippet content()}
         <Tabs.Panel value="short">
-          <div class="rich-text">{@html module.short_text_html}</div>
+          <div class="rich-text">
+            <PortableText value={module.short_text} />
+          </div>
         </Tabs.Panel>
         {#if module.detailed_text}
           <Tabs.Panel value="detailed">
-            <div class="rich-text">{@html module.detailed_text_html}</div>
+            <div class="rich-text">
+              <PortableText value={module.detailed_text} />
+            </div>
           </Tabs.Panel>
         {/if}
         {#if module.resources}
           <Tabs.Panel value="resources">
-            Additional resources
+            {#each module.resources as imageResource}
+              <div>{imageResource.description}</div>
+              <img src={imageResource.image_url} alt={imageResource.alt} />
+            {/each}
           </Tabs.Panel>
         {/if}
       {/snippet}

@@ -26,9 +26,11 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.503.0",
-		"@portabletext/to-html": "^2.0.14",
-		"@sanity/client": "^6.28.4",
+		"@portabletext/svelte": "^3.0.0",
+		"@sanity/client": "^7.2.1",
+		"@sanity/image-url": "^1.1.0",
 		"@skeletonlabs/skeleton": "^3.1.2",
-		"@skeletonlabs/skeleton-svelte": "^1.2.1"
+		"@skeletonlabs/skeleton-svelte": "^1.2.1",
+		"sanity": "^3.88.2"
 	}
 }

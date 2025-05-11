@@ -32,6 +32,11 @@
   margin-bottom: 1px;
 }
 
+/* Empty lines in Sanity blocks are represented as <p></p> but aren't rendered with actual spacing, so add a margin. */
+.rich-text ul + p {
+  margin-top: 12px;
+}
+
 .rich-text ul {
   list-style-position: outside;
 }
