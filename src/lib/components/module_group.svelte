@@ -60,8 +60,24 @@
         {#if module.resources}
           <Tabs.Panel value="resources">
             {#each module.resources as imageResource}
-              <div>{imageResource.description}</div>
-              <img src={imageResource.image_url} alt={imageResource.alt} />
+              <div
+                  class="card
+                         border-[1px]
+                         border-surface-100-900
+                         divide-surface-100-900
+                         block
+                         max-w-[300px]
+                         divide-y
+                         overflow-hidden
+                         mb-5"
+              >
+                <header>
+                  <img src={imageResource.image_url} alt={imageResource.alt} />
+                </header>
+                <article class="p-2">
+                  <div>{imageResource.description}</div>
+                </article>
+              </div>
             {/each}
           </Tabs.Panel>
         {/if}

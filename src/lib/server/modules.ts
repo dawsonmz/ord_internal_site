@@ -58,7 +58,7 @@ export async function loadModules(): Promise<Module[]> {
         if (module.resources) {
           module.resources.forEach(
               (imageResource: ImageResource) => {
-                imageResource.image_url = imageBuilder.image(imageResource.image).height(300).url();
+                imageResource.image_url = imageBuilder.image(imageResource.image).width(300).url();
               }
           );
         }
