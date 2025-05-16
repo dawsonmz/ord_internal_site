@@ -51,7 +51,7 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
 
   trainingPlanSummariesBySeasonId.forEach(
       (plans: TrainingPlanSummary[], _seasonRef: String, _map: Map<String, TrainingPlanSummary[]>) => {
-        plans.sort((lhs, rhs) => lhs.date_time.getUTCMilliseconds() - rhs.date_time.getUTCMilliseconds());
+        plans.sort((lhs, rhs) => new Date(lhs.date_time).getTime() - new Date(rhs.date_time).getTime());
       }
   );
   return trainingPlanSummariesBySeasonId;
