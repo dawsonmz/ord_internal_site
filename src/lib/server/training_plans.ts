@@ -10,12 +10,12 @@ export interface Season {
 
 export interface TrainingPlansInSeason {
   season: String,
-  season_slug: String,
   training_plans: TrainingPlanSummary[],
 }
 
 export interface TrainingPlanSummary {
   training_label: String,
+  slug: String,
   date_time: Date,
   summary: String,
 
@@ -26,7 +26,6 @@ export interface TrainingPlanSummary {
 export interface TrainingPlan {
   training_label: String,
   season: String,
-  season_slug: String,
   date_time: Date,
   summary: String,
   modules: Module[],
@@ -68,9 +67,9 @@ export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<Tra
   const trainingPlanData: TrainingPlansInSeason[] = await sanityClientCredentials.option.fetch(
       `*[_type == "season" && slug.current == $season] {
         "season": name,
-        "season_slug": slug.current,
         training_plans[]-> {
           training_label,
+          "slug": slug.current,
           date_time,
           summary,
         },
@@ -91,24 +90,23 @@ export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<Tra
 
 /**
  * @param seasonSlug Slug for the season being loaded, e.g. 'spring2025'
- * @param trainingLabel The training label for the specific training being loaded, unique within the season
+ * @param trainingSlug Slug for the training plan for the specific training being loaded, unique within the season
  * @returns The training in the specified season with the specified training label
  */
-export async function loadTrainingPlan(seasonSlug: String, trainingLabel: String): Promise<TrainingPlan> {
+export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String): Promise<TrainingPlan> {
   const trainingPlanData: TrainingPlan[] = await sanityClientCredentials.option.fetch(
       `*[_type == "training_plan"
           && _id in *[_type == "season" && slug.current == $season].training_plans[]._ref
-          && training_label == $training_label] {
+          && slug.current == $training_label] {
         training_label,
         "season": *[_type == "season" && slug.current == $season][0].name,
-        "season_slug": $season,
         date_time,
         summary,
         modules[]->,
       }`,
       {
         season: seasonSlug,
-        training_label: trainingLabel,
+        training_label: trainingSlug,
       },
   );
 

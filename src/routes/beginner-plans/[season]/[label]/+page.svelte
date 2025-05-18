@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
   import ModuleGroup from '$lib/components/module_group.svelte';
 
@@ -11,7 +12,7 @@
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  <CrumbLink href="/beginner-plans/{trainingPlan.season_slug}">{trainingPlan.season}</CrumbLink>
+  <CrumbLink href="/beginner-plans/{page.params.season}">{trainingPlan.season}</CrumbLink>
   <CrumbSeparator />
   <CrumbPage>{trainingPlan.training_label}</CrumbPage>
 </Crumb>

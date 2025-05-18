@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
   import LinkCard from '$lib/components/link_card.svelte';
   import LinkCardGrid from '$lib/components/link_card_grid.svelte';
@@ -23,7 +24,7 @@
             title="Training {trainingPlanSummary.training_label}"
             subtitle={trainingPlanSummary.date_text.valueOf()}
             description={trainingPlanSummary.summary.valueOf()}
-            url="/beginner-plans/{season.season_slug}/{trainingPlanSummary.training_label}"
+            url="/beginner-plans/{page.params.season}/{trainingPlanSummary.slug}"
         />
       {/each}
     </LinkCardGrid>
