@@ -1,13 +1,9 @@
-import { loadModules } from "$lib/server/modules";
+import { loadModulesInCategory } from "$lib/server/modules";
 
 export async function load({ params }) {
-  const modules = await loadModules();
-  const modulesInCategory = modules.filter((module) => module.module_category.short_text === params.category);
-
-  if (modulesInCategory.length) {
-    return {
-      modules: modulesInCategory,
-    };
+  const modules = await loadModulesInCategory(params.category);
+  if (modules.length) {
+    return { modules };
   }
 
   return {

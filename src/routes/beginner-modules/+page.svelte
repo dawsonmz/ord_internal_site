@@ -16,7 +16,6 @@
   {#each data.module_categories as moduleCategory}
     <LinkCard
         title={moduleCategory.name}
-        description={moduleCategory.description}
         url="/beginner-modules/{moduleCategory.short_text}"
     />
   {/each}

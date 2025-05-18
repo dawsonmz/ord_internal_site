@@ -1,25 +1,23 @@
 import { InternalError, NotFoundError } from "$lib/server/errors";
 import { sanityClientCredentials } from "$lib/server/sanity";
-import { type SeasonRef, loadSeasons } from "$lib/server/seasons";
 import { type Module, type ModuleRef, loadModules } from "$lib/server/modules";
 
 export interface TrainingPlan {
   _id: String,
   training_label: String,
-  season: SeasonRef,
+  season: String,
   date_time: Date,
   summary: String,
   modules: ModuleRef[],
 
   // Computed fields:
   date_text: String,
-  season_text: String,
   module_objects: Module[],
 }
 
 export interface TrainingPlanSummary {
   training_label: String,
-  season: SeasonRef,
+  season: String,
   date_time: Date,
   summary: String,
 
@@ -28,8 +26,8 @@ export interface TrainingPlanSummary {
 }
 
 /**
- * @returns A map where the key is a reference to the season, and the value is a list of training plan summaries
- *          for that season. Training plan summaries within a season are sorted in increasing order by date.
+ * @returns A map where the key is the season, and the value is a list of training plan summaries for that
+ *          season. Training plan summaries within a season are sorted in increasing order by date.
  */
 export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingPlanSummary[]>> {
   const trainingPlanSummaryData: TrainingPlanSummary[] = await sanityClientCredentials.option.fetch(`*[_type == "training_plan"]`);
@@ -42,15 +40,15 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
       (trainingPlanSummary: TrainingPlanSummary) => {
         const startTime: Date = new Date(trainingPlanSummary.date_time);
         trainingPlanSummary.date_text = formatDateText(startTime);
-        if (!trainingPlanSummariesBySeasonId.has(trainingPlanSummary.season._ref)) {
-          trainingPlanSummariesBySeasonId.set(trainingPlanSummary.season._ref, []);
+        if (!trainingPlanSummariesBySeasonId.has(trainingPlanSummary.season)) {
+          trainingPlanSummariesBySeasonId.set(trainingPlanSummary.season, []);
         }
-        trainingPlanSummariesBySeasonId.get(trainingPlanSummary.season._ref)!.push(trainingPlanSummary);
+        trainingPlanSummariesBySeasonId.get(trainingPlanSummary.season)!.push(trainingPlanSummary);
       }
   );
 
   trainingPlanSummariesBySeasonId.forEach(
-      (plans: TrainingPlanSummary[], _seasonRef: String, _map: Map<String, TrainingPlanSummary[]>) => {
+      (plans: TrainingPlanSummary[]) => {
         plans.sort((lhs, rhs) => new Date(lhs.date_time).getTime() - new Date(rhs.date_time).getTime());
       }
   );
@@ -63,16 +61,26 @@ export async function loadTrainingPlanSummaries(): Promise<Map<String, TrainingP
  * @returns The training plan with the given season and training label
  */
 export async function loadTrainingPlan(seasonShortText: String, trainingLabel: String): Promise<TrainingPlan> {
-  const [seasonData, moduleData] = await Promise.all(
+  const [moduleData, trainingPlanData]: [Module[], TrainingPlan[]] = await Promise.all(
       [
-        loadSeasons(),
         loadModules(),
-      ]
+        await sanityClientCredentials.option.fetch(
+            `*[_type == "training_plan" && training_label == $trainingLabel]`,
+            { trainingLabel },
+        ),
+      ],
   );
 
-  const season = seasonData.find((s => s.short_text === seasonShortText));
-  if (!season) {
-    throw new NotFoundError("Season not found");
+  if (!trainingPlanData.length) {
+    throw new NotFoundError("Training plan not found");
+  }
+
+  const trainingPlans = trainingPlanData.filter(
+      (trainingPlan) => trainingPlan.season.toLowerCase().replaceAll(' ', '') === seasonShortText
+  );
+
+  if (trainingPlans.length > 1) {
+    throw new InternalError("Multiple training plans with the same season and training label were found");
   }
 
   const modulesById = new Map<String, Module>();
@@ -82,24 +90,14 @@ export async function loadTrainingPlan(seasonShortText: String, trainingLabel: S
       }
   );
 
-  const trainingPlanData: TrainingPlan[] = await sanityClientCredentials.option.fetch(
-    `*[_type == "training_plan" && season._ref == "${season._id}" && training_label == "${trainingLabel.replaceAll('"', '\\"')}"]`
-  );
-  if (!trainingPlanData.length) {
-    throw new NotFoundError("Training plan not found");
-  } else if (trainingPlanData.length > 1) {
-    throw new InternalError("Multiple training plans with the same season and training label were found");
-  }
-
   const trainingPlan = trainingPlanData[0];
   const moduleStartTime: Date = new Date(trainingPlan.date_time);
   trainingPlan.date_text = formatDateText(moduleStartTime);
-  trainingPlan.season_text = season.display_text;
 
   trainingPlan.module_objects = trainingPlan.modules.map(
       (moduleRef: ModuleRef) => {
         const module: Module = modulesById.get(moduleRef._ref)!;
-        const moduleCopy = {...module};
+        const moduleCopy = { ...module };
         moduleCopy.start_time = formatTimeText(moduleStartTime);
         moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module!.minutes.valueOf());
         return moduleCopy;

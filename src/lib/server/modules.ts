@@ -1,6 +1,5 @@
 import imageUrlBuilder from "@sanity/image-url";
 import { InternalError } from "$lib/server/errors";
-import { type ModuleCategory, type ModuleCategoryRef, loadModuleCategories } from "$lib/server/module_categories";
 import { sanityClientCredentials } from "$lib/server/sanity";
 
 export interface Module {
@@ -8,14 +7,13 @@ export interface Module {
   _createdAt: String,
   name: String,
   title: String,
-  category: ModuleCategoryRef,
+  category: String,
   minutes: Number,
   short_text: [],
   detailed_text: [],
   resources: ImageResource[],
 
   // Computed fields:
-  module_category: ModuleCategory,
   start_time: String,
 }
 
@@ -35,34 +33,32 @@ export interface ModuleRef {
 const imageBuilder = imageUrlBuilder(sanityClientCredentials.option);
 
 export async function loadModules(): Promise<Module[]> {
-  const [moduleCategoryData, moduleData] = await Promise.all(
-      [
-        loadModuleCategories(),
-        await sanityClientCredentials.option.fetch(`*[_type == "module"] | order(_createdAt asc)`),
-      ]
+  return loadModulesWithQuery(`*[_type == "module"] | order(_createdAt asc)`);
+}
+
+export async function loadModulesInCategory(category: String): Promise<Module[]> {
+  return loadModulesWithQuery(
+      `*[_type == "module" && lower(category) == $category] | order(_createdAt asc)`,
+      { category: category.toLowerCase().replaceAll('-', ' ') },
   );
-  if (!moduleCategoryData || !moduleData) {
+}
+
+async function loadModulesWithQuery(query: string, params?: any): Promise<Module[]> {
+  const moduleData = await sanityClientCredentials.option.fetch(query, params);
+  if (!moduleData) {
     throw new InternalError("Failed to load module data.");
   }
 
-  const moduleCategoriesById = new Map<String, ModuleCategory>();
-  moduleCategoryData.forEach(
-      (moduleCategory: ModuleCategory) => {
-        moduleCategoriesById.set(moduleCategory._id, moduleCategory);
-      }
-  );
-
   moduleData.forEach(
       (module: Module) => {
-        module.module_category = moduleCategoriesById.get(module.category._ref)!;
         if (module.resources) {
           module.resources.forEach(
               (imageResource: ImageResource) => {
                 imageResource.image_url = imageBuilder.image(imageResource.image).width(300).url();
-              }
+              },
           );
         }
-      }
+      },
   );
   return moduleData;
 }

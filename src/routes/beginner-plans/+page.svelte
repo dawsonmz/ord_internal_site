@@ -14,13 +14,13 @@
 
 <div class="flex flex-col gap-10 mx-8">
   {#each data.seasons as season}
-    {#if data.training_plan_summaries.has(season._id)}
-      <LinkCardGrid header={season.display_text.valueOf()}>
-        {#each data.training_plan_summaries.get(season._id)! as trainingPlanSummary}
+    {#if data.training_plan_summaries.has(season.season)}
+      <LinkCardGrid header={season.season.valueOf()}>
+        {#each data.training_plan_summaries.get(season.season)! as trainingPlanSummary}
           <LinkCard
               title="Training {trainingPlanSummary.training_label}"
               subtitle={trainingPlanSummary.date_text.valueOf()}
-              description={trainingPlanSummary.summary}
+              description={trainingPlanSummary.summary.valueOf()}
               url="/beginner-plans/{season.short_text}-{trainingPlanSummary.training_label}"
           />
         {/each}

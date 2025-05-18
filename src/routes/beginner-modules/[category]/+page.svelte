@@ -4,7 +4,7 @@
 
   let { data } = $props();
   const modules = data.modules!;
-  const category = modules[0].module_category.name;
+  const category = modules[0].category;
 </script>
 
 <Crumb baseClasses="mx-8 mb-5">

@@ -1,7 +1,7 @@
 <script lang="ts">
   import ArrowRight from "@lucide/svelte/icons/arrow-right";
 
-  let { title, subtitle="", description, url } = $props();
+  let { title, subtitle="", description="", url } = $props();
 </script>
 
 <a href="{url}"
@@ -28,5 +28,7 @@
   {#if subtitle}
     <div class="text-sm font-semibold sm:text-base">{subtitle}</div>
   {/if}
-  <div class="text-sm sm:text-base">{description}</div>
+  {#if description}
+    <div class="text-sm sm:text-base">{description}</div>
+  {/if}
 </a>

@@ -11,7 +11,7 @@
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  <CrumbPage>{trainingPlan.season_text} - {trainingPlan.training_label}</CrumbPage>
+  <CrumbPage>{trainingPlan.season} - {trainingPlan.training_label}</CrumbPage>
 </Crumb>
 
 <div class="flex flex-col gap-6 mx-8">
