@@ -12,19 +12,14 @@
   <CrumbPage>Beginner Plans</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col gap-10 mx-8">
-  {#each data.seasons as season}
-    {#if data.training_plan_summaries.has(season.season)}
-      <LinkCardGrid header={season.season.valueOf()}>
-        {#each data.training_plan_summaries.get(season.season)! as trainingPlanSummary}
-          <LinkCard
-              title="Training {trainingPlanSummary.training_label}"
-              subtitle={trainingPlanSummary.date_text.valueOf()}
-              description={trainingPlanSummary.summary.valueOf()}
-              url="/beginner-plans/{season.short_text}-{trainingPlanSummary.training_label}"
-          />
-        {/each}
-      </LinkCardGrid>
-    {/if}
-  {/each}
+<div class="mx-8">
+  <LinkCardGrid header="Seasons">
+    {#each data.seasons as season}
+      <LinkCard
+          title={season.name}
+          description="{season.num_trainings} {season.num_trainings == 1 ? 'training' : 'trainings'}"
+          url="/beginner-plans/{season.slug}"
+      />
+    {/each}
+  </LinkCardGrid>
 </div>

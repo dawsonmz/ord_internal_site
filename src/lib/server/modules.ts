@@ -2,9 +2,18 @@ import imageUrlBuilder from "@sanity/image-url";
 import { InternalError } from "$lib/server/errors";
 import { sanityClientCredentials } from "$lib/server/sanity";
 
+export interface ModuleCategory {
+  name: String,
+  description: String,
+  slug: String,
+};
+
+export interface ModulesInCategory {
+  category: String,
+  modules: Module[],
+}
+
 export interface Module {
-  _id: String,
-  _createdAt: String,
   name: String,
   title: String,
   category: String,
@@ -26,39 +35,59 @@ export interface ImageResource {
   image_url: String,
 }
 
-export interface ModuleRef {
-  _ref: String,
+/**
+ * @returns All module categories' names and slugs, not including the individual modules
+ */
+export async function loadModuleCategories(): Promise<ModuleCategory[]> {
+  const moduleCategoryData: ModuleCategory[] = await sanityClientCredentials.option.fetch(
+      `*[_type == "module_category"] {
+        name,
+        description,
+        "slug": slug.current,
+      }`
+  );
+  if (moduleCategoryData) {
+    return moduleCategoryData;
+  } else {
+    throw new InternalError("Failed to load module category data");
+  }
 }
 
 const imageBuilder = imageUrlBuilder(sanityClientCredentials.option);
 
-export async function loadModules(): Promise<Module[]> {
-  return loadModulesWithQuery(`*[_type == "module"] | order(_createdAt asc)`);
-}
-
-export async function loadModulesInCategory(category: String): Promise<Module[]> {
-  return loadModulesWithQuery(
-      `*[_type == "module" && lower(category) == $category] | order(_createdAt asc)`,
-      { category: category.toLowerCase().replaceAll('-', ' ') },
+/**
+ * @param categorySlug Slug for the category of modules being loaded, e.g. 'general-skating'
+ * @returns An array of modules in the specified category
+ */
+export async function loadModulesInCategory(categorySlug: String): Promise<ModulesInCategory> {
+  const moduleData: ModulesInCategory[] = await sanityClientCredentials.option.fetch(
+      `*[_type == "module_category" && slug.current == $category] {
+        "category": name,
+        modules[]->,
+      }`,
+      { category: categorySlug },
   );
-}
 
-async function loadModulesWithQuery(query: string, params?: any): Promise<Module[]> {
-  const moduleData = await sanityClientCredentials.option.fetch(query, params);
   if (!moduleData) {
     throw new InternalError("Failed to load module data.");
+  } else if (moduleData.length > 1) {
+    throw new InternalError("More than one module category found.");
   }
 
-  moduleData.forEach(
-      (module: Module) => {
-        if (module.resources) {
-          module.resources.forEach(
-              (imageResource: ImageResource) => {
-                imageResource.image_url = imageBuilder.image(imageResource.image).width(300).url();
-              },
-          );
-        }
-      },
-  );
-  return moduleData;
+  const modulesInCategory = moduleData[0];
+  modulesInCategory.modules.forEach(module => processImageResources(module));
+  return modulesInCategory;
+}
+
+/**
+ * Updates any image resources in the provided module with sizing and the image URL.
+ * @param module A modules with potentially unprocessed image resources
+ */
+export function processImageResources(module: Module) {
+  if (module.resources) {
+    module.resources.forEach(
+        (imageResource: ImageResource) =>
+            imageResource.image_url = imageBuilder.image(imageResource.image).width(300).url(),
+    );
+  }
 }

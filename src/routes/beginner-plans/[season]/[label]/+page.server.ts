@@ -3,8 +3,7 @@ import { loadTrainingPlan } from "$lib/server/training_plans";
 
 export async function load({ params }) {
   try {
-    const trainingPlan = await loadTrainingPlan(params.season, params.label);
-    return { training_plan: trainingPlan };
+    return { training_plan: await loadTrainingPlan(params.season, params.label) };
   } catch (error) {
     return {
       status: (error instanceof NotFoundError) ? 404 : 500,

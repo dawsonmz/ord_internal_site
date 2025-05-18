@@ -16,7 +16,8 @@
   {#each data.module_categories as moduleCategory}
     <LinkCard
         title={moduleCategory.name}
-        url="/beginner-modules/{moduleCategory.short_text}"
+        description={moduleCategory.description.valueOf()}
+        url="/beginner-modules/{moduleCategory.slug}"
     />
   {/each}
 </LinkCardGrid>

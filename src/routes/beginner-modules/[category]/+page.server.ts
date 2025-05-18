@@ -2,8 +2,8 @@ import { loadModulesInCategory } from "$lib/server/modules";
 
 export async function load({ params }) {
   const modules = await loadModulesInCategory(params.category);
-  if (modules.length) {
-    return { modules };
+  if (modules) {
+    return modules;
   }
 
   return {

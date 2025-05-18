@@ -11,7 +11,9 @@
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  <CrumbPage>{trainingPlan.season} - {trainingPlan.training_label}</CrumbPage>
+  <CrumbLink href="/beginner-plans/{trainingPlan.season_slug}">{trainingPlan.season}</CrumbLink>
+  <CrumbSeparator />
+  <CrumbPage>{trainingPlan.training_label}</CrumbPage>
 </Crumb>
 
 <div class="flex flex-col gap-6 mx-8">
@@ -19,5 +21,5 @@
     <div class="text-2xl mb-2">Beginners Training {trainingPlan.training_label}</div>
     <div class="text-lg">{trainingPlan.date_text}</div>
   </div>
-  <ModuleGroup modules={trainingPlan.module_objects} />
+  <ModuleGroup modules={trainingPlan.modules} />
 </div>

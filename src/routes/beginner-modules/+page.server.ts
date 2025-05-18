@@ -1,4 +1,4 @@
-import { loadModuleCategories } from "$lib/server/module_categories";
+import { loadModuleCategories } from "$lib/server/modules";
 
 export async function load() {
   return {
