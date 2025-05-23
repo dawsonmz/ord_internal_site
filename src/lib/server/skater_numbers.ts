@@ -1,5 +1,5 @@
 import { InternalError } from "$lib/server/errors";
-import { sanityClientCredentials } from "$lib/server/sanity";
+import { sanityClient } from "$lib/server/sanity";
 
 export interface SkaterNumber {
   skater_number: String,
@@ -13,7 +13,7 @@ export interface SkaterNumber {
  * @returns All skater numbers and derby names ordered in increasing order by number.
  */
 export async function loadSkaterNumbers(): Promise<SkaterNumber[]> {
-  const skaterNumberData: SkaterNumber[] = await sanityClientCredentials.option.fetch(`*[_type == "skater_number"] | order(skater_number asc)`);
+  const skaterNumberData: SkaterNumber[] = await sanityClient.option.fetch(`*[_type == "skater_number"] | order(skater_number asc)`);
   if (!skaterNumberData) {
     throw new InternalError("Failed to load training plan data.");
   }

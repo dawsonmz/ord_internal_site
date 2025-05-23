@@ -1,5 +1,5 @@
 import { InternalError, NotFoundError } from "$lib/server/errors";
-import { sanityClientCredentials } from "$lib/server/sanity";
+import { sanityClient } from "$lib/server/sanity";
 import { type Module, processImageResources } from "$lib/server/modules";
 
 export interface Season {
@@ -38,7 +38,7 @@ export interface TrainingPlan {
  * @returns All seasons' names and slugs, not including the individual training plans
  */
 export async function loadSeasons(): Promise<Season[]> {
-  const seasonData: Season[] = await sanityClientCredentials.option.fetch(
+  const seasonData: Season[] = await sanityClient.option.fetch(
       `*[_type == "season"] | order(_createdAt desc) {
         name,
         "slug": slug.current,
@@ -64,7 +64,7 @@ export async function loadSeasons(): Promise<Season[]> {
  * @returns The summaries of training plans in the specified season
  */
 export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<TrainingPlansInSeason> {
-  const trainingPlanData: TrainingPlansInSeason[] = await sanityClientCredentials.option.fetch(
+  const trainingPlanData: TrainingPlansInSeason[] = await sanityClient.option.fetch(
       `*[_type == "season" && slug.current == $season] {
         "season": name,
         training_plans[]-> {
@@ -94,7 +94,7 @@ export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<Tra
  * @returns The training in the specified season with the specified training label
  */
 export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String): Promise<TrainingPlan> {
-  const trainingPlanData: TrainingPlan[] = await sanityClientCredentials.option.fetch(
+  const trainingPlanData: TrainingPlan[] = await sanityClient.option.fetch(
       `*[_type == "training_plan"
           && _id in *[_type == "season" && slug.current == $season].training_plans[]._ref
           && slug.current == $training_label] {

@@ -1,6 +1,6 @@
 import imageUrlBuilder from "@sanity/image-url";
 import { InternalError } from "$lib/server/errors";
-import { sanityClientCredentials } from "$lib/server/sanity";
+import { sanityClient } from "$lib/server/sanity";
 
 export interface ModuleCategory {
   name: String,
@@ -39,8 +39,8 @@ export interface ImageResource {
  * @returns All module categories' names and slugs, not including the individual modules
  */
 export async function loadModuleCategories(): Promise<ModuleCategory[]> {
-  const moduleCategoryData: ModuleCategory[] = await sanityClientCredentials.option.fetch(
-      `*[_type == "module_category"] {
+  const moduleCategoryData: ModuleCategory[] = await sanityClient.option.fetch(
+      `*[_type == "module_category"] | order(_createdAt asc) {
         name,
         description,
         "slug": slug.current,
@@ -53,14 +53,14 @@ export async function loadModuleCategories(): Promise<ModuleCategory[]> {
   }
 }
 
-const imageBuilder = imageUrlBuilder(sanityClientCredentials.option);
+const imageBuilder = imageUrlBuilder(sanityClient.option);
 
 /**
  * @param categorySlug Slug for the category of modules being loaded, e.g. 'general-skating'
  * @returns An array of modules in the specified category
  */
 export async function loadModulesInCategory(categorySlug: String): Promise<ModulesInCategory> {
-  const moduleData: ModulesInCategory[] = await sanityClientCredentials.option.fetch(
+  const moduleData: ModulesInCategory[] = await sanityClient.option.fetch(
       `*[_type == "module_category" && slug.current == $category] {
         "category": name,
         modules[]->,
@@ -75,7 +75,9 @@ export async function loadModulesInCategory(categorySlug: String): Promise<Modul
   }
 
   const modulesInCategory = moduleData[0];
-  modulesInCategory.modules.forEach(module => processImageResources(module));
+  if (modulesInCategory.modules) {
+    modulesInCategory.modules.forEach(module => processImageResources(module));
+  }
   return modulesInCategory;
 }
 

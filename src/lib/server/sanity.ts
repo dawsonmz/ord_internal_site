@@ -1,6 +1,6 @@
 import { createClient } from "@sanity/client";
 
-export const sanityClientCredentials = {
+export const sanityClient = {
   option: createClient(
       {
         projectId: 'vh55mhjn',
