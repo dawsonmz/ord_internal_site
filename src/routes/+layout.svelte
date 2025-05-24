@@ -15,13 +15,13 @@
   afterNavigate(() => closeDrawer());
 </script>
 
-<AppBar base="bg-tertiary-50-950 px-6 mb-5" leadBase="self-center flex h-[24px]">
+<AppBar base="px-6 mb-5" background="bg-primary-50-950" leadBase="self-center flex h-[24px]">
   {#snippet lead()}
     <Modal
         open={drawerState}
         onOpenChange={(e) => (drawerState = e.open)}
         triggerBase="flex items-center gap-3 hover:text-[var(--link-hover-color)] active:text-[var(--link-active-color)]"
-        contentBase="flex flex-col justify-between bg-tertiary-50-950 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
+        contentBase="flex flex-col justify-between bg-primary-50-950 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
         positionerJustify=""
         positionerAlign=""
         positionerPadding=""
@@ -54,6 +54,7 @@
           <div class="font-semibold text-xl">Beginners</div>
           <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
           <div class="mx-5"><a class="link" href="/beginner-modules">Modules</a></div>
+          <div class="mx-5"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
         </div>
         <div class="flex mb-5">
           <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />

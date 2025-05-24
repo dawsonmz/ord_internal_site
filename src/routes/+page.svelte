@@ -28,5 +28,10 @@
         description="View individual explanations and drills which are assembled into beginners training plans."
         url="/beginner-modules"
     />
+    <LinkCard
+        title="Skills Tracking"
+        description="Login required: Track individual skills progress toward completion of beginners program."
+        url="/beginner-skills"
+    />
   </LinkCardGrid>
 </div>
