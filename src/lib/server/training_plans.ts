@@ -5,11 +5,6 @@ import { type Module, processImageResources } from "$lib/server/modules";
 export interface Season {
   name: String,
   slug: String,
-  num_trainings: number,
-}
-
-export interface TrainingPlansInSeason {
-  season: String,
   training_plans: TrainingPlanSummary[],
 }
 
@@ -18,7 +13,6 @@ export interface TrainingPlanSummary {
   slug: String,
   date_time: Date,
   summary: String,
-  visible: Boolean,
 
   // Computed fields:
   date_text: String,
@@ -36,59 +30,32 @@ export interface TrainingPlan {
 }
 
 /**
- * @returns All seasons' names and slugs, not including the individual training plans
+ * @returns All seasons' names, slugs, and training plan summaries (for those marked visible).
  */
 export async function loadSeasons(): Promise<Season[]> {
   const seasonData: Season[] = await sanityClient.option.fetch(
       `*[_type == "season"] | order(_createdAt desc) {
         name,
         "slug": slug.current,
-        "num_trainings": count(training_plans),
-      }`
-  );
-  if (seasonData) {
-    seasonData.forEach(
-        season => {
-          if (!season.num_trainings) {
-            season.num_trainings = 0;
-          }
-        }
-    );
-    return seasonData;
-  } else {
-    throw new InternalError("Failed to load season data");
-  }
-}
-
-/**
- * @param seasonSlug Slug for the season being loaded, e.g. 'fall2025'
- * @returns The summaries of visible training plans in the specified season
- */
-export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<TrainingPlansInSeason> {
-  const trainingPlanData: TrainingPlansInSeason[] = await sanityClient.option.fetch(
-      `*[_type == "season" && slug.current == $season] {
-        "season": name,
-        training_plans[]-> {
+        training_plans[@->visible]-> {
           training_label,
           "slug": slug.current,
           date_time,
           summary,
-          visible,
         },
-      }`,
-      { season: seasonSlug },
+      }`
   );
-  if (!trainingPlanData) {
-    throw new InternalError("Failed to load training plan data.");
-  } else if (trainingPlanData.length > 1) {
-    throw new InternalError("More than one season found.");
+  if (seasonData) {
+    const seasons = seasonData.filter(season => season.training_plans);
+    seasons.forEach(
+        season => season.training_plans.forEach(
+            plan => plan.date_text = formatDateText(new Date(plan.date_time))
+        )
+    );
+    return seasons;
+  } else {
+    throw new InternalError("Failed to load season data");
   }
-
-  const trainingPlan = trainingPlanData[0];
-  trainingPlan.training_plans = trainingPlan.training_plans.filter(summary => summary.visible)
-  trainingPlan.training_plans.forEach(summary => summary.date_text = formatDateText(new Date(summary.date_time)));
-
-  return trainingPlan;
 }
 
 /**

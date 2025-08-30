@@ -12,14 +12,17 @@
   <CrumbPage>Beginner Plans</CrumbPage>
 </Crumb>
 
-<div class="mx-8">
-  <LinkCardGrid header="Seasons">
-    {#each data.seasons as season}
+<div class="flex flex-col gap-6 mx-8">
+  {#each data.seasons as season}
+    <LinkCardGrid header={season.name.valueOf()} anchor={season.slug.valueOf()}>
+    {#each season.training_plans as plan}
       <LinkCard
-          title={season.name}
-          description="{season.num_trainings} {season.num_trainings == 1 ? 'training' : 'trainings'}"
-          url="/beginner-plans/{season.slug}"
+          title="Training {plan.training_label}"
+          subtitle={plan.date_text.valueOf()}
+          description={plan.summary.valueOf()}
+          url="/beginner-plans/{season.slug}-{plan.slug}"
       />
     {/each}
   </LinkCardGrid>
+  {/each}
 </div>

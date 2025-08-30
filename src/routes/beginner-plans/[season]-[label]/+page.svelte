@@ -12,7 +12,7 @@
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  <CrumbLink href="/beginner-plans/{page.params.season}">{trainingPlan.season}</CrumbLink>
+  <CrumbLink href="/beginner-plans#{page.params.season}">{trainingPlan.season}</CrumbLink>
   <CrumbSeparator />
   <CrumbPage>{trainingPlan.training_label}</CrumbPage>
 </Crumb>
