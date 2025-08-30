@@ -32,27 +32,27 @@
       {#if module.start_time} 
         <span class="mr-2">{module.start_time}</span>
       {/if}
-      <span class="badge badge-colors shadow-xs text-base px-2 py-1">{module.minutes} min</span>
+      <span class="badge badge-colors shadow-xs text-base px-2 py-0.5">{module.minutes} min</span>
     </div>
     <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
       {#snippet list()}
-        <Tabs.Control value="short">Short</Tabs.Control>
+        <Tabs.Control value="short"><span class="text-sm">Short</span></Tabs.Control>
         {#if module.detailed_text}
-          <Tabs.Control value="detailed" disabled={!module.detailed_text}>Detailed</Tabs.Control>
+          <Tabs.Control value="detailed" disabled={!module.detailed_text}><span class="text-sm">Detailed</span></Tabs.Control>
         {/if}
         {#if module.resources}
-          <Tabs.Control value="resources" disabled={!module.resources}>Resources</Tabs.Control>
+          <Tabs.Control value="resources" disabled={!module.resources}><span class="text-sm">Resources</span></Tabs.Control>
         {/if}
       {/snippet}
       {#snippet content()}
         <Tabs.Panel value="short">
-          <div class="rich-text">
+          <div class="rich-text text-sm">
             <PortableText value={module.short_text} />
           </div>
         </Tabs.Panel>
         {#if module.detailed_text}
           <Tabs.Panel value="detailed">
-            <div class="rich-text">
+            <div class="rich-text text-sm">
               <PortableText value={module.detailed_text} />
             </div>
           </Tabs.Panel>
@@ -69,7 +69,8 @@
                          max-w-[300px]
                          divide-y
                          overflow-hidden
-                         mb-5"
+                         mb-5
+                         text-sm"
               >
                 <header>
                   <img src={imageResource.image_url} alt={imageResource.alt} />

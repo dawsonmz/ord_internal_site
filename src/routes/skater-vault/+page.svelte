@@ -28,8 +28,8 @@
 </Crumb>
 
 <div class="flex flex-col mx-8 gap-4">
-  <div class="text-2xl">Skater Vault</div>
-  <div>
+  <div class="text-xl font-semibold">Skater Vault</div>
+  <div class="text-sm">
     <p>
       If you would like to register a derby name and number, send a message to Creek.
     </p>

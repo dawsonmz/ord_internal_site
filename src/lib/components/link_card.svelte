@@ -17,13 +17,13 @@
            hover:bg-[var(--block-color-very-light)]"
 >
   <div class="flex items-center gap-2 mb-2">
-    <ArrowRight class="inline size-5 sm:size-6" />
-    <div class="text-xl sm:text-2xl">{title}</div>
+    <ArrowRight class="inline size-5" />
+    <div class="text-xl font-semibold">{title}</div>
   </div>
   {#if subtitle}
-    <div class="text-sm font-semibold sm:text-base">{subtitle}</div>
+    <div class="text-sm font-semibold">{subtitle}</div>
   {/if}
   {#if description}
-    <div class="text-sm sm:text-base">{description}</div>
+    <div class="text-sm">{description}</div>
   {/if}
 </a>

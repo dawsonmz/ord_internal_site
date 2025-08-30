@@ -9,6 +9,7 @@
            rounded-md
            shadow-md
            p-2
+           text-sm
            transition-colors
            ease-[cubic-bezier(0,0,0.2,1)]
            duration-200

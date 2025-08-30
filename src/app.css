@@ -13,9 +13,10 @@
   --block-color-light: #FFE29E;
 }
 
-.main-colors {
+.main-style {
   background-color: #FFF9EB;
   color: #101010;
+  font-family: "Open Sans", sans-serif;
 }
 
 .menu-colors {

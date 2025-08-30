@@ -6,7 +6,7 @@
   {#each skaterNumbers as skaterNumber}
     <div class="flex gap-3">
       <div class="badge-colors text-center font-semibold w-14 rounded-sm shadow-sm">{skaterNumber.skater_number}</div>
-      <div class="w-60">{skaterNumber.derby_name}</div>
+      <div class="text-base w-60">{skaterNumber.derby_name}</div>
     </div>
   {/each}
 </div>
