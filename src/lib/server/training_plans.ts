@@ -18,6 +18,7 @@ export interface TrainingPlanSummary {
   slug: String,
   date_time: Date,
   summary: String,
+  visible: Boolean,
 
   // Computed fields:
   date_text: String,
@@ -60,8 +61,8 @@ export async function loadSeasons(): Promise<Season[]> {
 }
 
 /**
- * @param seasonSlug Slug for the season being loaded, e.g. 'spring2025'
- * @returns The summaries of training plans in the specified season
+ * @param seasonSlug Slug for the season being loaded, e.g. 'fall2025'
+ * @returns The summaries of visible training plans in the specified season
  */
 export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<TrainingPlansInSeason> {
   const trainingPlanData: TrainingPlansInSeason[] = await sanityClient.option.fetch(
@@ -72,6 +73,7 @@ export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<Tra
           "slug": slug.current,
           date_time,
           summary,
+          visible,
         },
       }`,
       { season: seasonSlug },
@@ -83,7 +85,8 @@ export async function loadTrainingPlansInSeason(seasonSlug: String): Promise<Tra
   }
 
   const trainingPlan = trainingPlanData[0];
-  trainingPlan.training_plans?.forEach(summary => summary.date_text = formatDateText(new Date(summary.date_time)));
+  trainingPlan.training_plans = trainingPlan.training_plans.filter(summary => summary.visible)
+  trainingPlan.training_plans.forEach(summary => summary.date_text = formatDateText(new Date(summary.date_time)));
 
   return trainingPlan;
 }
@@ -133,13 +136,22 @@ export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String)
 
 function formatDateText(date: Date): String {
   // Using en-GB formatting for English day-of-week and month names.
-  return date.toLocaleDateString(
+  const weekday = date.toLocaleDateString(
       "en-GB",
       {
-        dateStyle: "full",
         timeZone: "Europe/Oslo",
+        weekday: "long",
       }
   );
+  const day = date.toLocaleDateString(
+      "en-GB",
+      {
+        timeZone: "Europe/Oslo",
+        day: "numeric",
+        month: "long",
+      },
+  );
+  return `${weekday}, ${day}`;
 }
 
 function formatTimeText(date: Date): String {
