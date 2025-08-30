@@ -38,7 +38,7 @@
       we can reach out to verify if they want to keep it.
     </p>
   </div>
-  <input type="text" class="input max-w-148" placeholder="Search for number or name" bind:value={query} />
+  <input type="text" class="input max-w-148 bg-white" placeholder="Search for number or name" bind:value={query} />
   {#if skaterNumbers.length}
     <div class="sm:hidden">
       <SkaterNumberGroup skaterNumbers={skaterNumbers} />

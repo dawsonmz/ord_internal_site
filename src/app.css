@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 @import '@skeletonlabs/skeleton';
-@import '@skeletonlabs/skeleton/optional/presets';
-@import '@skeletonlabs/skeleton/themes/hamlindigo';
 
 @source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 
@@ -9,20 +7,30 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-  --link-hover-color: var(--color-tertiary-400);
-  --link-active-color: var(--color-tertiary-300);
-  --button-hover-color: var(--color-tertiary-700);
-  --button-active-color: var(--color-tertiary-900);
-  --button-inverse-color: var(--color-tertiary-100);
+  --hover-color: #FF8133;
+  --active-color: #FFD166;
+  --block-color-very-light: #FFEEC7;
+  --block-color-light: #FFE29E;
+}
+
+.main-colors {
+  background-color: #FFF9EB;
+  color: #101010;
+}
+
+.menu-colors {
+  background-color: #101010;
+  color: #FFF9EB;
+}
+
+.badge-colors {
+  background-color: var(--block-color-very-light);
+  border-color: var(--block-color-light);
 }
 
 .link {
   &:hover {
-    color: var(--link-hover-color);
-    text-decoration: underline;
-  }
-  &:active {
-    color: var(--link-active-color);
+    color: var(--hover-color);
     text-decoration: underline;
   }
 }

@@ -15,13 +15,13 @@
   afterNavigate(() => closeDrawer());
 </script>
 
-<AppBar base="px-6 mb-5" background="bg-primary-50-950" leadBase="self-center flex h-[24px]">
+<AppBar base="px-6 mb-5" background="menu-colors" leadBase="self-center flex h-[24px]">
   {#snippet lead()}
     <Modal
         open={drawerState}
         onOpenChange={(e) => (drawerState = e.open)}
-        triggerBase="flex items-center gap-3 hover:text-[var(--link-hover-color)] active:text-[var(--link-active-color)]"
-        contentBase="flex flex-col justify-between bg-primary-50-950 shadow-2xl w-screen sm:w-[400px] h-screen p-6"
+        triggerBase="flex items-center gap-3 link"
+        contentBase="menu-colors flex flex-col justify-between shadow-2xl w-screen sm:w-[400px] h-screen p-6"
         positionerJustify=""
         positionerAlign=""
         positionerPadding=""
@@ -37,7 +37,7 @@
           <div class="mt-5 mb-8">
             <button
                 type="button"
-                class="flex items-center gap-1 hover:text-[var(--link-hover-color)] active:text-[var(--link-active-color)]"
+                class="flex items-center gap-1 link"
                 onclick={closeDrawer}
             >
               <XIcon aria-label="close navigation menu"  />

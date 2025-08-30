@@ -32,7 +32,7 @@
       {#if module.start_time} 
         <span class="mr-2">{module.start_time}</span>
       {/if}
-      <span class="badge preset-tonal-primary shadow-xs text-base px-2 py-0">{module.minutes} min</span>
+      <span class="badge badge-colors shadow-xs text-base px-2 py-1">{module.minutes} min</span>
     </div>
     <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
       {#snippet list()}
@@ -63,8 +63,8 @@
               <div
                   class="card
                          border-[1px]
-                         border-surface-100-900
-                         divide-surface-100-900
+                         border-[var(--block-color-very-light)]
+                         divide-[var(--block-color-very-light)]
                          block
                          max-w-[300px]
                          divide-y

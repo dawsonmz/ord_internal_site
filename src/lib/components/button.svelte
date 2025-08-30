@@ -4,19 +4,18 @@
 
 <button
     class="border-1 
-           border-surface-50
+           border-[var(--block-color-very-light)]
+           bg-[var(--block-color-very-light)]
            rounded-md
            shadow-md
            p-2
            transition-colors
            ease-[cubic-bezier(0,0,0.2,1)]
            duration-200
-           hover:bg-[var(--button-hover-color)]
-           hover:border-[var(--button-hover-color)]
-           hover:text-[var(--button-inverse-color)]
-           active:bg-[var(--button-active-color)]
-           active:border-[var(--button-active-color)]
-           active:text-[var(--button-inverse-color)]
+           hover:bg-[var(--hover-color)]
+           hover:border-[var(--hover-color)]
+           active:bg-[var(--active-color)]
+           active:border-[var(--active-color)]
            {baseClasses}"
     onclick={clickAction}
 >
