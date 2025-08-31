@@ -13,6 +13,9 @@
 </Crumb>
 
 <div class="flex flex-col gap-6 mx-8">
+  <p>
+    Current and previous training plans for the ORD beginners course.
+  </p>
   {#each data.seasons as season}
     <LinkCardGrid header={season.name.valueOf()} anchor={season.slug.valueOf()}>
     {#each season.training_plans as plan}

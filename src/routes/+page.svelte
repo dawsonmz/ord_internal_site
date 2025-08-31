@@ -17,18 +17,27 @@
   <LinkCardGrid header="Beginners Training">
     <LinkCard
         title="Training Plans"
-        description="View training plans arranged for specific beginners training sessions."
+        description="View training plans for the ORD beginners course."
         url="/beginner-plans"
     />
     <LinkCard
         title="Modules"
-        description="View individual explanations and drills which are assembled into beginners training plans."
+        description="View the individual drills used to assemble beginners training plans."
         url="/beginner-modules"
     />
     <LinkCard
         title="Skills Tracking"
         description="Login required: Track individual skills progress toward completion of beginners program."
         url="/beginner-skills"
+    />
+  </LinkCardGrid>
+
+  <LinkCardGrid header="Other Resources">
+    <LinkCard
+        title="Mitt Varsel"
+        description="Link to Mitt Varsel, a portal for safe and secure reporting of incidents."
+        url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532"
+        external
     />
   </LinkCardGrid>
 </div>

@@ -15,6 +15,7 @@
 
 <div class="flex flex-col gap-6 mx-8">
   <div class="text-xl font-semibold">Category: {data.category}</div>
+  <p>{data.description?.valueOf()}</p>
   {#if data.modules}
     <ModuleGroup modules={data.modules} />
   {:else}

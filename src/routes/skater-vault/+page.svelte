@@ -31,7 +31,7 @@
   <div class="text-xl font-semibold">Skater Vault</div>
   <div class="text-sm">
     <p>
-      If you would like to register a derby name and number, send a message to Creek.
+      These are the skater numbers and derby names currently registered with ORD. If you would like to register a derby name and number, send a message to Creek.
     </p>
     <p class="mt-2">
       If the number you want is already taken, check in regardless. If the skater is not active,

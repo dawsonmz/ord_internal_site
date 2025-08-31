@@ -10,6 +10,7 @@ export interface ModuleCategory {
 
 export interface ModulesInCategory {
   category: String,
+  description: String,
   modules: Module[],
 }
 
@@ -63,6 +64,7 @@ export async function loadModulesInCategory(categorySlug: String): Promise<Modul
   const moduleData: ModulesInCategory[] = await sanityClient.option.fetch(
       `*[_type == "module_category" && slug.current == $category] {
         "category": name,
+        description,
         modules[]->,
       }`,
       { category: categorySlug },

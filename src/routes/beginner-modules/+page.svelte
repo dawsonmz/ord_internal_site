@@ -12,12 +12,17 @@
   <CrumbPage>Beginner Modules</CrumbPage>
 </Crumb>
 
-<LinkCardGrid header="Module Categories" baseClasses="mx-8">
-  {#each data.module_categories as moduleCategory}
-    <LinkCard
-        title={moduleCategory.name}
-        description={moduleCategory.description.valueOf()}
-        url="/beginner-modules/{moduleCategory.slug}"
-    />
-  {/each}
-</LinkCardGrid>
+<div class="flex flex-col gap-6 mx-8">
+  <p>
+    Individual drills used to assemble beginners training plans.
+  </p>
+  <LinkCardGrid header="Categories">
+    {#each data.module_categories as moduleCategory}
+      <LinkCard
+          title={moduleCategory.name}
+          description={moduleCategory.description.valueOf()}
+          url="/beginner-modules/{moduleCategory.slug}"
+      />
+    {/each}
+  </LinkCardGrid>
+</div>

@@ -1,10 +1,12 @@
 <script lang="ts">
   import ArrowRight from "@lucide/svelte/icons/arrow-right";
+  import ExternalLink from "@lucide/svelte/icons/external-link";
 
-  let { title, subtitle="", description="", url } = $props();
+  let { title, subtitle="", description="", url, external=false } = $props();
 </script>
 
 <a href="{url}"
+    target={external ? "_blank" : null}
     class="border-1
            rounded-md
            border-[var(--block-color-very-light)]
@@ -18,11 +20,15 @@
            dark:hover:text-[var(--dark-color)]"
 >
   <div class="flex items-center gap-2 mb-2">
-    <ArrowRight class="inline size-5" />
+    {#if external}
+      <ExternalLink class="inline size-5" />
+    {:else}
+      <ArrowRight class="inline size-5" />
+    {/if}
     <div class="text-xl font-semibold">{title}</div>
   </div>
   {#if subtitle}
-    <div class="text-sm font-semibold">{subtitle}</div>
+    <div class="text-sm subheading mb-1">{subtitle}</div>
   {/if}
   {#if description}
     <div class="text-sm">{description}</div>
