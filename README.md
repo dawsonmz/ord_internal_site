@@ -7,3 +7,5 @@ To run locally:
 ```bash
 npm run preview
 ```
+
+Production version hosted at https://internal.oslorollerderby.workers.dev.
