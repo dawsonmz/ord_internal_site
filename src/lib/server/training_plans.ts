@@ -30,14 +30,14 @@ export interface TrainingPlan {
 }
 
 /**
- * @returns All seasons' names, slugs, and training plan summaries (for those marked visible).
+ * @returns All seasons' names, slugs, and training plan summaries.
  */
 export async function loadSeasons(): Promise<Season[]> {
   const seasonData: Season[] = await sanityClient.option.fetch(
       `*[_type == "season"] | order(_createdAt desc) {
         name,
         "slug": slug.current,
-        training_plans[@->visible]-> {
+        training_plans[]-> {
           training_label,
           "slug": slug.current,
           date_time,
