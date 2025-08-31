@@ -14,11 +14,11 @@
            transition-colors
            ease-[cubic-bezier(0,0,0.2,1)]
            duration-200
-           hover:bg-[var(--hover-color)]
-           hover:border-[var(--hover-color)]
+           hover:bg-[var(--block-color-light)]
+           hover:border-[var(--block-color-light)]
            dark:hover:text-[var(--dark-color)]
-           active:bg-[var(--block-color-very-light)]
-           active:border-[var(--block-color-very-light)]
+           active:bg-[var(--hover-color)]
+           active:border-[var(--hover-color)]
            {baseClasses}"
     onclick={clickAction}
 >
