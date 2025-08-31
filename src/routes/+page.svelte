@@ -4,9 +4,7 @@
 </script>
 
 <div class="flex flex-col gap-6 mx-8">
-  <div class="ml-1">
-    <p>Welcome to the Oslo Roller Derby internal website!</p>
-  </div>
+  <p>Welcome to the Oslo Roller Derby internal website!</p>
 
   <LinkCardGrid header="Team Resources">
     <LinkCard

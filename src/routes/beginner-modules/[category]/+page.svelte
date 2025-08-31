@@ -14,7 +14,7 @@
 </Crumb>
 
 <div class="flex flex-col gap-6 mx-8">
-  <div class="text-2xl font-semibold">Category: {data.category}</div>
+  <div class="text-xl font-semibold">Category: {data.category}</div>
   {#if data.modules}
     <ModuleGroup modules={data.modules} />
   {:else}
