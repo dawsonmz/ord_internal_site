@@ -1,38 +1,36 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/forms';
 @import '@skeletonlabs/skeleton';
 
 @source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
-
 :root {
-  --light-color: #FFF9EB;
+  --very-light-color: #FFF6E0;
+  --light-color: #FFEEC7;
+  --semi-light-color: #FFE29E;
   --dark-color: #151515;
   --hover-color: #FF8133;
-  --block-color-very-light: #FFEEC7;
-  --block-color-light: #FFE29E;
 }
 
 .main-style {
-  background-color: var(--light-color);
+  background-color: var(--very-light-color);
   color: var(--dark-color);
   font-family: "Open Sans", sans-serif;
 
   @media (prefers-color-scheme: dark) {
     background-color: var(--dark-color);
-    color: var(--light-color);
+    color: var(--very-light-color);
   }
 }
 
 .menu-colors {
   background-color: var(--dark-color);
-  color: var(--light-color);
+  color: var(--very-light-color);
 }
 
 .badge-colors {
-  background-color: var(--block-color-very-light);
-  border-color: var(--block-color-light);
+  background-color: var(--light-color);
+  border-color: var(--semi-light-color);
 
   @media (prefers-color-scheme: dark) {
     color: var(--dark-color);

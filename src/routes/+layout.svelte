@@ -40,7 +40,7 @@
                 class="flex items-center gap-1 link"
                 onclick={closeDrawer}
             >
-              <XIcon aria-label="close navigation menu"  />
+              <XIcon aria-label="close navigation menu" />
               <span class="text-lg">Close</span>
             </button>
           </div>

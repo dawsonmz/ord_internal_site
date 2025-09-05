@@ -9,14 +9,14 @@
     target={external ? "_blank" : null}
     class="border-1
            rounded-md
-           border-[var(--block-color-very-light)]
+           border-[var(--light-color)]
            max-w-90
            shadow-lg
            p-5
            transition-colors
            ease-[cubic-bezier(0,0,0.2,1)]
            duration-200
-           hover:bg-[var(--block-color-very-light)]
+           hover:bg-[var(--light-color)]
            dark:hover:text-[var(--dark-color)]"
 >
   <div class="flex items-center gap-2 mb-2">

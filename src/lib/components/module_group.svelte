@@ -22,8 +22,8 @@
 </script>
 
 <div class="flex gap-2">
-  <Button clickAction={showAllShort}>All Short</Button>
-  <Button clickAction={showAllDetailed}>All Detailed</Button>
+  <Button clickAction={showAllShort} justAButton>All Short</Button>
+  <Button clickAction={showAllDetailed} justAButton>All Detailed</Button>
 </div>
 {#each modules as module, index}
   <div>
@@ -63,8 +63,8 @@
               <div
                   class="card
                          border-[1px]
-                         border-[var(--block-color-very-light)]
-                         divide-[var(--block-color-very-light)]
+                         border-[var(--light-color)]
+                         divide-[var(--light-color)]
                          block
                          max-w-[300px]
                          divide-y
