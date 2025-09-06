@@ -1,9 +1,10 @@
 <script lang="ts">
   import '../app.css';
   import { afterNavigate } from '$app/navigation';
-  import { MenuIcon, XIcon } from '@lucide/svelte';
+  import { MenuIcon, XIcon, ExternalLink } from '@lucide/svelte';
   import { AppBar, Modal } from '@skeletonlabs/skeleton-svelte';
   import logo from '$lib/assets/ord-logo.svg';
+  import FeedbackModal from '$lib/components/feedback_modal.svelte';
   
   let { children } = $props();
   let drawerState = $state(false);
@@ -55,12 +56,18 @@
           <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
           <div class="mx-5"><a class="link" href="/beginner-modules">Modules</a></div>
           <div class="mx-5"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
+
+          <div class="font-semibold text-xl">Other Resources</div>
+          <div class="mx-5">
+            <a class="flex link justify-items-center" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
+              <span class="mr-1">Mitt Varsel</span>
+              <ExternalLink class="inline size-5" />
+            </a>
+          </div>
         </div>
         <div class="flex mb-5">
           <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-          <span class="self-center ml-5">
-            Questions or feedback?<br />Contact Creek!
-          </span>
+          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Submit feedback here!" iconClasses="size-5" form={null} />
         </div>
       {/snippet}
     </Modal>

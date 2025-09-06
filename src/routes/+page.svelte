@@ -44,5 +44,5 @@
     />
   </LinkCardGrid>
 
-  <FeedbackModal form={form} />
+  <FeedbackModal baseClasses="text-xl font-semibold" label="Submit feedback here!" form={form} />
 </div>
