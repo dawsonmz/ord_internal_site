@@ -2,8 +2,6 @@
   import FeedbackModal from '$lib/components/feedback_modal.svelte';
   import LinkCard from '$lib/components/link_card.svelte';
   import LinkCardGrid from '$lib/components/link_card_grid.svelte';
-
-  let { form } = $props();
 </script>
 
 <div class="flex flex-col gap-6 mx-8">
@@ -44,5 +42,5 @@
     />
   </LinkCardGrid>
 
-  <FeedbackModal baseClasses="text-xl font-semibold" label="Submit feedback here!" form={form} />
+  <FeedbackModal baseClasses="text-xl font-semibold" label="Submit feedback here!" />
 </div>

@@ -4,7 +4,7 @@
   import Button from '$lib/components/button.svelte';
   import { page } from '$app/state';
 
-  let { baseClasses="", label="", iconClasses="size-6", form, context=null } = $props();
+  let { baseClasses="", label="", iconClasses="size-6", context=null } = $props();
 
   let commentText = $state('');
   let modalState = $state(false);

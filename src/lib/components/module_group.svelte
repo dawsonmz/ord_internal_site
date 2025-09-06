@@ -2,9 +2,9 @@
   import { PortableText } from '@portabletext/svelte';
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
   import Button from '$lib/components/button.svelte';
-    import FeedbackModal from './feedback_modal.svelte';
+  import FeedbackModal from '$lib/components/feedback_modal.svelte';
 
-  let { modules, form } = $props();
+  let { modules } = $props();
   let tabStates = $state(new Array<string>(modules.length).fill('short'));
 
   function showAllShort() {
@@ -34,7 +34,7 @@
         <span>{module.start_time}</span>
       {/if}
       <span class="badge badge-colors shadow-xs text-base px-2 py-0.5">{module.minutes} min</span>
-      <FeedbackModal form={form} context="Module: {module.title}" />
+      <FeedbackModal context="Module: {module.title}" />
     </div>
     <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
       {#snippet list()}

@@ -1,10 +1,10 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
-    import FeedbackModal from '$lib/components/feedback_modal.svelte';
+  import FeedbackModal from '$lib/components/feedback_modal.svelte';
   import ModuleGroup from '$lib/components/module_group.svelte';
 
-  let { data, form } = $props();
+  let { data } = $props();
   const trainingPlan = data.training_plan!;
 </script>
 
@@ -23,7 +23,7 @@
     <div class="text-2xl font-semibold">Beginners Training {trainingPlan.training_label}</div>
     <div class="text-base subheading">{trainingPlan.date_text}</div>
     <div class="text-sm">{trainingPlan.summary}</div>
-    <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" iconClasses="size-5" form={form} />
+    <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" iconClasses="size-5" />
   </div>
-  <ModuleGroup modules={trainingPlan.modules} form={form} />
+  <ModuleGroup modules={trainingPlan.modules} />
 </div>

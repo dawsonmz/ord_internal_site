@@ -2,7 +2,7 @@
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from "$lib/components/breadcrumb/index.js";
   import ModuleGroup from '$lib/components/module_group.svelte';
 
-  let { data, form } = $props();
+  let { data } = $props();
 </script>
 
 <Crumb baseClasses="mx-8 mb-5">
@@ -17,7 +17,7 @@
   <div class="text-xl font-semibold">Category: {data.category}</div>
   <p>{data.description?.valueOf()}</p>
   {#if data.modules}
-    <ModuleGroup modules={data.modules} form={form} />
+    <ModuleGroup modules={data.modules} />
   {:else}
     No modules found.
   {/if}
