@@ -4,7 +4,7 @@
   import Button from '$lib/components/button.svelte';
   import FeedbackModal from '$lib/components/feedback_modal.svelte';
 
-  let { modules } = $props();
+  let { modules, form } = $props();
   let tabStates = $state(new Array<string>(modules.length).fill('short'));
 
   function showAllShort() {
@@ -34,7 +34,7 @@
         <span>{module.start_time}</span>
       {/if}
       <span class="badge badge-colors shadow-xs text-base px-2 py-0.5">{module.minutes} min</span>
-      <FeedbackModal context="Module: {module.title}" />
+      <FeedbackModal iconSize={6} context="Module: {module.title}" form={form} formId="module-{index}" />
     </div>
     <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
       {#snippet list()}

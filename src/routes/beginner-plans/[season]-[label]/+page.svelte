@@ -4,7 +4,7 @@
   import FeedbackModal from '$lib/components/feedback_modal.svelte';
   import ModuleGroup from '$lib/components/module_group.svelte';
 
-  let { data } = $props();
+  let { data, form } = $props();
   const trainingPlan = data.training_plan!;
 </script>
 
@@ -23,7 +23,7 @@
     <div class="text-2xl font-semibold">Beginners Training {trainingPlan.training_label}</div>
     <div class="text-base subheading">{trainingPlan.date_text}</div>
     <div class="text-sm">{trainingPlan.summary}</div>
-    <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" iconClasses="size-5" />
+    <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" form={form} formId="training-plan" />
   </div>
-  <ModuleGroup modules={trainingPlan.modules} />
+  <ModuleGroup modules={trainingPlan.modules} form={form} />
 </div>

@@ -1,12 +1,10 @@
 import { createDocument } from "$lib/server/firestore";
-
-interface WrappedRequest {
-  request: Request
-};
+import type { WrappedRequest } from "$lib/server/request";
 
 export async function submitFeedback(req: WrappedRequest) {
   const data = await req.request.formData();
 
+  const formId = data.get('formId')?.toString();
   const contact = data.get('contact')?.toString();
   const context = data.get('context')?.toString();
   const text = data.get('text')?.toString();
@@ -20,5 +18,8 @@ export async function submitFeedback(req: WrappedRequest) {
   };
 
   await createDocument('feedback', body);
-  return { success: true };
+  return {
+    success: true,
+    formId,
+  };
 };
