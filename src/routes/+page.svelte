@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { MessageSquareShare } from '@lucide/svelte';
   import FeedbackModal from '$lib/components/feedback_modal.svelte';
   import LinkCard from '$lib/components/link_card.svelte';
   import LinkCardGrid from '$lib/components/link_card_grid.svelte';
@@ -45,4 +46,7 @@
   </LinkCardGrid>
 
   <FeedbackModal baseClasses="text-xl font-semibold" label="Submit feedback here!" iconSize={6} form={form} />
+
+  <p>You can additionally submit feedback for any page by opening the menu and clicking on the feedback link at the bottom.</p>
+  <p class="-mt-4">Some individual sections such as modules show the <MessageSquareShare class="inline size-5 mx-1" /> icon for providing feedback specific to that section.</p>
 </div>

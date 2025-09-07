@@ -1,4 +1,7 @@
+import { fail } from "@sveltejs/kit";
 import { InternalError } from "$lib/server/errors";
+import { createDocument } from "$lib/server/firestore";
+import type { WrappedRequest } from "$lib/server/request";
 import { sanityClient } from "$lib/server/sanity";
 
 export interface SkaterNumber {
@@ -22,3 +25,38 @@ export async function loadSkaterNumbers(): Promise<SkaterNumber[]> {
   skaterNumberData.forEach((skaterNumber) => skaterNumber.derby_name_lower = skaterNumber.derby_name.toLowerCase());
   return skaterNumberData;
 }
+
+export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
+  const data = await req.request.formData();
+  
+  const formId = data.get('formId')?.toString();
+  const name = data.get('name')?.toString().trim();
+  const number = data.get('number')?.toString().trim();
+  const contact = data.get('contact')?.toString().trim();
+
+  if (number && !/^[0-9]+$/.test(number)) {
+    return fail(
+      400,
+      {
+        errors: {
+          number: 'Number can only contain digits.',
+        },
+        formId,
+      },
+    );
+  }
+
+  const body = {
+    fields: {
+      name: { stringValue: name },
+      number: { stringValue: number },
+      contact: { stringValue: contact },
+    },
+  };
+
+  await createDocument('number-request', body);
+  return {
+    success: true,
+    formId,
+  };
+};

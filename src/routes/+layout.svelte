@@ -20,7 +20,7 @@
   {#snippet lead()}
     <Modal
         open={drawerState}
-        onOpenChange={(e) => (drawerState = e.open)}
+        onOpenChange={e => drawerState = e.open}
         triggerBase="flex items-center gap-3 link"
         contentBase="menu-colors flex flex-col justify-between shadow-2xl w-screen sm:w-[400px] h-screen p-6"
         positionerJustify=""
@@ -67,7 +67,7 @@
         </div>
         <div class="flex mb-5">
           <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Feedback?" iconSize={4} form=null formId="sidebar" />
+          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Feedback?" form=null formId="sidebar" />
         </div>
       {/snippet}
     </Modal>
