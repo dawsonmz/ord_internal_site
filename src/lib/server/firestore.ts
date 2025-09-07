@@ -7,7 +7,7 @@ const CACHE_EXPIRY_MARGIN = 120;
 
 const FIRESTORE_PROJECT_ID = 'planar-ember-470822-n7';
 
-export async function createDocument(collection: string, body: string) {
+export async function createDocument(collection: string, body: any) {
   const accessToken = await getAccessToken();
   const response = await fetch(
       `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/${collection}`,
@@ -18,7 +18,7 @@ export async function createDocument(collection: string, body: string) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
-        body,
+        body: JSON.stringify(body),
       },
   );
 

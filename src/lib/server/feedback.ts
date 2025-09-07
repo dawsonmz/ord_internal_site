@@ -4,14 +4,6 @@ interface WrappedRequest {
   request: Request
 };
 
-interface FeedbackDocument {
-  fields: {
-    contact: { stringValue: string | undefined },
-    context: { stringValue: string | undefined },
-    text: { stringValue: string | undefined },
-  },
-};
-
 export async function submitFeedback(req: WrappedRequest) {
   const data = await req.request.formData();
 
@@ -19,7 +11,7 @@ export async function submitFeedback(req: WrappedRequest) {
   const context = data.get('context')?.toString();
   const text = data.get('text')?.toString();
 
-  const body: FeedbackDocument = {
+  const body = {
     fields: {
       contact: { stringValue: contact },
       context: { stringValue: context },
@@ -27,7 +19,6 @@ export async function submitFeedback(req: WrappedRequest) {
     },
   };
 
-  const response = createDocument('feedback', JSON.stringify(body));
-  console.log(`Response: ${JSON.stringify(response)}`);
+  await createDocument('feedback', body);
   return { success: true };
 };
