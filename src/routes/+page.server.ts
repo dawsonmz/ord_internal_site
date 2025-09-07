@@ -1,8 +1,4 @@
 import type { Actions } from "./$types";
-import { submitFeedback } from "$lib/server/feedback_actions";
+import { submitFeedback } from "$lib/server/feedback";
 
-export const actions = {
-  feedback: async ({ request }) => {
-    return await submitFeedback(await request.formData());
-  },
-} satisfies Actions;
+export const actions = { feedback: submitFeedback } satisfies Actions;

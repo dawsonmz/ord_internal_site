@@ -67,7 +67,7 @@
         </div>
         <div class="flex mb-5">
           <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Submit feedback here!" iconClasses="size-5" />
+          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Feedback?" iconClasses="size-4" />
         </div>
       {/snippet}
     </Modal>

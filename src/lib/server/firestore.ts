@@ -7,18 +7,24 @@ const CACHE_EXPIRY_MARGIN = 120;
 
 const FIRESTORE_PROJECT_ID = 'planar-ember-470822-n7';
 
-// Unused at the moment, but set up for future use cases.
-export async function getDocument(collection: string) {
+export async function createDocument(collection: string, body: string) {
   const accessToken = await getAccessToken();
   const response = await fetch(
       `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/${collection}`,
-      { headers: { Authorization: `Bearer ${accessToken}` } },
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body,
+      },
   );
 
   if (!response.ok) {
     throw new Error(`Firestore error: ${await response.text()}`);
   }
-
   return await response.json();
 }
 
