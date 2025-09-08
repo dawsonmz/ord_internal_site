@@ -1,13 +1,15 @@
 <script lang="ts">
   import '../app.css';
-  import { afterNavigate } from '$app/navigation';
   import { MenuIcon, XIcon, ExternalLink } from '@lucide/svelte';
   import { AppBar, Modal } from '@skeletonlabs/skeleton-svelte';
+  import { afterNavigate } from '$app/navigation';
+  import { page } from '$app/state';
   import logo from '$lib/assets/ord-logo.svg';
   import FeedbackModal from '$lib/components/feedback_modal.svelte';
   
   let { children } = $props();
   let drawerState = $state(false);
+  let form = $derived(page.form);
 
   function closeDrawer() {
     drawerState = false;
@@ -67,7 +69,7 @@
         </div>
         <div class="flex mb-5">
           <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Feedback?" form=null formId="sidebar" />
+          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Feedback?" form={form} formId="sidebar" />
         </div>
       {/snippet}
     </Modal>

@@ -69,7 +69,7 @@
             required
         ></textarea>
       </label>
-      <div class="flex gap-4 mt-4">
+      <div class="flex gap-2 mt-4">
         <Button>Submit</Button>
         <Button clickAction={closeModal} justAButton>Cancel</Button>
         {#if form?.formId === formId && form?.success}
