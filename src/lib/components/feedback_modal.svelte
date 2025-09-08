@@ -33,7 +33,7 @@
     onOpenChange={modalStateChange}
     base={baseClasses}
     triggerBase="flex items-center link gap-2"
-    contentBase="shadow-2xl w-screen h-screen sm:w-[480px] sm:h-[520px] main-style p-6"
+    contentBase="rounded-md shadow-2xl w-screen sm:w-[480px] h-[520px] main-style p-6"
     positionerJustify="justify-center"
     positionerAlign="items-center"
 >
