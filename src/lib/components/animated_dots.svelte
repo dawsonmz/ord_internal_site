@@ -31,10 +31,9 @@
     class="message-square-more-icon"
     class:animate={true}
   >
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    <path class="dot dot1" d="M8 10h.01" />
-    <path class="dot dot2" d="M12 10h.01" />
-    <path class="dot dot3" d="M16 10h.01" />
+    <path class="dot dot1" d="M  7 10 h.01" />
+    <path class="dot dot2" d="M 12 10 h.01" />
+    <path class="dot dot3" d="M 17 10 h.01" />
   </svg>
 </div>
 

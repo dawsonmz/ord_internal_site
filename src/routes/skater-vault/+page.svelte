@@ -4,7 +4,7 @@
   import { enhance } from '$app/forms';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
   import AnimatedCheck from '$lib/components/animated_check.svelte';
-  import AnimatedMessage from '$lib/components/animated_message.svelte';
+  import AnimatedDots from '$lib/components/animated_dots.svelte';
   import Button from '$lib/components/button.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
@@ -127,16 +127,16 @@
         </label>
 
         <div class="flex gap-2 mt-4">
-          <Button baseClasses="flex justify-center w-16 h-10" disabled={submitting}>
+          <Button baseClasses="flex justify-center w-16 h-9" disabled={submitting}>
             {#if submitting}
-              <AnimatedMessage />
+              <AnimatedDots />
             {:else if form?.formId === 'number-request' && form?.success}
               <AnimatedCheck color="green" />
             {:else}
               Submit
             {/if}
           </Button>
-          <Button baseClasses="w-16" clickAction={closeModal} justAButton>Cancel</Button>
+          <Button baseClasses="w-16 h-9" clickAction={closeModal} justAButton>Cancel</Button>
         </div>
       </form>
     {/snippet}
