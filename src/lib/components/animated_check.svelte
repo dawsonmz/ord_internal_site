@@ -4,7 +4,6 @@
    * @property {string} [color]
    * @property {number} [size]
    * @property {number} [strokeWidth]
-   * @property {boolean} [isHovered]
    * @property {string} [class]
    */
 
@@ -17,7 +16,7 @@
   } = $props();
 </script>
 
-<div class={className} aria-label="check" role="img">
+<div class={className} aria-label="animated-check" role="img">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

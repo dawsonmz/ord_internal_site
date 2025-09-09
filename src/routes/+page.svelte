@@ -48,5 +48,4 @@
   <FeedbackModal baseClasses="text-xl font-semibold" label="Submit feedback here!" form={form} />
 
   <p>You can additionally submit feedback for any page by opening the menu and clicking on the feedback link at the bottom.</p>
-  <p class="-mt-4">Some individual sections such as modules show the <MessageSquareShare class="inline size-5 mx-1" /> icon for providing feedback specific to that section.</p>
 </div>

@@ -4,7 +4,6 @@
    * @property {string} [color]
    * @property {number} [size]
    * @property {number} [strokeWidth]
-   * @property {boolean} [isHovered]
    * @property {string} [class]
    */
 
@@ -17,7 +16,7 @@
   } = $props();
 </script>
 
-<div class={className} aria-label="message-square-more" role="img">
+<div class={className} aria-label="animated-dots" role="img">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -28,7 +27,7 @@
     stroke-width={strokeWidth}
     stroke-linecap="round"
     stroke-linejoin="round"
-    class="message-square-more-icon"
+    class="animated-dots"
     class:animate={true}
   >
     <path class="dot dot1" d="M  7 10 h.01" />
@@ -41,7 +40,7 @@
   div {
     display: inline-block;
   }
-  .message-square-more-icon {
+  .animated-dots {
     overflow: visible;
   }
 
@@ -50,19 +49,19 @@
     transition: opacity 0.1s ease;
   }
 
-  .message-square-more-icon.animate .dot {
+  .animated-dots.animate .dot {
     animation: dotAnimation 1.5s infinite;
   }
 
-  .message-square-more-icon.animate .dot1 {
+  .animated-dots.animate .dot1 {
     animation-delay: 0s;
   }
 
-  .message-square-more-icon.animate .dot2 {
+  .animated-dots.animate .dot2 {
     animation-delay: 0.1s;
   }
 
-  .message-square-more-icon.animate .dot3 {
+  .animated-dots.animate .dot3 {
     animation-delay: 0.2s;
   }
 

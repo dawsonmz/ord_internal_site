@@ -10,5 +10,5 @@
 
 <div class="mx-8">
   <p><em>Under construction.</em></p>
-  <p>This page will allow beginners to track their progress on required skills to complete the beginner's program.</p>
+  <p>This page will allow beginners to track their progress on required skills to complete the beginners program.</p>
 </div>
