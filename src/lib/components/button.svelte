@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { baseClasses="", clickAction=null, justAButton=false, formAction=null, children } = $props();
+  let { baseClasses="", clickAction=null, justAButton=false, formAction=null, disabled=false, children } = $props();
 </script>
 
 <button
@@ -23,6 +23,7 @@
     onclick={clickAction}
     type={justAButton ? "button" : "submit"}
     formaction={formAction}
+    disabled={disabled}
 >
   {@render children()}
 </button>

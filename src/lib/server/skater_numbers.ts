@@ -34,16 +34,14 @@ export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
   const number = data.get('number')?.toString().trim();
   const contact = data.get('contact')?.toString().trim();
 
-  if (number && !/^[0-9]+$/.test(number)) {
-    return fail(
-      400,
-      {
-        errors: {
-          number: 'Number can only contain digits.',
-        },
-        formId,
-      },
-    );
+  const errorsBody = {
+    name: missingError(name),
+    number: numberError(number),
+    contact: missingError(contact),
+  };
+
+  if (errorsBody.name || errorsBody.number || errorsBody.contact) {
+    return fail(400, { errors: errorsBody, formId });
   }
 
   const body = {
@@ -60,3 +58,15 @@ export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
     formId,
   };
 };
+
+function missingError(field: string | undefined): string | null {
+  return field ? null : 'Required field';
+}
+
+function numberError(number: string | undefined): string | null {
+  if (number && !/^[0-9]+$/.test(number)) {
+    return 'Only numbers allowed'
+  } else {
+    return missingError(number);
+  }
+}

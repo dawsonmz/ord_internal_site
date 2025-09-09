@@ -1,3 +1,4 @@
+import { fail } from "@sveltejs/kit";
 import { createDocument } from "$lib/server/firestore";
 import type { WrappedRequest } from "$lib/server/request";
 
@@ -8,6 +9,14 @@ export async function submitFeedback(req: WrappedRequest) {
   const contact = data.get('contact')?.toString().trim();
   const context = data.get('context')?.toString().trim();
   const text = data.get('text')?.toString().trim();
+
+  const errorsBody = {
+    text: missingError(text),
+  };
+
+  if (errorsBody.text) {
+    return fail(400, { errors: errorsBody, formId });
+  }
 
   const body = {
     fields: {
@@ -23,3 +32,7 @@ export async function submitFeedback(req: WrappedRequest) {
     formId,
   };
 };
+
+function missingError(field: string | undefined): string | null {
+  return field ? null : 'Required field';
+}

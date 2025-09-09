@@ -25,6 +25,7 @@
   let skaterNumbersCol2 = $derived(skaterNumbers.slice(skaterSplitCount));
 
   let modalState = $state(false);
+  let submitting = $state(false);
 
   function closeModal() {
     modalState = false;
@@ -70,54 +71,67 @@
       <div class="text-sm mt-2">
         If the number is already taken, submit a request anyways. If the skater is not active, we'll reach out to verify if they want to keep it.
       </div>
-      <form method="POST" action="?/requestnumber" use:enhance>
+      <form
+          method="POST"
+          action="?/requestnumber"
+          use:enhance={
+            () => {
+              submitting = true;
+              return async ({ update }) => {
+                await update();
+                submitting = false;
+              };
+            }
+          }
+      >
         <input type="hidden" name="formId" value="number-request" />
         <label class="label mt-4">
           <span class="label-text text-base">Derby name:</span>
+          {#if form?.formId === 'number-request' && form.errors?.name}
+            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
+          {/if}
           <input
               type="text"
               name="name"
               class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-              required
               maxlength=64
           />
         </label>
 
         <label class="label mt-4">
           <span class="label-text text-base mt-2">Number:</span>
+          {#if form?.formId === 'number-request' && form.errors?.number}
+            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
+          {/if}
           <input
               type="text"
               name="number"
               class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-              required
               maxlength=10
           />
         </label>
 
         <label class="label mt-4">
-          <span class="label-text text-base mt-2">Contact email (only stored until the request is processed):</span>
+          <span class="label-text text-base mt-2">Contact email:</span>
+          {#if form?.formId === 'number-request' && form.errors?.contact}
+            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
+          {/if}
           <input
               type="text"
               name="contact"
               class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-              required
               maxlength=128
           />
         </label>
 
         <div class="flex gap-2 mt-4">
-          <Button>Submit</Button>
+          <Button disabled={submitting}>Submit</Button>
           <Button clickAction={closeModal} justAButton>Cancel</Button>
           {@debug form}
           {#if form?.formId === 'number-request' && form?.success}
             <Check class="self-center size-7" color="green" />
             <span class="self-center text-sm font-semibold italic text-[var(--hover-color)]">
               Request submitted!
-            </span>
-          {:else if form?.formId === 'number-request' && form.errors?.number}
-            <X class="self-center size-7" color="red" />
-            <span class="self-center text-sm font-semibold italic text-[var(--hover-color)]">
-              {form.errors.number}
             </span>
           {/if}
         </div>

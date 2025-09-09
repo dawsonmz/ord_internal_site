@@ -13,6 +13,7 @@
   }
 
   let modalState = $state(false);
+  let submitting = $state(false);
 
   function closeModal() {
     modalState = false;
@@ -46,7 +47,19 @@
     <div class="text-sm mt-2">
       Your input is appreciated! If you provide contact information, I can follow up for clarification or notify you of any updates.
     </div>
-    <form method="POST" action="?/feedback" use:enhance>
+    <form
+        method="POST"
+        action="?/feedback"
+        use:enhance={
+          () => {
+            submitting = true;
+            return async ({ update }) => {
+              await update();
+              submitting = false;
+            };
+          }
+        }
+    >
       <input type="hidden" name="formId" value={formId} />
       <label class="label mt-4">
         <span class="label-text text-base">Name or contact (optional):</span>
@@ -61,16 +74,18 @@
 
       <label class="label mt-2">
         <span class="label-text text-base">Comment:</span>
+        {#if form?.formId === formId && form.errors?.text}
+          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.text}</span>
+        {/if}
         <textarea
             name="text"
             class="textarea resize-none text-sm bg-white dark:bg-[var(--dark-color)] py-2"
             rows=6
             maxlength=1024
-            required
         ></textarea>
       </label>
       <div class="flex gap-2 mt-4">
-        <Button>Submit</Button>
+        <Button disabled={submitting}>Submit</Button>
         <Button clickAction={closeModal} justAButton>Cancel</Button>
         {#if form?.formId === formId && form?.success}
           <Check class="self-center size-7" color="green" />
