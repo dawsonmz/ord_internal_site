@@ -69,7 +69,7 @@
         </div>
         <div class="flex mb-5">
           <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-          <FeedbackModal baseClasses="self-center text-sm ml-5" label="Feedback?" form={form} formId="sidebar" />
+          <FeedbackModal baseClasses="self-center text-sm ml-5" iconSize={5} label="Feedback?" form={form} formId="sidebar" />
         </div>
       {/snippet}
     </Modal>
