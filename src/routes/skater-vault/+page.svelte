@@ -3,6 +3,8 @@
   import { Modal } from '@skeletonlabs/skeleton-svelte';
   import { enhance } from '$app/forms';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
+  import AnimatedCheck from '$lib/components/animated_check.svelte';
+  import AnimatedMessage from '$lib/components/animated_message.svelte';
   import Button from '$lib/components/button.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
@@ -125,9 +127,11 @@
         </label>
 
         <div class="flex gap-2 mt-4">
-          <Button baseClasses="flex justify-center w-16" disabled={submitting}>
-            {#if form?.formId === 'number-request'  && form?.success}
-              <Check class="self-center size-5" color="green" />
+          <Button baseClasses="flex justify-center w-16 h-10" disabled={submitting}>
+            {#if submitting}
+              <AnimatedMessage />
+            {:else if form?.formId === 'number-request' && form?.success}
+              <AnimatedCheck color="green" />
             {:else}
               Submit
             {/if}

@@ -1,9 +1,12 @@
 <script lang="ts">
-  import { Check, MessageSquareShare } from '@lucide/svelte';
+  import { MessageSquareShare } from '@lucide/svelte';
   import { Modal } from '@skeletonlabs/skeleton-svelte';
   import { enhance } from '$app/forms';
   import { page } from '$app/state';
+  import AnimatedCheck from '$lib/components/animated_check.svelte';
+  import AnimatedMessage from '$lib/components/animated_message.svelte';
   import Button from '$lib/components/button.svelte';
+
 
   let { baseClasses="", label="", iconSize=5, context=null, form, formId="default" } = $props();
 
@@ -85,14 +88,16 @@
         ></textarea>
       </label>
       <div class="flex gap-2 mt-4">
-        <Button baseClasses="flex justify-center w-16" disabled={submitting}>
-          {#if form?.formId === formId && form?.success}
-            <Check class="self-center size-5" color="green" />
+        <Button baseClasses="flex justify-center w-16 h-10" disabled={submitting}>
+          {#if submitting}
+            <AnimatedMessage />
+          {:else if form?.formId === formId && form?.success}
+            <AnimatedCheck color="green" />
           {:else}
             Submit
           {/if}
         </Button>
-        <Button baseClasses="w-16" clickAction={closeModal} justAButton>Cancel</Button>
+        <Button baseClasses="w-16 h-10" clickAction={closeModal} justAButton>Cancel</Button>
       </div>
     </form>
   {/snippet}
