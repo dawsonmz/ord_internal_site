@@ -1,4 +1,3 @@
-import { fail } from "@sveltejs/kit";
 import { createDocument } from "$lib/server/firestore";
 import type { WrappedRequest } from "$lib/server/request";
 

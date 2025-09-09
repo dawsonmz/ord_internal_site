@@ -55,7 +55,7 @@
   <Modal
       open={modalState}
       onOpenChange={modalStateChange}
-      contentBase="rounded-md shadow-2xl w-screen sm:w-[480px] h-[450px] main-style p-6"
+      contentBase="rounded-md shadow-2xl w-screen sm:w-[480px] min-height main-style p-6"
       positionerJustify="justify-center"
       positionerAlign="items-center"
   >

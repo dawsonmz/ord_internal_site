@@ -33,7 +33,7 @@
     onOpenChange={modalStateChange}
     base={baseClasses}
     triggerBase="flex items-center link gap-2"
-    contentBase="rounded-md shadow-2xl w-screen sm:w-[480px] h-[520px] main-style p-6"
+    contentBase="rounded-md shadow-2xl w-screen sm:w-[480px] min-height main-style p-6"
     positionerJustify="justify-center"
     positionerAlign="items-center"
 >
@@ -55,7 +55,7 @@
 
       <label class="label mt-4">
         <span class="label-text text-base mt-2">Regarding:</span>
-        <input type="text" name="context-display" class="input text-sm py-2" value={context} disabled />
+        <div class="input text-sm py-2">{context}</div>
         <input type="hidden" name="context" value={context} />
       </label>
 
