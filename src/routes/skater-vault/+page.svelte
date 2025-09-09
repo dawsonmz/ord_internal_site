@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Check, MessageCircleQuestion, X } from '@lucide/svelte';
+  import { Check, MessageCircleQuestion } from '@lucide/svelte';
   import { Modal } from '@skeletonlabs/skeleton-svelte';
   import { enhance } from '$app/forms';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
@@ -125,15 +125,14 @@
         </label>
 
         <div class="flex gap-2 mt-4">
-          <Button disabled={submitting}>Submit</Button>
-          <Button clickAction={closeModal} justAButton>Cancel</Button>
-          {@debug form}
-          {#if form?.formId === 'number-request' && form?.success}
-            <Check class="self-center size-7" color="green" />
-            <span class="self-center text-sm font-semibold italic text-[var(--hover-color)]">
-              Request submitted!
-            </span>
-          {/if}
+          <Button baseClasses="flex justify-center w-16" disabled={submitting}>
+            {#if form?.formId === 'number-request'  && form?.success}
+              <Check class="self-center size-5" color="green" />
+            {:else}
+              Submit
+            {/if}
+          </Button>
+          <Button baseClasses="w-16" clickAction={closeModal} justAButton>Cancel</Button>
         </div>
       </form>
     {/snippet}
