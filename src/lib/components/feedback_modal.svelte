@@ -7,8 +7,7 @@
   import AnimatedMessage from '$lib/components/animated_message.svelte';
   import Button from '$lib/components/button.svelte';
 
-
-  let { baseClasses="", label="", iconSize=5, context=null, form, formId="default" } = $props();
+  let { baseClasses="", label="", context=null, form, formId="default" } = $props();
 
   const currentPage = page.url.pathname === '/' ? 'home' : page.url.pathname;
   if (context == null) {
@@ -43,7 +42,7 @@
 >
   {#snippet trigger()}
     {#if label}<span>{label}</span>{/if}
-    <MessageSquareShare class="size-{iconSize}" />
+    <MessageSquareShare class="size-6" />
   {/snippet}
   {#snippet content()}
     <div class="text-lg font-semibold">Feedback</div>

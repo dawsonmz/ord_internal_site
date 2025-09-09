@@ -34,7 +34,6 @@
         <span>{module.start_time}</span>
       {/if}
       <span class="badge badge-colors shadow-xs text-base px-2 py-0.5">{module.minutes} min</span>
-      <FeedbackModal iconSize={6} context="Module: {module.title}" form={form} formId="module-{index}" />
     </div>
     <Tabs value={tabStates[index]} onValueChange={(e) => (tabStates[index] = e.value)}>
       {#snippet list()}
@@ -45,6 +44,7 @@
         {#if module.resources}
           <Tabs.Control value="resources" disabled={!module.resources}><span class="text-sm">Resources</span></Tabs.Control>
         {/if}
+        <Tabs.Control value="feedback"><span class="text-sm">Feedback</span></Tabs.Control>
       {/snippet}
       {#snippet content()}
         <Tabs.Panel value="short">
@@ -84,6 +84,15 @@
             {/each}
           </Tabs.Panel>
         {/if}
+        <Tabs.Panel value="feedback">
+          <FeedbackModal
+              baseClasses="text-sm"
+              label="Give feedback on this module:"
+              context="Module: {module.title}"
+              form={form}
+              formId="module-{index}"
+          />
+        </Tabs.Panel>
       {/snippet}
     </Tabs>
   </div>

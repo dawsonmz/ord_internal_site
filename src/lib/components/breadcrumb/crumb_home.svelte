@@ -5,4 +5,4 @@
   let { baseClasses="" } = $props();
 </script>
 
-<CrumbLink href="/" baseClasses={baseClasses}><HouseIcon size=20 /></CrumbLink>
+<CrumbLink href="/" baseClasses={baseClasses}><HouseIcon size=22 /></CrumbLink>
