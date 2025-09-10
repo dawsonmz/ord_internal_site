@@ -2,7 +2,7 @@
   import ArrowRight from "@lucide/svelte/icons/arrow-right";
   import ExternalLink from "@lucide/svelte/icons/external-link";
 
-  let { title, subtitle="", description="", url, external=false } = $props();
+  let { title, subtitle="", description="", url, external=false, hiddenTag=false } = $props();
 </script>
 
 <a href="{url}"
@@ -26,6 +26,9 @@
       <ArrowRight class="inline size-5" />
     {/if}
     <div class="text-xl font-semibold">{title}</div>
+    {#if hiddenTag}
+      <div class="italic text-[var(--error-color)]">(hidden)</div>
+    {/if}
   </div>
   {#if subtitle}
     <div class="text-sm subheading mb-1">{subtitle}</div>

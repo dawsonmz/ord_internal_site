@@ -5,25 +5,39 @@
   import ModuleGroup from '$lib/components/module_group.svelte';
 
   let { data, form } = $props();
-  const trainingPlan = data.training_plan!;
+  const showHidden = page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true';
+  const hiddenQuery = showHidden ? '?show-hidden=true' : '';
 </script>
 
 <Crumb baseClasses="mx-8 mb-5">
   <CrumbHome />
   <CrumbSeparator />
-  <CrumbLink href="/beginner-plans">Beginner Plans</CrumbLink>
+  <CrumbLink href="/beginner-plans{hiddenQuery}">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  <CrumbLink href="/beginner-plans#{page.params.season}">{trainingPlan.season}</CrumbLink>
-  <CrumbSeparator />
-  <CrumbPage>{trainingPlan.training_label}</CrumbPage>
+  {#if data.training_plan}
+    <CrumbLink href="/beginner-plans{hiddenQuery}#{page.params.season}">{data.training_plan.season}</CrumbLink>
+    <CrumbSeparator />
+    <CrumbPage>{data.training_plan.training_label}</CrumbPage>
+  {:else}
+    <CrumbPage><span class="italic">Not found</span></CrumbPage>
+  {/if}
 </Crumb>
 
 <div class="flex flex-col gap-6 mx-8">
-  <div class="flex flex-col gap-2">
-    <div class="text-2xl font-semibold">Beginners Training {trainingPlan.training_label}</div>
-    <div class="text-base subheading">{trainingPlan.date_text}</div>
-    <div class="text-sm">{trainingPlan.summary}</div>
-    <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" form={form} formId="training-plan" />
-  </div>
-  <ModuleGroup modules={trainingPlan.modules} form={form} />
+  {#if data.training_plan}
+    <div class="flex flex-col gap-2">
+      <div class="flex gap-2 text-2xl">
+        <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
+        {#if !data.training_plan.visible}
+          <div class="italic text-[var(--error-color)]">(hidden)</div>
+        {/if}
+      </div>
+      <div class="text-base subheading">{data.training_plan.date_text}</div>
+      <div class="text-sm">{data.training_plan.summary}</div>
+      <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" form={form} formId="training-plan" />
+    </div>
+    <ModuleGroup modules={data.training_plan.modules} form={form} />
+  {:else}
+    Sorry, but the requested resource was not found.
+  {/if}
 </div>

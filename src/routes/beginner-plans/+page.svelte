@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
   import LinkCard from '$lib/components/link_card.svelte';
   import LinkCardGrid from '$lib/components/link_card_grid.svelte';
 
   let { data } = $props();
+  const showHidden = page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true';
 </script>
 
 <Crumb baseClasses="mx-8 mb-5">
@@ -23,7 +25,8 @@
           title="Training {plan.training_label}"
           subtitle={plan.date_text.valueOf()}
           description={plan.summary.valueOf()}
-          url="/beginner-plans/{season.slug}-{plan.slug}"
+          url="/beginner-plans/{season.slug}-{plan.slug}{showHidden ? '?show-hidden=true' : ''}"
+          hiddenTag={!plan.visible}
       />
     {/each}
   </LinkCardGrid>

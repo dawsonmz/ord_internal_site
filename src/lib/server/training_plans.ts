@@ -13,6 +13,7 @@ export interface TrainingPlanSummary {
   slug: String,
   date_time: Date,
   summary: String,
+  visible: Boolean,
 
   // Computed fields:
   date_text: String,
@@ -23,6 +24,7 @@ export interface TrainingPlan {
   season: String,
   date_time: Date,
   summary: String,
+  visible: Boolean,
   modules: Module[],
 
   // Computed fields:
@@ -30,18 +32,21 @@ export interface TrainingPlan {
 }
 
 /**
+ * @param showHidden If true, shows all training plans, including those not marked visible
  * @returns All seasons' names, slugs, and training plan summaries.
  */
-export async function loadSeasons(): Promise<Season[]> {
+export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
+  const visibleFilter = showHidden ? '' : '@->visible'
   const seasonData: Season[] = await sanityClient.option.fetch(
       `*[_type == "season"] | order(_createdAt desc) {
         name,
         "slug": slug.current,
-        training_plans[]-> {
+        training_plans[${visibleFilter}]-> {
           training_label,
           "slug": slug.current,
           date_time,
           summary,
+          visible,
         },
       }`
   );
@@ -61,17 +66,21 @@ export async function loadSeasons(): Promise<Season[]> {
 /**
  * @param seasonSlug Slug for the season being loaded, e.g. 'spring2025'
  * @param trainingSlug Slug for the training plan for the specific training being loaded, unique within the season
+ * @param showHidden If true, shows all training plans, including those not marked visible
  * @returns The training in the specified season with the specified training label
  */
-export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String): Promise<TrainingPlan> {
+export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String, showHidden: boolean): Promise<TrainingPlan> {
+  const visibleFilter = showHidden ? '' : '&& visible';
   const trainingPlanData: TrainingPlan[] = await sanityClient.option.fetch(
       `*[_type == "training_plan"
           && _id in *[_type == "season" && slug.current == $season].training_plans[]._ref
-          && slug.current == $training_label] {
+          && slug.current == $training_label
+          ${visibleFilter}] {
         training_label,
         "season": *[_type == "season" && slug.current == $season][0].name,
         date_time,
         summary,
+        visible,
         modules[]->,
       }`,
       {
