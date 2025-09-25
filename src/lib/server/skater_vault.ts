@@ -4,7 +4,7 @@ import { createDocument } from "$lib/server/firestore";
 import type { WrappedRequest } from "$lib/server/request";
 import { sanityClient } from "$lib/server/sanity";
 
-export interface SkaterNumber {
+interface SkaterNumber {
   skater_number: String,
   derby_name: String,
 
@@ -13,12 +13,15 @@ export interface SkaterNumber {
 }
 
 /**
- * @returns All skater numbers and derby names ordered in increasing order by number.
+ * @returns All skater numbers and derby names ordered in increasing order by number. Excludes those with temporary names.
  */
-export async function loadSkaterNumbers(): Promise<SkaterNumber[]> {
-  const skaterNumberData: SkaterNumber[] = await sanityClient.option.fetch(`*[_type == "skater_number"] | order(skater_number asc)`);
+export async function loadSkaterVault(): Promise<SkaterNumber[]> {
+  const skaterNumberData: SkaterNumber[] = await sanityClient.option.fetch(
+    `*[_type == "skater_number" && temporary == false] | order(skater_number asc)`
+  );
+
   if (!skaterNumberData) {
-    throw new InternalError("Failed to load training plan data.");
+    throw new InternalError("Failed to load skater vault data");
   }
 
   // For faster search on the skater vault page.
@@ -28,7 +31,7 @@ export async function loadSkaterNumbers(): Promise<SkaterNumber[]> {
 
 export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
   const data = await req.request.formData();
-  
+
   const formId = data.get('formId')?.toString();
   const name = data.get('name')?.toString().trim();
   const number = data.get('number')?.toString().trim();

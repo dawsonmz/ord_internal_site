@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { MessageSquareShare } from '@lucide/svelte';
   import FeedbackModal from '$lib/components/feedback_modal.svelte';
   import LinkCard from '$lib/components/link_card.svelte';
   import LinkCardGrid from '$lib/components/link_card_grid.svelte';

@@ -2,13 +2,13 @@ import { InternalError, NotFoundError } from "$lib/server/errors";
 import { sanityClient } from "$lib/server/sanity";
 import { type Module, processImageResources } from "$lib/server/modules";
 
-export interface Season {
+interface Season {
   name: String,
   slug: String,
   training_plans: TrainingPlanSummary[],
 }
 
-export interface TrainingPlanSummary {
+interface TrainingPlanSummary {
   training_label: String,
   slug: String,
   date_time: Date,
@@ -19,7 +19,7 @@ export interface TrainingPlanSummary {
   date_text: String,
 }
 
-export interface TrainingPlan {
+interface TrainingPlan {
   training_label: String,
   season: String,
   date_time: Date,

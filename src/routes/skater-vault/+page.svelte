@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Check, MessageCircleQuestion } from '@lucide/svelte';
+  import { MessageCircleQuestion } from '@lucide/svelte';
   import { Modal } from '@skeletonlabs/skeleton-svelte';
   import { enhance } from '$app/forms';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
