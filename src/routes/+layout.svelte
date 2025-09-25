@@ -52,6 +52,8 @@
           <div class="mx-5"><a class="link" href="/">Home</a></div>
 
           <div class="font-semibold text-xl">Team Resources</div>
+          <div class="mx-5"><a class="link" href="/roster-a-team">A Team Roster</a></div>
+          <div class="mx-5"><a class="link" href="/roster-b-team">B Team Roster</a></div>
           <div class="mx-5"><a class="link" href="/skater-vault">Skater Vault</a></div>
 
           <div class="font-semibold text-xl">Beginners</div>

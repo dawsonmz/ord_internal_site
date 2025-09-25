@@ -11,6 +11,16 @@
 
   <LinkCardGrid header="Team Resources">
     <LinkCard
+        title="A Team Roster"
+        description="View the current A Team roster."
+        url="/roster-a-team"
+    />
+    <LinkCard
+        title="B Team Roster"
+        description="View the current B Team roster."
+        url="/roster-b-team"
+    />
+    <LinkCard
         title="Skater Vault"
         description="View skater numbers and derby names currently registered with ORD."
         url="/skater-vault"
