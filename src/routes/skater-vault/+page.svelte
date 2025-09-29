@@ -9,12 +9,14 @@
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
   let { data, form } = $props();
+
+  // This is currently broken and needs to be revisited; not updating on input changes.
   let query = $state('');
+  let queryNormalized = $derived(query.toLowerCase().trim());
 
   let skaterNumbers = $derived(
     data.skater_numbers.filter(
         (skaterNumber) => {
-          const queryNormalized = query.toLowerCase().trim();
           return !queryNormalized
               || skaterNumber.skater_number.includes(queryNormalized)
               || skaterNumber.derby_name_lower.includes(queryNormalized);
@@ -142,7 +144,7 @@
     {/snippet}
   </Modal>
 
-  <input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />
+  <!--<input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />-->
   {#if skaterNumbers.length}
     <div class="sm:hidden">
       <SkaterNumberGroup skaterNumbers={skaterNumbers} />
