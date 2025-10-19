@@ -3,7 +3,7 @@
   import { page } from '$app/state';
   import FormDialog from '$lib/components/form_dialog.svelte';
 
-  let { label="", labelClasses="", iconSize=6, context=null, form, formId="default" } = $props();
+  let { label="", labelClasses="", wrapperClasses="", iconSize=6, context=null, form, formId="default" } = $props();
 
   const currentPage = page.url.pathname === '/' ? 'home' : page.url.pathname;
   if (context == null) {
@@ -11,7 +11,7 @@
   }
 </script>
 
-<FormDialog form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
+<FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
   {#snippet trigger()}
     <div class="flex items-center link gap-2">
       {#if label}<span class={labelClasses}>{label}</span>{/if}

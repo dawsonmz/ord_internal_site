@@ -14,7 +14,6 @@
 		"cf-typegen": "wrangler types ./src/worker-configuration.d.ts"
 	},
 	"devDependencies": {
-		"@cloudflare/workerd-windows-64": "^1.20251011.0",
 		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/adapter-cloudflare": "^7.2.3",
 		"@sveltejs/kit": "^2.16.0",

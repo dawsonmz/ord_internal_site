@@ -32,7 +32,6 @@
   <div class="text-sm">
     These are the skater numbers and derby names currently registered with ORD.
   </div>
-
   <FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
     {#snippet trigger()}
       <Button baseClasses="flex items-center gap-2" justAButton>
