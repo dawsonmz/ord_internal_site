@@ -34,7 +34,7 @@
       </div>
       <div class="text-base subheading">{data.training_plan.date_text}</div>
       <div class="text-sm">{data.training_plan.summary}</div>
-      <FeedbackDialog baseClasses="text-sm" label="Feedback on the training?" form={form} formId="training-plan" />
+      <FeedbackDialog label="Feedback on the training?" labelClasses="text-sm" form={form} formId="training-plan" />
     </div>
     <ModuleGroup modules={data.training_plan.modules} form={form} />
   {:else}
