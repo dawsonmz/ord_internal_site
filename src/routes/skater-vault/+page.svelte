@@ -1,26 +1,16 @@
 <script lang="ts">
   import { MessageCircleQuestion } from '@lucide/svelte';
-  import { Modal } from '@skeletonlabs/skeleton-svelte';
-  import { enhance } from '$app/forms';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
-  import AnimatedCheck from '$lib/components/animated_check.svelte';
-  import AnimatedDots from '$lib/components/animated_dots.svelte';
   import Button from '$lib/components/button.svelte';
+  import FormDialog from '$lib/components/form_dialog.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
   let { data, form } = $props();
 
-  // This is currently broken and needs to be revisited; not updating on input changes.
   let query = $state('');
-  let queryNormalized = $derived(query.toLowerCase().trim());
-
   let skaterNumbers = $derived(
     data.skater_numbers.filter(
-        (skaterNumber) => {
-          return !queryNormalized
-              || skaterNumber.skater_number.includes(queryNormalized)
-              || skaterNumber.derby_name_lower.includes(queryNormalized);
-        }
+        skaterNumber => skaterNumber.skater_number?.includes(query.trim()) || skaterNumber.derby_name_lower?.includes(query.trim())
     )
   );
 
@@ -28,21 +18,7 @@
   let skaterNumbersCol1 = $derived(skaterNumbers.slice(0, skaterSplitCount));
   let skaterNumbersCol2 = $derived(skaterNumbers.slice(skaterSplitCount));
 
-  let modalState = $state(false);
-  let submitting = $state(false);
-
-  function closeModal() {
-    modalState = false;
-    form = null;
-  }
-
-  function modalStateChange(e: any) {
-    if (e.open) {
-      modalState = true;
-    } else {
-      closeModal();
-    }
-  }
+  const formId = 'number-request';
 </script>
 
 <Crumb baseClasses="mx-8 mb-5">
@@ -56,95 +32,63 @@
   <div class="text-sm">
     These are the skater numbers and derby names currently registered with ORD.
   </div>
-  
-  <Modal
-      open={modalState}
-      onOpenChange={modalStateChange}
-      contentBase="rounded-md shadow-2xl w-screen sm:w-[480px] min-height main-style p-6"
-      positionerJustify="justify-center"
-      positionerAlign="items-center"
-  >
+
+  <FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
     {#snippet trigger()}
       <Button baseClasses="flex items-center gap-2" justAButton>
         <span>Register your derby name and number</span>
         <MessageCircleQuestion class="size-5" />
       </Button>
     {/snippet}
-    {#snippet content()}
+    {#snippet header()}
       <div class="text-lg font-semibold">Request Number</div>
       <div class="text-sm mt-2">
         If the number is already taken, submit a request anyways. If the skater is not active, we'll reach out to verify if they want to keep it.
       </div>
-      <form
-          method="POST"
-          action="?/requestnumber"
-          use:enhance={
-            () => {
-              submitting = true;
-              return async ({ update }) => {
-                await update();
-                submitting = false;
-              };
-            }
-          }
-      >
-        <input type="hidden" name="formId" value="number-request" />
-        <label class="label mt-4">
-          <span class="label-text text-base">Derby name:</span>
-          {#if form?.formId === 'number-request' && form.errors?.name}
-            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
-          {/if}
-          <input
-              type="text"
-              name="name"
-              class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-              maxlength=64
-          />
-        </label>
-
-        <label class="label mt-4">
-          <span class="label-text text-base mt-2">Number:</span>
-          {#if form?.formId === 'number-request' && form.errors?.number}
-            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
-          {/if}
-          <input
-              type="text"
-              name="number"
-              class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-              maxlength=10
-          />
-        </label>
-
-        <label class="label mt-4">
-          <span class="label-text text-base mt-2">Contact email:</span>
-          {#if form?.formId === 'number-request' && form.errors?.contact}
-            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
-          {/if}
-          <input
-              type="text"
-              name="contact"
-              class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-              maxlength=128
-          />
-        </label>
-
-        <div class="flex gap-2 mt-4">
-          <Button baseClasses="flex justify-center w-16 h-9" disabled={submitting}>
-            {#if submitting}
-              <AnimatedDots />
-            {:else if form?.formId === 'number-request' && form?.success}
-              <AnimatedCheck color="green" />
-            {:else}
-              Submit
-            {/if}
-          </Button>
-          <Button baseClasses="w-16 h-9" clickAction={closeModal} justAButton>Cancel</Button>
-        </div>
-      </form>
     {/snippet}
-  </Modal>
+    {#snippet formContent()}
+      <label class="label mt-4">
+        <span class="label-text text-base">Derby name:</span>
+        {#if form?.formId === formId && form.errors?.name}
+          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
+        {/if}
+        <input
+            type="text"
+            name="name"
+            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+            maxlength=64
+        />
+      </label>
 
-  <!--<input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />-->
+      <label class="label mt-4">
+        <span class="label-text text-base mt-2">Number:</span>
+        {#if form?.formId === formId && form.errors?.number}
+          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
+        {/if}
+        <input
+            type="text"
+            name="number"
+            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+            maxlength=10
+        />
+      </label>
+
+      <label class="label mt-4">
+        <span class="label-text text-base mt-2">Contact email:</span>
+        {#if form?.formId === formId && form.errors?.contact}
+          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
+        {/if}
+        <input
+            type="text"
+            name="contact"
+            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+            maxlength=128
+        />
+      </label>
+    {/snippet}
+  </FormDialog>
+
+  <input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />
   {#if skaterNumbers.length}
     <div class="sm:hidden">
       <SkaterNumberGroup skaterNumbers={skaterNumbers} />

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
-  import FeedbackModal from '$lib/components/feedback_modal.svelte';
+  import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import ModuleGroup from '$lib/components/module_group.svelte';
 
   let { data, form } = $props();
@@ -34,7 +34,7 @@
       </div>
       <div class="text-base subheading">{data.training_plan.date_text}</div>
       <div class="text-sm">{data.training_plan.summary}</div>
-      <FeedbackModal baseClasses="text-sm" label="Feedback on the training?" form={form} formId="training-plan" />
+      <FeedbackDialog baseClasses="text-sm" label="Feedback on the training?" form={form} formId="training-plan" />
     </div>
     <ModuleGroup modules={data.training_plan.modules} form={form} />
   {:else}

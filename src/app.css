@@ -16,17 +16,23 @@
 .main-style {
   background-color: var(--very-light-color);
   color: var(--dark-color);
+  border-color: var(--dark-color);
   font-family: "Open Sans", sans-serif;
 
   @media (prefers-color-scheme: dark) {
     background-color: var(--dark-color);
     color: var(--very-light-color);
+    border-color: var(--very-light-color);
   }
 }
 
 .menu-colors {
   background-color: var(--dark-color);
   color: var(--very-light-color);
+}
+
+.bg-faded {
+    background-color: color-mix(in oklab, light-dark(#FFFFFF, var(--dark-color)) 70%, transparent);
 }
 
 .badge-colors {

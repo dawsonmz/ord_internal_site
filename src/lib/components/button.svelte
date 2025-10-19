@@ -3,7 +3,7 @@
 </script>
 
 <button
-    class="border-1 
+    class="border-1
            border-[var(--light-color)]
            bg-[var(--light-color)]
            dark:bg-[var(--dark-color)]

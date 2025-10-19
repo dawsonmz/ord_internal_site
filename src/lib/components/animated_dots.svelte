@@ -30,9 +30,9 @@
     class="animated-dots"
     class:animate={true}
   >
-    <path class="dot dot1" d="M  7 10 h.01" />
-    <path class="dot dot2" d="M 12 10 h.01" />
-    <path class="dot dot3" d="M 17 10 h.01" />
+    <path class="dot dot1" d="M  7 12 h.01" />
+    <path class="dot dot2" d="M 12 12 h.01" />
+    <path class="dot dot3" d="M 17 12 h.01" />
   </svg>
 </div>
 

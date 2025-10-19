@@ -1,5 +1,5 @@
 <script lang="ts">
-  import FeedbackModal from '$lib/components/feedback_modal.svelte';
+  import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import LinkCard from '$lib/components/link_card.svelte';
   import LinkCardGrid from '$lib/components/link_card_grid.svelte';
 
@@ -54,7 +54,7 @@
     />
   </LinkCardGrid>
 
-  <FeedbackModal baseClasses="text-xl font-semibold" label="Submit feedback here!" form={form} />
+  <FeedbackDialog label="Submit feedback here!" labelClasses="text-xl font-semibold" form={form} />
 
-  <p>You can additionally submit feedback for any page by opening the menu and clicking on the feedback link at the bottom.</p>
+  <p>You can also submit feedback for any page by opening the menu and clicking on the feedback link at the bottom.</p>
 </div>
