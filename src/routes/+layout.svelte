@@ -87,7 +87,7 @@
               </div>
               <div class="flex mb-5">
                 <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-                <FeedbackDialog label="Feedback?" labelClasses="text-sm ml-5" wrapperClasses="self-center" iconSize={5} form={form} formId="sidebar" />
+                <FeedbackDialog label="Feedback?" labelClasses="text-sm" wrapperClasses="self-center ml-5" iconSize={5} form={form} formId="sidebar" />
               </div>
             </Dialog.Content>
           </Dialog.Positioner>
