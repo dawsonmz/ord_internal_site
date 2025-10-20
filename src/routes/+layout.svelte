@@ -86,7 +86,7 @@
                 </div>
               </div>
               <div class="flex mb-5">
-                <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
+                <img class="w-16 h-16 sm:w-24 sm:h-24" src={logo} alt="Oslo Roller Derby logo" />
                 <FeedbackDialog label="Feedback?" labelClasses="text-sm" wrapperClasses="self-center ml-5" iconSize={5} form={form} formId="sidebar" />
               </div>
             </Dialog.Content>
@@ -95,7 +95,9 @@
       </Dialog>
     </AppBar.Lead>
     <AppBar.Trail>
-      <a href="/"><img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" /></a>
+      <a href="/" class="invisible sm:visible">
+        <img class="w-16 h-16 sm:w-24 sm:h-24" src={logo} alt="Oslo Roller Derby logo" />
+      </a>
     </AppBar.Trail>
   </AppBar.Toolbar>
 </AppBar>
