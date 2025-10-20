@@ -1,5 +1,5 @@
 import { fail } from "@sveltejs/kit";
-import { createDocument } from "$lib/server/firestore";
+import { sendFeedbackNotification } from "$lib/server/emailer";
 import type { WrappedRequest } from "$lib/server/request";
 
 export async function submitFeedback(req: WrappedRequest) {
@@ -18,15 +18,7 @@ export async function submitFeedback(req: WrappedRequest) {
     return fail(400, { errors: errorsBody, formId });
   }
 
-  const body = {
-    fields: {
-      contact: { stringValue: contact },
-      context: { stringValue: context },
-      text: { stringValue: text },
-    },
-  };
-
-  await createDocument('feedback', body);
+  await sendFeedbackNotification(context!, text!, contact);  
   return {
     success: true,
     formId,

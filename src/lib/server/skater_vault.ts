@@ -1,6 +1,6 @@
 import { fail } from "@sveltejs/kit";
+import { sendNumberRequestNotification } from "$lib/server/emailer";
 import { InternalError } from "$lib/server/errors";
-import { createDocument } from "$lib/server/firestore";
 import type { WrappedRequest } from "$lib/server/request";
 import { sanityClient } from "$lib/server/sanity";
 
@@ -47,15 +47,7 @@ export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
     return fail(400, { errors: errorsBody, formId });
   }
 
-  const body = {
-    fields: {
-      name: { stringValue: name },
-      number: { stringValue: number },
-      contact: { stringValue: contact },
-    },
-  };
-
-  await createDocument('number-request', body);
+  await sendNumberRequestNotification(name!, number!, contact!);
   return {
     success: true,
     formId,
