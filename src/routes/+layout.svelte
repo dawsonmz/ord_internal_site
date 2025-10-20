@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css';
-  import { ChevronDown, ChevronUp, MenuIcon, XIcon, ExternalLink, UserCircle } from '@lucide/svelte';
+  import { EllipsisVertical, MenuIcon, XIcon, ExternalLink, UserCircle } from '@lucide/svelte';
   import { AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/state';
@@ -114,11 +114,7 @@
       <Dialog open={loginState} onOpenChange={e => loginState = e.open}>
         <Dialog.Trigger class="flex gap-1 menu-hover">
           <UserCircle class="size-8" />
-          {#if loginState}
-            <ChevronUp class="size-8" />
-          {:else}
-            <ChevronDown class="size-8" />
-          {/if}
+          <EllipsisVertical class="size-8" />
         </Dialog.Trigger>
         <Portal>
           <Dialog.Positioner class="fixed right-0 top-20 sm:top-28">
@@ -137,12 +133,10 @@
                        transition-discrete
                        duration-200
                        starting:data-[state=open]:opacity-0
-                       starting:data-[state=open]:-translate-y-full
-                       data-[state=open]:opacity-100
-                       data-[state=open]:translate-y-0"
+                       data-[state=open]:opacity-100"
             >
               <div class="font-semibold text-lg">Welcome</div>
-              <div class="text-md"><a class="link" href="/login">Log in / Sign up</a></div>
+              <a class="link" href="/login">Log in / Sign up</a>
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>
