@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css';
-  import { MenuIcon, XIcon, ExternalLink } from '@lucide/svelte';
+  import { ChevronDown, ChevronUp, MenuIcon, XIcon, ExternalLink, UserCircle } from '@lucide/svelte';
   import { AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/state';
@@ -9,20 +9,30 @@
   
   let { children } = $props();
   let drawerState = $state(false);
+  let loginState = $state(false);
   let form = $derived(page.form);
 
   function closeDrawer() {
     drawerState = false;
   }
 
-  afterNavigate(() => closeDrawer());
+  function closeLogin() {
+    loginState = false;
+  }
+
+  afterNavigate(
+      () => {
+        closeDrawer();
+        closeLogin();
+      }
+  );
 </script>
 
 <AppBar>
-  <AppBar.Toolbar class="menu-colors flex justify-between items-center px-6 py-2 mb-5">
-    <AppBar.Lead class="h-[24px]">
+  <AppBar.Toolbar class="menu-colors flex justify-between items-center px-4 py-2 mb-5">
+    <AppBar.Lead>
       <Dialog open={drawerState} onOpenChange={e => drawerState = e.open}>
-        <Dialog.Trigger class="flex items-center gap-3 link">
+        <Dialog.Trigger class="flex items-center gap-2 menu-hover">
           <MenuIcon aria-label="open navigation menu" />
           <span class="text-lg">Menu</span>
         </Dialog.Trigger>
@@ -40,7 +50,6 @@
           <Dialog.Positioner class="fixed inset-0">
             <Dialog.Content
                 class="menu-colors
-                       sm:dark:border-r-[1px]
                        flex
                        flex-col
                        justify-between
@@ -57,15 +66,17 @@
                        data-[state=open]:translate-x-0"
             >
               <div class="flex flex-col gap-4">
-                <Dialog.CloseTrigger class="mt-5 mb-8">
-                  <button type="button" class="flex items-center gap-1 link">
+                <!-- Wrapper div around CloseTrigger is needed to prevent it from spanning the entire width. -->
+                <div class="my-2">
+                  <Dialog.CloseTrigger class="flex items-center gap-1 menu-hover">
                     <XIcon aria-label="close navigation menu" />
                     <span class="text-lg">Close</span>
-                  </button>
-                </Dialog.CloseTrigger>
+                  </Dialog.CloseTrigger>
+                </div>
 
                 <div class="font-semibold text-xl">General</div>
                 <div class="mx-5"><a class="link" href="/">Home</a></div>
+                <div class="mx-5"><a class="link" href="/login">Log in / Sign up</a></div>
 
                 <div class="font-semibold text-xl">Team Resources</div>
                 <div class="mx-5"><a class="link" href="/roster-a-team">A Team Roster</a></div>
@@ -86,7 +97,7 @@
                 </div>
               </div>
               <div class="flex mb-5">
-                <img class="w-16 h-16 sm:w-24 sm:h-24" src={logo} alt="Oslo Roller Derby logo" />
+                <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
                 <FeedbackDialog label="Feedback?" labelClasses="text-sm" wrapperClasses="self-center ml-5" iconSize={5} form={form} formId="sidebar" />
               </div>
             </Dialog.Content>
@@ -94,10 +105,48 @@
         </Portal>
       </Dialog>
     </AppBar.Lead>
-    <AppBar.Trail>
+    <AppBar.Headline>
       <a href="/" class="invisible sm:visible">
         <img class="w-16 h-16 sm:w-24 sm:h-24" src={logo} alt="Oslo Roller Derby logo" />
       </a>
+    </AppBar.Headline>
+    <AppBar.Trail>
+      <Dialog open={loginState} onOpenChange={e => loginState = e.open}>
+        <Dialog.Trigger class="flex gap-1 menu-hover">
+          <UserCircle class="size-8" />
+          {#if loginState}
+            <ChevronUp class="size-8" />
+          {:else}
+            <ChevronDown class="size-8" />
+          {/if}
+        </Dialog.Trigger>
+        <Portal>
+          <Dialog.Positioner class="fixed right-0 top-20 sm:top-28">
+            <Dialog.Content
+                class="menu-colors
+                       rounded-b-md
+                       flex
+                       flex-col
+                       justify-center
+                       gap-4
+                       min-width
+                       min-height
+                       px-8
+                       py-5
+                       transition
+                       transition-discrete
+                       duration-200
+                       starting:data-[state=open]:opacity-0
+                       starting:data-[state=open]:-translate-y-full
+                       data-[state=open]:opacity-100
+                       data-[state=open]:translate-y-0"
+            >
+              <div class="font-semibold text-lg">Welcome</div>
+              <div class="text-md"><a class="link" href="/login">Log in / Sign up</a></div>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Portal>
+      </Dialog>
     </AppBar.Trail>
   </AppBar.Toolbar>
 </AppBar>
