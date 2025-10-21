@@ -1,6 +1,6 @@
 <script lang="ts">
   import { MessageCircleQuestion } from '@lucide/svelte';
-  import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
+  import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import Button from '$lib/components/button.svelte';
   import FormDialog from '$lib/components/form_dialog.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';

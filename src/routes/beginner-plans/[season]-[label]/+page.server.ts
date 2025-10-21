@@ -1,7 +1,7 @@
-import type { Actions } from "./$types";
-import { NotFoundError } from "$lib/server/errors.js";
-import { submitFeedback } from "$lib/server/feedback";
-import { loadTrainingPlan } from "$lib/server/training_plans";
+import type { Actions } from './$types';
+import { NotFoundError } from '$lib/server/errors.js';
+import { submitFeedback } from '$lib/server/feedback';
+import { loadTrainingPlan } from '$lib/server/training_plans';
 
 export async function load({ url, params }) {
   const showHiddenParam = url.searchParams.get('show-hidden')?.trim().toLowerCase();

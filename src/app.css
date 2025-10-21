@@ -13,6 +13,7 @@
   --semi-dark-color: #38352C;
   --hover-color: #FF8133;
   --error-color: #DD0000;
+  --faded-backdrop-color: color-mix(in oklab, var(--dark-color) 50%, transparent);
 }
 
 .main-style {
@@ -62,10 +63,6 @@
 @property --tw-duration {
     syntax: "*";
     inherits: false;
-}
-
-.bg-faded {
-    background-color: color-mix(in oklab, light-dark(#FFFFFF, var(--dark-color)) 70%, transparent);
 }
 
 .badge-colors {

@@ -1,6 +1,6 @@
-import type { Actions } from "./$types";
-import { submitFeedback } from "$lib/server/feedback";
-import { loadModulesInCategory } from "$lib/server/modules";
+import type { Actions } from './$types';
+import { submitFeedback } from '$lib/server/feedback';
+import { loadModulesInCategory } from '$lib/server/modules';
 
 export async function load({ params }) {
   const modules = await loadModulesInCategory(params.category);
@@ -10,7 +10,7 @@ export async function load({ params }) {
 
   return {
     status: 404,
-    body: "No modules in the specified category were found",
+    body: 'No modules in the specified category were found',
   };
 }
 

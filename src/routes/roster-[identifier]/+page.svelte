@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
+  import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
   let { data } = $props();

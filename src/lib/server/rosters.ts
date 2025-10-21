@@ -1,5 +1,5 @@
-import { InternalError, NotFoundError } from "$lib/server/errors";
-import { sanityClient } from "$lib/server/sanity";
+import { InternalError, NotFoundError } from '$lib/server/errors';
+import { sanityClient } from '$lib/server/sanity';
 
 interface Roster {
   name: String,

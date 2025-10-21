@@ -1,6 +1,6 @@
-import imageUrlBuilder from "@sanity/image-url";
-import { InternalError } from "$lib/server/errors";
-import { sanityClient } from "$lib/server/sanity";
+import imageUrlBuilder from '@sanity/image-url';
+import { InternalError } from '$lib/server/errors';
+import { sanityClient } from '$lib/server/sanity';
 
 export interface ModuleCategory {
   name: String,
@@ -50,7 +50,7 @@ export async function loadModuleCategories(): Promise<ModuleCategory[]> {
   if (moduleCategoryData) {
     return moduleCategoryData;
   } else {
-    throw new InternalError("Failed to load module category data");
+    throw new InternalError('Failed to load module category data');
   }
 }
 
@@ -71,9 +71,9 @@ export async function loadModulesInCategory(categorySlug: String): Promise<Modul
   );
 
   if (!moduleData) {
-    throw new InternalError("Failed to load module data.");
+    throw new InternalError('Failed to load module data.');
   } else if (moduleData.length > 1) {
-    throw new InternalError("More than one module category found.");
+    throw new InternalError('More than one module category found.');
   }
 
   const modulesInCategory = moduleData[0];

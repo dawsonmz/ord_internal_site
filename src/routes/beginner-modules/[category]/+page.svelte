@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from "$lib/components/breadcrumb/index.js";
+  import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import ModuleGroup from '$lib/components/module_group.svelte';
 
   let { data, form } = $props();

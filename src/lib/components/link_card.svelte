@@ -1,8 +1,8 @@
 <script lang="ts">
-  import ArrowRight from "@lucide/svelte/icons/arrow-right";
-  import ExternalLink from "@lucide/svelte/icons/external-link";
+  import ArrowRight from '@lucide/svelte/icons/arrow-right';
+  import ExternalLink from '@lucide/svelte/icons/external-link';
 
-  let { title, subtitle="", description="", url, external=false, hiddenTag=false } = $props();
+  let { title, subtitle='', description='', url, external=false, hiddenTag=false } = $props();
 </script>
 
 <a href="{url}"

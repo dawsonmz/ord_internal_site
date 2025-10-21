@@ -35,7 +35,7 @@
       <Dialog.Backdrop
           class="fixed
                 inset-0
-                bg-faded
+                bg-[var(--faded-backdrop-color)]
                 transition
                 transition-discrete
                 duration-200
@@ -77,7 +77,7 @@
             <input type="hidden" name="formId" value={formId} />
             {@render formContent()}
             <div class="flex gap-2 mt-4">
-              <Button baseClasses="flex justify-center items-center w-16 h-9" disabled={submitting}>
+              <Button baseClasses="flex justify-center items-center w-18 h-9" disabled={submitting}>
                 {#if submitting}
                   <AnimatedDots />
                 {:else if form?.formId === formId && form?.success}
@@ -86,7 +86,7 @@
                   Submit
                 {/if}
               </Button>
-              <Button baseClasses="flex justify-center items-center w-16 h-9" clickAction={closeDialog} justAButton>Cancel</Button>
+              <Button baseClasses="flex justify-center items-center w-18 h-9" clickAction={closeDialog} justAButton>Cancel</Button>
             </div>
           </form>
         </Dialog.Content>

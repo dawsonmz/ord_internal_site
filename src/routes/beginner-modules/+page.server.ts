@@ -1,6 +1,6 @@
-import type { Actions } from "./$types";
-import { submitFeedback } from "$lib/server/feedback";
-import { loadModuleCategories } from "$lib/server/modules";
+import type { Actions } from './$types';
+import { submitFeedback } from '$lib/server/feedback';
+import { loadModuleCategories } from '$lib/server/modules';
 
 export async function load() {
   return {

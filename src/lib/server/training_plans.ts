@@ -1,6 +1,6 @@
-import { InternalError, NotFoundError } from "$lib/server/errors";
-import { sanityClient } from "$lib/server/sanity";
-import { type Module, processImageResources } from "$lib/server/modules";
+import { InternalError, NotFoundError } from '$lib/server/errors';
+import { type Module, processImageResources } from '$lib/server/modules';
+import { sanityClient } from '$lib/server/sanity';
 
 interface Season {
   name: String,
@@ -59,7 +59,7 @@ export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
     );
     return seasons;
   } else {
-    throw new InternalError("Failed to load season data");
+    throw new InternalError('Failed to load season data');
   }
 }
 
@@ -90,9 +90,9 @@ export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String,
   );
 
   if (!trainingPlanData) {
-    throw new NotFoundError("Training plan not found");
+    throw new NotFoundError('Training plan not found');
   } else if (trainingPlanData.length > 1) {
-    throw new InternalError("More than one training plan found.");
+    throw new InternalError('More than one training plan found.');
   }
 
   const trainingPlan = trainingPlanData[0];
@@ -113,18 +113,18 @@ export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String,
 function formatDateText(date: Date): String {
   // Using en-GB formatting for English day-of-week and month names.
   const weekday = date.toLocaleDateString(
-      "en-GB",
+      'en-GB',
       {
-        timeZone: "Europe/Oslo",
-        weekday: "long",
+        timeZone: 'Europe/Oslo',
+        weekday: 'long',
       }
   );
   const day = date.toLocaleDateString(
-      "en-GB",
+      'en-GB',
       {
-        timeZone: "Europe/Oslo",
-        day: "numeric",
-        month: "long",
+        timeZone: 'Europe/Oslo',
+        day: 'numeric',
+        month: 'long',
       },
   );
   return `${weekday}, ${day}`;
@@ -132,10 +132,10 @@ function formatDateText(date: Date): String {
 
 function formatTimeText(date: Date): String {
   return date.toLocaleTimeString(
-      "en-GB",
+      'en-GB',
       {
-        timeStyle: "short",
-        timeZone: "Europe/Oslo",
+        timeStyle: 'short',
+        timeZone: 'Europe/Oslo',
       }
   );
 }

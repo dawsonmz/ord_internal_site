@@ -1,8 +1,8 @@
-import { fail } from "@sveltejs/kit";
-import { sendNumberRequestNotification } from "$lib/server/emailer";
-import { InternalError } from "$lib/server/errors";
-import type { WrappedRequest } from "$lib/server/request";
-import { sanityClient } from "$lib/server/sanity";
+import { fail } from '@sveltejs/kit';
+import { sendNumberRequestNotification } from '$lib/server/emailer';
+import { InternalError } from '$lib/server/errors';
+import type { WrappedRequest } from '$lib/server/request';
+import { sanityClient } from '$lib/server/sanity';
 
 interface SkaterNumber {
   skater_number: String,
@@ -21,7 +21,7 @@ export async function loadSkaterVault(): Promise<SkaterNumber[]> {
   );
 
   if (!skaterNumberData) {
-    throw new InternalError("Failed to load skater vault data");
+    throw new InternalError('Failed to load skater vault data');
   }
 
   // For faster search on the skater vault page.

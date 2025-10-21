@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index.js';
+  import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
 </script>
 
 <Crumb baseClasses="mx-8 mb-5">
