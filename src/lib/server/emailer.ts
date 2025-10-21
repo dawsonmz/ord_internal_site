@@ -3,7 +3,7 @@ import sanitizeHtml from 'sanitize-html';
 import { env } from '$env/dynamic/private';
 
 const notificationsAddress = 'notifications@oslorollerderby.com';
-const notificationEmailer = new Resend(env.RESEND_API_KEY);
+var notificationEmailer: Resend | null = null;
 
 export async function sendFeedbackNotification(context: string, text: string, contact: string | undefined) {
   await sendNotification(
@@ -22,7 +22,7 @@ export async function sendNumberRequestNotification(name: string, number: string
 
 async function sendNotification(subject: string, html: string) {
   try {
-    const { error } = await notificationEmailer.emails.send(
+    const { error } = await getNotificationEmailer().emails.send(
         {
           from: notificationsAddress,
           to: [env.NOTIFICATION_RECIPIENT],
@@ -37,4 +37,11 @@ async function sendNotification(subject: string, html: string) {
   } catch (error) {
     throw new Error(`Resend error: ${error}`);
   }
+}
+
+function getNotificationEmailer() {
+  if (notificationEmailer == null) {
+    notificationEmailer = new Resend(env.RESEND_API_KEY);
+  }
+  return notificationEmailer;
 }
