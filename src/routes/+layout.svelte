@@ -56,7 +56,9 @@
                        w-screen
                        sm:w-[400px]
                        h-screen
-                       p-6
+                       px-4
+                       py-2
+                       sm:py-6
                        transition
                        transition-discrete
                        duration-200
@@ -74,31 +76,31 @@
                   </Dialog.CloseTrigger>
                 </div>
 
-                <div class="font-semibold text-xl">General</div>
-                <div class="mx-5"><a class="link" href="/">Home</a></div>
-                <div class="mx-5"><a class="link" href="/login">Log in / Sign up</a></div>
+                <div class="font-semibold text-xl ml-2">General</div>
+                <div class="ml-8"><a class="link" href="/">Home</a></div>
+                <div class="ml-8"><a class="link" href="/login">Log in / Sign up</a></div>
 
-                <div class="font-semibold text-xl">Team Resources</div>
-                <div class="mx-5"><a class="link" href="/roster-a-team">A Team Roster</a></div>
-                <div class="mx-5"><a class="link" href="/roster-b-team">B Team Roster</a></div>
-                <div class="mx-5"><a class="link" href="/skater-vault">Skater Vault</a></div>
+                <div class="font-semibold text-xl ml-2">Team Resources</div>
+                <div class="ml-8"><a class="link" href="/roster-a-team">A Team Roster</a></div>
+                <div class="ml-8"><a class="link" href="/roster-b-team">B Team Roster</a></div>
+                <div class="ml-8"><a class="link" href="/skater-vault">Skater Vault</a></div>
 
-                <div class="font-semibold text-xl">Beginners</div>
-                <div class="mx-5"><a class="link" href="/beginner-plans">Training Plans</a></div>
-                <div class="mx-5"><a class="link" href="/beginner-modules">Modules</a></div>
-                <div class="mx-5"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
+                <div class="font-semibold text-xl ml-2">Beginners</div>
+                <div class="ml-8"><a class="link" href="/beginner-plans">Training Plans</a></div>
+                <div class="ml-8"><a class="link" href="/beginner-modules">Modules</a></div>
+                <div class="ml-8"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
 
-                <div class="font-semibold text-xl">Other Resources</div>
-                <div class="mx-5">
+                <div class="font-semibold text-xl ml-2">Other Resources</div>
+                <div class="ml-8">
                   <a class="flex link justify-items-center" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
                     <span class="mr-1">Mitt Varsel</span>
                     <ExternalLink class="inline size-5" />
                   </a>
                 </div>
               </div>
-              <div class="flex mb-5">
-                <img class="w-24 h-24" src={logo} alt="Oslo Roller Derby logo" />
-                <FeedbackDialog label="Feedback?" labelClasses="text-sm" wrapperClasses="self-center ml-5" iconSize={5} form={form} formId="sidebar" />
+              <div class="flex ml-2 mb-5">
+                <img class="w-24 h-24 max-sm:hidden" src={logo} alt="Oslo Roller Derby logo" />
+                <FeedbackDialog label="Feedback?" labelClasses="text-sm" wrapperClasses="self-center sm:ml-5" iconSize={5} form={form} formId="sidebar" />
               </div>
             </Dialog.Content>
           </Dialog.Positioner>
