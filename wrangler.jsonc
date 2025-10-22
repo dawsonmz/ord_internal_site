@@ -32,7 +32,10 @@
 	 * Environment Variables
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
-	// "vars": { "MY_VARIABLE": "production_value" }
+	"vars": {
+		"NOTIFICATION_RECIPIENT": "dawson.m.zhou@gmail.com",
+		"PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsub3Nsb3JvbGxlcmRlcmJ5LmNvbSQ",
+	},
 	/**
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
