@@ -41,7 +41,7 @@
     }}
 >
   <AppBar>
-    <AppBar.Toolbar class="menu-colors flex justify-between px-4 py-2 mb-5">
+    <AppBar.Toolbar class="menu-colors flex justify-between px-4 sm:px-8 py-2 mb-5">
       <AppBar.Lead class="flex items-center">
         <Dialog open={drawerState} onOpenChange={e => drawerState = e.open}>
           <Dialog.Trigger class="flex items-center gap-2 menu-hover">
@@ -64,7 +64,7 @@
                   class="menu-colors
                         flex
                         flex-col
-                        justify-between
+                        sm:justify-between
                         w-screen
                         sm:w-[400px]
                         h-screen
@@ -79,39 +79,44 @@
                         data-[state=open]:opacity-100
                         data-[state=open]:translate-x-0"
               >
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 sm:ml-4 mt-2">
                   <!-- Wrapper div around CloseTrigger is needed to prevent it from spanning the entire width. -->
-                  <div class="my-2">
+                  <div>
                     <Dialog.CloseTrigger class="flex items-center gap-1 menu-hover">
                       <XIcon aria-label="close navigation menu" />
                       <span class="text-lg">Close</span>
                     </Dialog.CloseTrigger>
                   </div>
 
-                  <div class="font-semibold text-xl ml-2">General</div>
-                  <div class="ml-8"><a class="link" href="/">Home</a></div>
+                  <div class="flex flex-col gap-4 ml-4 sm:ml-2">
+                    <div class="font-semibold text-xl">General</div>
+                    <div class="ml-6"><a class="link" href="/">Home</a></div>
 
-                  <div class="font-semibold text-xl ml-2">Team Resources</div>
-                  <div class="ml-8"><a class="link" href="/roster-a-team">A Team Roster</a></div>
-                  <div class="ml-8"><a class="link" href="/roster-b-team">B Team Roster</a></div>
-                  <div class="ml-8"><a class="link" href="/skater-vault">Skater Vault</a></div>
+                    <div class="font-semibold text-xl">Team Resources</div>
+                    <div class="ml-6"><a class="link" href="/roster-a-team">A Team Roster</a></div>
+                    <div class="ml-6"><a class="link" href="/roster-b-team">B Team Roster</a></div>
+                    <div class="ml-6"><a class="link" href="/skater-vault">Skater Vault</a></div>
 
-                  <div class="font-semibold text-xl ml-2">Beginners</div>
-                  <div class="ml-8"><a class="link" href="/beginner-plans">Training Plans</a></div>
-                  <div class="ml-8"><a class="link" href="/beginner-modules">Modules</a></div>
-                  <div class="ml-8"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
+                    <div class="font-semibold text-xl">Beginners</div>
+                    <div class="ml-6"><a class="link" href="/beginner-plans">Training Plans</a></div>
+                    <div class="ml-6"><a class="link" href="/beginner-modules">Modules</a></div>
+                    <div class="ml-6"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
 
-                  <div class="font-semibold text-xl ml-2">Other Resources</div>
-                  <div class="ml-8">
-                    <a class="flex link justify-items-center" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
-                      <span class="mr-1">Mitt Varsel</span>
-                      <ExternalLink class="inline size-5" />
-                    </a>
-                  </div>
+                    <div class="font-semibold text-xl">Other Resources</div>
+                    <div class="ml-6">
+                      <a class="flex link justify-items-center" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
+                        <span class="mr-1">Mitt Varsel</span>
+                        <ExternalLink class="inline size-5" />
+                      </a>
+                    </div>
+                    <div class="text-md ml-6">
+                      <FeedbackDialog label="Give Feedback" wrapperClasses="self-center" iconSize={5} form={form} formId="sidebar" />
+                    </div>
+                  </div>  
                 </div>
-                <div class="flex ml-2 mb-5">
-                  <img class="w-24 h-24 max-sm:hidden" src={logo} alt="Oslo Roller Derby logo" />
-                  <FeedbackDialog label="Feedback?" labelClasses="text-sm" wrapperClasses="self-center sm:ml-5" iconSize={5} form={form} formId="sidebar" />
+
+                <div class="flex ml-6 mb-8 max-sm:hidden">
+                  <img class="w-32 h-32" src={logo} alt="Oslo Roller Derby logo" />
                 </div>
               </Dialog.Content>
             </Dialog.Positioner>

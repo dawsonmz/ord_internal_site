@@ -54,7 +54,8 @@
     />
   </LinkCardGrid>
 
-  <FeedbackDialog label="Submit feedback here!" labelClasses="text-xl font-semibold" form={form} />
-
-  <p>You can also submit feedback for any page by opening the menu and clicking on the feedback link at the bottom.</p>
+  <FeedbackDialog label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
+  <p>
+    You can also submit feedback for a specific page by selecting the <strong>Give Feedback</strong> option from the menu.
+  </p>
 </div>
