@@ -6,27 +6,11 @@
 </script>
 
 <div class="flex items-center gap-2">
-  <a href={url}
-     target={external ? '_blank' : null}
-     class="flex
-            items-center
-            w-[170px]
-            rounded-sm
-            gap-2
-            px-2
-            py-1
-            transition-colors
-            ease-[cubic-bezier(0,0,0.2,1)]
-            duration-200
-            hover:bg-[var(--light-color)]
-            hover:text-[var(--dark-color)]
-            dark:hover:text-[var(--dark-color)]
-            hover:shadow-sm"
-  >
+  <a href={url} target={external ? '_blank' : null} class="flex items-center w-[170px] gap-2 link-hover">
     {#if external}
-      <ExternalLink size={20} />
+      <ExternalLink size=20 />
     {:else}
-      <ArrowRight size={20} />
+      <ArrowRight size=20 />
     {/if}
     <div class="text-lg">
       {@render text()}
@@ -35,7 +19,7 @@
   {#if description}
     <Popover>
       <Popover.Trigger>
-          <Info class="hover:text-[var(--hover-color)] active:text-[var(--hover-color)]" size={16} />
+          <Info class="hover:text-[var(--hover-color)] active:text-[var(--hover-color)]" size=16 />
       </Popover.Trigger>
       <Portal>
         <Popover.Positioner>

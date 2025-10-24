@@ -146,7 +146,7 @@
         <SignedOut>
           <SignInButton>
             <div class="w-[52px] h-[52px] menu-hover">
-              <UserCircle size={28} />
+              <UserCircle size=28 />
             </div>
           </SignInButton>
         </SignedOut>

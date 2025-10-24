@@ -13,23 +13,7 @@
 
 <FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
   {#snippet trigger()}
-    <div
-        class="flex
-               items-center
-               rounded-sm
-               gap-2
-               px-2
-               py-1
-               -ml-2
-               transition-colors
-               ease-[cubic-bezier(0,0,0.2,1)]
-               duration-200
-               hover:bg-[var(--light-color)]
-               hover:text-[var(--dark-color)]
-               dark:hover:text-[var(--dark-color)]
-               hover:shadow-sm
-               {baseClasses}"
-    >
+    <div class="flex items-center gap-2 link-hover {baseClasses}">
       <MessageSquareShare size={iconSize} />
       {#if label}<span class={labelClasses}>{label}</span>{/if}
     </div>

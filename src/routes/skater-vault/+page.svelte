@@ -33,22 +33,8 @@
   </div>
   <FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
     {#snippet trigger()}
-      <div
-          class="flex
-                 items-center
-                 rounded-sm
-                 gap-2
-                 px-2
-                 py-1
-                 -ml-2
-                 transition-colors
-                 ease-[cubic-bezier(0,0,0.2,1)]
-                 duration-200
-                 hover:bg-[var(--light-color)]
-                 dark:hover:text-[var(--dark-color)]
-                 hover:shadow-sm"
-      >
-        <MessageSquareShare size={25} />
+      <div class="flex items-center gap-2 link-hover">
+        <MessageSquareShare size=24 />
         <div class="text-md font-semibold">
           Register your derby name and number
         </div>
