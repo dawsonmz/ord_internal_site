@@ -11,7 +11,7 @@
 
   <div class="flex max-sm:flex-col max-sm:gap-6">
     <PageLinkGroup header="Team Resources">
-      <PageLink url="/roster-a-team" width={168}>
+      <PageLink url="/roster-a-team">
         {#snippet text()}
           A Team Roster
         {/snippet}
@@ -19,7 +19,7 @@
           View the current A Team roster, including blocker lines, jammers, and bench crew.
         {/snippet}
       </PageLink>
-      <PageLink url="/roster-b-team" width={168}>
+      <PageLink url="/roster-b-team">
         {#snippet text()}
           B Team Roster
         {/snippet}
@@ -27,7 +27,7 @@
           View the current B Team roster, including blocker lines, jammers, and bench crew.
         {/snippet}
       </PageLink>
-      <PageLink url="/skater-vault" width={168}>
+      <PageLink url="/skater-vault">
         {#snippet text()}
           Skater Vault
         {/snippet}
@@ -38,7 +38,7 @@
     </PageLinkGroup>
 
     <PageLinkGroup header="Beginners">
-      <PageLink url="/beginner-plans" width={168}>
+      <PageLink url="/beginner-plans">
         {#snippet text()}
           Training Plans
         {/snippet}
@@ -46,7 +46,7 @@
           View training plans for the ORD beginners course.
         {/snippet}
       </PageLink>
-      <PageLink url="/beginner-modules" width={168}>
+      <PageLink url="/beginner-modules">
         {#snippet text()}
           Modules
         {/snippet}
@@ -54,7 +54,7 @@
           View the individual drills used to assemble beginners training plans.
         {/snippet}
       </PageLink>
-      <PageLink url="/beginner-skills" width={168}>
+      <PageLink url="/beginner-skills">
         {#snippet text()}
           Skills Tracking
         {/snippet}
@@ -67,7 +67,7 @@
 
   <div class="flex max-sm:flex-col max-sm:gap-6">
     <PageLinkGroup header="Other Resources">
-      <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external width={168}>
+      <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external>
         {#snippet text()}
           Mitt Varsel
         {/snippet}

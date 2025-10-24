@@ -1,10 +1,8 @@
 <script lang="ts">
   import { ArrowRight, ExternalLink, Info } from '@lucide/svelte/icons';
-  import { Portal, Tooltip } from '@skeletonlabs/skeleton-svelte';
+  import { Popover, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  let { url, external=false, width=null, text, description=null } = $props();
-
-  const widthClass = width ? `w-[${width}px]` : '';
+  let { url, external=false, text, description=null } = $props();
 </script>
 
 <div class="flex items-center gap-2">
@@ -12,7 +10,7 @@
      target={external ? '_blank' : null}
      class="flex
             items-center
-            {widthClass}
+            w-[170px]
             rounded-sm
             gap-2
             px-2
@@ -35,15 +33,17 @@
     </div>
   </a>
   {#if description}
-    <Tooltip>
-      <Tooltip.Trigger><Info size={16} /></Tooltip.Trigger>
+    <Popover>
+      <Popover.Trigger>
+          <Info class="hover:text-[var(--hover-color)] active:text-[var(--hover-color)]" size={16} />
+      </Popover.Trigger>
       <Portal>
-        <Tooltip.Positioner>
-          <Tooltip.Content class="menu-colors text-sm rounded-sm shadow-sm w-[280px] p-2">
+        <Popover.Positioner>
+          <Popover.Content class="menu-colors text-sm rounded-sm shadow-sm w-[280px] p-2">
             {@render description()}
-          </Tooltip.Content>
-        </Tooltip.Positioner>
+          </Popover.Content>
+        </Popover.Positioner>
       </Portal>
-    </Tooltip>
+    </Popover>
   {/if}
 </div>
