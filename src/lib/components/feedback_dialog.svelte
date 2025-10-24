@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { MessageSquareShare } from '@lucide/svelte';
+  import { MessageSquareShare } from '@lucide/svelte/icons';
   import { page } from '$app/state';
   import FormDialog from '$lib/components/form_dialog.svelte';
 
-  let { label="", labelClasses="", wrapperClasses="", iconSize=6, context=null, form, formId="default" } = $props();
+  let { baseClasses='', label='', labelClasses='', wrapperClasses='', iconSize=24, context=null, form, formId='default' } = $props();
 
   const currentPage = page.url.pathname === '/' ? 'home' : page.url.pathname;
   if (context == null) {
@@ -13,9 +13,25 @@
 
 <FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center link gap-2">
+    <div
+        class="flex
+               items-center
+               rounded-sm
+               gap-2
+               px-2
+               py-1
+               -ml-2
+               transition-colors
+               ease-[cubic-bezier(0,0,0.2,1)]
+               duration-200
+               hover:bg-[var(--light-color)]
+               hover:text-[var(--dark-color)]
+               dark:hover:text-[var(--dark-color)]
+               hover:shadow-sm
+               {baseClasses}"
+    >
+      <MessageSquareShare size={iconSize} />
       {#if label}<span class={labelClasses}>{label}</span>{/if}
-      <MessageSquareShare class="size-{iconSize}" />
     </div>
   {/snippet}
   {#snippet header()}

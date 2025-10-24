@@ -29,7 +29,7 @@
 </div>
 {#each modules as module, index}
   <div>
-    <div class="text-lg font-semibold mb-1">{module.title}</div>
+    <div class="text-lg font-semibold mb-2">{module.title}</div>
     <div class="flex items-center gap-3 text-base">
       {#if module.start_time} 
         <span>{module.start_time}</span>
@@ -37,7 +37,7 @@
       <span class="badge badge-colors shadow-xs text-base px-2 py-0.5">{module.minutes} min</span>
     </div>
     <Tabs value={tabStates[index]} onValueChange={e => tabStates[index] = e.value}>
-      <Tabs.List class="mb-3">
+      <Tabs.List class="mb-4">
         <TabControl value='Short' selectedValue={tabStates[index]} width="[84px]" textSize="text-sm" />
         {#if module.detailed_text}
           <TabControl value='Detailed' selectedValue={tabStates[index]} width="[84px]" textSize="text-sm" />

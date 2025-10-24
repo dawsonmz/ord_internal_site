@@ -20,15 +20,15 @@
   </p>
   {#each data.seasons as season}
     <LinkCardGrid header={season.name.valueOf()} anchor={season.slug.valueOf()}>
-    {#each season.training_plans as plan}
-      <LinkCard
-          title="Training {plan.training_label}"
-          subtitle={plan.date_text.valueOf()}
-          description={plan.summary.valueOf()}
-          url="/beginner-plans/{season.slug}-{plan.slug}{showHidden ? '?show-hidden=true' : ''}"
-          hiddenTag={!plan.visible}
-      />
-    {/each}
-  </LinkCardGrid>
+      {#each season.training_plans as plan}
+        <LinkCard
+            title="Training {plan.training_label}"
+            subtitle={plan.date_text.valueOf()}
+            description={plan.summary.valueOf()}
+            url="/beginner-plans/{season.slug}-{plan.slug}{showHidden ? '?show-hidden=true' : ''}"
+            hiddenTag={!plan.visible}
+        />
+      {/each}
+    </LinkCardGrid>
   {/each}
 </div>

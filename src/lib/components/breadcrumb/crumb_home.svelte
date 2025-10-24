@@ -1,6 +1,6 @@
 <script lang="ts">
   import CrumbLink from './crumb_link.svelte';
-  import HouseIcon from '@lucide/svelte/icons/house';
+  import { HouseIcon } from '@lucide/svelte/icons';
 
   let { baseClasses="" } = $props();
 </script>

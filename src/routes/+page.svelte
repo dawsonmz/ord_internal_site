@@ -1,61 +1,87 @@
 <script lang="ts">
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
-  import LinkCard from '$lib/components/link_card.svelte';
-  import LinkCardGrid from '$lib/components/link_card_grid.svelte';
+  import PageLink from '$lib/components/page_link.svelte';
+  import PageLinkGroup from '$lib/components/page_link_group.svelte';
 
   let { form } = $props();
 </script>
 
-<div class="flex flex-col gap-6 mx-8">
+<div class="flex flex-col gap-6 sm:gap-8 mx-8">
   <p>Welcome to the Oslo Roller Derby internal website!</p>
 
-  <LinkCardGrid header="Team Resources">
-    <LinkCard
-        title="A Team Roster"
-        description="View the current A Team roster."
-        url="/roster-a-team"
-    />
-    <LinkCard
-        title="B Team Roster"
-        description="View the current B Team roster."
-        url="/roster-b-team"
-    />
-    <LinkCard
-        title="Skater Vault"
-        description="View skater numbers and derby names currently registered with ORD."
-        url="/skater-vault"
-    />
-  </LinkCardGrid>
+  <div class="flex max-sm:flex-col max-sm:gap-6">
+    <PageLinkGroup header="Team Resources">
+      <PageLink url="/roster-a-team" width={168}>
+        {#snippet text()}
+          A Team Roster
+        {/snippet}
+        {#snippet description()}
+          View the current A Team roster, including blocker lines, jammers, and bench crew.
+        {/snippet}
+      </PageLink>
+      <PageLink url="/roster-b-team" width={168}>
+        {#snippet text()}
+          B Team Roster
+        {/snippet}
+        {#snippet description()}
+          View the current B Team roster, including blocker lines, jammers, and bench crew.
+        {/snippet}
+      </PageLink>
+      <PageLink url="/skater-vault" width={168}>
+        {#snippet text()}
+          Skater Vault
+        {/snippet}
+        {#snippet description()}
+          Search for skater numbers and derby names registered with ORD, or reserve your own.
+        {/snippet}
+      </PageLink>
+    </PageLinkGroup>
 
-  <LinkCardGrid header="Beginners Training">
-    <LinkCard
-        title="Training Plans"
-        description="View training plans for the ORD beginners course."
-        url="/beginner-plans"
-    />
-    <LinkCard
-        title="Modules"
-        description="View the individual drills used to assemble beginners training plans."
-        url="/beginner-modules"
-    />
-    <LinkCard
-        title="Skills Tracking"
-        description="Login required: Track individual skills progress toward completion of beginners program."
-        url="/beginner-skills"
-    />
-  </LinkCardGrid>
+    <PageLinkGroup header="Beginners">
+      <PageLink url="/beginner-plans" width={168}>
+        {#snippet text()}
+          Training Plans
+        {/snippet}
+        {#snippet description()}
+          View training plans for the ORD beginners course.
+        {/snippet}
+      </PageLink>
+      <PageLink url="/beginner-modules" width={168}>
+        {#snippet text()}
+          Modules
+        {/snippet}
+        {#snippet description()}
+          View the individual drills used to assemble beginners training plans.
+        {/snippet}
+      </PageLink>
+      <PageLink url="/beginner-skills" width={168}>
+        {#snippet text()}
+          Skills Tracking
+        {/snippet}
+        {#snippet description()}
+          Track individual skills progress toward completion of beginners program. Requires account login.
+        {/snippet}
+      </PageLink>
+    </PageLinkGroup>
+  </div>
 
-  <LinkCardGrid header="Other Resources">
-    <LinkCard
-        title="Mitt Varsel"
-        description="Link to Mitt Varsel, a portal for safe and secure reporting of incidents."
-        url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532"
-        external
-    />
-  </LinkCardGrid>
+  <div class="flex max-sm:flex-col max-sm:gap-6">
+    <PageLinkGroup header="Other Resources">
+      <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external width={168}>
+        {#snippet text()}
+          Mitt Varsel
+        {/snippet}
+        {#snippet description()}
+          Link to Mitt Varsel, a portal for safe and secure reporting of incidents.
+        {/snippet}
+      </PageLink>
+    </PageLinkGroup>
+  </div>
 
-  <FeedbackDialog label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
-  <p>
-    You can also submit feedback for a specific page by selecting the <strong>Give Feedback</strong> option from the menu.
-  </p>
+  <div>
+    <FeedbackDialog baseClasses="mb-3" label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
+    <p>
+      You can also submit feedback for a specific page by selecting the <strong>Give Feedback</strong> option from the menu.
+    </p>
+  </div>
 </div>

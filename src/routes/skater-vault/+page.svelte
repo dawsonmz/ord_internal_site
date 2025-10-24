@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { MessageCircleQuestion } from '@lucide/svelte';
+  import { MessageSquareShare } from '@lucide/svelte/icons';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import Button from '$lib/components/button.svelte';
   import FormDialog from '$lib/components/form_dialog.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
@@ -30,14 +29,30 @@
 <div class="flex flex-col mx-8 gap-4">
   <div class="text-xl font-semibold">Skater Vault</div>
   <div class="text-sm">
-    These are the skater numbers and derby names currently registered with ORD.
+    Search for skater numbers and derby names registered with ORD, or reserve your own.
   </div>
   <FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
     {#snippet trigger()}
-      <Button baseClasses="flex items-center gap-2" justAButton>
-        <span>Register your derby name and number</span>
-        <MessageCircleQuestion class="size-5" />
-      </Button>
+      <div
+          class="flex
+                 items-center
+                 rounded-sm
+                 gap-2
+                 px-2
+                 py-1
+                 -ml-2
+                 transition-colors
+                 ease-[cubic-bezier(0,0,0.2,1)]
+                 duration-200
+                 hover:bg-[var(--light-color)]
+                 dark:hover:text-[var(--dark-color)]
+                 hover:shadow-sm"
+      >
+        <MessageSquareShare size={25} />
+        <div class="text-md font-semibold">
+          Register your derby name and number
+        </div>
+      </div>
     {/snippet}
     {#snippet header()}
       <div class="text-lg font-semibold">Request Number</div>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css';
-  import { MenuIcon, XIcon, ExternalLink, UserCircle } from '@lucide/svelte';
+  import { MenuIcon, XIcon, ExternalLink, UserCircle } from '@lucide/svelte/icons';
   import { AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
   import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from 'svelte-clerk';
   import { afterNavigate } from '$app/navigation';
@@ -51,33 +51,33 @@
           <Portal>
             <Dialog.Backdrop
                 class="fixed
-                      inset-0
-                      bg-[var(--faded-backdrop-color)]
-                      transition
-                      transition-discrete
-                      duration-200
-                      starting:data-[state=open]:opacity-0
-                      data-[state=open]:opacity-100"
+                       inset-0
+                       bg-[var(--faded-backdrop-color)]
+                       transition
+                       transition-discrete
+                       duration-200
+                       starting:data-[state=open]:opacity-0
+                       data-[state=open]:opacity-100"
             />
             <Dialog.Positioner class="fixed inset-0">
               <Dialog.Content
                   class="menu-colors
-                        flex
-                        flex-col
-                        sm:justify-between
-                        w-screen
-                        sm:w-[400px]
-                        h-screen
-                        px-4
-                        py-2
-                        sm:py-6
-                        transition
-                        transition-discrete
-                        duration-200
-                        starting:data-[state=open]:opacity-0
-                        starting:data-[state=open]:-translate-x-full
-                        data-[state=open]:opacity-100
-                        data-[state=open]:translate-x-0"
+                         flex
+                         flex-col
+                         sm:justify-between
+                         w-screen
+                         sm:w-[400px]
+                         h-screen
+                         px-4
+                         py-2
+                         sm:py-6
+                         transition
+                         transition-discrete
+                         duration-200
+                         starting:data-[state=open]:opacity-0
+                         starting:data-[state=open]:-translate-x-full
+                         data-[state=open]:opacity-100
+                         data-[state=open]:translate-x-0"
               >
                 <div class="flex flex-col gap-4 sm:ml-4 mt-2">
                   <!-- Wrapper div around CloseTrigger is needed to prevent it from spanning the entire width. -->
@@ -105,12 +105,12 @@
                     <div class="font-semibold text-xl">Other Resources</div>
                     <div class="ml-6">
                       <a class="flex link justify-items-center" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
-                        <span class="mr-1">Mitt Varsel</span>
-                        <ExternalLink class="inline size-5" />
+                        <ExternalLink class="inline size-5 mr-1" />
+                        <span>Mitt Varsel</span>
                       </a>
                     </div>
-                    <div class="text-md ml-6">
-                      <FeedbackDialog label="Give Feedback" wrapperClasses="self-center" iconSize={5} form={form} formId="sidebar" />
+                    <div>
+                      <FeedbackDialog label="Give Feedback" labelClasses="font-semibold text-xl" wrapperClasses="self-center" iconSize={24} form={form} formId="sidebar" />
                     </div>
                   </div>  
                 </div>
