@@ -6,7 +6,7 @@
   let { form } = $props();
 </script>
 
-<div class="flex flex-col gap-6 sm:gap-8 mx-8">
+<div class="flex flex-col gap-6 sm:gap-8 ml-8">
   <p>Welcome to the Oslo Roller Derby internal website!</p>
 
   <div class="flex max-sm:flex-col max-sm:gap-6">

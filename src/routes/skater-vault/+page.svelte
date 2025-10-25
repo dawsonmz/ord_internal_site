@@ -20,13 +20,13 @@
   const formId = 'number-request';
 </script>
 
-<Crumb baseClasses="mx-8 mb-5">
+<Crumb baseClasses="ml-8 mb-5">
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Skater Vault</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col mx-8 gap-4">
+<div class="flex flex-col ml-8 gap-4">
   <div class="text-xl font-semibold">Skater Vault</div>
   <div class="text-sm">
     Search for skater numbers and derby names registered with ORD, or reserve your own.

@@ -6,13 +6,13 @@
   const roster = data.roster;
 </script>
 
-<Crumb baseClasses="mx-8 mb-5">
+<Crumb baseClasses="ml-8 mb-5">
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>{roster.short_name}</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col mx-8 gap-4">
+<div class="flex flex-col ml-8 gap-4">
   <div class="text-xl font-semibold">{roster.name}</div>
   <div class="text-lg subheading">{roster.season}</div>
   

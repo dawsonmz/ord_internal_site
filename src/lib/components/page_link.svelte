@@ -23,7 +23,16 @@
       </Popover.Trigger>
       <Portal>
         <Popover.Positioner>
-          <Popover.Content class="menu-colors text-sm rounded-sm shadow-sm w-[280px] p-2">
+          <Popover.Content
+              class="menu-colors
+                     text-sm
+                     rounded-sm
+                     shadow-sm
+                     p-2
+                     w-[280px]
+                     dark:border-1
+                     dark:border-color-[var(--very-light-color)]"
+          >
             {@render description()}
           </Popover.Content>
         </Popover.Positioner>

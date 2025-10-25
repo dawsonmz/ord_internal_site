@@ -1,6 +1,5 @@
 import { fail } from '@sveltejs/kit';
 import { sendFeedbackNotification } from '$lib/server/emailer';
-import type { WrappedRequest } from '$lib/server/request';
 
 export async function submitFeedback(req: WrappedRequest) {
   const data = await req.request.formData();

@@ -5,6 +5,14 @@ import { env } from '$env/dynamic/private';
 const notificationsAddress = 'notifications@oslorollerderby.com';
 var notificationEmailer: Resend | null = null;
 
+export async function sendAccessRequest(userId: string, name: string | null, context: string) {
+  const sanitizedName = name ? sanitizeHtml(name) : '(no name)';
+  await sendNotification(
+    `Access request for user ${userId}`,
+    `<p>User ${userId} (${sanitizedName}) is requesting access on page ${context}.</p>`,
+  );
+}
+
 export async function sendFeedbackNotification(context: string, text: string, contact: string | undefined) {
   await sendNotification(
       `Feedback submitted on '${context}'`,

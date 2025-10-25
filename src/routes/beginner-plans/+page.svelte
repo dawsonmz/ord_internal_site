@@ -8,13 +8,13 @@
   const showHidden = page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true';
 </script>
 
-<Crumb baseClasses="mx-8 mb-5">
+<Crumb baseClasses="ml-8 mb-5">
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Beginner Plans</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col gap-6 mx-8">
+<div class="flex flex-col gap-6 ml-8">
   <p>
     Current and previous training plans for the ORD beginners course.
   </p>

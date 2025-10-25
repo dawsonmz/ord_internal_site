@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MessageSquareShare } from '@lucide/svelte/icons';
+  import { Send } from '@lucide/svelte/icons';
   import { page } from '$app/state';
   import FormDialog from '$lib/components/form_dialog.svelte';
 
@@ -14,7 +14,7 @@
 <FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
   {#snippet trigger()}
     <div class="flex items-center gap-2 link-hover {baseClasses}">
-      <MessageSquareShare size={iconSize} />
+      <Send size={iconSize} />
       {#if label}<span class={labelClasses}>{label}</span>{/if}
     </div>
   {/snippet}

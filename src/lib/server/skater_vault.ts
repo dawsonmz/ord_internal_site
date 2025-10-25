@@ -1,7 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import { sendNumberRequestNotification } from '$lib/server/emailer';
 import { InternalError } from '$lib/server/errors';
-import type { WrappedRequest } from '$lib/server/request';
 import { sanityClient } from '$lib/server/sanity';
 
 interface SkaterNumber {

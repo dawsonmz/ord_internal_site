@@ -9,7 +9,7 @@
   const hiddenQuery = showHidden ? '?show-hidden=true' : '';
 </script>
 
-<Crumb baseClasses="mx-8 mb-5">
+<Crumb baseClasses="ml-8 mb-5">
   <CrumbHome />
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans{hiddenQuery}">Beginner Plans</CrumbLink>
@@ -23,7 +23,7 @@
   {/if}
 </Crumb>
 
-<div class="flex flex-col gap-6 mx-8">
+<div class="flex flex-col gap-6 ml-8">
   {#if data.training_plan}
     <div class="flex flex-col gap-2">
       <div class="flex gap-2 text-2xl">
