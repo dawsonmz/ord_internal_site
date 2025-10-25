@@ -34,9 +34,9 @@
       </div>
       <div class="text-base subheading">{data.training_plan.date_text}</div>
       <div class="text-sm">{data.training_plan.summary}</div>
-      <FeedbackDialog label="Feedback on the training?" labelClasses="text-sm" form={form} formId="training-plan" />
     </div>
     <ModuleGroup modules={data.training_plan.modules} form={form} />
+    <FeedbackDialog baseClasses="mt-8" label="Give feedback on the training plan" labelClasses="text-lg" form={form} formId="training-plan" />
   {:else}
     Sorry, but the requested resource was not found.
   {/if}

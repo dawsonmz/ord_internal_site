@@ -87,7 +87,7 @@
       {/if}
       <Tabs.Content value='Feedback'>
         <FeedbackDialog
-            label="Give feedback on this module:"
+            label="Give feedback on this module"
             labelClasses="text-sm"
             context="Module: {module.title}"
             form={form}
