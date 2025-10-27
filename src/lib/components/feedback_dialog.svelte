@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Send } from '@lucide/svelte/icons';
+  import { MessageSquareText } from '@lucide/svelte/icons';
   import { page } from '$app/state';
   import FormDialog from '$lib/components/form_dialog.svelte';
 
-  let { baseClasses='', label='', labelClasses='', wrapperClasses='', iconSize=24, context=null, form, formId='default' } = $props();
+  let { label='', labelClasses='', wrapperClasses='', iconSize=24, context=null, form, formId='default' } = $props();
 
   const currentPage = page.url.pathname === '/' ? 'home' : page.url.pathname;
   if (context == null) {
@@ -13,8 +13,8 @@
 
 <FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center gap-2 link-hover {baseClasses}">
-      <Send size={iconSize} />
+    <div class="flex items-center gap-2 link-hover">
+      <MessageSquareText size={iconSize} />
       {#if label}<span class={labelClasses}>{label}</span>{/if}
     </div>
   {/snippet}

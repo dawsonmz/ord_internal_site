@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Dot } from '@lucide/svelte/icons';
   import { PortableText } from '@portabletext/svelte';
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
   import Button from '$lib/components/button.svelte';
@@ -30,11 +31,14 @@
 {#each modules as module, index}
   <div>
     <div class="text-lg font-semibold mb-2">{module.title}</div>
-    <div class="flex items-center gap-3 text-base">
+    <div class="flex items-center gap-1 text-base">
       {#if module.start_time} 
-        <span>{module.start_time}</span>
+        <div>{module.start_time}</div>
+        <Dot />
       {/if}
-      <span class="badge badge-colors shadow-xs text-base px-2 py-0.5">{module.minutes} min</span>
+      <div>{module.minutes} min</div>
+      <Dot />
+      <FeedbackDialog context="Module: {module.title}" form={form} formId="module-{index}" />
     </div>
     <Tabs value={tabStates[index]} onValueChange={e => tabStates[index] = e.value}>
       <Tabs.List class="mb-4">
@@ -45,7 +49,6 @@
         {#if module.resources}
           <TabControl value='Resources' selectedValue={tabStates[index]} width="[84px]" textSize="text-sm" />
         {/if}
-        <TabControl value='Feedback' selectedValue={tabStates[index]} width="[84px]" textSize="text-sm" />
         <Tabs.Indicator class="border-y-[1px] w-[84px]" />
       </Tabs.List>
 
@@ -85,15 +88,6 @@
           {/each}
         </Tabs.Content>
       {/if}
-      <Tabs.Content value='Feedback'>
-        <FeedbackDialog
-            label="Give feedback on this module"
-            labelClasses="text-sm"
-            context="Module: {module.title}"
-            form={form}
-            formId="module-{index}"
-        />
-      </Tabs.Content>
     </Tabs>
   </div>
 {/each}

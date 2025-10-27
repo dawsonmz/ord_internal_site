@@ -8,8 +8,8 @@ var notificationEmailer: Resend | null = null;
 export async function sendAccessRequest(userId: string, name: string | null, context: string) {
   const sanitizedName = name ? sanitizeHtml(name) : '(no name)';
   await sendNotification(
-    `Access request for user ${userId}`,
-    `<p>User ${userId} (${sanitizedName}) is requesting access on page ${context}.</p>`,
+    `Access request for ${userId}`,
+    `<p>${userId} (${sanitizedName}) is requesting access on page ${context}.</p>`,
   );
 }
 

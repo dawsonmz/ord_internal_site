@@ -6,7 +6,7 @@
   let { form } = $props();
 </script>
 
-<div class="flex flex-col gap-6 sm:gap-8 ml-8">
+<div class="flex flex-col gap-6">
   <p>Welcome to the Oslo Roller Derby internal website!</p>
 
   <div class="flex max-sm:flex-col max-sm:gap-6">
@@ -78,10 +78,10 @@
     </PageLinkGroup>
   </div>
 
-  <div>
-    <FeedbackDialog baseClasses="mb-3" label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
+  <div class="flex flex-col gap-2">
+    <FeedbackDialog label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
     <p>
-      You can also submit feedback for a specific page by selecting the <strong>Give Feedback</strong> option from the menu.
+      You can also submit feedback on any particular page by selecting the <strong>Give Feedback</strong> option from the menu.
     </p>
   </div>
 </div>

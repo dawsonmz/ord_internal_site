@@ -1,7 +1,7 @@
 <script lang="ts">
-  let { baseClasses="", children } = $props();
+  let { isLink=false, children } = $props();
 </script>
 
-<li class="inline-flex items-center gap-1.5 {baseClasses}">
+<li class="inline-flex items-center gap-1.5 {isLink ? 'link' : ''}">
   {@render children()}
 </li>

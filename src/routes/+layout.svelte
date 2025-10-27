@@ -41,7 +41,7 @@
     }}
 >
   <AppBar>
-    <AppBar.Toolbar class="menu-colors flex justify-between px-4 sm:px-8 py-2 mb-5">
+    <AppBar.Toolbar class="menu-colors flex justify-between px-4 sm:px-8 py-2">
       <AppBar.Lead class="flex items-center">
         <Dialog open={drawerState} onOpenChange={e => drawerState = e.open}>
           <Dialog.Trigger class="flex items-center gap-2 menu-hover">
@@ -154,6 +154,8 @@
     </AppBar.Toolbar>
   </AppBar>
 
-  {@render children()}
+  <div class="flex flex-col gap-4 mx-8 mt-5">
+    {@render children()}
+  </div>
   <footer class="mt-20"></footer>
 </ClerkProvider>

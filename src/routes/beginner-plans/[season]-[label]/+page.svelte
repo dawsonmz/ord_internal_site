@@ -9,7 +9,7 @@
   const hiddenQuery = showHidden ? '?show-hidden=true' : '';
 </script>
 
-<Crumb baseClasses="ml-8 mb-5">
+<Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans{hiddenQuery}">Beginner Plans</CrumbLink>
@@ -23,21 +23,17 @@
   {/if}
 </Crumb>
 
-<div class="flex flex-col gap-6 ml-8">
-  {#if data.training_plan}
-    <div class="flex flex-col gap-2">
-      <div class="flex gap-2 text-2xl">
-        <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
-        {#if !data.training_plan.visible}
-          <div class="italic text-[var(--error-color)]">(hidden)</div>
-        {/if}
-      </div>
-      <div class="text-base subheading">{data.training_plan.date_text}</div>
-      <div class="text-sm">{data.training_plan.summary}</div>
-    </div>
-    <ModuleGroup modules={data.training_plan.modules} form={form} />
-    <FeedbackDialog baseClasses="mt-8" label="Give feedback on the training plan" labelClasses="text-lg" form={form} formId="training-plan" />
-  {:else}
-    Sorry, but the requested resource was not found.
-  {/if}
-</div>
+{#if data.training_plan}
+  <div class="flex gap-2 text-2xl">
+    <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
+    {#if !data.training_plan.visible}
+      <div class="italic text-[var(--error-color)]">(hidden)</div>
+    {/if}
+  </div>
+  <div class="subheading">{data.training_plan.date_text}</div>
+  <div>{data.training_plan.summary}</div>
+  <FeedbackDialog label="Give feedback on the training plan" labelClasses="text-sm italic" {form} formId="training-plan" />
+  <ModuleGroup modules={data.training_plan.modules} form={form} />
+{:else}
+  Sorry, but the requested resource was not found.
+{/if}

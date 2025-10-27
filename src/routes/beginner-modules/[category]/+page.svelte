@@ -5,7 +5,7 @@
   let { data, form } = $props();
 </script>
 
-<Crumb baseClasses="ml-8 mb-5">
+<Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbLink href="/beginner-modules">Beginner Modules</CrumbLink>
@@ -13,12 +13,10 @@
   <CrumbPage>{data.category}</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col gap-6 ml-8">
-  <div class="text-xl font-semibold">Category: {data.category}</div>
-  <p>{data.description?.valueOf()}</p>
-  {#if data.modules}
-    <ModuleGroup modules={data.modules} form={form} />
-  {:else}
-    No modules found.
-  {/if}
-</div>
+<div class="text-xl font-semibold">Category: {data.category}</div>
+<p>{data.description?.valueOf()}</p>
+{#if data.modules}
+  <ModuleGroup modules={data.modules} form={form} />
+{:else}
+  No modules found.
+{/if}

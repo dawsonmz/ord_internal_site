@@ -2,13 +2,11 @@
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
 </script>
 
-<Crumb baseClasses="ml-8 mb-5">
+<Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Beginner Skills Tracking</CrumbPage>
 </Crumb>
 
-<div class="ml-8">
-  <p><em>Under construction.</em></p>
-  <p class="mt-2">This page will allow beginners to track their progress on required skills to complete the beginners program.</p>
-</div>
+<p><em>Under construction.</em></p>
+<p>This page will allow beginners to track their progress on required skills to complete the beginners program.</p>

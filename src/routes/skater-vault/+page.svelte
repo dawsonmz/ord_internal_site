@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { MessageSquareShare } from '@lucide/svelte/icons';
+  import { Send } from '@lucide/svelte/icons';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import FormDialog from '$lib/components/form_dialog.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
@@ -20,84 +20,82 @@
   const formId = 'number-request';
 </script>
 
-<Crumb baseClasses="ml-8 mb-5">
+<Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Skater Vault</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col ml-8 gap-4">
-  <div class="text-xl font-semibold">Skater Vault</div>
-  <div class="text-sm">
-    Search for skater numbers and derby names registered with ORD, or reserve your own.
-  </div>
-  <FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
-    {#snippet trigger()}
-      <div class="flex items-center gap-2 link-hover">
-        <MessageSquareShare size=24 />
-        <div class="text-md font-semibold">
-          Register your derby name and number
-        </div>
-      </div>
-    {/snippet}
-    {#snippet header()}
-      <div class="text-lg font-semibold">Request Number</div>
-      <div class="text-sm mt-2">
-        If the number is already taken, submit a request anyways. If the skater is not active, we'll reach out to verify if they want to keep it.
-      </div>
-    {/snippet}
-    {#snippet formContent()}
-      <label class="label mt-4">
-        <span class="label-text text-base">Derby name:</span>
-        {#if form?.formId === formId && form.errors?.name}
-          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
-        {/if}
-        <input
-            type="text"
-            name="name"
-            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-            maxlength=64
-        />
-      </label>
-
-      <label class="label mt-4">
-        <span class="label-text text-base mt-2">Number:</span>
-        {#if form?.formId === formId && form.errors?.number}
-          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
-        {/if}
-        <input
-            type="text"
-            name="number"
-            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-            maxlength=10
-        />
-      </label>
-
-      <label class="label mt-4">
-        <span class="label-text text-base mt-2">Contact email:</span>
-        {#if form?.formId === formId && form.errors?.contact}
-          <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
-        {/if}
-        <input
-            type="text"
-            name="contact"
-            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-            maxlength=128
-        />
-      </label>
-    {/snippet}
-  </FormDialog>
-
-  <input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />
-  {#if skaterNumbers.length}
-    <div class="sm:hidden">
-      <SkaterNumberGroup skaterNumbers={skaterNumbers} />
-    </div>
-    <div class="flex max-sm:hidden mt-2">
-      <SkaterNumberGroup skaterNumbers={skaterNumbersCol1} />
-      <SkaterNumberGroup skaterNumbers={skaterNumbersCol2} />
-    </div>
-  {:else}
-    <div class="font-semibold">No results found.</div>
-  {/if}
+<div class="text-xl font-semibold">Skater Vault</div>
+<div class="text-sm">
+  Search for skater numbers and derby names registered with ORD, or reserve your own.
 </div>
+<FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
+  {#snippet trigger()}
+    <div class="flex items-center gap-2 link-hover">
+      <Send size=24 />
+      <div class="text-md font-semibold">
+        Register your derby name and number
+      </div>
+    </div>
+  {/snippet}
+  {#snippet header()}
+    <div class="text-lg font-semibold">Request Number</div>
+    <div class="text-sm mt-2">
+      If the number is already taken, submit a request anyways. If the skater is not active, we'll reach out to verify if they want to keep it.
+    </div>
+  {/snippet}
+  {#snippet formContent()}
+    <label class="label mt-4">
+      <span class="label-text text-base">Derby name:</span>
+      {#if form?.formId === formId && form.errors?.name}
+        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
+      {/if}
+      <input
+          type="text"
+          name="name"
+          class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+          maxlength=64
+      />
+    </label>
+
+    <label class="label mt-4">
+      <span class="label-text text-base mt-2">Number:</span>
+      {#if form?.formId === formId && form.errors?.number}
+        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
+      {/if}
+      <input
+          type="text"
+          name="number"
+          class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+          maxlength=10
+      />
+    </label>
+
+    <label class="label mt-4">
+      <span class="label-text text-base mt-2">Contact email:</span>
+      {#if form?.formId === formId && form.errors?.contact}
+        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
+      {/if}
+      <input
+          type="text"
+          name="contact"
+          class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+          maxlength=128
+      />
+    </label>
+  {/snippet}
+</FormDialog>
+
+<input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />
+{#if skaterNumbers.length}
+  <div class="sm:hidden">
+    <SkaterNumberGroup skaterNumbers={skaterNumbers} />
+  </div>
+  <div class="flex max-sm:hidden mt-2">
+    <SkaterNumberGroup skaterNumbers={skaterNumbersCol1} />
+    <SkaterNumberGroup skaterNumbers={skaterNumbersCol2} />
+  </div>
+{:else}
+  <div class="font-semibold">No results found.</div>
+{/if}
