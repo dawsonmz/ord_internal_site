@@ -154,7 +154,7 @@
     </AppBar.Toolbar>
   </AppBar>
 
-  <div class="flex flex-col gap-4 mx-8 mt-5">
+  <div class="flex flex-col gap-4 mx-6 sm:mx-8 mt-5">
     {@render children()}
   </div>
   <footer class="mt-20"></footer>
