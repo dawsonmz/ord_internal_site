@@ -36,22 +36,23 @@ interface TrainingPlan {
  * @returns All seasons' names, slugs, and training plan summaries.
  */
 export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
-  const visibleFilter = showHidden ? '' : '@->visible'
+  const visibleFilter = showHidden ? '' : '&& visible';
   const seasonData: Season[] = await sanityClient.option.fetch(
-      `*[_type == "season"] | order(_createdAt desc) {
-        name,
+    `*[_type == "season"] {
+      name,
+      "slug": slug.current,
+      "training_plans": *[_type == "training_plan" && season._ref == ^._id ${visibleFilter}] | order(_createdAt asc) {
+        training_label,
         "slug": slug.current,
-        training_plans[${visibleFilter}]-> {
-          training_label,
-          "slug": slug.current,
-          date_time,
-          summary,
-          visible,
-        },
-      }`
+        date_time,
+        summary,
+        visible,
+      },
+    }`
   );
+
   if (seasonData) {
-    const seasons = seasonData.filter(season => season.training_plans);
+    const seasons = seasonData.filter(season => season.training_plans?.length);
     seasons.forEach(
         season => season.training_plans.forEach(
             plan => plan.date_text = formatDateText(new Date(plan.date_time))
@@ -72,12 +73,9 @@ export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
 export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String, showHidden: boolean): Promise<TrainingPlan> {
   const visibleFilter = showHidden ? '' : '&& visible';
   const trainingPlanData: TrainingPlan[] = await sanityClient.option.fetch(
-      `*[_type == "training_plan"
-          && _id in *[_type == "season" && slug.current == $season].training_plans[]._ref
-          && slug.current == $training_label
-          ${visibleFilter}] {
+      `*[_type == "training_plan" && season->slug.current == $season && slug.current == $training_label ${visibleFilter}] {
         training_label,
-        "season": *[_type == "season" && slug.current == $season][0].name,
+        "season": season->name,
         date_time,
         summary,
         visible,
