@@ -1,6 +1,5 @@
 import { fail } from '@sveltejs/kit';
 import { sendNumberRequestNotification } from '$lib/server/emailer';
-import { InternalError } from '$lib/server/errors';
 import { sanityClient } from '$lib/server/sanity';
 
 interface SkaterNumber {
@@ -18,10 +17,6 @@ export async function loadSkaterVault(): Promise<SkaterNumber[]> {
   const skaterNumberData: SkaterNumber[] = await sanityClient.option.fetch(
     `*[_type == "skater_number" && temporary == false] | order(skater_number asc)`
   );
-
-  if (!skaterNumberData) {
-    throw new InternalError('Failed to load skater vault data');
-  }
 
   // For faster search on the skater vault page.
   skaterNumberData.forEach((skaterNumber) => skaterNumber.derby_name_lower = skaterNumber.derby_name.toLowerCase());

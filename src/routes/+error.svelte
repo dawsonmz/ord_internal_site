@@ -5,10 +5,21 @@
   import { page } from '$app/state';
   import AnimatedDots from '$lib/components/animated_dots.svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import Button from '$lib/components/button.svelte';
 
   let submitting = $state(false);
-  const header = $derived(page.status == 401 || page.status == 403 || page.status == 200 ? 'Access Denied' : `${page.status} Error`);
+  const header = $derived(headerFromStatus(page.status));
+
+  function headerFromStatus(status: number): string {
+    if (status == 401 || status == 403 || status == 200) {
+      return 'Access Denied';
+    } else if (status == 404) {
+      return 'Resource Not Found';
+    } else if (status == 500) {
+      return 'Internal Error';
+    } else {
+      return `${status} Error`;
+    }
+  }
 </script>
 
 <Crumb>
@@ -38,15 +49,13 @@
       }
   >
     <input type="hidden" name="context" value={page.route.id} />
-    <div class="flex gap-2">
-      <Button baseClasses="flex justify-center items-center w-36 h-9" disabled={submitting}>
-        {#if submitting}
-          <AnimatedDots />
-        {:else}
-          <span class="font-semibold">Request access</span>
-        {/if}
-      </Button>
-    </div>
+    <button type="submit" class="flex justify-center items-center w-36 h-9 text-sm p-2 button-style" disabled={submitting}>
+      {#if submitting}
+        <AnimatedDots />
+      {:else}
+        <span class="font-semibold">Request access</span>
+      {/if}
+    </button>
   </form>
 {:else if page.status == 200}
   <!-- Specific case where a 200 comes back from the access request made after the user gets an unauthorized access error. -->

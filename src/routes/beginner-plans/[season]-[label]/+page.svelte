@@ -1,12 +1,31 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import { Minus, Plus } from '@lucide/svelte/icons';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
-  import ModuleGroup from '$lib/components/module_group.svelte';
+  import Module from '$lib/components/module.svelte';
+  import ModuleHeader from '$lib/components/module_header.svelte';
 
   let { data, form } = $props();
   const showHidden = page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true';
   const hiddenQuery = showHidden ? '?show-hidden=true' : '';
+
+  const modules = data.training_plan?.modules ?? [];
+  let tabStates = $state(new Array<string>(modules.length).fill('Short'));
+
+  function showAllShort() {
+    tabStates.forEach((_val: string, index: number, arr: string[]) => arr[index] = 'Short');
+  }
+
+  function showAllDetailed() {
+    tabStates.forEach(
+        (_val: string, index: number, arr: string[]) => {
+          if (modules[index].detailed_text) {
+            arr[index] = 'Detailed';
+          }
+        }
+    );
+  }
 </script>
 
 <Crumb>
@@ -14,26 +33,34 @@
   <CrumbSeparator />
   <CrumbLink href="/beginner-plans{hiddenQuery}">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  {#if data.training_plan}
-    <CrumbLink href="/beginner-plans{hiddenQuery}#{page.params.season}">{data.training_plan.season}</CrumbLink>
-    <CrumbSeparator />
-    <CrumbPage>{data.training_plan.training_label}</CrumbPage>
-  {:else}
-    <CrumbPage><span class="italic">Not found</span></CrumbPage>
-  {/if}
+  <CrumbLink href="/beginner-plans{hiddenQuery}#{page.params.season}">{data.training_plan.season}</CrumbLink>
+  <CrumbSeparator />
+  <CrumbPage>{data.training_plan.training_label}</CrumbPage>
 </Crumb>
 
-{#if data.training_plan}
-  <div class="flex gap-2 text-2xl">
-    <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
-    {#if !data.training_plan.visible}
-      <div class="italic text-[var(--error-color)]">(hidden)</div>
-    {/if}
+<div class="flex gap-2 text-2xl">
+  <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
+  {#if !data.training_plan.visible}
+    <div class="italic text-[var(--error-color)]">(hidden)</div>
+  {/if}
+</div>
+<div class="subheading">{data.training_plan.date_text}</div>
+<div>{data.training_plan.summary}</div>
+<FeedbackDialog label="Give feedback on the training plan" labelClasses="text-sm italic" {form} formId="training-plan" />
+
+<div class="flex gap-2">
+  <button type="button" class="flex justify-center items-center gap-2 w-[160px] text-sm p-2 button-style" onclick={showAllDetailed}>
+    <Plus size={20} />
+    <div class="mr-2">All Detailed</div>
+  </button>
+  <button type="button" class="flex justify-center items-center gap-2 w-[160px] text-sm p-2 button-style" onclick={showAllShort}>
+    <Minus size={20} />
+    <div class="mr-2">All Short</div>
+  </button>
+</div>
+{#each modules as module, index}
+  <div class="border-t-1 border-[var(--faded-dark-color)] pt-3 ">
+    <ModuleHeader baseClasses="mb-2" module={module} />
+    <Module module={module} tabState={tabStates[index]} form={form} formId="module-{index}" />
   </div>
-  <div class="subheading">{data.training_plan.date_text}</div>
-  <div>{data.training_plan.summary}</div>
-  <FeedbackDialog label="Give feedback on the training plan" labelClasses="text-sm italic" {form} formId="training-plan" />
-  <ModuleGroup modules={data.training_plan.modules} form={form} />
-{:else}
-  Sorry, but the requested resource was not found.
-{/if}
+{/each}

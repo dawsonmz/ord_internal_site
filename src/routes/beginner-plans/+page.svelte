@@ -15,7 +15,7 @@
 </Crumb>
 
 <p>
-  Current and previous training plans for the ORD beginners course.
+  Current and previous training plans for the beginners course.
 </p>
 {#each data.seasons as season}
   <LinkCardGrid header={season.name.valueOf()} anchor={season.slug.valueOf()}>

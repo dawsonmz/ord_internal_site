@@ -3,7 +3,6 @@
   import { enhance } from '$app/forms';
   import AnimatedCheck from '$lib/components/animated_check.svelte';
   import AnimatedDots from '$lib/components/animated_dots.svelte';
-  import Button from '$lib/components/button.svelte';
 
   let { wrapperClasses="", form, formId="default", formAction, closeFn, trigger, header, formContent } = $props();
 
@@ -77,7 +76,7 @@
             <input type="hidden" name="formId" value={formId} />
             {@render formContent()}
             <div class="flex gap-2 mt-4">
-              <Button baseClasses="flex justify-center items-center w-18 h-9" disabled={submitting}>
+              <button type="submit" class="flex justify-center items-center w-18 h-9 text-sm p-2 button-style" formaction={formAction} disabled={submitting}>
                 {#if submitting}
                   <AnimatedDots />
                 {:else if form?.formId === formId && form?.success}
@@ -85,8 +84,10 @@
                 {:else}
                   Submit
                 {/if}
-              </Button>
-              <Button baseClasses="flex justify-center items-center w-18 h-9" clickAction={closeDialog} justAButton>Cancel</Button>
+              </button>
+              <button type="button" class="flex justify-center items-center w-18 h-9 text-sm p-2 button-style" onclick={closeDialog}>
+                Cancel
+              </button>
             </div>
           </form>
         </Dialog.Content>

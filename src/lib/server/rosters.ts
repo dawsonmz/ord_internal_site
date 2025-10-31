@@ -1,4 +1,4 @@
-import { InternalError, NotFoundError } from '$lib/server/errors';
+import { error } from '@sveltejs/kit';
 import { sanityClient } from '$lib/server/sanity';
 
 interface Roster {
@@ -49,10 +49,10 @@ export async function loadRoster(identifier: string): Promise<Roster> {
     { identifier }
   );
 
-  if (!rosterData) {
-    throw new NotFoundError("Roster not found");
+  if (!rosterData.length) {
+    error(404, 'Requested roster not found.');
   } else if (rosterData.length > 1) {
-    throw new InternalError("More than one roster returned from query");
+    error(500, 'More than one roster found.');
   }
 
   return rosterData[0];

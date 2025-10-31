@@ -1,23 +1,17 @@
 import imageUrlBuilder from '@sanity/image-url';
-import { InternalError } from '$lib/server/errors';
 import { sanityClient } from '$lib/server/sanity';
 
-export interface ModuleCategory {
+export interface ModuleTag {
   name: String,
-  description: String,
   slug: String,
-};
-
-export interface ModulesInCategory {
-  category: String,
-  description: String,
-  modules: Module[],
+  color: String,
 }
 
 export interface Module {
-  name: String,
+  type: String,
   title: String,
-  category: String,
+  main_tag: ModuleTag,
+  tags: ModuleTag[],
   minutes: Number,
   short_text: [],
   detailed_text: [],
@@ -36,52 +30,51 @@ export interface ImageResource {
   image_url: String,
 }
 
-/**
- * @returns All module categories' names and slugs, not including the individual modules
- */
-export async function loadModuleCategories(): Promise<ModuleCategory[]> {
-  const moduleCategoryData: ModuleCategory[] = await sanityClient.option.fetch(
-      `*[_type == "module_category"] | order(_createdAt asc) {
+export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {
+  return await sanityClient.option.fetch(
+      `*[_type == "module_tag" && module_type == $module_type && slug.current != "routine"] | order(orderRank asc) {
         name,
-        description,
         "slug": slug.current,
-      }`
+      }`,
+      { module_type: moduleType },
   );
-  if (moduleCategoryData) {
-    return moduleCategoryData;
-  } else {
-    throw new InternalError('Failed to load module category data');
-  }
+}
+
+export async function loadModules(moduleType: string, tag: string | undefined): Promise<Module[]> {
+  const tagFilter = tag ? '&& (main_tag->slug.current == $query_tag || $query_tag in additional_tags[]->slug.current)' : '';
+  const moduleData: Module[] = await sanityClient.option.fetch(
+      `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}]
+          | order(main_tag->orderRank asc, orderRank asc) {
+        type,
+        title,
+        "tags": [
+          main_tag-> {
+            name,
+            "slug": slug.current,
+            color,
+          },
+          ...additional_tags[]-> {
+            name,
+            "slug": slug.current,
+            color,
+          },
+        ],
+        minutes,
+        short_text,
+        detailed_text,
+        resources,
+      }`,
+      {
+        module_type: moduleType,
+        query_tag: tag
+      },
+  );
+
+  moduleData.forEach(module => processImageResources(module));
+  return moduleData;
 }
 
 const imageBuilder = imageUrlBuilder(sanityClient.option);
-
-/**
- * @param categorySlug Slug for the category of modules being loaded, e.g. 'general-skating'
- * @returns An array of modules in the specified category
- */
-export async function loadModulesInCategory(categorySlug: String): Promise<ModulesInCategory> {
-  const moduleData: ModulesInCategory[] = await sanityClient.option.fetch(
-      `*[_type == "module_category" && slug.current == $category] {
-        "category": name,
-        description,
-        modules[]->,
-      }`,
-      { category: categorySlug },
-  );
-
-  if (!moduleData) {
-    throw new InternalError('Failed to load module data.');
-  } else if (moduleData.length > 1) {
-    throw new InternalError('More than one module category found.');
-  }
-
-  const modulesInCategory = moduleData[0];
-  if (modulesInCategory.modules) {
-    modulesInCategory.modules.forEach(module => processImageResources(module));
-  }
-  return modulesInCategory;
-}
 
 /**
  * Updates any image resources in the provided module with sizing and the image URL.

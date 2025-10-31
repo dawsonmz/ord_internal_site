@@ -1,4 +1,4 @@
-import { InternalError, NotFoundError } from '$lib/server/errors';
+import { error } from '@sveltejs/kit';
 import { type Module, processImageResources } from '$lib/server/modules';
 import { sanityClient } from '$lib/server/sanity';
 
@@ -51,17 +51,13 @@ export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
     }`
   );
 
-  if (seasonData) {
-    const seasons = seasonData.filter(season => season.training_plans?.length);
-    seasons.forEach(
-        season => season.training_plans.forEach(
-            plan => plan.date_text = formatDateText(new Date(plan.date_time))
-        )
-    );
-    return seasons;
-  } else {
-    throw new InternalError('Failed to load season data');
-  }
+  const seasons = seasonData.filter(season => season.training_plans?.length);
+  seasons.forEach(
+      season => season.training_plans.forEach(
+          plan => plan.date_text = formatDateText(new Date(plan.date_time))
+      )
+  );
+  return seasons;
 }
 
 /**
@@ -79,18 +75,37 @@ export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String,
         date_time,
         summary,
         visible,
-        modules[]->,
+        modules[]-> {
+          type,
+          title,
+          "tags": [
+            main_tag-> {
+              name,
+              "slug": slug.current,
+              color,
+            },
+            ...additional_tags[]-> {
+              name,
+              "slug": slug.current,
+              color,
+            },
+          ],
+          minutes,
+          short_text,
+          detailed_text,
+          resources,
+        },
       }`,
       {
         season: seasonSlug,
         training_label: trainingSlug,
       },
   );
-
-  if (!trainingPlanData) {
-    throw new NotFoundError('Training plan not found');
+  
+  if (!trainingPlanData.length) {
+    error(404, 'Requested training plan not found.')
   } else if (trainingPlanData.length > 1) {
-    throw new InternalError('More than one training plan found.');
+    error(500, 'More than one training plan found.')
   }
 
   const trainingPlan = trainingPlanData[0];
