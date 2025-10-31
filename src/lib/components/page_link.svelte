@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex items-center gap-2">
-  <a href={url} target={external ? '_blank' : null} class="flex items-center w-[170px] gap-2 link-hover">
+  <a href={url} target={external ? '_blank' : null} class="flex items-center gap-2 w-[210px] link-hover">
     {#if external}
       <ExternalLink size=20 />
     {:else}

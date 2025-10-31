@@ -3,11 +3,11 @@ import { sendNumberRequestNotification } from '$lib/server/emailer';
 import { sanityClient } from '$lib/server/sanity';
 
 interface SkaterNumber {
-  skater_number: String,
-  derby_name: String,
+  skater_number: string,
+  derby_name: string,
 
   // Computed fields:
-  derby_name_lower: String,
+  derby_name_lower: string,
 }
 
 /**

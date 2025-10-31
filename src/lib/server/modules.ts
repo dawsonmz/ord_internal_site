@@ -2,32 +2,32 @@ import imageUrlBuilder from '@sanity/image-url';
 import { sanityClient } from '$lib/server/sanity';
 
 export interface ModuleTag {
-  name: String,
-  slug: String,
-  color: String,
+  name: string,
+  slug: string,
+  color: string,
 }
 
 export interface Module {
-  type: String,
-  title: String,
+  type: string,
+  title: string,
   main_tag: ModuleTag,
   tags: ModuleTag[],
-  minutes: Number,
+  minutes: number,
   short_text: [],
   detailed_text: [],
   resources: ImageResource[],
 
   // Computed fields:
-  start_time: String,
+  start_time: string,
 }
 
 export interface ImageResource {
-  description: String,
+  description: string,
   image: any,
-  alt: String,
+  alt: string,
 
   // Computed fields:
-  image_url: String,
+  image_url: string,
 }
 
 export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {

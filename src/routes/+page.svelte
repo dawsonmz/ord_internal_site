@@ -6,10 +6,8 @@
   let { form } = $props();
 </script>
 
-<div class="flex flex-col gap-6">
-  <p>Welcome to the Oslo Roller Derby internal website!</p>
-
-  <div class="flex max-sm:flex-col max-sm:gap-6">
+<div class="flex flex-col gap-6 mt-4">
+  <div class="flex max-md:flex-col max-md:gap-6">
     <PageLinkGroup header="Team Resources">
       <PageLink url="/roster-a-team">
         {#snippet text()}
@@ -27,6 +25,28 @@
           View the current B Team roster, including blocker lines, jammers, and bench crew.
         {/snippet}
       </PageLink>
+      <PageLink url="/documents">
+        {#snippet text()}
+          Document Links
+        {/snippet}
+        {#snippet description()}
+          Links to team documents such as the travel coordination spreadsheets, the Google Drive folder for skater photos, etc.
+        {/snippet}
+      </PageLink>
+    </PageLinkGroup>
+
+    <PageLinkGroup header="Training Resources">
+      <PageLink url="/footage">
+        {#snippet text()}
+          Footage
+        {/snippet}
+        {#snippet description()}
+          Video footage of ORD scrimmages and games.
+        {/snippet}
+      </PageLink>
+    </PageLinkGroup>
+
+    <PageLinkGroup header="Skater Resources">
       <PageLink url="/skater-vault">
         {#snippet text()}
           Skater Vault
@@ -36,7 +56,9 @@
         {/snippet}
       </PageLink>
     </PageLinkGroup>
+  </div>
 
+  <div class="flex max-md:flex-col max-md:gap-6">
     <PageLinkGroup header="Beginners">
       <PageLink url="/beginner-plans">
         {#snippet text()}
@@ -63,10 +85,16 @@
         {/snippet}
       </PageLink>
     </PageLinkGroup>
-  </div>
 
-  <div class="flex max-sm:flex-col max-sm:gap-6">
     <PageLinkGroup header="Other Resources">
+      <PageLink url="https://stats.wftda.com/rankings-live/europe" external>
+        {#snippet text()}
+          WFTDA Rankings
+        {/snippet}
+        {#snippet description()}
+          Live rankings for WFTDA Europe teams. These are unofficial rankings; official ones are published on the first of every month.
+        {/snippet}
+      </PageLink>
       <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external>
         {#snippet text()}
           Mitt Varsel
@@ -78,10 +106,10 @@
     </PageLinkGroup>
   </div>
 
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 mt-4">
     <FeedbackDialog label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
-    <p>
+    <div>
       You can also submit feedback on any particular page by selecting the <strong>Give Feedback</strong> option from the menu.
-    </p>
+    </div>
   </div>
 </div>

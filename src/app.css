@@ -172,6 +172,11 @@
   color: color-mix(in srgb, currentColor 63%, transparent);
 }
 
+.subheading-light {
+  font-weight: 300;
+  color: color-mix(in srgb, currentColor 63%, transparent);
+}
+
 .rich-text p {
   margin-top: 1px;
   margin-bottom: 1px;

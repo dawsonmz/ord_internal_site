@@ -1,43 +1,44 @@
 import { error } from '@sveltejs/kit';
 import { type Module, processImageResources } from '$lib/server/modules';
 import { sanityClient } from '$lib/server/sanity';
+import { formatDateText, formatDateTextFromDate, formatTimeText } from '$lib/util/datetime';
 
-interface Season {
-  name: String,
-  slug: String,
+interface SeasonWithTrainingSummaries {
+  name: string,
+  slug: string,
   training_plans: TrainingPlanSummary[],
 }
 
 interface TrainingPlanSummary {
-  training_label: String,
-  slug: String,
-  date_time: Date,
-  summary: String,
-  visible: Boolean,
+  training_label: string,
+  slug: string,
+  date_time: string,
+  summary: string,
+  visible: boolean,
 
   // Computed fields:
-  date_text: String,
+  date_text: string,
 }
 
 interface TrainingPlan {
-  training_label: String,
-  season: String,
-  date_time: Date,
-  summary: String,
-  visible: Boolean,
+  training_label: string,
+  season: string,
+  date_time: string,
+  summary: string,
+  visible: boolean,
   modules: Module[],
 
   // Computed fields:
-  date_text: String,
+  date_text: string,
 }
 
 /**
  * @param showHidden If true, shows all training plans, including those not marked visible
  * @returns All seasons' names, slugs, and training plan summaries.
  */
-export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
+export async function loadTrainingPlanSummaries(showHidden: boolean): Promise<SeasonWithTrainingSummaries[]> {
   const visibleFilter = showHidden ? '' : '&& visible';
-  const seasonData: Season[] = await sanityClient.option.fetch(
+  const seasonData: SeasonWithTrainingSummaries[] = await sanityClient.option.fetch(
     `*[_type == "season"] {
       name,
       "slug": slug.current,
@@ -52,11 +53,7 @@ export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
   );
 
   const seasons = seasonData.filter(season => season.training_plans?.length);
-  seasons.forEach(
-      season => season.training_plans.forEach(
-          plan => plan.date_text = formatDateText(new Date(plan.date_time))
-      )
-  );
+  seasons.forEach(season => season.training_plans.forEach(plan => plan.date_text = formatDateText(plan.date_time)));
   return seasons;
 }
 
@@ -66,7 +63,7 @@ export async function loadSeasons(showHidden: boolean): Promise<Season[]> {
  * @param showHidden If true, shows all training plans, including those not marked visible
  * @returns The training in the specified season with the specified training label
  */
-export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String, showHidden: boolean): Promise<TrainingPlan> {
+export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string, showHidden: boolean): Promise<TrainingPlan> {
   const visibleFilter = showHidden ? '' : '&& visible';
   const trainingPlanData: TrainingPlan[] = await sanityClient.option.fetch(
       `*[_type == "training_plan" && season->slug.current == $season && slug.current == $training_label ${visibleFilter}] {
@@ -110,45 +107,15 @@ export async function loadTrainingPlan(seasonSlug: String, trainingSlug: String,
 
   const trainingPlan = trainingPlanData[0];
   const moduleStartTime: Date = new Date(trainingPlan.date_time);
-  trainingPlan.date_text = formatDateText(moduleStartTime);
+  trainingPlan.date_text = formatDateTextFromDate(moduleStartTime);
 
   trainingPlan.modules.forEach(
       module => {
         module.start_time = formatTimeText(moduleStartTime);
-        moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module.minutes.valueOf());
+        moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module.minutes);
         processImageResources(module);
       }
   );
 
   return trainingPlan;
-}
-
-function formatDateText(date: Date): String {
-  // Using en-GB formatting for English day-of-week and month names.
-  const weekday = date.toLocaleDateString(
-      'en-GB',
-      {
-        timeZone: 'Europe/Oslo',
-        weekday: 'long',
-      }
-  );
-  const day = date.toLocaleDateString(
-      'en-GB',
-      {
-        timeZone: 'Europe/Oslo',
-        day: 'numeric',
-        month: 'long',
-      },
-  );
-  return `${weekday}, ${day}`;
-}
-
-function formatTimeText(date: Date): String {
-  return date.toLocaleTimeString(
-      'en-GB',
-      {
-        timeStyle: 'short',
-        timeZone: 'Europe/Oslo',
-      }
-  );
 }

@@ -17,8 +17,8 @@
 
 <div class="flex flex-col gap-6 sm:gap-8">
   <div class="flex flex-col sm:flex-row gap-6 sm:gap-8">
-    <SkaterNumberGroup heading={roster.line_a_name.valueOf()} skaterNumbers={roster.line_a} />
-    <SkaterNumberGroup heading={roster.line_b_name.valueOf()} skaterNumbers={roster.line_b} />
+    <SkaterNumberGroup heading={roster.line_a_name} skaterNumbers={roster.line_a} />
+    <SkaterNumberGroup heading={roster.line_b_name} skaterNumbers={roster.line_b} />
   </div>
   <div class="flex flex-col sm:flex-row gap-6 sm:gap-8">
     {#if roster.jammers}

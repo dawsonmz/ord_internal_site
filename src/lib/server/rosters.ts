@@ -2,20 +2,20 @@ import { error } from '@sveltejs/kit';
 import { sanityClient } from '$lib/server/sanity';
 
 interface Roster {
-  name: String,
-  short_name: String,
-  season: String,
-  line_a_name: String,
+  name: string,
+  short_name: string,
+  season: string,
+  line_a_name: string,
   line_a: SkaterNumber[],
-  line_b_name: String,
+  line_b_name: string,
   line_b: SkaterNumber[],
   jammers: SkaterNumber[],
   bench: SkaterNumber[],
 }
 
 interface SkaterNumber {
-  skater_number: String,
-  derby_name: String,
+  skater_number: string,
+  derby_name: string,
 }
 
 /**
