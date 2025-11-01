@@ -8,8 +8,8 @@
 
 <div class="flex flex-col gap-6 mt-4">
   <div class="flex max-md:flex-col max-md:gap-6">
-    <PageLinkGroup header="Team Resources">
-      <PageLink url="/roster-a-team">
+    <PageLinkGroup header="Team Resources" width={300}>
+      <PageLink url="/roster-a-team" width={190}>
         {#snippet text()}
           A Team Roster
         {/snippet}
@@ -17,7 +17,7 @@
           View the current A Team roster, including blocker lines, jammers, and bench crew.
         {/snippet}
       </PageLink>
-      <PageLink url="/roster-b-team">
+      <PageLink url="/roster-b-team" width={190}>
         {#snippet text()}
           B Team Roster
         {/snippet}
@@ -25,7 +25,7 @@
           View the current B Team roster, including blocker lines, jammers, and bench crew.
         {/snippet}
       </PageLink>
-      <PageLink url="/documents">
+      <PageLink url="/documents" width={190}>
         {#snippet text()}
           Document Links
         {/snippet}
@@ -35,8 +35,8 @@
       </PageLink>
     </PageLinkGroup>
 
-    <PageLinkGroup header="Training Resources">
-      <PageLink url="/footage">
+    <PageLinkGroup header="Training Resources" width={300}>
+      <PageLink url="/footage" width={190}>
         {#snippet text()}
           Footage
         {/snippet}
@@ -46,8 +46,8 @@
       </PageLink>
     </PageLinkGroup>
 
-    <PageLinkGroup header="Skater Resources">
-      <PageLink url="/skater-vault">
+    <PageLinkGroup header="Skater Resources" width={300}>
+      <PageLink url="/skater-vault" width={190}>
         {#snippet text()}
           Skater Vault
         {/snippet}
@@ -59,8 +59,8 @@
   </div>
 
   <div class="flex max-md:flex-col max-md:gap-6">
-    <PageLinkGroup header="Beginners">
-      <PageLink url="/beginner-plans">
+    <PageLinkGroup header="Beginners" width={300}>
+      <PageLink url="/beginner-plans" width={190}>
         {#snippet text()}
           Training Plans
         {/snippet}
@@ -68,7 +68,7 @@
           View training plans for the ORD beginners course.
         {/snippet}
       </PageLink>
-      <PageLink url="/beginner-modules">
+      <PageLink url="/beginner-modules" width={190}>
         {#snippet text()}
           Modules
         {/snippet}
@@ -76,7 +76,7 @@
           View the individual drills used to assemble beginners training plans.
         {/snippet}
       </PageLink>
-      <PageLink url="/beginner-skills">
+      <PageLink url="/beginner-skills" width={190}>
         {#snippet text()}
           Skills Tracking
         {/snippet}
@@ -86,8 +86,8 @@
       </PageLink>
     </PageLinkGroup>
 
-    <PageLinkGroup header="Other Resources">
-      <PageLink url="https://stats.wftda.com/rankings-live/europe" external>
+    <PageLinkGroup header="Other Resources" width={300}>
+      <PageLink url="https://stats.wftda.com/rankings-live/europe" external width={190}>
         {#snippet text()}
           WFTDA Rankings
         {/snippet}
@@ -95,7 +95,7 @@
           Live rankings for WFTDA Europe teams. These are unofficial rankings; official ones are published on the first of every month.
         {/snippet}
       </PageLink>
-      <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external>
+      <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external width={190}>
         {#snippet text()}
           Mitt Varsel
         {/snippet}

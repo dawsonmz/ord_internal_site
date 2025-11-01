@@ -14,6 +14,7 @@
   --hover-color: #FF8133;
   --error-color: #DD0000;
   --faded-dark-color: color-mix(in oklab, var(--semi-dark-color) 20%, transparent);
+  --faded-light-color: color-mix(in oklab, var(--light-color) 20%, transparent);
   --faded-backdrop-color: color-mix(in oklab, var(--dark-color) 50%, transparent);
 }
 

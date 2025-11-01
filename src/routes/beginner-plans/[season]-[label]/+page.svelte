@@ -59,7 +59,7 @@
   </button>
 </div>
 {#each modules as module, index}
-  <div class="border-t-1 border-[var(--faded-dark-color)] pt-3 ">
+  <div class="border-t-1 border-[var(--faded-dark-color)] dark:border-[var(--faded-light-color)] pt-3 ">
     <ModuleHeader baseClasses="mb-1" module={module} />
     <Module module={module} tabState={tabStates[index]} form={form} formId="module-{index}" />
   </div>

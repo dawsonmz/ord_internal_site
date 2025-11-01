@@ -12,10 +12,10 @@
   <CrumbPage>Footage</CrumbPage>
 </Crumb>
 
-<PageLinkGroup header="Choose a season">
+<PageLinkGroup header="Choose a season" width={200}>
   <div class="mx-2">
     {#each data.seasons as season}
-      <PageLink url="/footage/{season.slug}">
+      <PageLink url="/footage/{season.slug}" width={160}>
         {#snippet text()}
           {season.name}
         {/snippet}

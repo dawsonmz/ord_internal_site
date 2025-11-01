@@ -36,7 +36,7 @@
           <div class="flex flex-col gap-2">
             <div class="text-lg font-semibold">{footage.title}</div>
             <div class="subheading">{footage.event ?? footage.type}</div>
-            <div class="subheading-light mb-1">{footage.date_text}</div>
+            <div class="subheading-light">{footage.date_text}</div>
             {#if footage.id}
               <a class="rounded-md dark:border-1 w-max"
                 href="https://youtube.com/watch?v={footage.id}{footage.start_seconds ? `&amp;start=${footage.start_seconds}` : ''}"
@@ -50,7 +50,7 @@
                 />
               </a>
             {:else}
-              <PageLink url={footage.other_link} external>
+              <PageLink url={footage.other_link} external width={140}>
                 {#snippet text()}
                   {getExternalLinkText(footage.other_link!)}
                 {/snippet}
