@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { type Module, processImages } from '$lib/server/modules';
+import type { Module } from '$lib/server/modules';
 import { formatDateText, formatDateTextFromDate, formatTimeText } from '$lib/util/datetime';
 import { sanityClient } from '$lib/util/sanity';
 
@@ -90,7 +90,6 @@ export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string,
           minutes,
           short_text,
           detailed_text,
-          resources,
         },
       }`,
       {
@@ -113,7 +112,6 @@ export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string,
       module => {
         module.start_time = formatTimeText(moduleStartTime);
         moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module.minutes);
-        processImages(module);
       }
   );
 

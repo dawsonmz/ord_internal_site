@@ -1,4 +1,3 @@
-import type { ImageUrlBuilder } from 'sanity';
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
@@ -13,15 +12,8 @@ export const sanityClient = {
   ),
 };
 
-let imageBuilder: ImageUrlBuilder | null = null;
-
-function getImageBuilder(): ImageUrlBuilder {
-  if (!imageBuilder) {
-    imageBuilder = imageUrlBuilder(sanityClient.option);
-  }
-  return imageBuilder;
-}
+const imageBuilder = imageUrlBuilder(sanityClient.option);
 
 export function getSanityImageUrl(image: any, width: number) {
-  return getImageBuilder().image(image).width(width).url();
+  return imageBuilder.image(image).width(width).url();
 }

@@ -1,4 +1,4 @@
-import { getSanityImageUrl, sanityClient } from '$lib/util/sanity';
+import { sanityClient } from '$lib/util/sanity';
 
 export interface ModuleTag {
   name: string,
@@ -14,19 +14,9 @@ export interface Module {
   minutes: number,
   short_text: [],
   detailed_text: [],
-  resources: ImageResource[],
 
   // Computed fields:
   start_time: string,
-}
-
-export interface ImageResource {
-  description: string,
-  image: any,
-  alt: string,
-
-  // Computed fields:
-  image_url: string,
 }
 
 export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {
@@ -41,7 +31,7 @@ export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {
 
 export async function loadModules(moduleType: string, tag: string | undefined): Promise<Module[]> {
   const tagFilter = tag ? '&& (main_tag->slug.current == $query_tag || $query_tag in additional_tags[]->slug.current)' : '';
-  const moduleData: Module[] = await sanityClient.option.fetch(
+  return await sanityClient.option.fetch(
       `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}]
           | order(main_tag->orderRank asc, orderRank asc) {
         type,
@@ -61,26 +51,10 @@ export async function loadModules(moduleType: string, tag: string | undefined): 
         minutes,
         short_text,
         detailed_text,
-        resources,
       }`,
       {
         module_type: moduleType,
         query_tag: tag
       },
   );
-  
-  moduleData.forEach(module => processImages(module));
-  return moduleData;
-}
-
-/**
- * Updates any image resources in the provided module with sizing and the image URL.
- * @param module A modules with potentially unprocessed image resources
- */
-export function processImages(module: Module) {
-  if (module.resources) {
-    module.resources.forEach(
-        (imageResource: ImageResource) => imageResource.image_url = getSanityImageUrl(imageResource.image, 300)
-    );
-  }
 }

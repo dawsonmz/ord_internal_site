@@ -188,6 +188,10 @@
   margin-top: 12px;
 }
 
+.rich-text img + p {
+  margin-bottom: 12px;
+}
+
 .rich-text ul {
   list-style-position: outside;
 }
@@ -205,6 +209,14 @@
 .rich-text ul li li li {
   list-style-type: square;
   margin-left: 32px;
+}
+
+.rich-text a {
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--hover-color);  
+  }
 }
 
 .min-height {

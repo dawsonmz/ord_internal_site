@@ -21,14 +21,11 @@
 </div>
 <Tabs value={tabState} onValueChange={e => tabState = e.value}>
   <Tabs.List class="mb-4">
-    <TabControl value='Short' selectedValue={tabState} width="[84px]" textSize="text-sm" />
+    <TabControl value='Short' selectedValue={tabState} width="[90px]" textSize="text-sm" />
     {#if module.detailed_text}
-      <TabControl value='Detailed' selectedValue={tabState} width="[84px]" textSize="text-sm" />
+      <TabControl value='Detailed' selectedValue={tabState} width="[90px]" textSize="text-sm" />
     {/if}
-    {#if module.resources}
-      <TabControl value='Resources' selectedValue={tabState} width="[84px]" textSize="text-sm" />
-    {/if}
-    <Tabs.Indicator class="border-y-[1px] w-[84px]" />
+    <Tabs.Indicator class="border-y-[1px] w-[90px]" />
   </Tabs.List>
 
   <Tabs.Content value='Short'>
@@ -41,30 +38,6 @@
       <div class="rich-text text-sm">
         <PortableText value={module.detailed_text} {components} />
       </div>
-    </Tabs.Content>
-  {/if}
-  {#if module.resources}
-    <Tabs.Content value='Resources'>
-      {#each module.resources as imageResource}
-        <div class="card
-                    border-[1px]
-                    border-[var(--light-color)]
-                    divide-[var(--light-color)]
-                    block
-                    max-w-[300px]
-                    divide-y
-                    overflow-hidden
-                    mb-5
-                    text-sm"
-        >
-          <header>
-            <img src={imageResource.image_url} alt={imageResource.alt} />
-          </header>
-          <article class="p-2">
-            <div>{imageResource.description}</div>
-          </article>
-        </div>
-      {/each}
     </Tabs.Content>
   {/if}
 </Tabs>
