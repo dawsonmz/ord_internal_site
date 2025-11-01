@@ -5,7 +5,7 @@ import { checkAccess } from '$lib/server/roles';
 import { loadSkaterVault, submitNumberRequest } from '$lib/server/skater_vault';
 
 export async function load({ locals }) {
-  await checkAccess(locals, ['member', 'admin']);
+  await checkAccess(locals, 'member');
   return { skater_numbers: await loadSkaterVault() };
 }
 

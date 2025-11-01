@@ -5,7 +5,7 @@ import { checkAccess } from '$lib/server/roles';
 import { loadSeasons } from '$lib/server/seasons';
 
 export async function load({ locals }) {
-  await checkAccess(locals, ['member', 'admin']);
+  await checkAccess(locals, 'member');
   return { seasons: await loadSeasons() };
 }
 

@@ -1,7 +1,7 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
-  export type Roles = 'admin' | 'member';
+  export type Role = 'admin' | 'member' | 'trainer';
   
   namespace App {
     // interface Error {}
@@ -15,7 +15,7 @@ declare global {
 
     interface CustomJwtSessionClaims {
       metadata: {
-        role?: Roles,
+        roles?: Role[],
       }
     }
   }
