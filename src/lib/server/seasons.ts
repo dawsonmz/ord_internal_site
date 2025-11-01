@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { sanityClient } from '$lib/server/sanity';
+import { sanityClient } from '$lib/util/sanity';
 
 export interface Season {
   name: string,

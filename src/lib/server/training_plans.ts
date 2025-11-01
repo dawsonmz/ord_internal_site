@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
-import { type Module, processImageResources } from '$lib/server/modules';
-import { sanityClient } from '$lib/server/sanity';
+import { type Module, processImages } from '$lib/server/modules';
 import { formatDateText, formatDateTextFromDate, formatTimeText } from '$lib/util/datetime';
+import { sanityClient } from '$lib/util/sanity';
 
 interface SeasonWithTrainingSummaries {
   name: string,
@@ -113,7 +113,7 @@ export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string,
       module => {
         module.start_time = formatTimeText(moduleStartTime);
         moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module.minutes);
-        processImageResources(module);
+        processImages(module);
       }
   );
 

@@ -1,6 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import { sendNumberRequestNotification } from '$lib/server/emailer';
-import { sanityClient } from '$lib/server/sanity';
+import { sanityClient } from '$lib/util/sanity';
 
 interface SkaterNumber {
   skater_number: string,

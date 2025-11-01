@@ -1,5 +1,4 @@
-import imageUrlBuilder from '@sanity/image-url';
-import { sanityClient } from '$lib/server/sanity';
+import { getSanityImageUrl, sanityClient } from '$lib/util/sanity';
 
 export interface ModuleTag {
   name: string,
@@ -69,22 +68,19 @@ export async function loadModules(moduleType: string, tag: string | undefined): 
         query_tag: tag
       },
   );
-
-  moduleData.forEach(module => processImageResources(module));
+  
+  moduleData.forEach(module => processImages(module));
   return moduleData;
 }
-
-const imageBuilder = imageUrlBuilder(sanityClient.option);
 
 /**
  * Updates any image resources in the provided module with sizing and the image URL.
  * @param module A modules with potentially unprocessed image resources
  */
-export function processImageResources(module: Module) {
+export function processImages(module: Module) {
   if (module.resources) {
     module.resources.forEach(
-        (imageResource: ImageResource) =>
-            imageResource.image_url = imageBuilder.image(imageResource.image).width(300).url(),
+        (imageResource: ImageResource) => imageResource.image_url = getSanityImageUrl(imageResource.image, 300)
     );
   }
 }

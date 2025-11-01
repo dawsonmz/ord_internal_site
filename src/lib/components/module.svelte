@@ -3,9 +3,11 @@
   import { PortableText } from '@portabletext/svelte';
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
+  import PortableImage from '$lib/components/portable_text/portable_image.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
   let { module, tabState, form, formId } = $props();
+  const components = { types: { image: PortableImage }};
 </script>
 
 <div class="flex items-center gap-1 text-base">
@@ -31,13 +33,13 @@
 
   <Tabs.Content value='Short'>
     <div class="rich-text text-sm">
-      <PortableText value={module.short_text} />
+      <PortableText value={module.short_text} {components} />
     </div>
   </Tabs.Content>
   {#if module.detailed_text}
     <Tabs.Content value='Detailed'>
       <div class="rich-text text-sm">
-        <PortableText value={module.detailed_text} />
+        <PortableText value={module.detailed_text} {components} />
       </div>
     </Tabs.Content>
   {/if}

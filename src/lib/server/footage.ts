@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { sanityClient } from '$lib/server/sanity';
 import { formatDateText } from '$lib/util/datetime';
+import { sanityClient } from '$lib/util/sanity';
 
 interface Footage {
   title: string,
