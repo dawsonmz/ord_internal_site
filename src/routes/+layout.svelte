@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css';
-  import { ArrowRight, ExternalLink, HouseIcon, MenuIcon, XIcon, LogIn, LogOut, UserCircle } from '@lucide/svelte/icons';
+  import { HouseIcon, MenuIcon, XIcon, LogIn, LogOut, UserCircle } from '@lucide/svelte/icons';
   import { Accordion, AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
   import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from 'svelte-clerk';
   import { afterNavigate } from '$app/navigation';
@@ -8,6 +8,7 @@
   import logo from '$lib/assets/ord-logo.svg';
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import NavAccordionItem from '$lib/components/nav_accordion_item.svelte';
+  import NavAccordionLink from '$lib/components/nav_accordion_link.svelte';
   
   let { children } = $props();
   let drawerState = $state(false);
@@ -110,54 +111,24 @@
 
                     <Accordion value={openNavItems} collapsible onValueChange={e => openNavItems = e.value}>
                       <NavAccordionItem header="Team Resources" {openNavItems}>
-                        <a class="flex items-center gap-2 link" href="/roster-a-team">
-                          <ArrowRight size=20 />
-                          <div>A Team Roster</div>
-                        </a>
-                        <a class="flex items-center gap-2 link" href="/roster-b-team">
-                          <ArrowRight size=20 />
-                          <div>B Team Roster</div>
-                        </a>
-                        <a class="flex items-center gap-2 link" href="/documents">
-                          <ArrowRight size=20 />
-                          <div>Document Links</div>
-                        </a>
+                        <NavAccordionLink label="A Team Roster" url="/roster-a-team" />
+                        <NavAccordionLink label="B Team Roster" url="/roster-b-team" />
+                        <NavAccordionLink label="Document Links" url="/documents" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Training Resources" {openNavItems}>
-                        <a class="flex items-center gap-2 link" href="/footage">
-                          <ArrowRight size=20 />
-                          <div>Footage</div>
-                        </a>
+                        <NavAccordionLink label="Footage" url="/footage" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Skater Resources" {openNavItems}>
-                        <a class="flex items-center gap-2 link" href="/skater-vault">
-                          <ArrowRight size=20 />
-                          <div>Skater Vault</div>
-                        </a>
+                        <NavAccordionLink label="Skater Vault" url="/skater-vault" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Beginners" {openNavItems}>
-                        <a class="flex items-center gap-2 link" href="/beginner-plans">
-                          <ArrowRight size=20 />
-                          <div>Training Plans</div>
-                        </a>
-                        <a class="flex items-center gap-2 link" href="/beginner-modules">
-                          <ArrowRight size=20 />
-                          <div>Modules</div>
-                        </a>
-                        <a class="flex items-center gap-2 link" href="/beginner-skills">
-                          <ArrowRight size=20 />
-                          <div>Skills Tracking</div>
-                        </a>
+                        <NavAccordionLink label="Training Plans" url="/beginner-plans" />
+                        <NavAccordionLink label="Modules" url="/beginner-modules" />
+                        <NavAccordionLink label="Skills Tracking" url="/beginner-skills" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Other Resources" {openNavItems}>
-                        <a class="flex items-center gap-2 link" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
-                          <ExternalLink size=20 />
-                          <div>Mitt Varsel</div>
-                        </a>
-                        <a class="flex items-center gap-2 link" href="https://stats.wftda.com/rankings-live/europe" target="_blank">
-                          <ExternalLink size=20 />
-                          <div>WFTDA Rankings</div>
-                        </a>
+                        <NavAccordionLink label="Mitt Varsel" url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external />
+                        <NavAccordionLink label="WFTDA Rankings" url="https://stats.wftda.com/rankings-live/europe" external />
                       </NavAccordionItem>
                     </Accordion>
                     

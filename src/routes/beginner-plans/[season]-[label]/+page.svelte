@@ -7,11 +7,11 @@
   import ModuleHeader from '$lib/components/module_header.svelte';
 
   let { data, form } = $props();
-  const showHidden = page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true';
-  const hiddenQuery = showHidden ? '?show-hidden=true' : '';
+  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true');
+  const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
 
-  const modules = data.training_plan?.modules ?? [];
-  let tabStates = $state(new Array<string>(modules.length).fill('Short'));
+  const modules = $derived(data.training_plan?.modules ?? []);
+  let tabStates = $derived(new Array<string>(modules.length).fill('Short'));
 
   function showAllShort() {
     tabStates.forEach((_val: string, index: number, arr: string[]) => arr[index] = 'Short');

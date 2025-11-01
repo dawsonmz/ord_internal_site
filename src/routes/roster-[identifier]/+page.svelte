@@ -3,7 +3,7 @@
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
   let { data } = $props();
-  const roster = data.roster;
+  const roster = $derived(data.roster);
 </script>
 
 <Crumb>
