@@ -1,12 +1,13 @@
 <script lang="ts">
   import '../app.css';
-  import { MenuIcon, XIcon, ExternalLink, UserCircle } from '@lucide/svelte/icons';
-  import { AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
-  import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from 'svelte-clerk';
+  import { ArrowRight, ExternalLink, HouseIcon, MenuIcon, XIcon, LogIn, LogOut, UserCircle } from '@lucide/svelte/icons';
+  import { Accordion, AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
+  import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from 'svelte-clerk';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/state';
   import logo from '$lib/assets/ord-logo.svg';
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
+  import NavAccordionItem from '$lib/components/nav_accordion_item.svelte';
   
   let { children } = $props();
   let drawerState = $state(false);
@@ -17,6 +18,8 @@
   }
 
   afterNavigate(() => closeDrawer());
+
+  let openNavItems: string[] = $state([]);
 </script>
 
 <ClerkProvider
@@ -79,38 +82,87 @@
                          data-[state=open]:opacity-100
                          data-[state=open]:translate-x-0"
               >
-                <div class="flex flex-col gap-4 sm:ml-4 mt-2">
-                  <!-- Wrapper div around CloseTrigger is needed to prevent it from spanning the entire width. -->
-                  <div>
-                    <Dialog.CloseTrigger class="flex items-center gap-1 menu-hover">
-                      <XIcon aria-label="close navigation menu" />
-                      <span class="text-lg">Close</span>
-                    </Dialog.CloseTrigger>
-                  </div>
+                <div class="flex flex-col gap-3 sm:ml-4 mt-2">
+                  <Dialog.CloseTrigger class="flex items-center gap-2 menu-hover w-min sm:-ml-2">
+                    <XIcon size=24 />
+                    <span class="text-lg">Close</span>
+                  </Dialog.CloseTrigger>
 
-                  <div class="flex flex-col gap-4 ml-4 sm:ml-2">
-                    <div class="font-semibold text-xl">General</div>
-                    <div class="ml-6"><a class="link" href="/">Home</a></div>
-
-                    <div class="font-semibold text-xl">Team Resources</div>
-                    <div class="ml-6"><a class="link" href="/roster-a-team">A Team Roster</a></div>
-                    <div class="ml-6"><a class="link" href="/roster-b-team">B Team Roster</a></div>
-                    <div class="ml-6"><a class="link" href="/skater-vault">Skater Vault</a></div>
-
-                    <div class="font-semibold text-xl">Beginners</div>
-                    <div class="ml-6"><a class="link" href="/beginner-plans">Training Plans</a></div>
-                    <div class="ml-6"><a class="link" href="/beginner-modules">Modules</a></div>
-                    <div class="ml-6"><a class="link" href="/beginner-skills">Skills Tracking</a></div>
-
-                    <div class="font-semibold text-xl">Other Resources</div>
-                    <div class="ml-6">
-                      <a class="flex link justify-items-center" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
-                        <ExternalLink class="inline size-5 mr-1" />
-                        <span>Mitt Varsel</span>
+                  <div class="flex flex-col gap-6 ml-4 sm:ml-2">
+                    <div class="flex flex-col gap-3">
+                      <a class="flex items-center gap-2 link" href="/">
+                        <HouseIcon size=20 />
+                        <div>Home</div>
                       </a>
+                      <SignedIn>
+                        <SignOutButton class="flex items-center gap-2 link">
+                          <LogOut size=20 />
+                          <div>Sign Out</div>
+                        </SignOutButton>
+                      </SignedIn>
+                      <SignedOut>
+                        <SignInButton class="flex items-center gap-2 link">
+                          <LogIn size=20 />
+                          <div>Sign In</div>
+                        </SignInButton>
+                      </SignedOut>
                     </div>
+
+                    <Accordion value={openNavItems} collapsible onValueChange={e => openNavItems = e.value}>
+                      <NavAccordionItem header="Team Resources" {openNavItems}>
+                        <a class="flex items-center gap-2 link" href="/roster-a-team">
+                          <ArrowRight size=20 />
+                          <div>A Team Roster</div>
+                        </a>
+                        <a class="flex items-center gap-2 link" href="/roster-b-team">
+                          <ArrowRight size=20 />
+                          <div>B Team Roster</div>
+                        </a>
+                        <a class="flex items-center gap-2 link" href="/documents">
+                          <ArrowRight size=20 />
+                          <div>Document Links</div>
+                        </a>
+                      </NavAccordionItem>
+                      <NavAccordionItem header="Training Resources" {openNavItems}>
+                        <a class="flex items-center gap-2 link" href="/footage">
+                          <ArrowRight size=20 />
+                          <div>Footage</div>
+                        </a>
+                      </NavAccordionItem>
+                      <NavAccordionItem header="Skater Resources" {openNavItems}>
+                        <a class="flex items-center gap-2 link" href="/skater-vault">
+                          <ArrowRight size=20 />
+                          <div>Skater Vault</div>
+                        </a>
+                      </NavAccordionItem>
+                      <NavAccordionItem header="Beginners" {openNavItems}>
+                        <a class="flex items-center gap-2 link" href="/beginner-plans">
+                          <ArrowRight size=20 />
+                          <div>Training Plans</div>
+                        </a>
+                        <a class="flex items-center gap-2 link" href="/beginner-modules">
+                          <ArrowRight size=20 />
+                          <div>Modules</div>
+                        </a>
+                        <a class="flex items-center gap-2 link" href="/beginner-skills">
+                          <ArrowRight size=20 />
+                          <div>Skills Tracking</div>
+                        </a>
+                      </NavAccordionItem>
+                      <NavAccordionItem header="Other Resources" {openNavItems}>
+                        <a class="flex items-center gap-2 link" href="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" target="_blank">
+                          <ExternalLink size=20 />
+                          <div>Mitt Varsel</div>
+                        </a>
+                        <a class="flex items-center gap-2 link" href="https://stats.wftda.com/rankings-live/europe" target="_blank">
+                          <ExternalLink size=20 />
+                          <div>WFTDA Rankings</div>
+                        </a>
+                      </NavAccordionItem>
+                    </Accordion>
+                    
                     <div>
-                      <FeedbackDialog label="Give Feedback" labelClasses="font-semibold text-xl" wrapperClasses="self-center" iconSize={24} form={form} formId="sidebar" />
+                      <FeedbackDialog label="Give Feedback" labelClasses="font-semibold text-lg" wrapperClasses="self-center" iconSize={24} form={form} formId="sidebar" />
                     </div>
                   </div>  
                 </div>
