@@ -27,7 +27,7 @@
   <CrumbPage>{data.season.name}</CrumbPage>
 </Crumb>
 
-<div class="flex flex-wrap gap-12 sm:gap-16">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12 xl:mx-auto">
   {#each footageTypes as footageType}
     {#if data.footage.has(footageType)}
       <div class="flex flex-col gap-5">
@@ -45,8 +45,8 @@
                 <img class="rounded-md"
                      src="https://img.youtube.com/vi/{footage.id}/hqdefault.jpg"
                      alt="YouTube video thumbnail"
-                     width="240px"
-                     height="180px"
+                     width="280px"
+                     height="210px"
                 />
               </a>
             {:else}

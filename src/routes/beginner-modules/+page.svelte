@@ -58,7 +58,7 @@
 <div class="flex gap-2 mb-2">
   <button type="button" class="flex justify-center items-center gap-2 w-[160px] text-sm p-2 button-style" onclick={openAllModules}>
     <Plus size={20} />
-    <div class="mr-2">Open All</div>
+    <div class="mr-2">Expand All</div>
   </button>
   <button type="button" class="flex justify-center items-center gap-2 w-[160px] text-sm p-2 button-style" onclick={closeAllModules}>
     <Minus size={20} />

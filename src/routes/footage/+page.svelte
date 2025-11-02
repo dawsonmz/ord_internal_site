@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import PageLink from '$lib/components/page_link.svelte';
-  import PageLinkGroup from '$lib/components/page_link_group.svelte';
+  import LinkCard from '$lib/components/link_card.svelte';
 
   let { data } = $props();
 </script>
@@ -12,14 +11,11 @@
   <CrumbPage>Footage</CrumbPage>
 </Crumb>
 
-<PageLinkGroup header="Choose a season" width={200}>
-  <div class="mx-2">
-    {#each data.seasons as season}
-      <PageLink url="/footage/{season.slug}" width={160}>
-        {#snippet text()}
-          {season.name}
-        {/snippet}
-      </PageLink>
+{#each data.years as year}
+  <div class="text-xl font-semibold">{year}</div>
+  <div class="flex gap-6">
+    {#each data.seasons.get(year) as season}
+      <LinkCard title={season.name} url="/footage/{season.slug}" width={180} />
     {/each}
   </div>
-</PageLinkGroup>
+{/each}

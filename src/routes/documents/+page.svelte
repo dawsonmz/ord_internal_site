@@ -10,9 +10,9 @@
   <CrumbPage>Document Links</CrumbPage>
 </Crumb>
 
-<div class="flex max-sm:flex-col max-sm:gap-6">
-  <PageLinkGroup header="Team Links" width={360}>
-    <PageLink url="https://docs.google.com/spreadsheets/d/10N8UfN49Ty-Sb5VWHOEYWSn1vi0sk5eRWGjpfPJJwCc/edit?usp=sharing" external width={260}>
+<div class="sm:self-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-fit sm:gap-x-16 md:gap-x-32 gap-y-6">
+  <PageLinkGroup header="Team Links">
+    <PageLink url="https://docs.google.com/spreadsheets/d/10N8UfN49Ty-Sb5VWHOEYWSn1vi0sk5eRWGjpfPJJwCc/edit?usp=sharing" external width={250}>
       {#snippet text()}
         A Team Travel Document
       {/snippet}
@@ -20,7 +20,7 @@
         Google Sheets document used for coordinating travel and accommodation for A Team away games.
       {/snippet}
     </PageLink>
-    <PageLink url="https://docs.google.com/spreadsheets/d/1-O3bYEzgagenXJTwTNgHYX1YdaOwN_W1ey4WlZO0eTY/edit?usp=sharing" external width={260}>
+    <PageLink url="https://docs.google.com/spreadsheets/d/1-O3bYEzgagenXJTwTNgHYX1YdaOwN_W1ey4WlZO0eTY/edit?usp=sharing" external width={250}>
       {#snippet text()}
         B Team Travel Document
       {/snippet}
@@ -28,7 +28,7 @@
         Google Sheets document used for coordinating travel and accommodation for B Team away games.
       {/snippet}
     </PageLink>
-    <PageLink url="https://drive.google.com/drive/folders/1W2RgC0UHlUueEEdfAWvKJmj4HKRobpEc?usp=sharing" external width={260}>
+    <PageLink url="https://drive.google.com/drive/folders/1W2RgC0UHlUueEEdfAWvKJmj4HKRobpEc?usp=sharing" external width={250}>
       {#snippet text()}
         Player Photos
       {/snippet}
@@ -38,8 +38,8 @@
     </PageLink>
   </PageLinkGroup>
 
-  <PageLinkGroup header="Club Links" width={360}>
-    <PageLink url="https://docs.google.com/document/d/1Ds_PQc3xQrRm0iSiTuy25AaaxztOrTchawE_D8KSvX8/edit?usp=sharing" external width={260}>
+  <PageLinkGroup header="Club Links">
+    <PageLink url="https://docs.google.com/document/d/1Ds_PQc3xQrRm0iSiTuy25AaaxztOrTchawE_D8KSvX8/edit?usp=sharing" external width={250}>
       {#snippet text()}
         Committee Overview
       {/snippet}
@@ -47,7 +47,7 @@
         Google Document describing the different ORD committees and their members.
       {/snippet}
     </PageLink>
-    <PageLink url="https://docs.google.com/document/d/1YstTLuXFQ_56Bh-uvhLUlzKCYV5WJ3sSMQeAglegX2k/edit?usp=sharing" external width={260}>
+    <PageLink url="https://docs.google.com/document/d/1YstTLuXFQ_56Bh-uvhLUlzKCYV5WJ3sSMQeAglegX2k/edit?usp=sharing" external width={250}>
       {#snippet text()}
         Scholarship Fund
       {/snippet}
@@ -55,7 +55,7 @@
         Google Document detailing the application process for the ORD scholarship fund.
       {/snippet}
     </PageLink>
-    <PageLink url="https://docs.google.com/document/d/1TlCPurCfia8CNF9NxlmExKkTxRPnRt3PWYInsBlRkIk/edit?usp=sharing" external width={260}>
+    <PageLink url="https://docs.google.com/document/d/1TlCPurCfia8CNF9NxlmExKkTxRPnRt3PWYInsBlRkIk/edit?usp=sharing" external width={250}>
       {#snippet text()}
         Code of Conduct
       {/snippet}

@@ -6,7 +6,16 @@
 </script>
 
 <Accordion.Item value={header} class="mb-4">
-  <Accordion.ItemTrigger class="flex items-center justify-between w-full link-hover mb-2 mr-2">
+  <Accordion.ItemTrigger
+      class="flex
+             items-center
+             justify-between
+             w-full
+             link-hover
+             mb-2
+             mr-2
+             {openNavItems.includes(header) ? 'bg-[var(--semi-dark-color)]' : ''}"
+  >
     <div class="text-lg font-semibold">{header}</div>
     {#if openNavItems.includes(header)}
       <ChevronUp />

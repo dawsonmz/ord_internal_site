@@ -12,15 +12,15 @@
   
   let { children } = $props();
   let drawerState = $state(false);
+  let openNavItems: string[] = $state([]);
   let form = $derived(page.form);
 
   function closeDrawer() {
     drawerState = false;
+    openNavItems = [];
   }
 
   afterNavigate(() => closeDrawer());
-
-  let openNavItems: string[] = $state([]);
 </script>
 
 <ClerkProvider
@@ -45,9 +45,15 @@
     }}
 >
   <AppBar>
-    <AppBar.Toolbar class="menu-colors flex justify-between px-4 sm:px-8 py-2">
+    <AppBar.Toolbar class="menu-colors flex justify-between px-4 py-2">
       <AppBar.Lead class="flex items-center">
-        <Dialog open={drawerState} onOpenChange={e => drawerState = e.open}>
+        <Dialog
+            open={drawerState}
+            onOpenChange={e => {
+              drawerState = e.open;
+              openNavItems = [];
+            }}
+        >
           <Dialog.Trigger class="flex items-center gap-2 menu-hover">
             <MenuIcon aria-label="open navigation menu" />
             <span class="text-lg">Menu</span>
@@ -151,7 +157,7 @@
           <img class="w-16 h-16 sm:w-24 sm:h-24" src={logo} alt="Oslo Roller Derby logo" />
         </a>
       </AppBar.Headline>
-      <AppBar.Trail class="flex items-center">
+      <AppBar.Trail class="flex items-center pl-14">
         <SignedIn>
           <UserButton
               appearance={{
@@ -177,8 +183,7 @@
     </AppBar.Toolbar>
   </AppBar>
 
-  <div class="flex flex-col gap-4 mx-6 sm:mx-8 mt-5">
+  <div class="w-full sm:w-[600px] md:w-[700px] lg:w-[800px] xl:w-[1000px] flex flex-col gap-4 px-6 sm:mx-auto mt-5 mb-20">
     {@render children()}
   </div>
-  <footer class="mt-20"></footer>
 </ClerkProvider>
