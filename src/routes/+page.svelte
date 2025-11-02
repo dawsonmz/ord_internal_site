@@ -7,6 +7,9 @@
 </script>
 
 <div class="sm:self-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-fit sm:gap-x-16 md:gap-x-32 gap-y-8">
+  <div class="text-2xl font-semibold sm:col-span-2 md:col-span-3 text-center">
+    Oslo Roller Derby Internal Site
+  </div>
   <PageLinkGroup header="Team Resources">
     <PageLink url="/roster-a-team" width={180}>
       {#snippet text()}
