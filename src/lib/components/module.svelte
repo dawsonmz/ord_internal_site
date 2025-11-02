@@ -7,7 +7,8 @@
   import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
-  let { module, tabState, form, formId } = $props();
+  let { module, tabStates, index, form } = $props();
+
   const components = {
     types: { image: PortableModuleImage },
     block: { normal: PortableNormal },
@@ -21,13 +22,19 @@
   {/if}
   <div>{module.minutes} min</div>
   <Dot />
-  <FeedbackDialog context="Module: {module.title}" form={form} formId={formId} />
+  <FeedbackDialog context="Module: {module.title}" {form} formId="module-{index}" />
 </div>
-<Tabs value={tabState} onValueChange={e => tabState = e.value}>
+<Tabs
+    value={tabStates[index]}
+    onValueChange={e => {
+      tabStates[index] = e.value;
+      tabStates = [...tabStates];
+    }}
+>
   <Tabs.List class="mb-4">
-    <TabControl value='Short' selectedValue={tabState} width="[90px]" textSize="text-sm" />
+    <TabControl value='Short' selectedValue={tabStates[index]} width="[90px]" textSize="text-sm" />
     {#if module.detailed_text}
-      <TabControl value='Detailed' selectedValue={tabState} width="[90px]" textSize="text-sm" />
+      <TabControl value='Detailed' selectedValue={tabStates[index]} width="[90px]" textSize="text-sm" />
     {/if}
     <Tabs.Indicator class="border-y-[1px] w-[90px]" />
   </Tabs.List>

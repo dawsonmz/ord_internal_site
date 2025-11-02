@@ -5,6 +5,7 @@
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import Module from '$lib/components/module.svelte';
   import ModuleHeader from '$lib/components/module_header.svelte';
+    import { afterNavigate } from '$app/navigation';
 
   let { data, form } = $props();
 
@@ -24,6 +25,8 @@
   function closeAllModules() {
     openItems = [];
   }
+
+  afterNavigate(() => closeAllModules());
 </script>
 
 <Crumb>
@@ -81,7 +84,7 @@
       </Accordion.ItemTrigger>
       
       <Accordion.ItemContent class="mx-1 mt-4">
-        <Module module={module} tabState={tabStates[index]} form={form} formId="module-{index}" />
+        <Module module={module} {tabStates} {index} {form} />
       </Accordion.ItemContent>
     </Accordion.Item>
   {/each}
