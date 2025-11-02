@@ -39,7 +39,7 @@
             <div class="subheading-light">{footage.date_text}</div>
             {#if footage.id}
               <a class="rounded-md dark:border-1 w-max"
-                href="https://youtube.com/watch?v={footage.id}{footage.start_seconds ? `&amp;start=${footage.start_seconds}` : ''}"
+                href="https://youtube.com/watch?v={footage.id}{footage.start_seconds ? `&t=${footage.start_seconds}` : ''}"
                 target="_blank"
               >
                 <img class="rounded-md"
