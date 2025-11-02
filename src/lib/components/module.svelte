@@ -3,11 +3,15 @@
   import { PortableText } from '@portabletext/svelte';
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
-  import PortableImage from '$lib/components/portable_text/portable_image.svelte';
+  import PortableModuleImage from '$lib/components/portable_text/portable_module_image.svelte';
+  import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
   let { module, tabState, form, formId } = $props();
-  const components = { types: { image: PortableImage }};
+  const components = {
+    types: { image: PortableModuleImage },
+    block: { normal: PortableNormal },
+  };
 </script>
 
 <div class="flex items-center gap-1 text-base">
