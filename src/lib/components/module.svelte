@@ -7,7 +7,11 @@
   import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
+
   let { module, tabStates, index, form } = $props();
+
+  let isShort = $derived(tabStates[index] == 'Short');
+  let isDetailed = $derived(tabStates[index] == 'Detailed');
 
   const components = {
     types: { image: PortableModuleImage },
@@ -32,9 +36,9 @@
     }}
 >
   <Tabs.List class="mb-4">
-    <TabControl value='Short' selectedValue={tabStates[index]} width="[90px]" textSize="text-sm" />
+    <TabControl value='Short' isSelected={isShort} />
     {#if module.detailed_text}
-      <TabControl value='Detailed' selectedValue={tabStates[index]} width="[90px]" textSize="text-sm" />
+      <TabControl value='Detailed' isSelected={isDetailed} />
     {/if}
     <Tabs.Indicator class="border-y-[1px] w-[90px]" />
   </Tabs.List>

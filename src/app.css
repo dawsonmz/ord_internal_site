@@ -183,10 +183,6 @@
   margin-bottom: 1px;
 }
 
-.rich-text ul {
-  list-style-position: outside;
-}
-
 .rich-text ul li {
   list-style-type: disc;
   margin-left: 16px;
