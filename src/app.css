@@ -4,6 +4,10 @@
 
 @source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --very-light-color: #FFF6E0;
   --light-color: #FFEEC7;
@@ -179,12 +183,20 @@
 }
 
 .rich-text h3 {
-  font-size: calc(1.5rem * var(--text-scaling));
-  line-height: var(--tw-leading, calc(calc(2 / 1.5) * var(--text-scaling)));
+  font-size: calc(1.25rem /* 20px */ * var(--text-scaling)) /* 1.25rem = 20px */;
+  line-height: var(--tw-leading, calc(calc(1.75 / 1.25) /* 1.4 */ * var(--text-scaling)));
+  margin-top: 18px;
+  margin-bottom: 15px;
+
+  @media (width >= 40rem /* 640px */) {
+    font-size: calc(1.5rem * var(--text-scaling));
+    line-height: var(--tw-leading, calc(calc(2 / 1.5) * var(--text-scaling)));
+    margin-top: 24px;
+    margin-bottom: 20px;
+  }
+
   --tw-font-weight: var(--font-weight-semibold);
   font-weight: var(--font-weight-semibold);
-  margin-top: 24px;
-  margin-bottom: 20px;
 }
 
 .rich-text p {
