@@ -8,5 +8,5 @@
 {#if isEmpty}
   <br>
 {:else}
-  {@render children()}
+  <p>{@render children()}</p>
 {/if}

@@ -7,7 +7,6 @@
   import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
-
   let { module, tabStates, index, form } = $props();
 
   let isShort = $derived(tabStates[index] == 'Short');

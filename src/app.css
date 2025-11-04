@@ -178,6 +178,15 @@
   color: color-mix(in srgb, currentColor 63%, transparent);
 }
 
+.rich-text h3 {
+  font-size: calc(1.5rem * var(--text-scaling));
+  line-height: var(--tw-leading, calc(calc(2 / 1.5) * var(--text-scaling)));
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+
 .rich-text p {
   margin-top: 1px;
   margin-bottom: 1px;
@@ -204,6 +213,14 @@
   &:hover {
     color: var(--hover-color);  
   }
+}
+
+.rich-text img + p {
+  margin-top: 16px;
+}
+
+.rich-text p + img {
+  margin-top: 16px;
 }
 
 .min-height {

@@ -14,6 +14,10 @@ export const sanityClient = {
 
 const imageBuilder = imageUrlBuilder(sanityClient.option);
 
-export function getSanityImageUrl(image: any, width: number) {
-  return imageBuilder.image(image).width(width).url();
+export function getSanityImageUrl(image: any, width?: number) {
+  let imageUrlBuilder = imageBuilder.image(image);
+  if (width) {
+    imageUrlBuilder = imageUrlBuilder.width(width);
+  }
+  return imageUrlBuilder.url();
 }

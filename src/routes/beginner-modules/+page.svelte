@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { afterNavigate } from '$app/navigation';
   import { page } from '$app/state';
   import { ChevronDown, ChevronUp, Minus, Plus } from '@lucide/svelte/icons';
   import { Accordion } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import Module from '$lib/components/module.svelte';
   import ModuleHeader from '$lib/components/module_header.svelte';
-    import { afterNavigate } from '$app/navigation';
 
   let { data, form } = $props();
 
