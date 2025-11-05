@@ -1,6 +1,6 @@
 import type { Actions } from './$types';
-import { submitFeedback } from '$lib/server/feedback';
 import { loadModules, loadModuleTags } from '$lib/server/modules';
+import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ url }) {
   const tagParam = url.searchParams.get('tag')?.toLowerCase();
@@ -16,4 +16,4 @@ export async function load({ url }) {
   };
 }
 
-export const actions = { feedback: submitFeedback } satisfies Actions;
+export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;

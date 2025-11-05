@@ -1,5 +1,5 @@
 import type { Actions } from './$types';
-import { submitFeedback } from '$lib/server/feedback';
+import { submitSiteFeedback } from '$lib/server/site_feedback';
 import { loadTrainingPlanSummaries } from '$lib/server/training_plans';
 
 export async function load({ url }) {
@@ -9,5 +9,5 @@ export async function load({ url }) {
   };
 }
 
-export const actions = { feedback: submitFeedback } satisfies Actions;
+export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;
 

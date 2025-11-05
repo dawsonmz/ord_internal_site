@@ -1,14 +1,14 @@
 import type { Actions } from './$types';
-import { submitFeedback } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
+import { submitSiteFeedback } from '$lib/server/site_feedback';
 
-export async function load({ locals, params }) {
+export async function load({ locals }) {
   await checkAccess(locals, 'member');
   return {};
 }
 
 export const actions = {
-  feedback: submitFeedback,
+  sitefeedback: submitSiteFeedback,
   requestaccess: requestAccess,
 } satisfies Actions;

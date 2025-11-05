@@ -11,7 +11,7 @@
   }
 </script>
 
-<FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/feedback" closeFn={() => form = null}>
+<FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/sitefeedback" closeFn={() => form = null}>
   {#snippet trigger()}
     <div class="flex items-center gap-2 link-hover">
       <MessageSquareText size={iconSize} />

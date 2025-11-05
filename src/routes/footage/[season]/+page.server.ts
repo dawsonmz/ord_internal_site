@@ -1,9 +1,9 @@
 import type { Actions } from './$types';
-import { submitFeedback } from '$lib/server/feedback';
 import { loadFootage } from '$lib/server/footage';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
 import { loadSeason } from '$lib/server/seasons';
+import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ locals, params }) {
   await checkAccess(locals, 'member');
@@ -15,6 +15,6 @@ export async function load({ locals, params }) {
 }
 
 export const actions = {
-  feedback: submitFeedback,
+  sitefeedback: submitSiteFeedback,
   requestaccess: requestAccess,
 } satisfies Actions;

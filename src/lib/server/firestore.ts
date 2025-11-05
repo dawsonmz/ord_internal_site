@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { env } from '$env/dynamic/private';
 
@@ -7,7 +8,60 @@ const CACHE_EXPIRY_MARGIN = 120;
 
 const FIRESTORE_PROJECT_ID = 'planar-ember-470822-n7';
 
-export async function createDocument(collection: string, body: any) {
+export interface Filter {
+  field: string,
+  op: 'EQUAL' | 'NOT_EQUAL' | 'GREATER_THAN' | 'GREATER_THAN_OR_EQUAL' | 'LESS_THAN' | 'LESS_THAN_OR_EQUAL',
+  value: string,
+}
+
+export async function queryDocuments(collection: string, filters: Filter[]) {
+  const accessToken = await getAccessToken();
+  const body = {
+    structuredQuery: {
+      from: [{ collectionId: collection }],
+      where: {
+        compositeFilter: {
+          op: 'AND',
+          filters: filters.map(
+            filter => {
+              return {
+                fieldFilter: {
+                  field: { fieldPath: filter.field },
+                  op: filter.op,
+                  value: { stringValue: filter.value },
+                },
+              };
+            }
+          ),
+        }
+      },
+    },
+  };
+
+  const response = await fetch(
+      `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents:runQuery`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(body),
+      },
+  );
+
+  if (!response.ok) {
+    error(response.status, `Firestore error: ${await response.text()}`);
+  }
+
+  // When there are not any actual results, a single element will still be returned with the read time,
+  // but missing the document field.
+  const results = await response.json();
+  return results.filter((doc: any) => doc.document).map((doc: any) => doc.document);
+}
+
+export async function createDocument(collection: string, body: any): Promise<any> {
   const accessToken = await getAccessToken();
   const response = await fetch(
       `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/${collection}`,
@@ -23,7 +77,7 @@ export async function createDocument(collection: string, body: any) {
   );
 
   if (!response.ok) {
-    throw new Error(`Firestore error: ${await response.text()}`);
+    error(response.status, `Firestore error: ${await response.text()}`);
   }
   return await response.json();
 }
@@ -54,7 +108,7 @@ async function getUncachedAccessToken(): Promise<string> {
 
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(`Failed to get access token: ${JSON.stringify(data)}`);
+    error(response.status, `Failed to get access token: ${JSON.stringify(data)}`);
   }
   return data.access_token;
 }

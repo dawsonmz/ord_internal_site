@@ -1,29 +1,49 @@
-import { fail } from '@sveltejs/kit';
-import { sendFeedbackNotification } from '$lib/server/emailer';
+import { type Filter, createDocument, queryDocuments } from '$lib/server/firestore';
+import { formatDateTextWithYear } from '$lib/util/datetime';
 
-export async function submitFeedback(req: WrappedRequest) {
-  const data = await req.request.formData();
+export interface Feedback {
+  user: string,
+  context: string,
+  timestamp: string,
+  date: string,
+  from: string,
+  text: string,
+}
 
-  const formId = data.get('formId')?.toString();
-  const contact = data.get('contact')?.toString().trim();
-  const context = data.get('context')?.toString().trim();
-  const text = data.get('text')?.toString().trim();
+export async function queryFeedbackByUser(user: string): Promise<Feedback[]> {
+  return await queryFeedbackDocuments([{ field: 'user', op: 'EQUAL', value: user }]);
+}
 
-  const errorsBody = {
-    text: missingError(text),
+export async function queryFeedbackByContext(context: string): Promise<Feedback[]> {
+  return await queryFeedbackDocuments([{ field: 'context', op: 'EQUAL', value: context }]);
+}
+
+export async function createFeedbackDocument(user: string, context: string, from: string, text: string): Promise<any> {
+  const body = {
+    fields: {
+      user: { stringValue: user },
+      context: { stringValue: context },
+      from: { stringValue: from },
+      text: { stringValue: text },
+    },
   };
+  return await createDocument('feedback', body);
+}
 
-  if (errorsBody.text) {
-    return fail(400, { errors: errorsBody, formId });
-  }
-
-  await sendFeedbackNotification(context!, text!, contact);  
-  return {
-    success: true,
-    formId,
-  };
-};
-
-function missingError(field: string | undefined): string | null {
-  return field ? null : 'Required field';
+async function queryFeedbackDocuments(filters: Filter[]): Promise<Feedback[]> {
+  const documents: any[] = await queryDocuments('feedback', filters);
+  let results = documents.map(
+      document => {
+        return {
+          user: document.fields.user.stringValue,
+          context: document.fields.context.stringValue,
+          timestamp: document.createTime,
+          date: formatDateTextWithYear(document.createTime),
+          from: document.fields.from.stringValue,
+          text: document.fields.text.stringValue,
+        };
+      }
+  );
+  results.sort((lhs: Feedback, rhs: Feedback) => rhs.timestamp.localeCompare(lhs.timestamp));
+  return results;
 }

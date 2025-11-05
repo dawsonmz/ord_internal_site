@@ -23,7 +23,7 @@
   <CrumbPage>Updates</CrumbPage>
 </Crumb>
 
-<div class="flex flex-col gap-1 border-b-1 border-[var(--faded-dark-color)] dark:border-[var(--faded-light-color)] pb-4">
+<div class="flex flex-col gap-1 bottom-faded-border">
   {#each data.posts as post}
     <div id={post.slug} class="text-2xl sm:text-3xl font-semibold">
       {post.title}

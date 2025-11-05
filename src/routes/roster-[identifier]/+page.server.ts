@@ -1,6 +1,6 @@
 import type { Actions } from './$types';
-import { submitFeedback } from '$lib/server/feedback';
 import { loadRoster } from '$lib/server/rosters';
+import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ params }) {
   return {
@@ -8,4 +8,4 @@ export async function load({ params }) {
   };
 }
 
-export const actions = { feedback: submitFeedback } satisfies Actions;
+export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;

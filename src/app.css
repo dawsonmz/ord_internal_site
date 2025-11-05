@@ -14,7 +14,7 @@ html {
   --semi-light-color: #FFE29E;
   --dark-color: #151515;
   --menu-dark-color: #1F1F1F;
-  --semi-dark-color: #38352C;
+  --semi-dark-color: #2E2B24;
   --hover-color: #FF8133;
   --error-color: #DD0000;
   --faded-dark-color: color-mix(in oklab, var(--semi-dark-color) 20%, transparent);
@@ -41,6 +41,28 @@ html {
 
   @media (prefers-color-scheme: dark) {
     background-color: var(--menu-dark-color);
+  }
+}
+
+.top-faded-border {
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+  border-color: var(--faded-dark-color);
+  padding-top: calc(var(--spacing) * 3);
+
+  @media (prefers-color-scheme: dark) {
+    border-color: var(--faded-light-color);
+  }
+}
+
+.bottom-faded-border {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+  border-color: var(--faded-dark-color);
+  padding-bottom: calc(var(--spacing) * 3);
+
+  @media (prefers-color-scheme: dark) {
+    border-color: var(--faded-light-color);
   }
 }
 

@@ -13,7 +13,7 @@ export async function sendAccessRequest(userId: string, name: string | null, con
   );
 }
 
-export async function sendFeedbackNotification(context: string, text: string, contact: string | undefined) {
+export async function sendSiteFeedbackNotification(context: string, text: string, contact: string | undefined) {
   await sendNotification(
       `Feedback submitted on '${context}'`,
       `<p>Contact: ${contact?.length ? contact! : '(none)'}</p><p>${sanitizeHtml(text)}</p>`

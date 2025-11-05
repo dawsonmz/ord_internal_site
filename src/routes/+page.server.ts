@@ -1,4 +1,4 @@
 import type { Actions } from './$types';
-import { submitFeedback } from '$lib/server/feedback';
+import { submitSiteFeedback } from '$lib/server/site_feedback';
 
-export const actions = { feedback: submitFeedback } satisfies Actions;
+export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;
