@@ -77,12 +77,17 @@
       {#if form?.formId === formId && form.errors?.contact}
         <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
       {/if}
-      <input
-          type="text"
-          name="contact"
-          class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
-          maxlength=128
-      />
+      {#if data.email}
+        <div class="input text-sm py-2">{data.email}</div>
+        <input type="hidden" name="contact" value={data.email} />
+      {:else}
+        <input
+            type="text"
+            name="contact"
+            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+            maxlength=128
+        />
+      {/if}
     </label>
   {/snippet}
 </FormDialog>
