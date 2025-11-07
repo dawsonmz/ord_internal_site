@@ -29,11 +29,12 @@
 
 {#if !feedbackTypes.some(type => data.feedback_entries.has(type))}
   <div class="italic">No feedback found.</div>
-  <Switch>
-    <Switch.Control>
-      <Switch.Thumb />
-    </Switch.Control>
-    <Switch.Label>Test label</Switch.Label>
-    <Switch.HiddenInput />
-  </Switch>
 {/if}
+
+<Switch>
+  <Switch.Control>
+    <Switch.Thumb />
+  </Switch.Control>
+  <Switch.Label>Test label</Switch.Label>
+  <Switch.HiddenInput />
+</Switch>
