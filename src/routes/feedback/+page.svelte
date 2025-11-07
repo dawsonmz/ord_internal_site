@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Switch } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
 
   let { data } = $props();
@@ -28,4 +29,11 @@
 
 {#if !feedbackTypes.some(type => data.feedback_entries.has(type))}
   <div class="italic">No feedback found.</div>
+  <Switch>
+    <Switch.Control>
+      <Switch.Thumb />
+    </Switch.Control>
+    <Switch.Label>Test label</Switch.Label>
+    <Switch.HiddenInput />
+  </Switch>
 {/if}
