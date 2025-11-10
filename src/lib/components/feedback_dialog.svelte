@@ -1,20 +1,25 @@
 <script lang="ts">
   import { MessageSquareText } from '@lucide/svelte/icons';
   import { page } from '$app/state';
+  import AnimatedCheck from '$lib/components/animated_check.svelte';
   import FormDialog from '$lib/components/form_dialog.svelte';
 
-  let { label='', labelClasses='', wrapperClasses='', iconSize=24, context=null, form, formId='default' } = $props();
+  let { label='', labelClasses='', iconSize=24, context=null, form, formId='default' } = $props();
 
-  const currentPage = page.url.pathname === '/' ? 'home' : page.url.pathname;
+  const currentPage = page.url.pathname == '/' ? 'home' : page.url.pathname;
   if (context == null) {
     context = `Current page: ${currentPage}`;
   }
 </script>
 
-<FormDialog wrapperClasses={wrapperClasses} form={form} formId={formId} formAction="?/sitefeedback" closeFn={() => form = null}>
+<FormDialog {form} {formId} formAction="?/sitefeedback" openFn={() => form = null}>
   {#snippet trigger()}
     <div class="flex items-center gap-2 link-hover">
-      <MessageSquareText size={iconSize} />
+      {#if form?.formId == formId && form?.success}
+          <AnimatedCheck color="green" />
+        {:else}
+          <MessageSquareText size={iconSize} />
+        {/if}
       {#if label}<span class={labelClasses}>{label}</span>{/if}
     </div>
   {/snippet}
@@ -38,7 +43,7 @@
 
     <label class="label mt-2">
       <span class="label-text text-base">Comment:</span>
-      {#if form?.formId === formId && form.errors?.text}
+      {#if form?.formId == formId && form.errors?.text}
         <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.text}</span>
       {/if}
       <textarea

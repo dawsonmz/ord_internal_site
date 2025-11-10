@@ -7,7 +7,7 @@
   import ModuleHeader from '$lib/components/module_header.svelte';
 
   let { data, form } = $props();
-  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true');
+  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
   const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
 
   const modules = $derived(data.training_plan?.modules ?? []);

@@ -138,9 +138,7 @@
                       </NavAccordionItem>
                     </Accordion>
                     
-                    <div>
-                      <FeedbackDialog label="Give Feedback" labelClasses="font-semibold text-lg" wrapperClasses="self-center" iconSize={24} form={form} formId="sidebar" />
-                    </div>
+                    <FeedbackDialog label="Give Feedback" labelClasses="font-semibold text-lg" iconSize={24} {form} formId="sidebar" />
                   </div>  
                 </div>
 

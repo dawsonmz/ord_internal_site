@@ -11,7 +11,7 @@ export async function load({ url }) {
 
   return {
     module_tags: moduleTags,
-    filter_tag: moduleTags.length ? moduleTags.find(tag => tag.slug === tagParam) : null,
+    filter_tag: moduleTags.length ? moduleTags.find(tag => tag.slug == tagParam) : null,
     modules,
   };
 }

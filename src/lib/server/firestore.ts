@@ -11,7 +11,12 @@ const FIRESTORE_PROJECT_ID = 'planar-ember-470822-n7';
 export interface Filter {
   field: string,
   op: 'EQUAL' | 'NOT_EQUAL' | 'GREATER_THAN' | 'GREATER_THAN_OR_EQUAL' | 'LESS_THAN' | 'LESS_THAN_OR_EQUAL',
-  value: string,
+  value: any,
+}
+
+export interface FieldUpdate {
+  field: string,
+  value: any,
 }
 
 export async function queryDocuments(collection: string, filters: Filter[]) {
@@ -28,7 +33,7 @@ export async function queryDocuments(collection: string, filters: Filter[]) {
                 fieldFilter: {
                   field: { fieldPath: filter.field },
                   op: filter.op,
-                  value: { stringValue: filter.value },
+                  value: filter.value,
                 },
               };
             }
@@ -67,6 +72,32 @@ export async function createDocument(collection: string, body: any): Promise<any
       `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/${collection}`,
       {
         method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(body),
+      },
+  );
+
+  if (!response.ok) {
+    error(response.status, `Firestore error: ${await response.text()}`);
+  }
+  return await response.json();
+}
+
+export async function patchDocument(documentName: string, fieldUpdates: FieldUpdate[]) {
+  const accessToken = await getAccessToken();
+
+  const fieldMaskParams = fieldUpdates.map(update => `updateMask.fieldPaths=${update.field}`).join('&');
+  let body: { fields: any } = { fields: {} };
+  fieldUpdates.forEach(update => body.fields[update.field] = update.value);
+
+  const response = await fetch(
+      `https://firestore.googleapis.com/v1/${documentName}?${fieldMaskParams}`,
+      {
+        method: 'PATCH',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

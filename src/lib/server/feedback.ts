@@ -11,14 +11,26 @@ export interface Feedback {
 }
 
 export async function queryFeedbackByUser(user: string): Promise<Feedback[]> {
-  return await queryFeedbackDocuments([{ field: 'user', op: 'EQUAL', value: user }]);
+  return await queryFeedbackDocuments([
+    {
+      field: 'user',
+      op: 'EQUAL',
+      value: { stringValue: user },
+    },
+  ]);
 }
 
 export async function queryFeedbackByContext(context: string): Promise<Feedback[]> {
-  return await queryFeedbackDocuments([{ field: 'context', op: 'EQUAL', value: context }]);
+  return await queryFeedbackDocuments([
+    {
+      field: 'context',
+      op: 'EQUAL',
+      value: { stringValue: context },
+    },
+  ]);
 }
 
-export async function createFeedbackDocument(user: string, context: string, from: string, text: string): Promise<any> {
+export async function createFeedbackDocument(user: string, context: string, from: string, text: string) {
   const body = {
     fields: {
       user: { stringValue: user },
@@ -27,7 +39,7 @@ export async function createFeedbackDocument(user: string, context: string, from
       text: { stringValue: text },
     },
   };
-  return await createDocument('feedback', body);
+  await createDocument('feedback', body);
 }
 
 async function queryFeedbackDocuments(filters: Filter[]): Promise<Feedback[]> {

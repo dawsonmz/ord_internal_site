@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Send } from '@lucide/svelte/icons';
+  import AnimatedCheck from '$lib/components/animated_check.svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import FormDialog from '$lib/components/form_dialog.svelte';
   import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
@@ -30,10 +31,14 @@
 <div class="text-sm">
   Search for skater numbers and derby names registered with ORD, or reserve your own.
 </div>
-<FormDialog form={form} formId={formId} formAction="?/requestnumber" closeFn={() => form = null}>
+<FormDialog {form} {formId} formAction="?/requestnumber" openFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center gap-2 link-hover">
-      <Send size=24 />
+    <div class="flex items-center gap-2 link-hover w-fit">
+      {#if form?.formId == formId && form?.success}
+        <AnimatedCheck color="green" />
+      {:else}
+        <Send size=24 />
+      {/if}
       <div class="text-md font-semibold">
         Register your derby name and number
       </div>
@@ -48,7 +53,7 @@
   {#snippet formContent()}
     <label class="label mt-4">
       <span class="label-text text-base">Derby name:</span>
-      {#if form?.formId === formId && form.errors?.name}
+      {#if form?.formId == formId && form.errors?.name}
         <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
       {/if}
       <input
@@ -61,7 +66,7 @@
 
     <label class="label mt-4">
       <span class="label-text text-base mt-2">Number:</span>
-      {#if form?.formId === formId && form.errors?.number}
+      {#if form?.formId == formId && form.errors?.number}
         <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
       {/if}
       <input
@@ -74,7 +79,7 @@
 
     <label class="label mt-4">
       <span class="label-text text-base mt-2">Contact email:</span>
-      {#if form?.formId === formId && form.errors?.contact}
+      {#if form?.formId == formId && form.errors?.contact}
         <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
       {/if}
       {#if data.email}

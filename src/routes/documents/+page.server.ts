@@ -4,7 +4,7 @@ import { checkAccess } from '$lib/server/roles';
 import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ locals }) {
-  await checkAccess(locals, 'member');
+  await checkAccess(locals, ['member']);
   return {};
 }
 

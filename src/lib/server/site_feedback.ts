@@ -1,5 +1,6 @@
 import { fail } from '@sveltejs/kit';
 import { sendSiteFeedbackNotification } from '$lib/server/emailer';
+import { missingError } from '$lib/util/validation';
 
 export async function submitSiteFeedback(req: WrappedRequest) {
   const data = await req.request.formData();
@@ -23,7 +24,3 @@ export async function submitSiteFeedback(req: WrappedRequest) {
     formId,
   };
 };
-
-function missingError(field: string | undefined): string | null {
-  return field ? null : 'Required field';
-}

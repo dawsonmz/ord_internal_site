@@ -4,7 +4,7 @@
   import LinkCard from '$lib/components/link_card.svelte';
 
   let { data } = $props();
-  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true');
+  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
 </script>
 
 <Crumb>

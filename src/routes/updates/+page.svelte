@@ -9,7 +9,7 @@
   import { formatDateTextWithYear } from '$lib/util/datetime';
 
   let { data, form } = $props();
-  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() === 'true');
+  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
   const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
 
   const components = {

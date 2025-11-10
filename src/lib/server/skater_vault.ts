@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { sendNumberRequestNotification } from '$lib/server/emailer';
 import { sanityClient } from '$lib/util/sanity';
+import { missingError, numberError } from '$lib/util/validation';
 
 interface SkaterNumber {
   skater_number: string,
@@ -47,15 +48,3 @@ export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
     formId,
   };
 };
-
-function missingError(field: string | undefined): string | null {
-  return field ? null : 'Required field';
-}
-
-function numberError(number: string | undefined): string | null {
-  if (number && !/^[0-9]+$/.test(number)) {
-    return 'Only numbers allowed'
-  } else {
-    return missingError(number);
-  }
-}

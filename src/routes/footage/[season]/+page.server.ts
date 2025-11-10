@@ -6,7 +6,7 @@ import { loadSeason } from '$lib/server/seasons';
 import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ locals, params }) {
-  await checkAccess(locals, 'member');
+  await checkAccess(locals, ['member']);
   const [ season, footage ] = await Promise.all([
     loadSeason(params.season),
     loadFootage(params.season),

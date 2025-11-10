@@ -1,7 +1,7 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
-  export type Role = 'admin' | 'member' | 'trainer';
+  export type Role = 'admin' | 'member' | 'feedback_writer_a_team' | 'feedback_writer_b_team';
   
   namespace App {
     // interface Error {}

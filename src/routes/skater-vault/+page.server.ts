@@ -6,7 +6,7 @@ import { submitSiteFeedback } from '$lib/server/site_feedback';
 import { loadSkaterVault, submitNumberRequest } from '$lib/server/skater_vault';
 
 export async function load({ locals }) {
-  await checkAccess(locals, 'member');
+  await checkAccess(locals, ['member']);
   const auth = locals.auth();
   const user = await clerkClient.users.getUser(auth.userId);
   return {

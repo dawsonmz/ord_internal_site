@@ -2,6 +2,7 @@
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import PageLink from '$lib/components/page_link.svelte';
   import PageLinkGroup from '$lib/components/page_link_group.svelte';
+  import { Switch } from '@skeletonlabs/skeleton-svelte';
 
   let { form } = $props();
 </script>
@@ -55,6 +56,14 @@
       {/snippet}
       {#snippet description()}
         Search for skater numbers and derby names registered with ORD, or reserve your own.
+      {/snippet}
+    </PageLink>
+    <PageLink url="/feedback" width={180}>
+      {#snippet text()}
+        Feedback Log
+      {/snippet}
+      {#snippet description()}
+        Log of feedback written by yourself, team captains, or bench coaches.
       {/snippet}
     </PageLink>
   </PageLinkGroup>

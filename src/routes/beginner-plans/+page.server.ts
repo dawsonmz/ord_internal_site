@@ -5,7 +5,7 @@ import { loadTrainingPlanSummaries } from '$lib/server/training_plans';
 export async function load({ url }) {
   const showHiddenParam = url.searchParams.get('show-hidden')?.trim().toLowerCase();
   return {
-    seasons: await loadTrainingPlanSummaries(showHiddenParam === 'true'),
+    seasons: await loadTrainingPlanSummaries(showHiddenParam == 'true'),
   };
 }
 
