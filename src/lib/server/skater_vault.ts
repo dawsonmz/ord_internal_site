@@ -1,7 +1,4 @@
-import { fail } from '@sveltejs/kit';
-import { sendNumberRequestNotification } from '$lib/server/emailer';
 import { sanityClient } from '$lib/util/sanity';
-import { missingError, numberError } from '$lib/util/validation';
 
 interface SkaterNumber {
   skater_number: string,
@@ -23,28 +20,3 @@ export async function loadSkaterVault(): Promise<SkaterNumber[]> {
   skaterNumberData.forEach((skaterNumber) => skaterNumber.derby_name_lower = skaterNumber.derby_name.toLowerCase());
   return skaterNumberData;
 }
-
-export async function submitNumberRequest(req: WrappedRequest): Promise<any> {
-  const data = await req.request.formData();
-
-  const formId = data.get('formId')?.toString();
-  const name = data.get('name')?.toString().trim();
-  const number = data.get('number')?.toString().trim();
-  const contact = data.get('contact')?.toString().trim();
-
-  const errorsBody = {
-    name: missingError(name),
-    number: numberError(number),
-    contact: missingError(contact),
-  };
-
-  if (errorsBody.name || errorsBody.number || errorsBody.contact) {
-    return fail(400, { errors: errorsBody, formId });
-  }
-
-  await sendNumberRequestNotification(name!, number!, contact!);
-  return {
-    success: true,
-    formId,
-  };
-};
