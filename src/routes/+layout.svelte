@@ -134,8 +134,10 @@
                         <NavAccordionLink label="Skills Tracking" url="/beginner-skills" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Other Resources" {openNavItems}>
-                        <NavAccordionLink label="Mitt Varsel" url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external />
+                        <NavAccordionLink label="WFTDA Rules" url="https://rules.wftda.com" external />
+                        <NavAccordionLink label="Pack Simulator" url="https://nurds.space" external />
                         <NavAccordionLink label="WFTDA Rankings" url="https://stats.wftda.com/rankings-live/europe" external />
+                        <NavAccordionLink label="Mitt Varsel" url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external />
                       </NavAccordionItem>
                     </Accordion>
                     

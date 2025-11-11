@@ -2,7 +2,6 @@
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import PageLink from '$lib/components/page_link.svelte';
   import PageLinkGroup from '$lib/components/page_link_group.svelte';
-  import { Switch } from '@skeletonlabs/skeleton-svelte';
 
   let { form } = $props();
 </script>
@@ -96,12 +95,20 @@
   </PageLinkGroup>
 
   <PageLinkGroup header="Other Resources">
-    <PageLink url="/updates" width={180}>
+    <PageLink url="https://rules.wftda.com" external width={180}>
       {#snippet text()}
-        Website Updates
+        WFTDA Rules
       {/snippet}
       {#snippet description()}
-        Posts summarizing changes made to the ORD internal website.
+        Official rules page for Flat Track Roller Derby.
+      {/snippet}
+    </PageLink>
+    <PageLink url="https://nurds.space" external width={180}>
+      {#snippet text()}
+        Pack Simulator
+      {/snippet}
+      {#snippet description()}
+        NURDS is a virtual tool for simulating roller derby situations to better understand pack rules.
       {/snippet}
     </PageLink>
     <PageLink url="https://stats.wftda.com/rankings-live/europe" external width={180}>
