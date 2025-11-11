@@ -96,6 +96,14 @@
   </PageLinkGroup>
 
   <PageLinkGroup header="Other Resources">
+    <PageLink url="/updates" width={180}>
+      {#snippet text()}
+        Website Updates
+      {/snippet}
+      {#snippet description()}
+        Posts summarizing changes made to the ORD internal website.
+      {/snippet}
+    </PageLink>
     <PageLink url="https://stats.wftda.com/rankings-live/europe" external width={180}>
       {#snippet text()}
         WFTDA Rankings
@@ -115,9 +123,15 @@
   </PageLinkGroup>
 
   <div class="sm:col-span-2 md:col-span-3">
-    <FeedbackDialog label="Give Feedback" labelClasses="text-xl font-semibold" form={form} />
+    <div class="text-xl font-semibold mb-2">Website Updates</div>
+    <PageLink url="/updates">
+      {#snippet text()}
+        Read about changes to the website here!
+      {/snippet}
+    </PageLink>
+    <FeedbackDialog label="Website Feedback" labelClasses="text-xl font-semibold mt-4" form={form} />
     <div class="mt-2">
-      You can also submit feedback on any particular page by selecting the <strong>Give Feedback</strong> option from the menu.
+      You can also submit feedback on any particular page by selecting the <strong>Website Feedback</strong> option from the menu.
     </div>
   </div>
 </div>

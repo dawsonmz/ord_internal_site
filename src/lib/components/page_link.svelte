@@ -2,11 +2,15 @@
   import { ArrowRight, ExternalLink, Info } from '@lucide/svelte/icons';
   import { Popover, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  let { url, external=false, width, text, description=null } = $props();
+  let { url, external=false, width=null, text, description=null } = $props();
 </script>
 
 <div class="flex items-center gap-2 pb-0.5">
-  <a href={url} target={external ? '_blank' : null} class="flex items-center gap-2 link-hover" style="width: {width}px">
+  <a href={url}
+     target={external ? '_blank' : null}
+     class="flex items-center gap-2 link-hover"
+     style={width ? `width: ${width}px` : null}
+  >
     {#if external}
       <ExternalLink size=20 />
     {:else}

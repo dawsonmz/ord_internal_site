@@ -139,7 +139,7 @@
                       </NavAccordionItem>
                     </Accordion>
                     
-                    <FeedbackDialog label="Give Feedback" labelClasses="font-semibold text-lg" iconSize={24} {form} formId="sidebar" />
+                    <FeedbackDialog label="Website Feedback" labelClasses="font-semibold text-lg" iconSize={24} {form} formId="sidebar" />
                   </div>  
                 </div>
 
