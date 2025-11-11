@@ -5,7 +5,7 @@ import { loadSeasons, organizeSeasons } from '$lib/server/seasons';
 import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ locals }) {
-  await checkAccess(locals, ['member']);
+  checkAccess(locals, ['member']);
 
   const seasons = organizeSeasons(await loadSeasons());
   const years = Array.from(seasons.keys());

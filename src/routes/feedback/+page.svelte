@@ -16,6 +16,7 @@
   let submitting = $state(false);
   let userParam = $state('');
 
+  let isSelf = $derived(data.actor_id == data.user_id);
   let allowFeedbackATeam = $state(data.actor_allowance.allow_feedback_a_team);
   let allowFeedbackBTeam = $state(data.actor_allowance.allow_feedback_b_team);
 
@@ -54,7 +55,7 @@
 
 <div class="flex flex-col gap-3 mb-2">
   <div class="text-2xl font-semibold">Feedback Log</div>
-  <div class="text-lg">{data.name}</div>
+  <div class="text-lg">{data.user_name}</div>
 </div>
 
 {#each feedbackTypes as feedbackType}
@@ -88,7 +89,7 @@
       </div>
       {#each data.feedback_entries.get(feedbackType) as feedback}
         <div class="text-lg subheading">{feedback.date}</div>
-        <div class="font-semibold">From {feedback.from}</div>
+        <div class="font-semibold">From {feedback.from_name}</div>
         <div class="whitespace-pre-line rounded-sm bg-[var(--light-color)] dark:bg-[var(--semi-dark-color)] p-3 mb-2">
           {feedback.text}
         </div>
@@ -116,8 +117,8 @@
       </div>
     {/snippet}
     {#snippet header()}
-      <div class="text-lg font-semibold">Skater Feedback</div>
-      {#if data.is_self}
+      <div class="text-lg font-semibold">{isSelf ? 'Self Feedback' : 'Skater Feedback'}</div>
+      {#if isSelf}
         <div class="text-sm mt-2">
           Feedback you write for yourself is not visible to others.
         </div>
@@ -132,18 +133,18 @@
     {#snippet formContent()}
       <div class="flex flex-col gap-3 mt-3">
         <input type="hidden" name="userId" value={data.user_id} />
-        {#if data.is_self}
-          <input type="hidden" name="from" value={data.name} />
+        {#if isSelf}
+          <input type="hidden" name="fromUser" value={data.actor_id} />
           <input type="hidden" name="context" value="Self" />
         {:else}
           <label class="label">
             <span class="label-text text-base">From:</span>
             <div class="input text-sm py-2">{data.actor_name}</div>
-            <input type="hidden" name="from" value={data.actor_name} />
+            <input type="hidden" name="fromUser" value={data.actor_id} />
           </label>
           <div class="label">
             <span class="label-text text-base">For:</span>
-            <div class="input text-sm py-2">{data.name}</div>
+            <div class="input text-sm py-2">{data.user_name}</div>
           </div>
 
           <label class="label">
@@ -172,7 +173,7 @@
               name="text"
               class="textarea resize-none text-sm bg-white dark:bg-[var(--dark-color)] py-2"
               rows=12
-              maxlength=1600
+              maxlength=3000
           ></textarea>
         </label>
       </div>

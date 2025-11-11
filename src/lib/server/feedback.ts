@@ -6,7 +6,8 @@ export interface Feedback {
   context: string,
   timestamp: string,
   date: string,
-  from: string,
+  from_name: string,
+  from_user: string,
   text: string,
 }
 
@@ -30,12 +31,13 @@ export async function queryFeedbackByContext(context: string): Promise<Feedback[
   ]);
 }
 
-export async function createFeedbackDocument(user: string, context: string, from: string, text: string) {
+export async function createFeedbackDocument(user: string, context: string, fromName: string, fromUser: string, text: string) {
   const body = {
     fields: {
       user: { stringValue: user },
       context: { stringValue: context },
-      from: { stringValue: from },
+      from_name: { stringValue: fromName },
+      from_user: { stringValue: fromUser },
       text: { stringValue: text },
     },
   };
@@ -51,7 +53,8 @@ async function queryFeedbackDocuments(filters: Filter[]): Promise<Feedback[]> {
           context: document.fields.context.stringValue,
           timestamp: document.createTime,
           date: formatDateTextWithYear(document.createTime),
-          from: document.fields.from.stringValue,
+          from_name: document.fields.from_name.stringValue,
+          from_user: document.fields.from_user.stringValue,
           text: document.fields.text.stringValue,
         };
       }

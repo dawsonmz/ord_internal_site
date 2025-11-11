@@ -9,7 +9,7 @@ import { type UserName, queryUserAllowance, queryUserAllowances, updateUserAllow
 import { missingError } from '$lib/util/validation';
 
 export async function load({ locals, url }) {
-  const roles = await checkAccess(locals, ['member']);
+  const roles = checkAccess(locals, ['member']);
 
   const auth = locals.auth();
   let actorId = auth.userId;
@@ -115,9 +115,9 @@ export async function load({ locals, url }) {
 
   return {
     user_id: userId,
-    name: userName,
+    user_name: userName,
+    actor_id: actorId,
     actor_name: actorName,
-    is_self: isActorUser,
     actor_allowance: actorAllowance,
 
     feedback_entries: Map.groupBy(filteredFeedbackEntries, feedback => feedback.context),
@@ -137,7 +137,7 @@ export const actions = {
 } satisfies Actions;
 
 async function updateUserAllowanceAction(req: WrappedRequest) {
-  await checkAccess(req.locals, ['member']);
+  checkAccess(req.locals, ['member']);
   const auth = req.locals.auth();
 
   const data = await req.request.formData();
@@ -167,8 +167,13 @@ async function writeFeedback(req: WrappedRequest) {
   const formId = data.get('formId')!.toString();
   const userId = data.get('userId')!.toString();
   const context = data.get('context')!.toString();
-  const from = data.get('from')!.toString();
+  const fromUser = data.get('fromUser')!.toString();
   const text = data.get('text')?.toString();
+
+  if (fromUser != req.locals.auth().userId) {
+    error(403, 'Unauthorized resource');
+  }
+  const actor = await clerkClient.users.getUser(fromUser);
 
   const errorsBody = {
     text: missingError(text),
@@ -187,7 +192,7 @@ async function writeFeedback(req: WrappedRequest) {
     error(400, `Invalid feedback context: ${context}`);
   }
 
-  await checkAccess(req.locals, requiredRoles);
+  checkAccess(req.locals, requiredRoles);
   if (context == 'A Team' || context == 'B Team') {
     const userAllowance = await queryUserAllowance(userId!);
     if (context == 'A Team' && !(userAllowance?.allow_feedback_a_team)) {
@@ -198,7 +203,7 @@ async function writeFeedback(req: WrappedRequest) {
     }
   }
 
-  await createFeedbackDocument(userId, context, from, text!);
+  await createFeedbackDocument(userId, context, actor.fullName!, fromUser, text!);
   return {
     success: true,
     formId,

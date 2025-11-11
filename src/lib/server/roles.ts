@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 
-export async function checkAccess(locals: App.Locals, requiredRoles: Role[]): Promise<string[]> {
+export function checkAccess(locals: App.Locals, requiredRoles: Role[]): string[] {
   const auth = locals.auth();
   if (!auth.userId) {
     error(401, 'Unauthenticated');
