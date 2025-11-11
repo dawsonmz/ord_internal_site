@@ -126,6 +126,7 @@
                       </NavAccordionItem>
                       <NavAccordionItem header="Skater Resources" {openNavItems}>
                         <NavAccordionLink label="Skater Vault" url="/skater-vault" />
+                        <NavAccordionLink label="Feedback Log" url="/feedback" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Beginners" {openNavItems}>
                         <NavAccordionLink label="Training Plans" url="/beginner-plans" />

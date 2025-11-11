@@ -24,7 +24,7 @@
     </div>
   {/snippet}
   {#snippet header()}
-    <div class="text-lg font-semibold">Feedback</div>
+    <div class="text-lg font-semibold">Website Feedback</div>
     <div class="text-sm mt-2">
       Your input is appreciated! If you provide contact information, I can follow up for clarification or notify you of any updates.
     </div>
