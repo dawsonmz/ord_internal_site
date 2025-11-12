@@ -4,7 +4,7 @@
   import AnimatedCheck from '$lib/components/animated_check.svelte';
   import FormDialog from '$lib/components/form_dialog.svelte';
 
-  let { label='', labelClasses='', iconSize=24, context=null, form, formId='default' } = $props();
+  let { triggerClasses='', label='', labelClasses='', iconSize=24, context=null, form, formId='default' } = $props();
 
   const currentPage = page.url.pathname == '/' ? 'home' : page.url.pathname;
   if (context == null) {
@@ -14,12 +14,12 @@
 
 <FormDialog {form} {formId} formAction="?/sitefeedback" openFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center gap-2 link-hover">
+    <div class="flex items-center gap-2 link-hover {triggerClasses}">
       {#if form?.formId == formId && form?.success}
-          <AnimatedCheck color="green" />
-        {:else}
+        <AnimatedCheck color="green" />
+      {:else}
           <MessageSquareText size={iconSize} />
-        {/if}
+      {/if}
       {#if label}<span class={labelClasses}>{label}</span>{/if}
     </div>
   {/snippet}

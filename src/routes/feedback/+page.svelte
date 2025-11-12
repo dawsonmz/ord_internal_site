@@ -24,6 +24,7 @@
   // indicate to the form action handler if an update is actually needed.
   let storedAllowA = $state(data.actor_allowance.allow_feedback_a_team);
   let storedAllowB = $state(data.actor_allowance.allow_feedback_b_team);
+  let changedAllowance = $derived(allowFeedbackATeam != storedAllowA || allowFeedbackBTeam != storedAllowB);
 
   const feedbackTypes = [ 'A Team', 'B Team', 'Self' ];
   const feedbackFormId = 'skater-feedback';
@@ -265,7 +266,16 @@
               <div class="toggle-slider"></div>
               <div class="w-[40px]"></div>
             </label>
-            <div class="text-sm">Allow A team feedback</div>
+            <div class="text-sm">
+              A team feedback (currently: <strong>
+              {#if submitting}
+                <em>saving...</em>
+              {:else if allowFeedbackATeam}
+                ALLOW
+              {:else}
+                DO NOT ALLOW
+              {/if}</strong>)
+            </div>
           </div>
           <div class="flex gap-1">
             <label class="inline-block cursor-pointer" for="allowB">
@@ -273,11 +283,20 @@
               <div class="toggle-slider"></div>
               <div class="w-[40px]"></div>
             </label>
-            <div class="text-sm">Allow B team feedback</div>
+            <div class="text-sm">
+              B team feedback (currently: <strong>
+              {#if submitting}
+                <em>saving...</em>
+              {:else if allowFeedbackBTeam}
+                ALLOW
+              {:else}
+                DO NOT ALLOW
+              {/if}</strong>)
+            </div>
           </div>
         </div>
         <div class="flex gap-2 mt-5">
-          <button type="submit" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" disabled={submitting}>
+          <button type="submit" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" disabled={submitting || !changedAllowance}>
             {#if submitting}
               <AnimatedDots />
             {:else}

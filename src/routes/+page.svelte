@@ -3,7 +3,7 @@
   import PageLink from '$lib/components/page_link.svelte';
   import PageLinkGroup from '$lib/components/page_link_group.svelte';
 
-  let { form } = $props();
+  let { data, form } = $props();
 </script>
 
 <div class="sm:self-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-fit sm:gap-x-16 md:gap-x-32 gap-y-8">
@@ -131,12 +131,13 @@
 
   <div class="sm:col-span-2 md:col-span-3">
     <div class="text-xl font-semibold mb-2">Website Updates</div>
+    <div class="subheading mb-2">Latest update post: {data.latest_update_date}</div>
     <PageLink url="/updates">
       {#snippet text()}
         Read about changes to the website here!
       {/snippet}
     </PageLink>
-    <FeedbackDialog label="Website Feedback" labelClasses="text-xl font-semibold mt-4" form={form} />
+    <FeedbackDialog triggerClasses="mt-4" label="Website Feedback" labelClasses="text-xl font-semibold" {form} />
     <div class="mt-2">
       You can also submit feedback on any particular page by selecting the <strong>Website Feedback</strong> option from the menu.
     </div>

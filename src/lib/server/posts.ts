@@ -24,3 +24,16 @@ export async function loadPosts(type: string, showHidden: boolean): Promise<Post
     { type },
   );
 }
+
+export async function getLatestPostDate(type: string): Promise<string | null> {
+  const results = await sanityClient.option.fetch(
+      `*[_type == "post" && type == $type] | order(date desc) {
+        date,
+      } [0..0]`,
+       { type },
+  );
+  if (!results.length) {
+    return null;
+  }
+  return results[0].date;
+}
