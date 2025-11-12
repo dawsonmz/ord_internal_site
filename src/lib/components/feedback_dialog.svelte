@@ -18,7 +18,7 @@
       {#if form?.formId == formId && form?.success}
         <AnimatedCheck color="green" />
       {:else}
-          <MessageSquareText size={iconSize} />
+        <MessageSquareText size={iconSize} />
       {/if}
       {#if label}<span class={labelClasses}>{label}</span>{/if}
     </div>
