@@ -42,7 +42,7 @@ export async function loadTrainingPlanSummaries(showHidden: boolean): Promise<Se
     `*[_type == "season"] {
       name,
       "slug": slug.current,
-      "training_plans": *[_type == "training_plan" && season._ref == ^._id ${visibleFilter}] | order(_createdAt asc) {
+      "training_plans": *[_type == "training_plan" && season._ref == ^._id ${visibleFilter}] | order(date_time asc, _createdAt asc) {
         training_label,
         "slug": slug.current,
         date_time,
