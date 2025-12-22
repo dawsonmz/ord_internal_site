@@ -57,7 +57,7 @@ export async function queryDocuments(collection: string, filters: Filter[]) {
   );
 
   if (!response.ok) {
-    error(response.status, `Firestore error: ${await response.text()}`);
+    error(500, `Firestore error: ${await response.text()}`);
   }
 
   // When there are not any actual results, a single element will still be returned with the read time,
