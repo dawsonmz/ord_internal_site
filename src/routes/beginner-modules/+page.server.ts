@@ -1,8 +1,10 @@
 import type { Actions } from './$types';
+import { checkAccess } from '$lib/server/roles';
 import { loadModules, loadModuleTags } from '$lib/server/modules';
 import { submitSiteFeedback } from '$lib/server/site_feedback';
 
-export async function load({ url }) {
+export async function load({ locals, url }) {
+  checkAccess(locals, []);
   const tagParam = url.searchParams.get('tag')?.toLowerCase();
   const [ moduleTags, modules ] = await Promise.all([
     loadModuleTags('beginners'),

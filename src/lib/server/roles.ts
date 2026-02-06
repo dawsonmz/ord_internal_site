@@ -6,8 +6,12 @@ export function checkAccess(locals: App.Locals, requiredRoles: Role[]): string[]
     error(401, 'Unauthenticated');
   }
 
-  const roles = auth.sessionClaims?.metadata?.roles;
-  if (!roles || requiredRoles.some(requiredRole => !roles.includes(requiredRole))) {
+  const roles = auth.sessionClaims?.metadata?.roles ?? [];
+  if (!requiredRoles) {
+    return roles;
+  }
+  
+  if (requiredRoles.some(requiredRole => !roles.includes(requiredRole))) {
     error(403, 'Unauthorized resource');
   }
 
