@@ -12,4 +12,3 @@ export async function load({ locals, url }) {
 }
 
 export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;
-

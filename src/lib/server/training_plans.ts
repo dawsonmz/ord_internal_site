@@ -39,7 +39,7 @@ interface TrainingPlan {
 export async function loadTrainingPlanSummaries(showHidden: boolean): Promise<SeasonWithTrainingSummaries[]> {
   const visibleFilter = showHidden ? '' : '&& visible';
   const seasonData: SeasonWithTrainingSummaries[] = await sanityClient.option.fetch(
-    `*[_type == "season"] {
+    `*[_type == "season"] | order(orderRank asc) {
       name,
       "slug": slug.current,
       "training_plans": *[_type == "training_plan" && season._ref == ^._id ${visibleFilter}] | order(date_time asc, _createdAt asc) {
