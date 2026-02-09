@@ -26,6 +26,7 @@ interface TrainingPlan {
   date_time: string,
   summary: string,
   visible: boolean,
+  omit_timestamps: boolean,
   modules: Module[],
 
   // Computed fields:
@@ -72,6 +73,7 @@ export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string,
         date_time,
         summary,
         visible,
+        omit_timestamps,
         modules[]-> {
           type,
           title,
@@ -108,12 +110,14 @@ export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string,
   const moduleStartTime: Date = new Date(trainingPlan.date_time);
   trainingPlan.date_text = formatDateTextFromDate(moduleStartTime);
 
-  trainingPlan.modules.forEach(
-      module => {
-        module.start_time = formatTimeText(moduleStartTime);
-        moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module.minutes);
-      }
-  );
+  if (!trainingPlan.omit_timestamps) {
+    trainingPlan.modules.forEach(
+        module => {
+          module.start_time = formatTimeText(moduleStartTime);
+          moduleStartTime.setMinutes(moduleStartTime.getMinutes() + module.minutes);
+        }
+    );
+  }
 
   return trainingPlan;
 }
