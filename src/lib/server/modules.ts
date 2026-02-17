@@ -14,6 +14,7 @@ export interface Module {
   minutes: number,
   short_text: [],
   detailed_text: [],
+  advanced_text: [],
 
   // Computed fields:
   start_time: string,
@@ -51,6 +52,7 @@ export async function loadModules(moduleType: string, tag: string | undefined): 
         minutes,
         short_text,
         detailed_text,
+        advanced_text,
       }`,
       {
         module_type: moduleType,

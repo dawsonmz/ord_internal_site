@@ -11,6 +11,7 @@
 
   let isShort = $derived(tabStates[index] == 'Short');
   let isDetailed = $derived(tabStates[index] == 'Detailed');
+  let isAdvanced = $derived(tabStates[index] == 'Advanced');
 
   const components = {
     types: { image: PortableModuleImage },
@@ -39,6 +40,9 @@
     {#if module.detailed_text}
       <TabControl value='Detailed' isSelected={isDetailed} />
     {/if}
+    {#if module.advanced_text}
+      <TabControl value='Advanced' isSelected={isAdvanced} />
+    {/if}
     <Tabs.Indicator class="border-y-[1px] w-[90px]" />
   </Tabs.List>
 
@@ -51,6 +55,13 @@
     <Tabs.Content value='Detailed'>
       <div class="rich-text text-sm">
         <PortableText value={module.detailed_text} {components} />
+      </div>
+    </Tabs.Content>
+  {/if}
+  {#if module.advanced_text}
+    <Tabs.Content value='Advanced'>
+      <div class="rich-text text-sm">
+        <PortableText value={module.advanced_text} {components} />
       </div>
     </Tabs.Content>
   {/if}

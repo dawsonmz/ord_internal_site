@@ -92,6 +92,7 @@ export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string,
           minutes,
           short_text,
           detailed_text,
+          advanced_text,
         },
       }`,
       {
