@@ -85,7 +85,7 @@ export async function updateUserAllowance(request: UserAllowanceRequest) {
     );
   }
 
-  //if (fieldUpdates.length) {
+  if (fieldUpdates.length) {
     const userAllowance = await queryUserAllowance(request.user_id);
     if (userAllowance) {
       await patchDocument(
@@ -118,5 +118,5 @@ export async function updateUserAllowance(request: UserAllowanceRequest) {
           },
       );
     }
-  //}
+  }
 }
