@@ -257,6 +257,7 @@
           }
       >
         <input type="hidden" name="formId" value={settingsFormId} />
+        <input type="hidden" name="actorName" value={data.actor_name} />
         <input type="hidden" name="storedAllowA" value={storedAllowA} />
         <input type="hidden" name="storedAllowB" value={storedAllowB} />
         <div class="flex flex-col gap-2 mt-3">

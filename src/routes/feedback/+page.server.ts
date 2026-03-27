@@ -142,6 +142,7 @@ async function updateUserAllowanceAction(req: WrappedRequest) {
 
   const data = await req.request.formData();
   const formId = data.get('formId')?.toString();
+  const actorName = data.get('actorName')?.toString() ?? '';
   const allowA = data.get('allowA') != null;
   const allowB = data.get('allowB') != null;
   const storedAllowA = data.get('storedAllowA')?.toString() == 'true';
@@ -150,6 +151,7 @@ async function updateUserAllowanceAction(req: WrappedRequest) {
   await updateUserAllowance(
       {
         user_id: auth.userId,
+        user_name: actorName,
         allow_feedback_a_team: allowA,
         allow_feedback_b_team: allowB,
         stored_allow_feedback_a_team: storedAllowA,

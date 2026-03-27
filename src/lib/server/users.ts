@@ -15,6 +15,7 @@ export interface UserAllowance {
 
 export interface UserAllowanceRequest {
   user_id: string,
+  user_name: string,
   allow_feedback_a_team: boolean,
   allow_feedback_b_team: boolean,
   stored_allow_feedback_a_team: boolean,
@@ -84,12 +85,16 @@ export async function updateUserAllowance(request: UserAllowanceRequest) {
     );
   }
 
-  if (fieldUpdates.length) {
+  //if (fieldUpdates.length) {
     const userAllowance = await queryUserAllowance(request.user_id);
     if (userAllowance) {
       await patchDocument(
           userAllowance?.document_name,
           [
+            {
+              field: 'user_name',
+              value: { stringValue: request.user_name }
+            },
             {
               field: 'allow_feedback_a_team',
               value: { booleanValue: allowA },
@@ -106,11 +111,12 @@ export async function updateUserAllowance(request: UserAllowanceRequest) {
           {
             fields: {
               id: { stringValue: request.user_id },
+              user_name: { stringValue: request.user_name },
               allow_feedback_a_team: { booleanValue: allowA },
               allow_feedback_b_team: { booleanValue: allowB },
             },
           },
       );
     }
-  }
+  //}
 }
