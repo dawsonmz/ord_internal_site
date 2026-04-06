@@ -1,17 +1,17 @@
 <script lang="ts">
-  import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import PageLink from '$lib/components/page_link.svelte';
   import PageLinkGroup from '$lib/components/page_link_group.svelte';
 
-  let { data, form } = $props();
+  let { data } = $props();
+  const linkWidth = 190;
 </script>
 
 <div class="sm:self-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-fit sm:gap-x-16 md:gap-x-32 gap-y-8">
   <div class="text-2xl font-semibold sm:col-span-2 md:col-span-3 text-center">
     Oslo Roller Derby Internal Site
   </div>
-  <PageLinkGroup header="Team Resources">
-    <PageLink url="/roster-a-team" width={180}>
+  <PageLinkGroup header="Team Rosters">
+    <PageLink url="/roster-a-team" width={linkWidth}>
       {#snippet text()}
         A Team Roster
       {/snippet}
@@ -19,7 +19,7 @@
         View the current A Team roster, including blocker lines, jammers, and bench crew.
       {/snippet}
     </PageLink>
-    <PageLink url="/roster-b-team" width={180}>
+    <PageLink url="/roster-b-team" width={linkWidth}>
       {#snippet text()}
         B Team Roster
       {/snippet}
@@ -27,18 +27,10 @@
         View the current B Team roster, including blocker lines, jammers, and bench crew.
       {/snippet}
     </PageLink>
-    <PageLink url="/documents" width={180}>
-      {#snippet text()}
-        Document Links
-      {/snippet}
-      {#snippet description()}
-        Links to team documents such as the travel coordination spreadsheets, the Google Drive folder for skater photos, etc.
-      {/snippet}
-    </PageLink>
   </PageLinkGroup>
 
   <PageLinkGroup header="Training Resources">
-    <PageLink url="/footage" width={180}>
+    <PageLink url="/footage" width={linkWidth}>
       {#snippet text()}
         Footage
       {/snippet}
@@ -49,7 +41,7 @@
   </PageLinkGroup>
 
   <PageLinkGroup header="Skater Resources">
-    <PageLink url="/skater-vault" width={180}>
+    <PageLink url="/skater-vault" width={linkWidth}>
       {#snippet text()}
         Skater Vault
       {/snippet}
@@ -57,7 +49,7 @@
         Search for skater numbers and derby names registered with ORD, or reserve your own.
       {/snippet}
     </PageLink>
-    <PageLink url="/feedback" width={180}>
+    <PageLink url="/feedback" width={linkWidth}>
       {#snippet text()}
         Feedback Log
       {/snippet}
@@ -68,7 +60,7 @@
   </PageLinkGroup>
 
   <PageLinkGroup header="Beginners">
-    <PageLink url="/beginner-plans" width={180}>
+    <PageLink url="/beginner-plans" width={linkWidth}>
       {#snippet text()}
         Training Plans
       {/snippet}
@@ -76,7 +68,7 @@
         View training plans for the ORD beginners course.
       {/snippet}
     </PageLink>
-    <PageLink url="/beginner-modules" width={180}>
+    <PageLink url="/beginner-modules" width={linkWidth}>
       {#snippet text()}
         Modules
       {/snippet}
@@ -84,7 +76,7 @@
         View the individual drills used to assemble beginners training plans.
       {/snippet}
     </PageLink>
-    <PageLink url="/beginner-skills" width={180}>
+    <PageLink url="/beginner-skills" width={linkWidth}>
       {#snippet text()}
         Skills Tracking
       {/snippet}
@@ -94,8 +86,27 @@
     </PageLink>
   </PageLinkGroup>
 
+  <PageLinkGroup header="Club Resources">
+    <PageLink url="/documents" width={linkWidth}>
+      {#snippet text()}
+        Documents
+      {/snippet}
+      {#snippet description()}
+        Links to team documents such as the travel coordination spreadsheets, the Google Drive folder for skater photos, etc.
+      {/snippet}
+    </PageLink>
+    <PageLink url="/reporting" width={linkWidth}>
+      {#snippet text()}
+        Reporting Incidents
+      {/snippet}
+      {#snippet description()}
+        Overview of our safe and secure process for reporting incidents.
+      {/snippet}
+    </PageLink>
+  </PageLinkGroup>
+
   <PageLinkGroup header="Other Resources">
-    <PageLink url="https://rules.wftda.com" external width={180}>
+    <PageLink url="https://rules.wftda.com" external width={linkWidth}>
       {#snippet text()}
         WFTDA Rules
       {/snippet}
@@ -103,7 +114,7 @@
         Official rules page for Flat Track Roller Derby.
       {/snippet}
     </PageLink>
-    <PageLink url="https://nurds.space" external width={180}>
+    <PageLink url="https://nurds.space" external width={linkWidth}>
       {#snippet text()}
         Pack Simulator
       {/snippet}
@@ -111,7 +122,7 @@
         NURDS is a virtual tool for simulating roller derby situations to better understand pack rules.
       {/snippet}
     </PageLink>
-    <PageLink url="https://stats.wftda.com/rankings-live/europe" external width={180}>
+    <PageLink url="https://stats.wftda.com/rankings-live/europe" external width={linkWidth}>
       {#snippet text()}
         WFTDA Rankings
       {/snippet}
@@ -119,7 +130,7 @@
         Live rankings for WFTDA Europe teams. These are unofficial rankings; official ones are published on the first of every month.
       {/snippet}
     </PageLink>
-    <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external width={180}>
+    <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external width={linkWidth}>
       {#snippet text()}
         Mitt Varsel
       {/snippet}

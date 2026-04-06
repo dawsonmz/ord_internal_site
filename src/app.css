@@ -262,7 +262,7 @@ html {
 
 .rich-text ul li {
   list-style-type: disc;
-  margin-left: 16px;
+  margin-left: 18px;
 }
 
 .rich-text ul li li {
@@ -273,6 +273,12 @@ html {
 .rich-text ul li li li {
   list-style-type: square;
   margin-left: 32px;
+}
+
+.rich-text ol li {
+  list-style-type: decimal;
+  margin-left: 18px;
+  padding-left: 6px;
 }
 
 .rich-text a {
