@@ -188,6 +188,8 @@ html {
 }
 
 .link {
+  overflow-wrap: break-word;
+
   &:hover {
     color: var(--hover-color);
     text-decoration: underline;

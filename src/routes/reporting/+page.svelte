@@ -196,7 +196,8 @@
         <a class="link underline" href="https://portal.mittvarsel.no/v/nif" target="_blank">
           https://portal.mittvarsel.no/v/nif
         </a>
-        <br />
+      </div>
+      <div>
         The page is in Norwegian; contact the trust representatives if you need support.
       </div>
 
