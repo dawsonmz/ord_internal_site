@@ -4,7 +4,6 @@ import { clerkClient } from 'svelte-clerk/server';
 import { queryFeedbackByUser, createFeedbackDocument } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
-import { submitSiteFeedback } from '$lib/server/site_feedback';
 import { type UserName, queryUserAllowance, queryUserAllowances, updateUserAllowance } from '$lib/server/users';
 import { missingError } from '$lib/util/validation';
 
@@ -130,7 +129,6 @@ export async function load({ locals, url }) {
 }
 
 export const actions = {
-  sitefeedback: submitSiteFeedback,
   requestaccess: requestAccess,
   allowance: updateUserAllowanceAction,
   skaterfeedback: writeFeedback,

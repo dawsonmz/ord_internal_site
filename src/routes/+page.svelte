@@ -137,9 +137,5 @@
         Read about changes to the website here!
       {/snippet}
     </PageLink>
-    <FeedbackDialog triggerClasses="mt-4" label="Website Feedback" labelClasses="text-xl font-semibold" {form} />
-    <div class="mt-2">
-      You can also submit feedback on any particular page by selecting the <strong>Website Feedback</strong> option from the menu.
-    </div>
   </div>
 </div>

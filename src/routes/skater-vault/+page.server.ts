@@ -4,7 +4,6 @@ import { clerkClient } from 'svelte-clerk/server';
 import { sendNumberRequestNotification } from '$lib/server/emailer';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
-import { submitSiteFeedback } from '$lib/server/site_feedback';
 import { loadSkaterVault } from '$lib/server/skater_vault';
 import { missingError, numberError } from '$lib/util/validation';
 
@@ -19,7 +18,6 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-  sitefeedback: submitSiteFeedback,
   requestaccess: requestAccess,
   requestnumber: submitNumberRequestAction,
 } satisfies Actions;

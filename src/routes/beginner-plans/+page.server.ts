@@ -1,6 +1,4 @@
-import type { Actions } from './$types';
 import { checkAccess } from '$lib/server/roles';
-import { submitSiteFeedback } from '$lib/server/site_feedback';
 import { loadTrainingPlanSummaries } from '$lib/server/training_plans';
 
 export async function load({ locals, url }) {
@@ -10,5 +8,3 @@ export async function load({ locals, url }) {
     seasons: await loadTrainingPlanSummaries(showHiddenParam == 'true'),
   };
 }
-
-export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;

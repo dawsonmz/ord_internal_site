@@ -4,16 +4,13 @@
   import { Accordion, AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
   import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from 'svelte-clerk';
   import { afterNavigate } from '$app/navigation';
-  import { page } from '$app/state';
   import logo from '$lib/assets/ord-logo.svg';
-  import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import NavAccordionItem from '$lib/components/nav_accordion_item.svelte';
   import NavAccordionLink from '$lib/components/nav_accordion_link.svelte';
   
   let { children } = $props();
   let drawerState = $state(false);
   let openNavItems: string[] = $state([]);
-  let form = $derived(page.form);
 
   function closeDrawer() {
     drawerState = false;
@@ -140,8 +137,6 @@
                         <NavAccordionLink label="Mitt Varsel" url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external />
                       </NavAccordionItem>
                     </Accordion>
-                    
-                    <FeedbackDialog label="Website Feedback" labelClasses="font-semibold text-lg" iconSize={24} {form} formId="sidebar" />
                   </div>  
                 </div>
 
