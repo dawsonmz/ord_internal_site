@@ -130,14 +130,6 @@
         Live rankings for WFTDA Europe teams. These are unofficial rankings; official ones are published on the first of every month.
       {/snippet}
     </PageLink>
-    <PageLink url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external width={linkWidth}>
-      {#snippet text()}
-        Mitt Varsel
-      {/snippet}
-      {#snippet description()}
-        Link to Mitt Varsel, a portal for safe and secure reporting of incidents.
-      {/snippet}
-    </PageLink>
   </PageLinkGroup>
 
   <div class="sm:col-span-2 md:col-span-3">
