@@ -33,6 +33,10 @@
         tenker bryter med våre regler, at du sier i fra om dette. I ORD tar vi alle varsler om
         kritikkverdige forhold på alvor.
       </div>
+
+      <div>
+        <span class="font-bold">Tillitspersoner</span>: Silje Ebbesen og Angelique Rein
+      </div>
       <div>
         Varsle her:
         <a class="link underline" href="https://portal.mittvarsel.no/v/nif" target="_blank">
@@ -40,7 +44,7 @@
         </a>
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Hva kan du varsle om?
       </div>
       <div>
@@ -62,7 +66,7 @@
         </a>
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Hvor/til hvem sendes varselet?
       </div>
       <div>
@@ -98,7 +102,7 @@
         tillitspersonene, hvor saken da kan tas direkte til styreleder.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Varsle med navn
       </div>
       <div>
@@ -108,7 +112,7 @@
         som er nødvendig for å behandle saken.
       </div>
       
-      <div class="font-semibold">
+      <div class="font-bold">
         Varsle anonymt
       </div>
       <div>
@@ -121,7 +125,7 @@
         informasjon.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Hva skjer etter at du har varslet?
       </div>
       <div>
@@ -136,7 +140,7 @@
         på at varselet er mottatt.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Saksgang
       </div>
       <div class="rich-text">
@@ -191,6 +195,10 @@
         violate our rules, that you report this. At ORD, we take all reports of problematic
         conditions seriously.
       </div>
+
+      <div>
+        <span class="font-bold">Trust representatives</span>: Silje Ebbesen and Angelique Rein
+      </div>
       <div>
         Report here:
         <a class="link underline" href="https://portal.mittvarsel.no/v/nif" target="_blank">
@@ -201,7 +209,7 @@
         The page is in Norwegian; contact the trust representatives if you need support.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         What can you report about?
       </div>
       <div>
@@ -224,7 +232,7 @@
         </a>
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Where/to whom is the report sent?
       </div>
       <div>
@@ -265,7 +273,7 @@
         leader of the board.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Report non-anonymously (by name)
       </div>
       <div>
@@ -275,7 +283,7 @@
         people than is necessary to process the case.
       </div>
       
-      <div class="font-semibold">
+      <div class="font-bold">
         Report anonymously
       </div>
       <div>
@@ -288,7 +296,7 @@
         Feel free to ask your case officer for advice and more information.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         What happens after you have reported?
       </div>
       <div>
@@ -303,7 +311,7 @@
         that the submission has been received.
       </div>
 
-      <div class="font-semibold">
+      <div class="font-bold">
         Procedure
       </div>
       <div class="rich-text">
