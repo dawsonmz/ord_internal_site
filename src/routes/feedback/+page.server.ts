@@ -1,10 +1,10 @@
 import type { Actions } from './$types';
 import { error, fail } from '@sveltejs/kit';
 import { clerkClient } from 'svelte-clerk/server';
-import { queryFeedbackByUser, createFeedbackDocument } from '$lib/server/feedback';
+import { getUserFeedback, createFeedbackDocument } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
-import { type UserName, queryUserAllowance, queryUserAllowances, updateUserAllowance } from '$lib/server/users';
+import { type UserName, getUserAllowance, getUserAllowances, updateUserAllowance } from '$lib/server/users';
 import { missingError } from '$lib/util/validation';
 
 export async function load({ locals, url }) {
@@ -43,8 +43,8 @@ export async function load({ locals, url }) {
   }
 
   const [ feedbackEntries, userAllowances ] = await Promise.all([  
-    queryFeedbackByUser(userId!),
-    queryUserAllowances(),
+    getUserFeedback(userId!),
+    getUserAllowances(),
   ]);
 
   // Show all feedback if the actor is viewing their own page. Otherwise, only show feedback
@@ -194,7 +194,7 @@ async function writeFeedback(req: WrappedRequest) {
 
   checkAccess(req.locals, requiredRoles);
   if (context == 'A Team' || context == 'B Team') {
-    const userAllowance = await queryUserAllowance(userId!);
+    const userAllowance = await getUserAllowance(userId!);
     if (context == 'A Team' && !(userAllowance?.allow_feedback_a_team)) {
       error(403, 'Unauthorized resource');
     }

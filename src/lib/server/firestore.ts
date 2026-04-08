@@ -7,11 +7,11 @@ const ACCESS_TOKEN_VALID_FOR_SECONDS = 3600;
 const CACHE_EXPIRY_MARGIN = 120;
 
 const FIRESTORE_PROJECT_ID = 'planar-ember-470822-n7';
+const FIRESTORE_BASE = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents`;
 
-export interface Filter {
-  field: string,
-  op: 'EQUAL' | 'NOT_EQUAL' | 'GREATER_THAN' | 'GREATER_THAN_OR_EQUAL' | 'LESS_THAN' | 'LESS_THAN_OR_EQUAL',
-  value: any,
+export interface CollectionAndDocument {
+  collection: string,
+  document_id: string,
 }
 
 export interface FieldUpdate {
@@ -19,57 +19,88 @@ export interface FieldUpdate {
   value: any,
 }
 
-export async function queryDocuments(collection: string, filters: Filter[]) {
+function resourcePath(path: CollectionAndDocument[]): string {
+  if (!path.length) {
+    return FIRESTORE_BASE;
+  }
+  return `${FIRESTORE_BASE}/${path.map(pair => `${pair.collection}/${pair.document_id}`).join('/')}`;
+}
+
+export async function getDocument(path: CollectionAndDocument[]): Promise<any | null> {
   const accessToken = await getAccessToken();
-  const body = {
-    structuredQuery: {
-      from: [{ collectionId: collection }],
-      where: {
-        compositeFilter: {
-          op: 'AND',
-          filters: filters.map(
-            filter => {
-              return {
-                fieldFilter: {
-                  field: { fieldPath: filter.field },
-                  op: filter.op,
-                  value: filter.value,
-                },
-              };
-            }
-          ),
-        }
-      },
-    },
-  };
+  if (!path.length) {
+    error(500, `Internal error: empty Firestore path queried`);
+  }
 
   const response = await fetch(
-      `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents:runQuery`,
+      resourcePath(path),
       {
-        method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(body),
       },
   );
-
+  if (response.status === 404) {
+    return null;
+  }
   if (!response.ok) {
     error(500, `Firestore error: ${await response.text()}`);
   }
-
-  // When there are not any actual results, a single element will still be returned with the read time,
-  // but missing the document field.
-  const results = await response.json();
-  return results.filter((doc: any) => doc.document).map((doc: any) => doc.document);
+  return await response.json();
 }
 
-export async function createDocument(collection: string, body: any): Promise<any> {
+export async function getDocuments(path: CollectionAndDocument[], collection: string): Promise<any[]> {
   const accessToken = await getAccessToken();
+  const documents: any[] = [];
+  let pageToken: string | undefined;
+
+  do {
+    const url = new URL(`${resourcePath(path)}/${collection}`);
+    if (pageToken) {
+      url.searchParams.set('pageToken', pageToken);
+    }
+
+    const response = await fetch(
+        url.toString(),
+        {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        },
+    );
+
+    if (response.status == 404) {
+      return documents;
+    }
+    if (!response.ok) {
+      error(500, `Firestore error: ${await response.text()}`);
+    }
+    
+    const result = await response.json();
+    documents.push(...(result.documents ?? []));
+    pageToken = result.nextPageToken;
+  } while (pageToken);
+
+  return documents;
+}
+
+export async function createDocument(
+    path: CollectionAndDocument[],
+    collection: string,
+    body: any,
+    documentId?: string,
+): Promise<any> {
+  const accessToken = await getAccessToken();
+  
+  const url = new URL(`${resourcePath(path)}/${collection}`);
+  if (documentId) {
+    url.searchParams.set('documentId', documentId);
+  }
+
   const response = await fetch(
-      `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/${collection}`,
+      url.toString(),
       {
         method: 'POST',
         headers: {
@@ -87,7 +118,7 @@ export async function createDocument(collection: string, body: any): Promise<any
   return await response.json();
 }
 
-export async function patchDocument(documentName: string, fieldUpdates: FieldUpdate[]) {
+export async function patchDocument(path: CollectionAndDocument[], fieldUpdates: FieldUpdate[]) {
   const accessToken = await getAccessToken();
 
   const fieldMaskParams = fieldUpdates.map(update => `updateMask.fieldPaths=${update.field}`).join('&');
@@ -95,7 +126,7 @@ export async function patchDocument(documentName: string, fieldUpdates: FieldUpd
   fieldUpdates.forEach(update => body.fields[update.field] = update.value);
 
   const response = await fetch(
-      `https://firestore.googleapis.com/v1/${documentName}?${fieldMaskParams}`,
+      `${resourcePath(path)}?${fieldMaskParams}`,
       {
         method: 'PATCH',
         headers: {
