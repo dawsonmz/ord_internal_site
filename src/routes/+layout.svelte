@@ -128,7 +128,7 @@
                       <NavAccordionItem header="Beginners" {openNavItems}>
                         <NavAccordionLink label="Training Plans" url="/beginner-plans" />
                         <NavAccordionLink label="Modules" url="/beginner-modules" />
-                        <NavAccordionLink label="Skills Tracking" url="/beginner-skills" />
+                        <NavAccordionLink label="Skills Tracking" url="/required-skills" />
                       </NavAccordionItem>
                       <NavAccordionItem header="Other Resources" {openNavItems}>
                         <NavAccordionLink label="WFTDA Rules" url="https://rules.wftda.com" external />

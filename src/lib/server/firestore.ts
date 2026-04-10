@@ -86,6 +86,33 @@ export async function getDocuments(path: CollectionAndDocument[], collection: st
   return documents;
 }
 
+export async function getCollectionGroupDocuments(collectionId: string): Promise<any[]> {
+  const accessToken = await getAccessToken();
+
+  const structuredQuery = {
+    from: [{ collectionId, allDescendants: true }],
+  };
+  const response = await fetch(
+      `${FIRESTORE_BASE}:runQuery`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ structuredQuery }),
+      },
+  );
+
+  if (!response.ok) {
+    error(500, `Firestore error: ${await response.text()}`);
+  }
+
+  const results: any[] = await response.json();
+  return results.filter(r => r.document).map(r => r.document);
+}
+
 export async function createDocument(
     path: CollectionAndDocument[],
     collection: string,
