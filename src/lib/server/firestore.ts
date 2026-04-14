@@ -6,9 +6,6 @@ const GOOGLE_OAUTH_URL = 'https://oauth2.googleapis.com/token';
 const ACCESS_TOKEN_VALID_FOR_SECONDS = 3600;
 const CACHE_EXPIRY_MARGIN = 120;
 
-const FIRESTORE_PROJECT_ID = 'planar-ember-470822-n7';
-const FIRESTORE_BASE = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents`;
-
 export interface CollectionAndDocument {
   collection: string,
   document_id: string,
@@ -19,15 +16,18 @@ export interface FieldUpdate {
   value: any,
 }
 
+function firestoreBase() {
+  return `${env.FIRESTORE_HOST}/v1/projects/${env.FIRESTORE_PROJECT_ID}/databases/(default)/documents`;
+}
+
 function resourcePath(path: CollectionAndDocument[]): string {
   if (!path.length) {
-    return FIRESTORE_BASE;
+    return firestoreBase();
   }
-  return `${FIRESTORE_BASE}/${path.map(pair => `${pair.collection}/${pair.document_id}`).join('/')}`;
+  return `${firestoreBase()}/${path.map(pair => `${pair.collection}/${pair.document_id}`).join('/')}`;
 }
 
 export async function getDocument(path: CollectionAndDocument[]): Promise<any | null> {
-  const accessToken = await getAccessToken();
   if (!path.length) {
     error(500, `Internal error: empty Firestore path queried`);
   }
@@ -37,7 +37,7 @@ export async function getDocument(path: CollectionAndDocument[]): Promise<any | 
       {
         headers: {
           'Accept': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          ...await getAuthHeader(),
         },
       },
   );
@@ -51,7 +51,6 @@ export async function getDocument(path: CollectionAndDocument[]): Promise<any | 
 }
 
 export async function getDocuments(path: CollectionAndDocument[], collection: string): Promise<any[]> {
-  const accessToken = await getAccessToken();
   const documents: any[] = [];
   let pageToken: string | undefined;
 
@@ -66,7 +65,7 @@ export async function getDocuments(path: CollectionAndDocument[], collection: st
         {
           headers: {
             'Accept': 'application/json',
-            'Authorization': `Bearer ${accessToken}`,
+            ...await getAuthHeader(),
           },
         },
     );
@@ -87,19 +86,17 @@ export async function getDocuments(path: CollectionAndDocument[], collection: st
 }
 
 export async function getCollectionGroupDocuments(collectionId: string): Promise<any[]> {
-  const accessToken = await getAccessToken();
-
   const structuredQuery = {
     from: [{ collectionId, allDescendants: true }],
   };
   const response = await fetch(
-      `${FIRESTORE_BASE}:runQuery`,
+      `${firestoreBase()}:runQuery`,
       {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          ...await getAuthHeader(),
         },
         body: JSON.stringify({ structuredQuery }),
       },
@@ -119,8 +116,6 @@ export async function createDocument(
     body: any,
     documentId?: string,
 ): Promise<any> {
-  const accessToken = await getAccessToken();
-  
   const url = new URL(`${resourcePath(path)}/${collection}`);
   if (documentId) {
     url.searchParams.set('documentId', documentId);
@@ -133,7 +128,7 @@ export async function createDocument(
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          ...await getAuthHeader(),
         },
         body: JSON.stringify(body),
       },
@@ -146,8 +141,6 @@ export async function createDocument(
 }
 
 export async function patchDocument(path: CollectionAndDocument[], fieldUpdates: FieldUpdate[]) {
-  const accessToken = await getAccessToken();
-
   const fieldMaskParams = fieldUpdates.map(update => `updateMask.fieldPaths=${update.field}`).join('&');
   let body: { fields: any } = { fields: {} };
   fieldUpdates.forEach(update => body.fields[update.field] = update.value);
@@ -159,7 +152,7 @@ export async function patchDocument(path: CollectionAndDocument[], fieldUpdates:
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          ...await getAuthHeader(),
         },
         body: JSON.stringify(body),
       },
@@ -172,6 +165,18 @@ export async function patchDocument(path: CollectionAndDocument[], fieldUpdates:
 }
 
 let cachedAccessToken: { value: string; expiresAt: number } | null = null;
+
+async function getAuthHeader(): Promise<Record<string, string>> {
+  if (!env.FIRESTORE_HOST) {
+    error(500, 'Missing required environment variable FIRESTORE_HOST');
+  }
+
+  if (env.FIRESTORE_HOST.includes('localhost')) {
+    return {};
+  }
+
+  return { 'Authorization': `Bearer ${await getAccessToken()}` };
+}
 
 async function getAccessToken(): Promise<string> {
   const nowSeconds = Math.floor(Date.now() / 1000);

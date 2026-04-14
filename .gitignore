@@ -23,3 +23,10 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Logs
+*.log
+
+# Emulator
+**/firebase-export-*/**
+**/firestore-data/**

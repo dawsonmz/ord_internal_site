@@ -33,6 +33,8 @@
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
 	"vars": {
+		"FIRESTORE_HOST": "https://firestore.googleapis.com",
+		"FIRESTORE_PROJECT_ID": "planar-ember-470822-n7",
 		"NOTIFICATION_RECIPIENT": "dawson.m.zhou@gmail.com",
 		"PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsub3Nsb3JvbGxlcmRlcmJ5LmNvbSQ",
 	},
