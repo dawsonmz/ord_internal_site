@@ -20,6 +20,7 @@ export interface RequiredSkillProgress {
 
 export interface RequiredSkillFeedback {
   timestamp: string,
+  author_name: string,
   text: string,
 }
 
@@ -95,6 +96,7 @@ function buildSkillProgressMap(
           feedback: feedbackArray.map(
               (feedback: any) => ({
                 timestamp: feedback.mapValue.fields.timestamp.stringValue,
+                author_name: feedback.mapValue.fields.timestamp.stringValue,
                 text: feedback.mapValue.fields.text.stringValue,
               })
           ),
@@ -107,6 +109,7 @@ export async function updateRequiredSkillProgress(
     userId: string,
     skillSlug: string,
     progress?: 'Not started' | 'In progress' | 'Complete',
+    feedbackAuthorName?: string,
     feedbackText?: string,
 ) {
   const fieldUpdates = [];
@@ -129,6 +132,7 @@ export async function updateRequiredSkillProgress(
         mapValue: {
           fields: {
             timestamp: { stringValue: new Date().toISOString() },
+            author_name: { stringValue: feedbackAuthorName! },
             text: { stringValue: feedbackText },
           },
         },
