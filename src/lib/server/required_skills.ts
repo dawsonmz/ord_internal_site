@@ -1,5 +1,5 @@
 import { getCollectionGroupDocuments, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
-import { type ModuleTag } from '$lib/server/modules';;
+import { type ModuleTag } from '$lib/server/modules';
 import { sanityClient } from '$lib/util/sanity';
 
 export interface RequiredSkill {
@@ -54,7 +54,7 @@ export async function loadRequiredSkillProgress(userId: string): Promise<Require
   return buildSkillProgressMap(userId, requiredSkills, skillDocuments);
 }
 
-export async function loadAllRequiredSkillProgress(): Promise<Map<string, RequiredSkillProgress[]>> {
+export async function loadAllRequiredSkillProgress(userIds: string[]): Promise<Map<string, RequiredSkillProgress[]>> {
   const [ requiredSkills, allSkillDocuments ] = await Promise.all(
       [
         loadRequiredSkills(),
@@ -68,9 +68,12 @@ export async function loadAllRequiredSkillProgress(): Promise<Map<string, Requir
   );
 
   const result = new Map<string, RequiredSkillProgress[]>();
-  documentsByUser.forEach(
-      (skillDocuments, userId) =>
-          result.set(userId, buildSkillProgressMap(userId, requiredSkills, skillDocuments))
+  userIds.forEach(
+      userId => {
+        // All users should be mapped, even if there aren't any documents present (i.e. new user).
+        const skillDocuments = documentsByUser.get(userId) ?? [];
+        result.set(userId, buildSkillProgressMap(userId, requiredSkills, skillDocuments));
+      }
   );
 
   return result;
@@ -96,7 +99,7 @@ function buildSkillProgressMap(
           feedback: feedbackArray.map(
               (feedback: any) => ({
                 timestamp: feedback.mapValue.fields.timestamp.stringValue,
-                author_name: feedback.mapValue.fields.timestamp.stringValue,
+                author_name: feedback.mapValue.fields.author_name.stringValue,
                 text: feedback.mapValue.fields.text.stringValue,
               })
           ),
@@ -109,8 +112,7 @@ export async function updateRequiredSkillProgress(
     userId: string,
     skillSlug: string,
     progress?: 'Not started' | 'In progress' | 'Complete',
-    feedbackAuthorName?: string,
-    feedbackText?: string,
+    feedback?: { author_name: string, text: string },
 ) {
   const fieldUpdates = [];
 
@@ -118,7 +120,7 @@ export async function updateRequiredSkillProgress(
     fieldUpdates.push({ field: 'progress', value: { stringValue: progress } });
   }
 
-  if (feedbackText) {
+  if (feedback) {
     const existingFeedbackDocument = await getDocument(
         [
           { collection: 'user', document_id: userId },
@@ -132,8 +134,8 @@ export async function updateRequiredSkillProgress(
         mapValue: {
           fields: {
             timestamp: { stringValue: new Date().toISOString() },
-            author_name: { stringValue: feedbackAuthorName! },
-            text: { stringValue: feedbackText },
+            author_name: { stringValue: feedback.author_name },
+            text: { stringValue: feedback.text },
           },
         },
       },
