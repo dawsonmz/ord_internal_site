@@ -1,5 +1,12 @@
 # CLAUDE.md
 
+## Workflow
+
+- Work should proceed incrementally in small, verifiable steps.
+- Each phase begins with a high-level design and architecture discussion. Claude should ask about every aspect of the design until reaching a shared understanding with the user. Ask the questions one at a time, but if a question can be answered by exploring the existing codebase, then explore the codebase instead of asking.
+- The user drives the implementation; Claude reviews the code for bugs, edge cases, performance concerns, limitations, and polish.
+- The user will explicitly request if they want Claude to provide implementation; if they do, keep things simple, and don't eagerly refactor functions unless it's asked for or significantly beneficial.
+
 ## Overview
 
 Internal site for Oslo Roller Derby (ORD). Built with SvelteKit, deployed to Cloudflare Workers.
@@ -37,7 +44,3 @@ Sends notification emails for activity requiring admin attention.
 ### Styling
 
 Tailwind CSS generally used for styling, with Skeleton UI v4 for UI components. Direct css defined for styling that is commonly repeated throughout the project.
-
-## Coding instructions
-
-- Keep things simple. Don't eagerly refactor functions unless prompted, or the same logic is used in multiple places.

@@ -34,7 +34,7 @@ export async function loadModules(moduleType: string, tag: string | undefined): 
   const tagFilter = tag ? '&& (main_tag->slug.current == $query_tag || $query_tag in additional_tags[]->slug.current)' : '';
   return await sanityClient.option.fetch(
       `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}]
-          | order(main_tag->orderRank asc, orderRank asc) {
+          | order(main_tag->slug.current == $query_tag desc, main_tag->orderRank asc, orderRank asc) {
         type,
         title,
         "tags": [

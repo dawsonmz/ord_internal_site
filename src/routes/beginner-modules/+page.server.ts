@@ -6,10 +6,12 @@ import { submitSiteFeedback } from '$lib/server/site_feedback';
 export async function load({ locals, url }) {
   checkAccess(locals, []);
   const tagParam = url.searchParams.get('tag')?.toLowerCase();
-  const [ moduleTags, modules ] = await Promise.all([
-    loadModuleTags('beginners'),
-    loadModules('beginners', tagParam),
-  ]);
+  const [ moduleTags, modules ] = await Promise.all(
+      [
+        loadModuleTags('beginners'),
+        loadModules('beginners', tagParam),
+      ]
+  );
 
   return {
     module_tags: moduleTags,
