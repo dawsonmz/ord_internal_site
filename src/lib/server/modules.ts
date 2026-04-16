@@ -32,9 +32,9 @@ export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {
 
 export async function loadModules(moduleType: string, tag: string | undefined): Promise<Module[]> {
   const tagFilter = tag ? '&& (main_tag->slug.current == $query_tag || $query_tag in additional_tags[]->slug.current)' : '';
+  const orderBy = `${ tag ? 'select(main_tag->slug.current == $query_tag => 1, 0) desc, ' : ''}main_tag->orderRank asc, orderRank asc`;
   return await sanityClient.option.fetch(
-      `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}]
-          | order(main_tag->slug.current == $query_tag desc, main_tag->orderRank asc, orderRank asc) {
+      `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}] | order(${orderBy}) {
         type,
         title,
         "tags": [
