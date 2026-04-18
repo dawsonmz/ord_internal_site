@@ -4,7 +4,7 @@ import { checkAccess } from '$lib/server/roles';
 import { loadRoster } from '$lib/server/rosters';
 
 export async function load({ locals, params }) {
-  checkAccess(locals, ['member']);
+  checkAccess(locals, 'member');
   return {
     roster: await loadRoster(params.identifier),
   };

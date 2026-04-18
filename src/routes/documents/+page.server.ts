@@ -3,7 +3,7 @@ import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
 
 export async function load({ locals }) {
-  checkAccess(locals, ['member']);
+  checkAccess(locals, 'member');
   return {};
 }
 

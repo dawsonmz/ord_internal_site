@@ -5,7 +5,7 @@ import { checkAccess } from '$lib/server/roles';
 import { loadSeason } from '$lib/server/seasons';
 
 export async function load({ locals, params }) {
-  checkAccess(locals, ['member']);
+  checkAccess(locals, 'member');
   const [ season, footage ] = await Promise.all([
     loadSeason(params.season),
     loadFootage(params.season),

@@ -4,7 +4,7 @@ import { checkAccess } from '$lib/server/roles';
 import { loadSeasons, organizeSeasons } from '$lib/server/seasons';
 
 export async function load({ locals }) {
-  checkAccess(locals, ['member']);
+  checkAccess(locals, 'member');
 
   const seasons = organizeSeasons(await loadSeasons());
   const years = Array.from(seasons.keys());

@@ -8,7 +8,7 @@ import { loadSkaterVault } from '$lib/server/skater_vault';
 import { missingError, numberError } from '$lib/util/validation';
 
 export async function load({ locals }) {
-  checkAccess(locals, ['member']);
+  checkAccess(locals, 'member');
   const auth = locals.auth();
   const user = await clerkClient.users.getUser(auth.userId);
   return {
@@ -23,7 +23,7 @@ export const actions = {
 } satisfies Actions;
 
 async function submitNumberRequestAction(req: WrappedRequest) {
-  checkAccess(req.locals, ['member']);
+  checkAccess(req.locals, 'member');
   const data = await req.request.formData();
 
   const formId = data.get('formId')?.toString();

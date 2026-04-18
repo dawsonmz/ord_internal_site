@@ -3,12 +3,12 @@ import { error, fail } from '@sveltejs/kit';
 import { clerkClient } from 'svelte-clerk/server';
 import { getUserFeedback, createFeedbackDocument } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
-import { checkAccess } from '$lib/server/roles';
+import { checkAccess, checkAccessAllRequired } from '$lib/server/roles';
 import { type UserName, getUserAllowance, getUserAllowances, updateUserAllowance } from '$lib/server/users';
 import { missingError } from '$lib/util/validation';
 
 export async function load({ locals, url }) {
-  const roles = checkAccess(locals, ['member']);
+  const roles = checkAccess(locals, 'member');
 
   const auth = locals.auth();
   let actorId = auth.userId;
@@ -135,7 +135,7 @@ export const actions = {
 } satisfies Actions;
 
 async function updateUserAllowanceAction(req: WrappedRequest) {
-  checkAccess(req.locals, ['member']);
+  checkAccess(req.locals, 'member');
   const auth = req.locals.auth();
 
   const data = await req.request.formData();
@@ -192,7 +192,7 @@ async function writeFeedback(req: WrappedRequest) {
     error(400, `Invalid feedback context: ${context}`);
   }
 
-  checkAccess(req.locals, requiredRoles);
+  checkAccessAllRequired(req.locals, requiredRoles);
   if (context == 'A Team' || context == 'B Team') {
     const userAllowance = await getUserAllowance(userId!);
     if (context == 'A Team' && !(userAllowance?.allow_feedback_a_team)) {
