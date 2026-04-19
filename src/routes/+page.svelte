@@ -76,12 +76,12 @@
         View the individual drills used to assemble beginners training plans.
       {/snippet}
     </PageLink>
-    <PageLink url="/beginner-skills" width={linkWidth}>
+    <PageLink url="/required-skills" width={linkWidth}>
       {#snippet text()}
-        Skills Tracking
+        Required Skills
       {/snippet}
       {#snippet description()}
-        Track individual skills progress toward completion of beginners program. Requires account login.
+        Track individual skills progress toward completion of beginners program.
       {/snippet}
     </PageLink>
   </PageLinkGroup>

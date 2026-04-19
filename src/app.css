@@ -20,6 +20,13 @@ html {
   --faded-dark-color: color-mix(in oklab, var(--semi-dark-color) 20%, transparent);
   --faded-light-color: color-mix(in oklab, var(--light-color) 20%, transparent);
   --faded-backdrop-color: color-mix(in oklab, var(--dark-color) 50%, transparent);
+
+  --not-started-dot-color: #D4D4D4;
+  --not-started-text-color: #555555;
+  --in-progress-dot-color: #F2C14E;
+  --in-progress-text-color: #5A3E00;
+  --completed-dot-color: #5AA85A;
+  --completed-text-color: #FFFFFF;
 }
 
 .main-style {
@@ -94,8 +101,8 @@ html {
 /**
  * Tailwind classes:
  * border-1
- * border-[var(--light-color)]
- * bg-[var(--light-color)]
+ * border-(--light-color)
+ * bg-(--light-color)
  * dark:bg-[var(--dark-color)]
  * rounded-md
  * shadow-md
@@ -301,4 +308,84 @@ html {
 
 .min-height {
   height: min-content;
+}
+
+.dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 640;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  outline: 2px solid transparent;
+
+  transition-property: outline-color, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+  transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration, var(--default-transition-duration));
+  --tw-ease: cubic-bezier(0,0,0.2,1);
+  transition-timing-function: cubic-bezier(0,0,0.2,1);
+  --tw-duration: 150ms;
+  transition-duration: 150ms;
+
+  &:hover {
+    outline: 2px solid;
+    outline-color: var(--hover-color);
+  }
+}
+
+.dot.not-started {
+  background: var(--not-started-dot-color);
+  color: var(--not-started-text-color);
+}
+
+.dot.in-progress {
+  background: var(--in-progress-dot-color);
+  color: var(--in-progress-text-color);
+}
+
+.dot.completed {
+  background: var(--completed-dot-color);
+  color: var(--completed-text-color);
+}
+
+.dialog-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.progress-option {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--faded-dark-color);
+  border-radius: 8px;
+  background: #FFFFFF;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: inherit;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: var(--faded-light-color);
+    background: var(--dark-color);
+  }
+}
+
+.progress-option[data-state="selected"] {
+  border-color: var(--semi-dark-color);
+  background: #F5F5F5;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: var(--very-light-color);
+    background: var(--dark-color);
+  }
 }

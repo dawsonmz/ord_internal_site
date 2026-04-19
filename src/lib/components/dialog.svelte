@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  let { dialogState=$bindable(), openFn=null, closeFn=null, trigger, content } = $props();
+  let { dialogState=$bindable(), openFn=null, closeFn=null, trigger=null, content } = $props();
 
   function openDialog() {
     dialogState = true;
@@ -27,9 +27,11 @@
 </script>
 
 <Dialog open={dialogState} onOpenChange={dialogStateChange}>
-  <Dialog.Trigger class="w-fit">
-    {@render trigger()}
-  </Dialog.Trigger>
+  {#if trigger}
+    <Dialog.Trigger class="w-fit">
+      {@render trigger()}
+    </Dialog.Trigger>
+  {/if}
   <Portal>
     <Dialog.Backdrop
         class="fixed

@@ -3,7 +3,7 @@ import { type ModuleTag } from '$lib/server/modules';
 import { sanityClient } from '$lib/util/sanity';
 
 export interface RequiredSkill {
-  stage: string,
+  stage: 'Fundamentals' | 'Basic Contact' | 'Controlled Gameplay' | 'Full Gameplay',
   title: string,
   slug: string,
   importance: string,
@@ -11,10 +11,12 @@ export interface RequiredSkill {
   module_tag: ModuleTag,
 }
 
+export type ProgressState = 'Not started' | 'In progress' | 'Completed';
+
 export interface RequiredSkillProgress {
   user_id: string,
   skill_slug: string,
-  progress: 'Not started' | 'In progress' | 'Complete',
+  progress: ProgressState,
   feedback: RequiredSkillFeedback[],
 }
 
@@ -97,7 +99,7 @@ function buildSkillProgressMap(userId: string, skillProgressDocuments: any[]): R
 export async function updateRequiredSkillProgress(
     userId: string,
     skillSlug: string,
-    progress?: 'Not started' | 'In progress' | 'Complete',
+    progress?: ProgressState,
     feedback?: { author_name: string, text: string },
 ) {
   const fieldUpdates = [];

@@ -1,5 +1,5 @@
 import type { Actions } from './$types';
-import {fail } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { clerkClient } from 'svelte-clerk/server';
 import { sendNumberRequestNotification } from '$lib/server/emailer';
 import { requestAccess } from '$lib/server/request_access';
