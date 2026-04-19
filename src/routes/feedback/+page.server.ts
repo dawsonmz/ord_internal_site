@@ -1,23 +1,23 @@
 import type { Actions } from './$types';
 import { error, fail } from '@sveltejs/kit';
-import { clerkClient } from 'svelte-clerk/server';
 import { getUserFeedback, createFeedbackDocument } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
-import { checkAccess, checkAccessAllRequired } from '$lib/server/roles';
-import { type UserName, getUserAllowance, getUserAllowances, updateUserAllowance } from '$lib/server/users';
+import { checkAccess } from '$lib/server/roles';
+import { type User, getAllUsers, getUser, getUserAllowance, getUserAllowances, updateUserAllowance } from '$lib/server/users';
 import { missingError } from '$lib/util/validation';
 
 export async function load({ locals, url }) {
-  const roles = checkAccess(locals, 'member');
+  checkAccess(locals, 'member');
 
   const auth = locals.auth();
-  let actorId = auth.userId;
-  let userId = url.searchParams.get('user');
-  userId = userId ? `user_${userId}` : actorId;
+  const actorId = auth.userId;
+  const paramUserId = url.searchParams.get('user');
+  const userId = paramUserId ? `user_${paramUserId}` : actorId;
   
   const isActorUser = actorId == userId;
-  const isFeedbackWriterATeam = roles.includes('feedback_writer_a_team');
-  const isFeedbackWriterBTeam = roles.includes('feedback_writer_b_team');
+  const actor = await getUser(actorId);
+  const isFeedbackWriterATeam = actor.roles.includes('feedback_writer_a_team');
+  const isFeedbackWriterBTeam = actor.roles.includes('feedback_writer_b_team');
 
   // A user can view their own feedback, or feedback for A Team/B Team members if they have the right
   // permissions. If none of these are true, they will be rejected with an unauthorized error.
@@ -25,27 +25,13 @@ export async function load({ locals, url }) {
     error(403, 'Unauthorized resource');
   }
 
-  let actorName: string;
-  let userName: string;
-  try {
-    const [ actor, user ] = await Promise.all([
-      clerkClient.users.getUser(actorId),
-      clerkClient.users.getUser(userId!),
-    ]);
-    actorName = actor.fullName!
-    userName = user.fullName!;
-  } catch (err: any) {
-    if (err.status == 404) {
-      error(404, 'User not found');
-    } else {
-      error(500, 'Internal server error');
-    }
-  }
-
-  const [ feedbackEntries, userAllowances ] = await Promise.all([  
-    getUserFeedback(userId!),
-    getUserAllowances(),
-  ]);
+  const user = isActorUser ? actor : await getUser(userId);
+  const [ feedbackEntries, userAllowances ] = await Promise.all(
+      [  
+        getUserFeedback(userId),
+        getUserAllowances(),
+      ]
+  );
 
   // Show all feedback if the actor is viewing their own page. Otherwise, only show feedback
   // of the type that the actor has permission to view or write.
@@ -75,53 +61,25 @@ export async function load({ locals, url }) {
   const usersAllowingA = isFeedbackWriterATeam ? userAllowances.filter(user => user.allow_feedback_a_team).map(user => user.user_id) : [];
   const usersAllowingB = isFeedbackWriterBTeam ? userAllowances.filter(user => user.allow_feedback_b_team).map(user => user.user_id) : [];
 
-  let aTeamUsers: UserName[] = [];
-  let bTeamUsers: UserName[] = [];
+  // Only query Clerk for user list if the actor can view/write feedback for anyone.
+  let aTeamUsers: User[] = [];
+  let bTeamUsers: User[] = [];
   if (isFeedbackWriterATeam || isFeedbackWriterBTeam) {
-    let count: number;
-    let offset = 0;
-    do {
-      const userPage = await clerkClient.users.getUserList({ limit: 100, offset });
-      count = userPage.data.length;
-      offset += 100;
-
-      aTeamUsers.push(
-          ...userPage.data
-              .filter(user => user.id != actorId && usersAllowingA.includes(user.id))
-              .map(
-                  user => {
-                    return {
-                      user_id: user.id,
-                      name: user.fullName!,
-                    };
-                  }
-              )
-      );
-      bTeamUsers.push(
-          ...userPage.data
-              .filter(user => user.id != actorId && usersAllowingB.includes(user.id))
-              .map(
-                  user => {
-                    return {
-                      user_id: user.id,
-                      name: user.fullName!,
-                    };
-                  }
-              )
-      );
-    } while (count >= 100);
+    const allUsers = await getAllUsers();
+    aTeamUsers = allUsers.filter(user => user.user_id != actorId && usersAllowingA.includes(user.user_id));
+    bTeamUsers = allUsers.filter(user => user.user_id != actorId && usersAllowingB.includes(user.user_id));
   }
 
   return {
     user_id: userId,
-    user_name: userName,
+    user_name: user.name,
     actor_id: actorId,
-    actor_name: actorName,
+    actor_name: actor.name,
     actor_allowance: actorAllowance,
 
     feedback_entries: Map.groupBy(filteredFeedbackEntries, feedback => feedback.context),
-    can_write_a_team_feedback: isFeedbackWriterATeam && usersAllowingA.includes(userId!),
-    can_write_b_team_feedback: isFeedbackWriterBTeam && usersAllowingB.includes(userId!),
+    can_write_a_team_feedback: isFeedbackWriterATeam && usersAllowingA.includes(userId),
+    can_write_b_team_feedback: isFeedbackWriterBTeam && usersAllowingB.includes(userId),
 
     a_team_users: aTeamUsers,
     b_team_users: bTeamUsers,
@@ -173,28 +131,33 @@ async function writeFeedback(req: WrappedRequest) {
   if (fromUser != req.locals.auth().userId) {
     error(403, 'Unauthorized resource');
   }
-  const actor = await clerkClient.users.getUser(fromUser);
+  const actor = await getUser(fromUser);
 
   const errorsBody = {
     text: missingError(text),
   };
-
   if (errorsBody.text) {
     return fail(400, { errors: errorsBody, formId });
   }
-  
-  let requiredRoles: Role[] = ['member'];
+
+  let requiredRole: Role;
   if (context == 'A Team') {
-    requiredRoles.push('feedback_writer_a_team');
+    requiredRole = 'feedback_writer_a_team';
   } else if (context == 'B Team') {
-    requiredRoles.push('feedback_writer_b_team');
-  } else if (context != 'Self') {
+    requiredRole = 'feedback_writer_b_team';
+  } else if (context == 'Self') {
+    requiredRole = 'member';
+  } else {
     error(400, `Invalid feedback context: ${context}`);
   }
 
-  checkAccessAllRequired(req.locals, requiredRoles);
+  // Two ways potential unauthorized access cases: the actor doesn't have permission to view/write
+  // feedback, or the user doesn't allow this type of feedback.
+  if (!actor.roles.includes(requiredRole)) {
+    error(403, 'Unauthorized resource');
+  }
   if (context == 'A Team' || context == 'B Team') {
-    const userAllowance = await getUserAllowance(userId!);
+    const userAllowance = await getUserAllowance(userId);
     if (context == 'A Team' && !(userAllowance?.allow_feedback_a_team)) {
       error(403, 'Unauthorized resource');
     }
@@ -203,7 +166,7 @@ async function writeFeedback(req: WrappedRequest) {
     }
   }
 
-  await createFeedbackDocument(userId, context, actor.fullName!, fromUser, text!);
+  await createFeedbackDocument(userId, context, actor.name, fromUser, text!);
   return {
     success: true,
     formId,

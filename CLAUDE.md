@@ -1,5 +1,9 @@
 # CLAUDE.md
 
+## Workflow
+
+For any coding task — feature work, refactoring, debugging, architecture, or bare "implement X" requests — Claude must consult the `programming-workflow` skill before proceeding. It enforces a design-first discussion, incremental user-driven progress, and no unprompted file edits. Follow its phases unless the user explicitly asks to skip the design phase.
+
 ## Overview
 
 Internal site for Oslo Roller Derby (ORD). Built with SvelteKit, deployed to Cloudflare Workers.

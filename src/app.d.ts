@@ -4,27 +4,30 @@ declare global {
   export type Role =
       'admin' | 'member' | 'beginner' | 'graduated_beginner' | 'coach' | 'feedback_writer_a_team' | 'feedback_writer_b_team';
   
+  interface UserPublicMetadata {
+    roles?: Role[];
+  }
+
+  interface CustomJwtSessionClaims {
+    metadata?: UserPublicMetadata,
+  }
+
   namespace App {
     // interface Error {}
     interface Locals {
       user: User;
       auth: Auth;
     }
+
     // interface PageData {}
     // interface PageState {}
     // interface Platform {}
-
-    interface CustomJwtSessionClaims {
-      metadata: {
-        roles?: Role[],
-      }
-    }
   }
 
   interface WrappedRequest {
     request: Request,
     locals: Locals,
-  };
+  }
 }
 
 export {};

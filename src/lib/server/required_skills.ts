@@ -13,7 +13,7 @@ export interface RequiredSkill {
 
 export interface RequiredSkillProgress {
   user_id: string,
-  skill: RequiredSkill,
+  skill_slug: string,
   progress: 'Not started' | 'In progress' | 'Complete',
   feedback: RequiredSkillFeedback[],
 }
@@ -24,7 +24,7 @@ export interface RequiredSkillFeedback {
   text: string,
 }
 
-async function loadRequiredSkills(): Promise<RequiredSkill[]> {
+export async function loadRequiredSkills(): Promise<RequiredSkill[]> {
   const requiredSkills = await sanityClient.option.fetch(
       `*[_type == "required_skill"] | order(orderRank asc) {
         stage,
@@ -43,68 +43,54 @@ async function loadRequiredSkills(): Promise<RequiredSkill[]> {
   return requiredSkills;
 }
 
-export async function loadRequiredSkillProgress(userId: string): Promise<RequiredSkillProgress[]> {
-  const [ requiredSkills, skillDocuments ] = await Promise.all(
-      [
-        loadRequiredSkills(),
-        getDocuments([{ collection: 'user', document_id: userId }], 'skill'),
-      ]
+export async function loadRequiredSkillProgress(userId: string): Promise<Record<string, RequiredSkillProgress>> {
+  return buildSkillProgressMap(
+      userId,
+      await getDocuments([{ collection: 'user', document_id: userId }], 'skill'),
   );
-
-  return buildSkillProgressMap(userId, requiredSkills, skillDocuments);
 }
 
-export async function loadAllRequiredSkillProgress(userIds: string[]): Promise<Map<string, RequiredSkillProgress[]>> {
-  const [ requiredSkills, allSkillDocuments ] = await Promise.all(
-      [
-        loadRequiredSkills(),
-        getCollectionGroupDocuments('skill'),
-      ]
-  );
-
+export async function loadRequiredSkillProgressForAll(userIds: string[]): Promise<Map<string, Record<string, RequiredSkillProgress>>> {
   const documentsByUser = Map.groupBy(
-      allSkillDocuments,
+      await getCollectionGroupDocuments('skill'),
       (doc: any) => doc.name.split('/').at(-3) as string,
   );
 
-  const result = new Map<string, RequiredSkillProgress[]>();
+  const result = new Map<string, Record<string, RequiredSkillProgress>>();
   userIds.forEach(
       userId => {
         // All users should be mapped, even if there aren't any documents present (i.e. new user).
         const skillDocuments = documentsByUser.get(userId) ?? [];
-        result.set(userId, buildSkillProgressMap(userId, requiredSkills, skillDocuments));
+        result.set(userId, buildSkillProgressMap(userId, skillDocuments));
       }
   );
 
   return result;
 }
 
-function buildSkillProgressMap(
-    userId: string,
-    requiredSkills: RequiredSkill[],
-    skillProgressDocuments: any[],
-): RequiredSkillProgress[] {
-  const progressBySlug = Object.fromEntries(
-      skillProgressDocuments.map(document => [ document.name.split('/').at(-1), document ])
-  );
-
-  return requiredSkills.map(
-      skill => {
-        const progressDocument = progressBySlug[skill.slug];
-        const feedbackArray = progressDocument?.fields.feedback?.arrayValue?.values ?? [];
-        return {
-          user_id: userId,
-          skill,
-          progress: progressDocument?.fields.progress.stringValue ?? 'Not started',
-          feedback: feedbackArray.map(
-              (feedback: any) => ({
-                timestamp: feedback.mapValue.fields.timestamp.stringValue,
-                author_name: feedback.mapValue.fields.author_name.stringValue,
-                text: feedback.mapValue.fields.text.stringValue,
-              })
-          ),
-        };
-      }
+function buildSkillProgressMap(userId: string, skillProgressDocuments: any[]): Record<string, RequiredSkillProgress> {
+  return Object.fromEntries(
+      skillProgressDocuments.map(
+          document => {
+            const slug = document.name.split('/').at(-1);
+            const feedback = document.fields.feedback?.arrayValue?.values ?? [];
+            return [
+              slug,
+              {
+                user_id: userId,
+                skill_slug: slug,
+                progress: document.fields.progress?.stringValue ?? 'Not started',
+                feedback: feedback.map(
+                    (feedback: any) => ({
+                      timestamp: feedback.mapValue.fields.timestamp.stringValue,
+                      author_name: feedback.mapValue.fields.author_name.stringValue,
+                      text: feedback.mapValue.fields.text.stringValue,
+                    })
+                ),
+              },
+            ];
+          }
+      )
   );
 }
 
