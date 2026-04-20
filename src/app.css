@@ -213,6 +213,18 @@ html {
   color: color-mix(in srgb, currentColor 63%, transparent);
 }
 
+.text-display-box {
+  border: 1px solid var(--faded-dark-color);
+  border-radius: var(--radius-sm);
+  background-color: #F8F8F8;
+  padding: 12px;
+
+  @media (prefers-color-scheme: dark) {
+    border-color: var(--faded-light-color);
+    background: var(--dark-color);
+  }
+}
+
 .toggle-input {
   display: none;
 

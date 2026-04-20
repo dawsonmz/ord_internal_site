@@ -5,7 +5,7 @@
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import PortablePostImage from '$lib/components/portable_text/portable_post_image.svelte';
-  import { formatDateTextWithYear } from '$lib/util/datetime';
+  import { formatDateTextWithWeekdayAndYear } from '$lib/util/datetime';
 
   let { data } = $props();
   const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
@@ -30,7 +30,7 @@
     </div>
     <div class="flex gap-1 items-center">
       <div class="text-lg sm:text-xl subheading">
-        {formatDateTextWithYear(post.date)}
+        {formatDateTextWithWeekdayAndYear(post.date)}
       </div>
       <Dot />
       <a class="link" href="/updates{hiddenQuery}#{post.slug}">

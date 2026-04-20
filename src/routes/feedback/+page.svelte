@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Info, MessageSquareHeart, Settings2, UserSearch } from '@lucide/svelte/icons';
+  import { Dot, Info, MessageSquareHeart, Settings2, UserSearch } from '@lucide/svelte/icons';
   import { Popover, Portal } from '@skeletonlabs/skeleton-svelte';
   import { enhance } from '$app/forms';
   import { beforeNavigate } from '$app/navigation';
@@ -89,8 +89,11 @@
         {/if}
       </div>
       {#each data.feedback_entries.get(feedbackType) as feedback}
-        <div class="text-lg subheading">{feedback.date}</div>
-        <div class="font-semibold">From {feedback.from_name}</div>
+        <div class="flex items-center font-semibold">
+          <div>{feedback.date}</div>
+          <Dot />
+          <div>{feedback.from_name}</div>
+        </div>
         <div class="whitespace-pre-line rounded-sm bg-[var(--light-color)] dark:bg-[var(--semi-dark-color)] p-3 mb-2">
           {feedback.text}
         </div>

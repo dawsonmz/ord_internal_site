@@ -39,6 +39,7 @@ async function updateProgress(req: WrappedRequest) {
   const userId = data.get('userId')?.toString()!;
   const skillSlug = data.get('skill')?.toString()!;
   const progress = data.get('progress')?.toString();
+  const feedback = data.get('feedback')?.toString().trim();
 
   const [ user, requiredSkills ] = await Promise.all(
       [
@@ -62,6 +63,24 @@ async function updateProgress(req: WrappedRequest) {
     error(400, `Invalid skill slug: ${skillSlug}`);
   }
 
-  await updateRequiredSkillProgress(userId, skillSlug, progress as ProgressState | undefined);
+  let feedbackEntry;
+  if (feedback) {
+    if (feedback.length > 3000) {
+      error(400, `Feedback text too long`);
+    }
+
+    const actor = await getUser(req.locals.auth().userId);
+    feedbackEntry = {
+      author_name: actor.name,
+      text: feedback,
+    };
+  }
+
+  await updateRequiredSkillProgress(
+      userId,
+      skillSlug,
+      progress as ProgressState | undefined,
+      feedbackEntry
+  );
   return { success: true };
 }
