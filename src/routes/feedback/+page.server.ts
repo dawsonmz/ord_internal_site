@@ -4,6 +4,7 @@ import { getUserFeedback, createFeedbackDocument } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
 import { type User, getAllUsers, getUser, getUserAllowance, getUserAllowances, updateUserAllowance } from '$lib/server/users';
+import { addUserIdPrefix } from '$lib/util/users';
 import { missingError } from '$lib/util/validation';
 
 export async function load({ locals, url }) {
@@ -12,7 +13,7 @@ export async function load({ locals, url }) {
   const auth = locals.auth();
   const actorId = auth.userId;
   const paramUserId = url.searchParams.get('user');
-  const userId = paramUserId ? `user_${paramUserId}` : actorId;
+  const userId = paramUserId ? addUserIdPrefix(paramUserId) : actorId;
   
   const isActorUser = actorId == userId;
   const actor = await getUser(actorId);

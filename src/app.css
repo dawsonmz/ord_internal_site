@@ -322,6 +322,26 @@ html {
   height: min-content;
 }
 
+.legend-row {
+  column-count: 2;
+  column-gap: 16px;
+  max-width: 40rem;
+}
+
+.legend-item {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 8px;
+  align-items: center;
+  break-inside: avoid;
+  margin-bottom: 2px;
+}
+
+.legend-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 .dot {
   width: 28px;
   height: 28px;

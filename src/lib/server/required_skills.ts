@@ -2,16 +2,17 @@ import { getCollectionGroupDocuments, getDocument, getDocuments, patchDocument }
 import { type ModuleTag } from '$lib/server/modules';
 import { sanityClient } from '$lib/util/sanity';
 
+export type SkillStage = 'Fundamentals' | 'Basic Contact' | 'Controlled Gameplay' | 'Full Gameplay';
+export type ProgressState = 'Not started' | 'In progress' | 'Completed';
+
 export interface RequiredSkill {
-  stage: 'Fundamentals' | 'Basic Contact' | 'Controlled Gameplay' | 'Full Gameplay',
+  stage: SkillStage,
   title: string,
   slug: string,
   importance: string,
   key_points: string[],
   module_tag: ModuleTag,
 }
-
-export type ProgressState = 'Not started' | 'In progress' | 'Completed';
 
 export interface RequiredSkillProgress {
   user_id: string,

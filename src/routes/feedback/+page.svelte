@@ -8,6 +8,7 @@
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import Dialog from '$lib/components/dialog.svelte';
   import FormDialog from '$lib/components/form_dialog.svelte';
+  import { dropUserIdPrefix } from '$lib/util/users';
 
   let { data, form } = $props();
 
@@ -205,14 +206,14 @@
           {#if data.a_team_users.length}
             <optgroup label="A Team">
               {#each data.a_team_users as user}
-                <option value={user.user_id.substring(5)}>{user.name}</option>
+                <option value={dropUserIdPrefix(user.user_id)}>{user.name}</option>
               {/each}
             </optgroup>
           {/if}
           {#if data.b_team_users.length}
             <optgroup label="B Team">
             {#each data.b_team_users as user}
-              <option value={user.user_id.substring(5)}>{user.name}</option>
+              <option value={dropUserIdPrefix(user.user_id)}>{user.name}</option>
             {/each}
             </optgroup>
           {/if}
