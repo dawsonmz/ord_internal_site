@@ -3,7 +3,6 @@
   import AnimatedCheck from '$lib/components/animated_check.svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import FormDialog from '$lib/components/form_dialog.svelte';
-  import SkaterNumberGroup from '$lib/components/skater_number_group.svelte';
 
   let { data, form } = $props();
 
@@ -13,10 +12,6 @@
         skaterNumber => skaterNumber.skater_number?.includes(query.trim()) || skaterNumber.derby_name_lower?.includes(query.trim())
     )
   );
-
-  let skaterSplitCount = $derived(Math.ceil(data.skater_numbers.length / 2));
-  let skaterNumbersCol1 = $derived(skaterNumbers.slice(0, skaterSplitCount));
-  let skaterNumbersCol2 = $derived(skaterNumbers.slice(skaterSplitCount));
 
   const formId = 'number-request';
 </script>
@@ -97,15 +92,32 @@
   {/snippet}
 </FormDialog>
 
-<input type="text" class="input max-w-148 bg-white dark:bg-[var(--dark-color)]" placeholder="Search for number or name" bind:value={query} />
-{#if skaterNumbers.length}
-  <div class="sm:hidden">
-    <SkaterNumberGroup skaterNumbers={skaterNumbers} />
-  </div>
-  <div class="flex max-sm:hidden mt-2">
-    <SkaterNumberGroup skaterNumbers={skaterNumbersCol1} />
-    <SkaterNumberGroup skaterNumbers={skaterNumbersCol2} />
-  </div>
-{:else}
-  <div class="font-semibold">No results found.</div>
-{/if}
+<div class="max-w-2xl flex flex-col gap-2">
+  <input
+      type="text"
+      class="input bg-white dark:bg-[var(--dark-color)]"
+      placeholder="Search for number or name"
+      bind:value={query}
+  />
+  {#if skaterNumbers.length}
+    <div class="columns-1 sm:columns-2 gap-8 mt-2">
+      {#each skaterNumbers as skaterNumber}
+        <div class="flex items-center gap-3 break-inside-avoid mb-3">
+          <div class="text-center
+                      font-semibold
+                      w-[56px]
+                      rounded-sm
+                      shadow-sm
+                      bg-[var(--light-color)]
+                      dark:text-[var(--dark-color)]"
+          >
+            {skaterNumber.skater_number ?? ""}
+          </div>
+          <div class="text-base">{skaterNumber.derby_name}</div>
+        </div>
+      {/each}
+    </div>
+  {:else}
+    <div class="font-semibold">No results found.</div>
+  {/if}
+</div>

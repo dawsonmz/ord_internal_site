@@ -35,10 +35,10 @@
       <div class="font-bold text-lg">
         {stage}
       </div>
-      <div class="legend-row">
+      <div class="columns-2 gap-4 max-w-2xl">
         {#each data.required_skills.get(stage) as skill, index}
-          <div class="legend-item">
-            <span class="legend-num">{index + 1}.</span>
+          <div class="grid grid-cols-[20px_1fr] gap-2 items-center break-inside-avoid">
+            <span class="text-right tabular-nums">{index + 1}.</span>
             <span>{skill.title}</span>
           </div>
         {/each}

@@ -18,6 +18,23 @@ Internal site for Oslo Roller Derby (ORD). Built with SvelteKit, deployed to Clo
 - **Feedback**: Historical log of feedback provided from team captains to team members, or from team members to themselves.
 - **Useful resources**: Links to important team documents and general information.
 
+## Ongoing Projects
+
+### Required Skills
+
+Coaches track beginner skaters' progress on a curriculum of required skills, and leave per-skill feedback. Beginners graduate to team membership once they've completed the curriculum.
+
+#### Data model
+
+- Code: src/lib/server/required_skills.ts
+- RequiredSkill: catalog entry from Sanity, general description of a required skill
+- RequiredSkillProgress: per-user, per-skill state stored in Firestore under user/{userId}/skill/{skillSlug}
+
+#### Route structure
+
+- /required-skills: coach view, implemented. Requires coach role.
+- /required-skills/{userId}: individual skater view. Not yet implemented. Beginners visiting /required-skills will be redirected here based on their own userId.
+
 ## Architecture
 
 ### Clerk
