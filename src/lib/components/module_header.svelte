@@ -4,10 +4,11 @@
 
 <div class="flex flex-col gap-2 items-start {baseClasses}">
   <div class="text-lg font-semibold {titleClasses}">{module.title}</div>
-  <div class="flex flex-wrap gap-2 text-xs">
+  <div class="flex flex-wrap gap-2">
     {#each module.tags as tag}
       <div
           class="text-center
+                 text-xs
                  rounded-sm
                  shadow-sm
                  px-2

@@ -421,3 +421,26 @@ html {
     background: var(--dark-color);
   }
 }
+
+.progress-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--not-started-dot-color);
+  color: var(--not-started-text-color);
+}
+
+.progress-badge.in-progress {
+  background: var(--in-progress-dot-color);
+  color: var(--in-progress-text-color);
+}
+
+.progress-badge.completed {
+  background: var(--completed-dot-color);
+  color: var(--completed-text-color);
+}

@@ -1,12 +1,16 @@
 import type { Actions } from './$types';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { requestAccess } from '$lib/server/request_access';
 import { type ProgressState, loadRequiredSkillProgressForAll, loadRequiredSkills, updateRequiredSkillProgress } from '$lib/server/required_skills';
 import { checkAccess, checkAccessAnyRequired } from '$lib/server/roles';
 import { getAllUsers, getUser } from '$lib/server/users';
+import { dropUserIdPrefix } from '$lib/util/users';
 
 export async function load({ locals }) {
-  checkAccessAnyRequired(locals, [ 'coach' ]);
+  const roles = checkAccessAnyRequired(locals, [ 'coach', 'beginner', 'graduated_beginner' ]);
+  if (!roles.includes('coach')) {
+    redirect(302, `/required-skills/${dropUserIdPrefix(locals.auth().userId)}`);
+  }
   
   // All users with the beginner role are loaded here. Graduated beginners can also view their own
   // historical feedback, but coaches only need to see active beginners.

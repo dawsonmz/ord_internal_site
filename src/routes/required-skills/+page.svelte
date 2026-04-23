@@ -30,13 +30,14 @@
 </Crumb>
 
 {#each STAGES as stage}
-  {#if data.required_skills.has(stage)}
+  {@const skills = data.required_skills.get(stage)}
+  {#if skills}
     <div class="flex flex-col gap-3">
       <div class="font-bold text-lg">
         {stage}
       </div>
       <div class="columns-2 gap-4 max-w-2xl">
-        {#each data.required_skills.get(stage) as skill, index}
+        {#each skills as skill, index}
           <div class="grid grid-cols-[20px_1fr] gap-2 items-center break-inside-avoid">
             <span class="text-right tabular-nums">{index + 1}.</span>
             <span>{skill.title}</span>
@@ -61,13 +62,14 @@
       </div>
 
       {#each STAGES as stage}
-        {#if data.required_skills.has(stage)}
+        {@const skills = data.required_skills.get(stage)}
+        {#if skills}
           <div class="flex flex-col gap-2">
             <div class="font-light text-xs uppercase">
               {stage}
             </div>
             <div class="flex flex-wrap gap-1.5">
-              {#each data.required_skills.get(stage) as skill, index (skill.slug)}
+              {#each skills as skill, index (skill.slug)}
                 {@const progress = data.required_skill_progress.get(user.user_id)?.[skill.slug]
                     ?? {
                       user_id: user.user_id,
