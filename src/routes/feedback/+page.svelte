@@ -61,7 +61,8 @@
 </div>
 
 {#each feedbackTypes as feedbackType}
-  {#if data.feedback_entries.has(feedbackType)}
+  {@const feedbackEntries = data.feedback_entries.get(feedbackType)}
+  {#if feedbackEntries}
     <div class="flex flex-col gap-2 mb-2">
       <div class="flex gap-4 items-center text-xl font-semibold bottom-faded-border">
         {feedbackType}
@@ -89,7 +90,7 @@
           </Popover>
         {/if}
       </div>
-      {#each data.feedback_entries.get(feedbackType) as feedback}
+      {#each feedbackEntries as feedback}
         <div class="text-display-box flex flex-col gap-2 my-1">
           <div class="flex items-center font-semibold">
             <div>{feedback.date}</div>

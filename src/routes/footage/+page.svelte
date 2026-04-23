@@ -12,10 +12,13 @@
 </Crumb>
 
 {#each data.years as year}
-  <div class="text-xl font-semibold">{year}</div>
-  <div class="flex gap-6">
-    {#each data.seasons.get(year) as season}
-      <LinkCard title={season.name} url="/footage/{season.slug}" width={180} />
-    {/each}
-  </div>
+  {@const seasons = data.seasons.get(year)}
+  {#if seasons}
+    <div class="text-xl font-semibold">{year}</div>
+    <div class="flex gap-6">
+      {#each seasons as season}
+        <LinkCard title={season.name} url="/footage/{season.slug}" width={180} />
+      {/each}
+    </div>
+  {/if}
 {/each}

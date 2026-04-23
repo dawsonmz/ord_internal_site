@@ -29,10 +29,11 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12 xl:mx-auto">
   {#each footageTypes as footageType}
-    {#if data.footage.has(footageType)}
+    {@const footageEntries = data.footage.get(footageType)}
+    {#if footageEntries}
       <div class="flex flex-col gap-5">
         <div class="text-2xl font-semibold">{footageType}</div>
-        {#each data.footage.get(footageType) as footage}
+        {#each footageEntries as footage}
           <div class="flex flex-col gap-2">
             <div class="text-lg font-semibold">{footage.title}</div>
             <div class="subheading">{footage.event ?? footage.type}</div>
