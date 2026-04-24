@@ -15,8 +15,8 @@ html {
   --dark-color: #151515;
   --menu-dark-color: #1F1F1F;
   --semi-dark-color: #2E2B24;
-  --strong-color: #FF8133;
-  --error-color: #DD0000;
+  --strong-color: #EF7A33;
+  --error-color: #C42B2B;
   --faded-dark-color: color-mix(in oklab, var(--semi-dark-color) 20%, transparent);
   --faded-light-color: color-mix(in oklab, var(--light-color) 20%, transparent);
   --faded-backdrop-color: color-mix(in oklab, var(--dark-color) 50%, transparent);
@@ -25,8 +25,8 @@ html {
   --not-started-text-color: #555555;
   --in-progress-dot-color: #F2C14E;
   --in-progress-text-color: #5A3E00;
-  --completed-dot-color: #5AA85A;
-  --completed-text-color: #FFFFFF;
+  --completed-dot-color: #B0E8B0;
+  --completed-text-color: #1F5A1F;
 }
 
 .main-style {
