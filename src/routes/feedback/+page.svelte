@@ -69,7 +69,7 @@
         {#if feedbackType == 'Self'}
           <Popover>
             <Popover.Trigger>
-                <Info class="hover:text-[var(--hover-color)] active:text-[var(--hover-color)]" size=16 />
+              <Info class="hover:text-(--strong-color) active:text-(--strong-color)" size=16 />
             </Popover.Trigger>
             <Portal>
               <Popover.Positioner>
@@ -81,7 +81,7 @@
                            p-2
                            w-[280px]
                            dark:border-1
-                           dark:border-color-[var(--very-light-color)]"
+                           dark:border-color-(--very-light-color)"
                 >
                   Self registered feedback is only visible to you.
                 </Popover.Content>
@@ -164,7 +164,7 @@
               <div class="input text-sm py-2">B Team</div>
               <input type="hidden" name="context" value="B Team" />
             {:else}
-              <select id="context" class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2">
+              <select id="context" class="input text-sm bg-white dark:bg-(--dark-color) py-2">
                 <option value="A Team">A Team</option>
                 <option value="B Team">B Team</option>
               </select>
@@ -175,11 +175,11 @@
         <label class="label">
           <span class="label-text text-base">Text:</span>
           {#if form?.formId == feedbackFormId && form.errors?.text}
-            <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.text}</span>
+            <span class="text-sm font-semibold text-(--error-color)">* {form.errors.text}</span>
           {/if}
           <textarea
               name="text"
-              class="textarea resize-none text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+              class="textarea resize-none text-sm bg-white dark:bg-(--dark-color) py-2"
               rows=12
               maxlength=3000
           ></textarea>
@@ -202,7 +202,7 @@
         <div class="text-sm mt-2">
           View and write feedback for another skater. Only users who have agreed to receive feedback that type will be viewable.
         </div>
-        <select id="user-pick" bind:value={userParam} class="input text-sm bg-white dark:bg-[var(--dark-color)] mt-2">
+        <select id="user-pick" bind:value={userParam} class="input text-sm bg-white dark:bg-(--dark-color) mt-2">
           <option value="">View self</option>
           {#if data.a_team_users.length}
             <optgroup label="A Team">

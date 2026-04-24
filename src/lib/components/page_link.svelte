@@ -23,7 +23,7 @@
   {#if description}
     <Popover>
       <Popover.Trigger>
-          <Info class="hover:text-[var(--hover-color)] active:text-[var(--hover-color)]" size=16 />
+        <Info class="hover:text-[var(--strong-color)] active:text-[var(--strong-color)]" size=16 />
       </Popover.Trigger>
       <Portal>
         <Popover.Positioner>

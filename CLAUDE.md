@@ -32,8 +32,8 @@ Coaches track beginner skaters' progress on a curriculum of required skills, and
 
 #### Route structure
 
-- /required-skills: coach view, implemented. Requires coach role.
-- /required-skills/{userId}: individual skater view. Not yet implemented. Beginners visiting /required-skills will be redirected here based on their own userId.
+- /required-skills: coach view, showing an overview of all beginners' summarized progress. Requires coach role.
+- /required-skills/{userId}: individual skater view, showing more detailed skill description, progress notes, and feedback. Beginners visiting /required-skills will be redirected here based on their own userId.
 
 ## Architecture
 

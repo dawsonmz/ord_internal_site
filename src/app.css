@@ -15,7 +15,7 @@ html {
   --dark-color: #151515;
   --menu-dark-color: #1F1F1F;
   --semi-dark-color: #2E2B24;
-  --hover-color: #FF8133;
+  --strong-color: #FF8133;
   --error-color: #DD0000;
   --faded-dark-color: color-mix(in oklab, var(--semi-dark-color) 20%, transparent);
   --faded-light-color: color-mix(in oklab, var(--light-color) 20%, transparent);
@@ -112,8 +112,8 @@ html {
  * hover:bg-[var(--semi-light-color)]
  * hover:border-[var(--semi-light-color)]
  * dark:hover:text-[var(--dark-color)]
- * active:bg-[var(--hover-color)]
- * active:border-[var(--hover-color)]
+ * active:bg-[var(--strong-color)]
+ * active:border-[var(--strong-color)]
  */
 .button-style {
   border-style: var(--tw-border-style);
@@ -138,8 +138,8 @@ html {
     }
   }
   &:active {
-    background-color: var(--hover-color);
-    border-color: var(--hover-color);
+    background-color: var(--strong-color);
+    border-color: var(--strong-color);
   }
   @media (prefers-color-scheme: dark) {
     background-color: var(--dark-color);
@@ -196,10 +196,12 @@ html {
 
 .link {
   overflow-wrap: break-word;
+  text-underline-offset: 3px;
 
   &:hover {
-    color: var(--hover-color);
     text-decoration: underline;
+    text-decoration-color: var(--strong-color);
+    text-decoration-thickness: 2px;
   }
 }
 
@@ -229,7 +231,7 @@ html {
   display: none;
 
   &:checked + .toggle-slider {
-    background-color: var(--hover-color);
+    background-color: var(--strong-color);
     &:before {
       left: 14px;
     }
@@ -304,9 +306,11 @@ html {
 
 .rich-text a {
   text-decoration: underline;
+  text-underline-offset: 3px;
 
   &:hover {
-    color: var(--hover-color);  
+    text-decoration-color: var(--strong-color);
+    text-decoration-thickness: 2px;
   }
 }
 
@@ -367,7 +371,7 @@ html {
 
   &:hover {
     outline: 2px solid;
-    outline-color: var(--hover-color);
+    outline-color: var(--strong-color);
   }
 }
 

@@ -71,10 +71,27 @@
 
 <Accordion value={openItems} multiple onValueChange={e => openItems = e.value}>
   {#each data.modules as module, index}
-    <Accordion.Item value={`${index}`} class="border-1 rounded-sm sm:w-[420px] md:w-[700px] p-2 sm:p-3 mb-3 sm:mb-4">
-      <Accordion.ItemTrigger class="group flex items-center justify-between w-full sm:w-[400px] md:w-[680px] mb-2">
-        <ModuleHeader titleClasses="group-hover:text-[var(--hover-color)]" module={module} />
-        <div class="group-hover:text-[var(--hover-color)] px-1 sm:px-2">
+    <Accordion.Item
+        value={`${index}`}
+        class="border-1
+               border-(--faded-dark-color)
+               dark:border-(--very-light-color)
+               rounded-sm
+               shadow-md
+               sm:w-[420px]
+               md:w-[700px]
+               p-2
+               sm:p-3
+               mb-3
+               sm:mb-4
+               transition-colors
+               duration-150
+               hover:bg-(--light-color)
+               dark:hover:text-(--dark-color)"
+    >
+      <Accordion.ItemTrigger class="flex items-center justify-between w-full sm:w-[400px] md:w-[680px] mb-2">
+        <ModuleHeader module={module} />
+        <div class="px-1 sm:px-2">
           {#if openItems.includes(`${index}`)}
             <ChevronUp />
           {:else}

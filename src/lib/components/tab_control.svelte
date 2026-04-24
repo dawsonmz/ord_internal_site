@@ -5,7 +5,7 @@
   let textOpacity = $derived(isSelected ? '' : 'opacity-50');
 </script>
 
-<Tabs.Trigger {value} class="main-style text-center text-sm py-2.5 w-[90px] {textOpacity} hover:opacity-100">
+<Tabs.Trigger {value} class="text-center text-sm py-2.5 w-[90px] {textOpacity} hover:opacity-100">
   {value}
 </Tabs.Trigger>
 
