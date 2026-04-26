@@ -8,7 +8,7 @@
 <div class="flex items-center gap-2 pb-0.5">
   <a href={url}
      target={external ? '_blank' : null}
-     class="flex items-center gap-2 link-hover"
+     class="flex items-center gap-2 block-hover"
      style={width ? `width: ${width}px` : null}
   >
     {#if external}
@@ -23,7 +23,7 @@
   {#if description}
     <Popover>
       <Popover.Trigger>
-        <Info class="hover:text-[var(--strong-color)] active:text-[var(--strong-color)]" size=16 />
+        <Info class="strong-hover" size=16 />
       </Popover.Trigger>
       <Portal>
         <Popover.Positioner>

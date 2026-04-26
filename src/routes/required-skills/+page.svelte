@@ -53,7 +53,7 @@
   {#each data.users as user (user.user_id)}
     <div class="flex flex-col gap-3 border-1 border-(--light-color) bg-white dark:bg-(--dark-color) rounded-md shadow-md p-3">
       <div>
-        <a class="flex justify-between link" href="/required-skills/{dropUserIdPrefix(user.user_id)}">
+        <a class="flex justify-between strong-hover" href="/required-skills/{dropUserIdPrefix(user.user_id)}">
           <div class="font-semibold">
             {user.name}
           </div>

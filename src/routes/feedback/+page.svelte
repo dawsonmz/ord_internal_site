@@ -115,7 +115,7 @@
   <!-- Form for writing feedback -->
   <FormDialog {form} formId={feedbackFormId} formAction="?/skaterfeedback" openFn={() => form = null}>
     {#snippet trigger()}
-      <div class="flex gap-2 link-hover items-center w-[190px]">
+      <div class="flex gap-2 block-hover items-center w-[190px]">
         {#if form?.formId == feedbackFormId && form?.success}
           <AnimatedCheck color="green" />
         {:else}
@@ -192,7 +192,7 @@
   {#if data.a_team_users.length || data.b_team_users.length}
     <Dialog bind:dialogState={viewSkaterDialogState} openFn={() => form = null}>
       {#snippet trigger()}
-        <div class="flex gap-2 link-hover items-center w-[190px]">
+        <div class="flex gap-2 block-hover items-center w-[190px]">
           <UserSearch />
           <div>View skater</div>
         </div>
@@ -230,7 +230,7 @@
   <!-- Form for updating feedback allowance -->
   <Dialog bind:dialogState={settingsDialogState} openFn={() => form = null} closeFn={closeSettingsDialog}>
     {#snippet trigger()}
-      <div class="flex gap-2 link-hover items-center w-[190px]">
+      <div class="flex gap-2 block-hover items-center w-[190px]">
         {#if form?.formId == settingsFormId && form?.success}
           <AnimatedCheck color="green" />
         {:else}

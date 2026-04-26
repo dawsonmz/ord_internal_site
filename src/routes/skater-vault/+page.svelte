@@ -28,7 +28,7 @@
 </div>
 <FormDialog {form} {formId} formAction="?/requestnumber" openFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center gap-2 link-hover w-fit">
+    <div class="flex items-center gap-2 block-hover w-fit">
       {#if form?.formId == formId && form?.success}
         <AnimatedCheck color="green" />
       {:else}

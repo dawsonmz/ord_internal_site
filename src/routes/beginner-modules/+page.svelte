@@ -83,21 +83,20 @@
                p-2
                sm:p-3
                mb-3
-               sm:mb-4
-               transition-colors
-               duration-150
-               hover:bg-(--light-color)
-               dark:hover:text-(--dark-color)"
+               sm:mb-4"
     >
-      <Accordion.ItemTrigger class="flex items-center justify-between w-full sm:w-[400px] md:w-[680px] mb-2">
-        <ModuleHeader module={module} />
-        <div class="px-1 sm:px-2">
-          {#if openItems.includes(`${index}`)}
-            <ChevronUp />
-          {:else}
-            <ChevronDown />
-          {/if}
-        </div>
+      <Accordion.ItemTrigger class="w-full sm:w-[400px] md:w-[680px] transition-colors duration-150 strong-hover">
+        <ModuleHeader {module}>
+          {#snippet trailing()}
+            <div class="px-1 sm:px-2">
+              {#if openItems.includes(`${index}`)}
+                <ChevronUp />
+              {:else}
+                <ChevronDown />
+              {/if}
+            </div>
+          {/snippet}
+        </ModuleHeader>
       </Accordion.ItemTrigger>
       
       <Accordion.ItemContent class="mx-1 mt-4">

@@ -94,18 +94,18 @@
 
                   <div class="flex flex-col gap-6 ml-4 sm:ml-2">
                     <div class="flex flex-col gap-3">
-                      <a class="flex items-center gap-2 link" href="/">
+                      <a class="flex items-center gap-2 strong-hover" href="/">
                         <HouseIcon size=20 />
                         <div>Home</div>
                       </a>
                       <SignedIn>
-                        <SignOutButton class="flex items-center gap-2 link">
+                        <SignOutButton class="flex items-center gap-2 strong-hover">
                           <LogOut size=20 />
                           <div>Sign Out</div>
                         </SignOutButton>
                       </SignedIn>
                       <SignedOut>
-                        <SignInButton class="flex items-center gap-2 link">
+                        <SignInButton class="flex items-center gap-2 strong-hover">
                           <LogIn size=20 />
                           <div>Sign In</div>
                         </SignInButton>

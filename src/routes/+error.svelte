@@ -29,7 +29,7 @@
 </Crumb>
 
 {#if page.status == 401}
-  <SignInButton class="flex items-center gap-2 link-hover w-max">
+  <SignInButton class="flex items-center gap-2 block-hover w-max">
     <LogIn size={24} />
     <div>Please sign in to access this page.</div>
   </SignInButton>

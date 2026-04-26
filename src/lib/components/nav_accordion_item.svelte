@@ -11,7 +11,7 @@
              items-center
              justify-between
              w-full
-             link-hover
+             block-hover
              mb-2
              mr-2
              {openNavItems.includes(header) ? 'bg-[var(--semi-dark-color)]' : ''}"

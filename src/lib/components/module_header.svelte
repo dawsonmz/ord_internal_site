@@ -1,9 +1,14 @@
 <script lang="ts">
-  let { baseClasses='', module } = $props();
+  let { baseClasses='', module, trailing } = $props();
 </script>
 
-<div class="flex flex-col gap-2 items-start {baseClasses}">
-  <div class="text-lg font-semibold">{module.title}</div>
+<div class="flex flex-col gap-2 items-start w-full {baseClasses}">
+  <div class="flex items-center justify-between gap-2 w-full">
+    <div class="text-lg font-semibold">{module.title}</div>
+    {#if trailing}
+      {@render trailing()}
+    {/if}
+  </div>
   <div class="flex flex-wrap gap-2">
     {#each module.tags as tag}
       <div

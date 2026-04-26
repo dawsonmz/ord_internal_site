@@ -33,7 +33,7 @@
         {formatDateTextWithWeekdayAndYear(post.date)}
       </div>
       <Dot />
-      <a class="link" href="/updates{hiddenQuery}#{post.slug}">
+      <a class="strong-hover" href="/updates{hiddenQuery}#{post.slug}">
         <Link size={20}/>
       </a>
     </div>

@@ -16,6 +16,8 @@ html {
   --menu-dark-color: #1F1F1F;
   --semi-dark-color: #2E2B24;
   --strong-color: #EF7A33;
+  --strong-color-fg-on-dark: #F7A06E;
+  --strong-color-fg: #C2410C;
   --error-color: #C42B2B;
   --faded-dark-color: color-mix(in oklab, var(--semi-dark-color) 20%, transparent);
   --faded-light-color: color-mix(in oklab, var(--light-color) 20%, transparent);
@@ -27,6 +29,10 @@ html {
   --in-progress-text-color: #5A3E00;
   --completed-dot-color: #B0E8B0;
   --completed-text-color: #1F5A1F;
+
+  @media (prefers-color-scheme: dark) {
+    --strong-color-fg: var(--strong-color-fg-on-dark);
+  }
 }
 
 .main-style {
@@ -45,6 +51,7 @@ html {
 .menu-colors {
   background-color: var(--dark-color);
   color: var(--very-light-color);
+  --strong-color-fg: var(--strong-color-fg-on-dark);
 
   @media (prefers-color-scheme: dark) {
     background-color: var(--menu-dark-color);
@@ -166,7 +173,7 @@ html {
  * dark:hover:text-[var(--dark-color)]
  * hover:shadow-sm
  */
-.link-hover {
+.block-hover {
   border-radius: var(--radius-sm);
   padding-inline: calc(var(--spacing) * 2);
   padding-block: calc(var(--spacing) * 1);
@@ -200,8 +207,20 @@ html {
 
   &:hover {
     text-decoration: underline;
-    text-decoration-color: var(--strong-color);
+    text-decoration-color: var(--strong-color-fg);
     text-decoration-thickness: 2px;
+  }
+}
+
+.strong-hover {
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0,0,0.2,1);
+  transition-duration: 150ms;
+
+  &:hover, &:focus-visible {
+    @media (hover: hover) {
+      color: var(--strong-color-fg);
+    }
   }
 }
 
@@ -309,7 +328,7 @@ html {
   text-underline-offset: 3px;
 
   &:hover {
-    text-decoration-color: var(--strong-color);
+    text-decoration-color: var(--strong-color-fg);
     text-decoration-thickness: 2px;
   }
 }

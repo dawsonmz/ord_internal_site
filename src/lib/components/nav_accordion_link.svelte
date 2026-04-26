@@ -4,7 +4,7 @@
   let { label, url, external=false } = $props();
 </script>
 
-<a class="flex items-center gap-2 w-fit link" href={url} target={external ? '_blank' : null}>
+<a class="flex items-center gap-2 w-fit strong-hover" href={url} target={external ? '_blank' : null}>
   {#if external}
     <ExternalLink size=20 />
   {:else}

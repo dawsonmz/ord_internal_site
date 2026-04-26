@@ -14,7 +14,7 @@
 
 <FormDialog {form} {formId} formAction="?/sitefeedback" openFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center gap-2 link-hover {triggerClasses}">
+    <div class="flex items-center gap-2 block-hover {triggerClasses}">
       {#if form?.formId == formId && form?.success}
         <AnimatedCheck color="green" />
       {:else}
