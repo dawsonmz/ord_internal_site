@@ -4,7 +4,6 @@
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
   import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import PortableModuleImage from '$lib/components/portable_text/portable_module_image.svelte';
-  import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
   let { module, tabStates, index, form } = $props();
@@ -13,10 +12,7 @@
   let isDetailed = $derived(tabStates[index] == 'Detailed');
   let isAdvanced = $derived(tabStates[index] == 'Advanced');
 
-  const components = {
-    types: { image: PortableModuleImage },
-    block: { normal: PortableNormal },
-  };
+  const components = { types: { image: PortableModuleImage } };
 </script>
 
 <div class="flex items-center gap-1 text-base">

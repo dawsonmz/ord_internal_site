@@ -206,9 +206,11 @@ html {
   text-underline-offset: 3px;
 
   &:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--strong-color-fg);
-    text-decoration-thickness: 2px;
+    @media (hover: hover) {
+      text-decoration: underline;
+      text-decoration-color: var(--strong-color-fg);
+      text-decoration-thickness: 2px;
+    }
   }
 }
 
@@ -280,6 +282,71 @@ html {
   }
 }
 
+.text-list, .rich-text ul, .rich-text ol {
+  padding-left: 20px;
+}
+
+.text-list li + li {
+  margin-top: 4px;
+}
+
+.rich-text ul li + li, .rich-text ol li + li, .rich-text li :is(ul, ol) {
+  margin-top: 2px;
+}
+
+ul.text-list li, .rich-text ul li {
+  list-style-type: disc;
+}
+
+ul.text-list li li, .rich-text ul li li {
+  list-style-type: circle;
+  margin-left: 6px;
+}
+
+ul.text-list li li li, .rich-text ul li li li {
+  list-style-type: square;
+  margin-left: 12px;
+}
+
+ol.text-list li, .rich-text ol li {
+  list-style-type: decimal;
+  padding-left: 6px;
+}
+
+.rich-text h1 {
+  font-size: calc(1.875rem * var(--text-scaling));
+  line-height: var(--tw-leading, calc(calc(2.25 / 1.875) * var(--text-scaling)));
+  margin-top: 30px;
+  margin-bottom: 22px;
+
+  @media (width >= 40rem) {
+    font-size: calc(2.25rem * var(--text-scaling));
+    line-height: var(--tw-leading, calc(calc(2.5 / 2.25) * var(--text-scaling)));
+    margin-top: 40px;
+    margin-bottom: 28px;
+  }
+
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+}
+
+.rich-text h2 {
+  font-size: calc(1.5rem * var(--text-scaling));
+  line-height: var(--tw-leading, calc(calc(2 / 1.5) * var(--text-scaling)));
+  margin-top: 24px;
+  margin-bottom: 18px;
+
+  @media (width >= 40rem) {
+    font-size: calc(1.875rem * var(--text-scaling));
+    line-height: var(--tw-leading, calc(calc(2.25 / 1.875) * var(--text-scaling)));
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  --tw-font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-bold);
+}
+
 .rich-text h3 {
   font-size: calc(1.25rem * var(--text-scaling));
   line-height: var(--tw-leading, calc(calc(1.75 / 1.25) * var(--text-scaling)));
@@ -297,30 +364,27 @@ html {
   font-weight: var(--font-weight-semibold);
 }
 
-.rich-text p {
-  margin-top: 1px;
-  margin-bottom: 1px;
+.rich-text h4 {
+  font-size: calc(1.125rem * var(--text-scaling));
+  line-height: var(--tw-leading, calc(calc(1.75 / 1.125) * var(--text-scaling)));
+  margin-top: 14px;
+  margin-bottom: 12px;
+
+  @media (width >= 40rem) {
+    font-size: calc(1.25rem * var(--text-scaling));
+    line-height: var(--tw-leading, calc(calc(1.75 / 1.25) * var(--text-scaling)));
+    margin-top: 18px;
+    margin-bottom: 15px;
+  }
+
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
 }
 
-.rich-text ul li {
-  list-style-type: disc;
-  margin-left: 18px;
-}
-
-.rich-text ul li li {
-  list-style-type: circle;
-  margin-left: 24px;
-}
-
-.rich-text ul li li li {
-  list-style-type: square;
-  margin-left: 32px;
-}
-
-.rich-text ol li {
-  list-style-type: decimal;
-  margin-left: 18px;
-  padding-left: 6px;
+.rich-text p:empty::before, .rich-text p:has(> :only-child:empty)::before {
+  content: "";
+  display: inline-block;
+  height: 1em;
 }
 
 .rich-text a {
@@ -328,16 +392,20 @@ html {
   text-underline-offset: 3px;
 
   &:hover {
-    text-decoration-color: var(--strong-color-fg);
-    text-decoration-thickness: 2px;
+    @media (hover: hover) {
+      text-decoration-color: var(--strong-color-fg);
+      text-decoration-thickness: 2px;
+    }
   }
 }
 
-.rich-text img + p {
-  margin-top: 16px;
+.rich-text img {
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  margin-block: 12px;
 }
 
-.rich-text p + img {
+.rich-text img + p, .rich-text p + img {
   margin-top: 16px;
 }
 

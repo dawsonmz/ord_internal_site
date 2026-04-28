@@ -53,9 +53,9 @@
               <div class="font-light text-sm">
                 KEY POINTS
               </div>
-              <ul class="list-disc pl-5">
+              <ul class="text-list mt-1">
                 {#each skill.key_points as keyPoint}
-                  <li class="mt-0.5">{keyPoint}</li>
+                  <li>{keyPoint}</li>
                 {/each}
               </ul>
             </div>

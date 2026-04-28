@@ -86,16 +86,14 @@
         komiteer/grupper, og ønsker en objektiv part med i samtalen. Tillitspersonene har
         taushetsplikt. Det er medlemmene selv som må ta kontakt med tillitspersonen.
       </div>
-      <div class="rich-text">
-        <ul class="flex flex-col gap-1">
-          <li>
-            Tillitspersonen skal tilby seg å ha en samtale med begge parter i konflikten/uenigheten.
-          </li>
-          <li>
-            Det er et mål at initiativtager og motpart selv skal foreslå en løsning av konflikten.
-          </li>
-        </ul>
-      </div>
+      <ul class="text-list">
+        <li>
+          Tillitspersonen skal tilby seg å ha en samtale med begge parter i konflikten/uenigheten.
+        </li>
+        <li>
+          Det er et mål at initiativtager og motpart selv skal foreslå en løsning av konflikten.
+        </li>
+      </ul>
       <div>
         Dersom varselet medfører behov for tiltak utover de ovennevnte punktene, vil saken tas opp
         med styret for videre behandling. Dette gjelder også dersom varselet omhandler
@@ -143,41 +141,39 @@
       <div class="font-bold">
         Saksgang
       </div>
-      <div class="rich-text">
-        <ol class="flex flex-col gap-2">
-          <li>
-            Mottak av varsel: fortrinnsvis via portal, evt. andre kanaler.
-          </li>
-          <li>
-            Avklaring: tillitspersoner skal avklare om saken som er meldt inn er et varsel eller ikke.
-          </li>
-          <li>
-            <div>
-              Undersøke/kartlegge: individuelle samtaler med varsler, personen det er varslet om,
-              og med andre som har viktig informasjon om det som har skjedd.
-            </div>
-            <div class="mt-2">
-              Samtalene bør alltid gjennomføres i en fast rekkefølge. Først gjennomføres det
-              samtale med varsler og/eller utsatt, deretter vitner eller andre som har relevant
-              informasjon, for til slutt å snakke med personen det er varslet om. Dette er for å
-              sikre at saksbehandlere har full informasjon om hva, hvor og hvem, før de snakker med
-              personen det er varslet om.
-            </div>
-            <div class="font-semibold mt-2">
-              Det er viktig at omvarslet får uttale seg om alle handlinger eller hendelser hen er
-              anklaget for (kontradiksjon).
-            </div>
-          </li>
-          <li>
-            Konkludere. Basert på samtalene og fremkommet informasjon skal det konkluderes hva
-            saksbehandlere mener er sannsynlig at har skjedd, og om dette er et regelbrudd. Om
-            konklusjonen i saken er at vi mener at handlingen det er varslet om er et regelbrudd er
-            neste steg å konkludere på hva som bør være en reaksjon. En slik reaksjon avgjøres av
-            klubbens styre. Er handlingen et mer alvorlig brudd på idrettens regler, og det bør gis
-            en strengere reaksjon, bør saken sendes videre til NIFs domsutvalg.
-          </li>
-        </ol>
-      </div>
+      <ol class="text-list">
+        <li>
+          Mottak av varsel: fortrinnsvis via portal, evt. andre kanaler.
+        </li>
+        <li>
+          Avklaring: tillitspersoner skal avklare om saken som er meldt inn er et varsel eller ikke.
+        </li>
+        <li>
+          <div>
+            Undersøke/kartlegge: individuelle samtaler med varsler, personen det er varslet om,
+            og med andre som har viktig informasjon om det som har skjedd.
+          </div>
+          <div class="mt-2">
+            Samtalene bør alltid gjennomføres i en fast rekkefølge. Først gjennomføres det
+            samtale med varsler og/eller utsatt, deretter vitner eller andre som har relevant
+            informasjon, for til slutt å snakke med personen det er varslet om. Dette er for å
+            sikre at saksbehandlere har full informasjon om hva, hvor og hvem, før de snakker med
+            personen det er varslet om.
+          </div>
+          <div class="font-semibold mt-2">
+            Det er viktig at omvarslet får uttale seg om alle handlinger eller hendelser hen er
+            anklaget for (kontradiksjon).
+          </div>
+        </li>
+        <li>
+          Konkludere. Basert på samtalene og fremkommet informasjon skal det konkluderes hva
+          saksbehandlere mener er sannsynlig at har skjedd, og om dette er et regelbrudd. Om
+          konklusjonen i saken er at vi mener at handlingen det er varslet om er et regelbrudd er
+          neste steg å konkludere på hva som bør være en reaksjon. En slik reaksjon avgjøres av
+          klubbens styre. Er handlingen et mer alvorlig brudd på idrettens regler, og det bør gis
+          en strengere reaksjon, bør saken sendes videre til NIFs domsutvalg.
+        </li>
+      </ol>
     </div>
   </Tabs.Content>
   <Tabs.Content value='English'>
@@ -254,18 +250,16 @@
         in the conversation. The representatives have a duty of confidentiality. Members themselves
         must initiate contact with the representative(s).
       </div>
-      <div class="rich-text">
-        <ul class="flex flex-col gap-1">
-          <li>
-            The representative must offer to have a conversation with both parties in the
-            conflict/disagreement.
-          </li>
-          <li>
-            It is a goal that the initiative-taker and the person/people they reported about will
-            suggest a solution to the conflict.
-          </li>
-        </ul>
-      </div>
+      <ul class="text-list">
+        <li>
+          The representative must offer to have a conversation with both parties in the
+          conflict/disagreement.
+        </li>
+        <li>
+          It is a goal that the initiative-taker and the person/people they reported about will
+          suggest a solution to the conflict.
+        </li>
+      </ul>
       <div>
         If the report entails a need for measures beyond the above points, the matter will be taken
         up with the board for further consideration. This also applies if the notification concerns
@@ -314,44 +308,42 @@
       <div class="font-bold">
         Procedure
       </div>
-      <div class="rich-text">
-        <ol class="flex flex-col gap-2">
-          <li>
-            Receipt of report: preferably via portal, possibly other channels.
-          </li>
-          <li>
-            Clarification: Trust reps will clarify whether the case that has been reported is
-            eligible to be handled as a case or not.
-          </li>
-          <li>
-            <div>
-              Investigate/map: individual conversations with the reporter, the person who has been
-              reported about, and with others who have important information about what has
-              happened.
-            </div>
-            <div class="mt-2">
-              The conversations should always be carried out in a fixed order. First, a
-              conversation is conducted with the reporter and/or victim, then witnesses or others
-              who have relevant information, and finally talking to the person who has been
-              reported about. This is to ensure that case officers have full information about
-              what, where and whom, before they talk to the person who has been reported about.
-            </div>
-            <div class="font-semibold mt-2">
-              It is important that the person who is reported about is allowed to comment on all
-              actions or incidents they are accused of (contradiction).
-            </div>
-          </li>
-          <li>
-            Conclude. Based on the conversations and the information provided, it will be concluded
-            what the case officers believe is likely to have happened, and whether this is a
-            violation of the rules. If the conclusion in the case is that we believe that the
-            action that has been reported is a violation of the rules, the next step is to conclude
-            on what should be a reaction. Such a reaction is decided by the club's board. If the
-            action is a more serious violation of the rules of sport, and a stricter sanction
-            should be given, the case should be forwarded to NIF's judicial committee.
-          </li>
-        </ol>
-      </div>
+      <ol class="text-list">
+        <li>
+          Receipt of report: preferably via portal, possibly other channels.
+        </li>
+        <li>
+          Clarification: Trust reps will clarify whether the case that has been reported is
+          eligible to be handled as a case or not.
+        </li>
+        <li>
+          <div>
+            Investigate/map: individual conversations with the reporter, the person who has been
+            reported about, and with others who have important information about what has
+            happened.
+          </div>
+          <div class="mt-2">
+            The conversations should always be carried out in a fixed order. First, a
+            conversation is conducted with the reporter and/or victim, then witnesses or others
+            who have relevant information, and finally talking to the person who has been
+            reported about. This is to ensure that case officers have full information about
+            what, where and whom, before they talk to the person who has been reported about.
+          </div>
+          <div class="font-semibold mt-2">
+            It is important that the person who is reported about is allowed to comment on all
+            actions or incidents they are accused of (contradiction).
+          </div>
+        </li>
+        <li>
+          Conclude. Based on the conversations and the information provided, it will be concluded
+          what the case officers believe is likely to have happened, and whether this is a
+          violation of the rules. If the conclusion in the case is that we believe that the
+          action that has been reported is a violation of the rules, the next step is to conclude
+          on what should be a reaction. Such a reaction is decided by the club's board. If the
+          action is a more serious violation of the rules of sport, and a stricter sanction
+          should be given, the case should be forwarded to NIF's judicial committee.
+        </li>
+      </ol>
     </div>
   </Tabs.Content>
 </Tabs>

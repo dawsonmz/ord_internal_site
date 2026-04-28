@@ -3,7 +3,6 @@
   import { Dot, Link } from '@lucide/svelte/icons';
   import { PortableText } from '@portabletext/svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import PortableNormal from '$lib/components/portable_text/portable_normal.svelte';
   import PortablePostImage from '$lib/components/portable_text/portable_post_image.svelte';
   import { formatDateTextWithWeekdayAndYear } from '$lib/util/datetime';
 
@@ -11,10 +10,7 @@
   const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
   const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
 
-  const components = {
-    types: { image: PortablePostImage },
-    block: { normal: PortableNormal },
-  };
+  const components = { types: { image: PortablePostImage } };
 </script>
 
 <Crumb>
