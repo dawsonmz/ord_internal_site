@@ -75,7 +75,7 @@
                          text-[var(--very-light-color)]
                          w-min"
                   style={`background-color: ${skill.module_tag.color}`}
-                  href="/beginner-modules?tag={skill.module_tag.slug}"
+                  href="/beginner-modules?main_tag={skill.module_tag.slug}"
               >
                 {skill.module_tag.name}
               </a>

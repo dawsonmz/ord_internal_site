@@ -30,9 +30,23 @@ export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {
   );
 }
 
-export async function loadModules(moduleType: string, tag: string | undefined): Promise<Module[]> {
-  const tagFilter = tag ? '&& (main_tag->slug.current == $query_tag || $query_tag in additional_tags[]->slug.current)' : '';
-  const orderBy = `${ tag ? 'select(main_tag->slug.current == $query_tag => 1, 0) desc, ' : ''}main_tag->orderRank asc, orderRank asc`;
+export async function loadModules(
+    moduleType: string,
+    { tag, mainTag }: { tag?: string, mainTag?: string } = {},
+): Promise<Module[]> {
+  let tagFilter = '';
+  let orderBy = 'main_tag->orderRank asc, orderRank asc';
+  const params: Record<string, string> = { module_type: moduleType };
+
+  if (mainTag) {
+    tagFilter = '&& main_tag->slug.current == $main_tag';
+    params.main_tag = mainTag;
+  } else if (tag) {
+    tagFilter = '&& (main_tag->slug.current == $query_tag || $query_tag in additional_tags[]->slug.current)';
+    orderBy = `select(main_tag->slug.current == $query_tag => 1, 0) desc, ${orderBy}`;
+    params.query_tag = tag;
+  }
+
   return await sanityClient.option.fetch(
       `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}] | order(${orderBy}) {
         type,
@@ -54,9 +68,6 @@ export async function loadModules(moduleType: string, tag: string | undefined): 
         detailed_text,
         advanced_text,
       }`,
-      {
-        module_type: moduleType,
-        query_tag: tag
-      },
+      params,
   );
 }

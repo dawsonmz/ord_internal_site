@@ -6,16 +6,19 @@ import { submitSiteFeedback } from '$lib/server/site_feedback';
 export async function load({ locals, url }) {
   checkAuthenticated(locals);
   const tagParam = url.searchParams.get('tag')?.toLowerCase();
+  const mainTagParam = url.searchParams.get('main_tag')?.toLowerCase();
+  const effectiveTag = mainTagParam || tagParam;
   const [ moduleTags, modules ] = await Promise.all(
       [
         loadModuleTags('beginners'),
-        loadModules('beginners', tagParam),
+        loadModules('beginners', { tag: tagParam, mainTag: mainTagParam }),
       ]
   );
 
   return {
     module_tags: moduleTags,
-    filter_tag: moduleTags.length ? moduleTags.find(tag => tag.slug == tagParam) : null,
+    filter_tag: effectiveTag ? moduleTags.find(tag => tag.slug == effectiveTag) ?? null : null,
+    main_tag_only: !!mainTagParam,
     modules,
   };
 }

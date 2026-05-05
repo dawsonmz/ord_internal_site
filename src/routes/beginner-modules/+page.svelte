@@ -52,7 +52,9 @@
 </div>
 
 <div class="text-lg mt-4">
-  {#if data.filter_tag}
+  {#if data.filter_tag && data.main_tag_only}
+    Modules primarily focused on: <span class="font-semibold">{data.filter_tag.name}</span>
+  {:else if data.filter_tag}
     Modules tagged: <span class="font-semibold">{data.filter_tag.name}</span>
   {:else}
     All Beginner Modules
