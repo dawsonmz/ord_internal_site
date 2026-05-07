@@ -3,20 +3,21 @@ import { error, fail } from '@sveltejs/kit';
 import { getUserFeedback, createFeedbackDocument } from '$lib/server/feedback';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
-import { type User, getAllUsers, getUser, getUserAllowance, getUserAllowances, updateUserAllowance } from '$lib/server/users';
+import { type User, getAllUsers, getUser, getUserAllowance, getUserAllowances, updateUserAllowance, usersCache } from '$lib/server/users';
 import { addUserIdPrefix } from '$lib/util/users';
 import { missingError } from '$lib/util/validation';
 
-export async function load({ locals, url }) {
+export async function load({ locals, url, platform }) {
   checkAccess(locals, 'member');
+  const cache = usersCache(platform);
 
   const auth = locals.auth();
   const actorId = auth.userId;
   const paramUserId = url.searchParams.get('user');
   const userId = paramUserId ? addUserIdPrefix(paramUserId) : actorId;
-  
+
   const isActorUser = actorId == userId;
-  const actor = await getUser(actorId);
+  const actor = await getUser(actorId, cache);
   const isFeedbackWriterATeam = actor.roles.includes('feedback_writer_a_team');
   const isFeedbackWriterBTeam = actor.roles.includes('feedback_writer_b_team');
 
@@ -26,7 +27,7 @@ export async function load({ locals, url }) {
     error(403, 'Unauthorized resource');
   }
 
-  const user = isActorUser ? actor : await getUser(userId);
+  const user = isActorUser ? actor : await getUser(userId, cache);
   const [ feedbackEntries, userAllowances ] = await Promise.all(
       [  
         getUserFeedback(userId),
@@ -66,7 +67,7 @@ export async function load({ locals, url }) {
   let aTeamUsers: User[] = [];
   let bTeamUsers: User[] = [];
   if (isFeedbackWriterATeam || isFeedbackWriterBTeam) {
-    const allUsers = await getAllUsers();
+    const allUsers = await getAllUsers(cache);
     aTeamUsers = allUsers.filter(user => user.user_id != actorId && usersAllowingA.includes(user.user_id));
     bTeamUsers = allUsers.filter(user => user.user_id != actorId && usersAllowingB.includes(user.user_id));
   }
@@ -132,7 +133,8 @@ async function writeFeedback(req: WrappedRequest) {
   if (fromUser != req.locals.auth().userId) {
     error(403, 'Unauthorized resource');
   }
-  const actor = await getUser(fromUser);
+  const cache = usersCache(req.platform);
+  const actor = await getUser(fromUser, cache);
 
   const errorsBody = {
     text: missingError(text),

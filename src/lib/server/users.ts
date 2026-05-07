@@ -2,6 +2,9 @@ import { error } from '@sveltejs/kit';
 import { clerkClient } from 'svelte-clerk/server';
 import { type FieldUpdate, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
 
+const USERS_CACHE_KEY = 'users:all';
+const USERS_CACHE_TTL_SECONDS = 21 * 60 * 60;
+
 export interface User {
   user_id: string,
   name: string,
@@ -23,9 +26,26 @@ export interface UserAllowanceRequest {
   stored_allow_feedback_b_team: boolean,
 }
 
+export function usersCache(platform: Readonly<App.Platform> | undefined): KVNamespace {
+  const cache = platform?.env.USERS_CACHE;
+  if (!cache) {
+    error(500, 'USERS_CACHE binding is not available');
+  }
+  return cache;
+}
+
 // === Clerk functionality ===
 
-export async function getUser(userId: string): Promise<User> {
+export async function getUser(userId: string, cache: KVNamespace): Promise<User> {
+  const cachedUsers = await readCachedUsers(cache);
+  const cachedUser = cachedUsers?.find(user => user.user_id == userId);
+  if (cachedUser) {
+    return cachedUser;
+  }
+
+  // Fall back to a direct Clerk lookup when the user isn't in the cached list. This covers cold
+  // caches, freshly created users not yet reflected in cache, and is the path that surfaces a
+  // genuine 404 for non-existent users.
   try {
     const user = await clerkClient.users.getUser(userId);
     return {
@@ -42,7 +62,26 @@ export async function getUser(userId: string): Promise<User> {
   }
 }
 
-export async function getAllUsers(): Promise<User[]> {
+export async function getAllUsers(cache: KVNamespace): Promise<User[]> {
+  const cachedUsers = await readCachedUsers(cache);
+  if (cachedUsers) {
+    return cachedUsers;
+  }
+
+  const users = await fetchAllUsersFromClerk();
+  await cache.put(
+      USERS_CACHE_KEY,
+      JSON.stringify(users),
+      { expirationTtl: USERS_CACHE_TTL_SECONDS },
+  );
+  return users;
+}
+
+async function readCachedUsers(cache: KVNamespace): Promise<User[] | null> {
+  return await cache.get<User[]>(USERS_CACHE_KEY, 'json');
+}
+
+async function fetchAllUsersFromClerk(): Promise<User[]> {
   let users: User[] = [];
   let count: number;
   let offset = 0;

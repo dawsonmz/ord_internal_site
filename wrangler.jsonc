@@ -38,6 +38,12 @@
 		"NOTIFICATION_RECIPIENT": "dawson.m.zhou@gmail.com",
 		"PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsub3Nsb3JvbGxlcmRlcmJ5LmNvbSQ",
 	},
+	"kv_namespaces": [
+		{
+			"binding": "USERS_CACHE",
+			"id": "e28508f7c3c542c98b6b46ebfeeff5a3"
+		}
+	],
 	/**
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/

@@ -19,14 +19,18 @@ declare global {
       auth: Auth;
     }
 
+    interface Platform {
+      env: Env;
+    }
+
     // interface PageData {}
     // interface PageState {}
-    // interface Platform {}
   }
 
   interface WrappedRequest {
     request: Request,
     locals: Locals,
+    platform: Readonly<App.Platform> | undefined,
   }
 }
 

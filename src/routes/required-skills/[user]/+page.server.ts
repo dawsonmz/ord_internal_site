@@ -3,10 +3,10 @@ import { error } from '@sveltejs/kit';
 import { requestAccess } from '$lib/server/request_access';
 import { loadRequiredSkillProgress, loadRequiredSkills } from '$lib/server/required_skills';
 import { checkAccessAnyRequired } from '$lib/server/roles';
-import { getUser } from '$lib/server/users';
+import { getUser, usersCache } from '$lib/server/users';
 import { addUserIdPrefix } from '$lib/util/users';
 
-export async function load({ locals, params }) {
+export async function load({ locals, params, platform }) {
   const roles = checkAccessAnyRequired(locals, [ 'coach', 'beginner', 'graduated_beginner' ]);
 
   const actorId = locals.auth().userId;
@@ -16,8 +16,9 @@ export async function load({ locals, params }) {
   if (actorId != userId && !roles.includes('coach')) {
     error(404, 'User not found');
   }
+  const cache = usersCache(platform);
 
-  const user = await getUser(userId);
+  const user = await getUser(userId, cache);
   if (!user.roles.includes('beginner') && !user.roles.includes('graduated_beginner')) {
     error(404, 'User not found');
   }
