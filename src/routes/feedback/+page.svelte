@@ -164,7 +164,7 @@
               <div class="input text-sm py-2">B Team</div>
               <input type="hidden" name="context" value="B Team" />
             {:else}
-              <select id="context" class="input text-sm bg-white dark:bg-(--dark-color) py-2">
+              <select name="context" class="input text-sm bg-white dark:bg-(--dark-color) py-2">
                 <option value="A Team">A Team</option>
                 <option value="B Team">B Team</option>
               </select>
