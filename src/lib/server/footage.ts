@@ -2,6 +2,11 @@ import { error } from '@sveltejs/kit';
 import { formatDateText } from '$lib/util/datetime';
 import { sanityClient } from '$lib/util/sanity';
 
+export interface FootageSeason {
+  name: string,
+  slug: string,
+}
+
 interface Footage {
   title: string,
   event: string,
@@ -13,6 +18,18 @@ interface Footage {
 
   // Computed fields:
   date_text: string,
+}
+
+/**
+ * @returns Names and slugs of all seasons that have footage, in season order
+ */
+export async function loadSeasonsWithFootage(): Promise<FootageSeason[]> {
+  return await sanityClient.option.fetch(
+      `*[_type == "season" && count(*[_type == "footage" && season._ref == ^._id]) > 0] | order(orderRank asc) {
+        name,
+        "slug": slug.current,
+      }`
+  );
 }
 
 /**

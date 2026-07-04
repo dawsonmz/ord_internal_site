@@ -1,22 +1,9 @@
 <script lang="ts">
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import PageLink from '$lib/components/page_link.svelte';
+  import FootageGrid from '$lib/components/footage_grid.svelte';
+  import SeasonNav from '$lib/components/season_nav.svelte';
 
   let { data } = $props();
-  const footageTypes = [
-    'A Team',
-    'B Team',
-    'Scrimmage',
-    'Team Norway',
-  ];
-
-  function getExternalLinkText(link: string) {
-    if (link.includes('twitch.tv')) {
-      return 'Twitch VOD';
-    } else {
-      return 'Unrecognized Link Type';
-    }
-  }
 </script>
 
 <Crumb>
@@ -27,39 +14,8 @@
   <CrumbPage>{data.season.name}</CrumbPage>
 </Crumb>
 
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-12 xl:mx-auto">
-  {#each footageTypes as footageType}
-    {@const footageEntries = data.footage.get(footageType)}
-    {#if footageEntries}
-      <div class="flex flex-col gap-5">
-        <div class="text-2xl font-semibold">{footageType}</div>
-        {#each footageEntries as footage}
-          <div class="flex flex-col gap-2">
-            <div class="text-lg font-semibold">{footage.title}</div>
-            <div class="subheading">{footage.event ?? footage.type}</div>
-            <div class="subheading-light">{footage.date_text}</div>
-            {#if footage.id}
-              <a class="rounded-md dark:border-1 w-max"
-                href="https://youtube.com/watch?v={footage.id}{footage.start_seconds ? `&t=${footage.start_seconds}` : ''}"
-                target="_blank"
-              >
-                <img class="rounded-md"
-                     src="https://img.youtube.com/vi/{footage.id}/hqdefault.jpg"
-                     alt="YouTube video thumbnail"
-                     width="280px"
-                     height="210px"
-                />
-              </a>
-            {:else}
-              <PageLink url={footage.other_link} external width={140}>
-                {#snippet text()}
-                  {getExternalLinkText(footage.other_link!)}
-                {/snippet}
-              </PageLink>
-            {/if}
-          </div>
-        {/each}
-      </div>
-    {/if}
-  {/each}
+<div class="text-2xl font-semibold">{data.season.name}</div>
+<div class="mb-6">
+  <FootageGrid footage={data.footage} />
 </div>
+<SeasonNav seasons={data.seasons} currentSlug={data.season.slug} baseUrl="/footage" />

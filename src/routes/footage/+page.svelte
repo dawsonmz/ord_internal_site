@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import LinkCard from '$lib/components/link_card.svelte';
+  import FootageGrid from '$lib/components/footage_grid.svelte';
+  import SeasonNav from '$lib/components/season_nav.svelte';
 
   let { data } = $props();
 </script>
@@ -11,14 +12,10 @@
   <CrumbPage>Footage</CrumbPage>
 </Crumb>
 
-{#each data.years as year}
-  {@const seasons = data.seasons.get(year)}
-  {#if seasons}
-    <div class="text-xl font-semibold">{year}</div>
-    <div class="flex gap-6">
-      {#each seasons as season}
-        <LinkCard title={season.name} url="/footage/{season.slug}" width={180} />
-      {/each}
-    </div>
-  {/if}
-{/each}
+{#if data.seasons.length}
+  <div class="text-2xl font-semibold">{data.seasons[0].name}</div>
+  <div class="mb-6">
+    <FootageGrid footage={data.footage} />
+  </div>
+  <SeasonNav seasons={data.seasons} currentSlug={data.seasons[0].slug} baseUrl="/footage" />
+{/if}

@@ -1,16 +1,22 @@
+import { error } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { loadFootage } from '$lib/server/footage';
+import { loadFootage, loadSeasonsWithFootage } from '$lib/server/footage';
 import { requestAccess } from '$lib/server/request_access';
 import { checkAccess } from '$lib/server/roles';
-import { loadSeason } from '$lib/server/seasons';
 
 export async function load({ locals, params }) {
   checkAccess(locals, 'member');
-  const [ season, footage ] = await Promise.all([
-    loadSeason(params.season),
+  const [ footage, seasons ] = await Promise.all([
     loadFootage(params.season),
+    loadSeasonsWithFootage(),
   ]);
-  return { season, footage };
+
+  const season = seasons.find(season => season.slug == params.season);
+  if (!season) {
+    error(404, 'Requested season not found.');
+  }
+
+  return { season, seasons, footage };
 }
 
 export const actions = { requestaccess: requestAccess } satisfies Actions;
