@@ -41,6 +41,10 @@ Coaches track beginner skaters' progress on a curriculum of required skills, and
 
 Authentication and user management. User roles are stored in Clerk session claims defined in Clerk as public metadata. Utility code is used in the various +page.server.ts pages to enforce which pages require authentication and/or specific roles to access.
 
+### CloudFlare KV
+
+Clerk user list is cached in CloudFlare KV. Clerk sends user events and invalidates the user cache when users are added, deleted, or updated.
+
 ### Sanity CMS
 
 Dynamic content backend for user-agnostic data, such as rosters, footage, and training plans.

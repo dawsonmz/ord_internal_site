@@ -1,9 +1,10 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
+import type { Role as RoleType } from '$lib/util/roles';
+
 declare global {
-  export type Role =
-      'admin' | 'member' | 'beginner' | 'graduated_beginner' | 'coach' | 'feedback_writer_a_team' | 'feedback_writer_b_team';
-  
+  export type Role = RoleType;
+
   interface UserPublicMetadata {
     roles?: Role[];
   }

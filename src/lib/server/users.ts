@@ -36,6 +36,13 @@ export function usersCache(platform: Readonly<App.Platform> | undefined): KVName
 
 // === Clerk functionality ===
 
+export async function updateUserRoles(userId: string, roles: Role[]): Promise<void> {
+  await clerkClient.users.updateUserMetadata(
+      userId,
+      { publicMetadata: { roles } },
+  );
+}
+
 export async function getUser(userId: string, cache: KVNamespace): Promise<User> {
   const cachedUsers = await readCachedUsers(cache);
   const cachedUser = cachedUsers?.find(user => user.user_id == userId);
