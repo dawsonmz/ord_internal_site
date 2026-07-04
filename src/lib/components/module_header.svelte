@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { baseClasses='', module, trailing } = $props();
+  let { baseClasses='', module, trailing = undefined } = $props();
 </script>
 
 <div class="flex flex-col gap-2 items-start w-full {baseClasses}">

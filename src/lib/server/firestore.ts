@@ -77,7 +77,7 @@ export async function getDocuments(path: CollectionAndDocument[], collection: st
       error(500, `Firestore error: ${await response.text()}`);
     }
     
-    const result = await response.json();
+    const result: any = await response.json();
     documents.push(...(result.documents ?? []));
     pageToken = result.nextPageToken;
   } while (pageToken);
@@ -200,7 +200,7 @@ async function getUncachedAccessToken(): Promise<string> {
       },
   );
 
-  const data = await response.json();
+  const data: any = await response.json();
   if (!response.ok) {
     error(response.status, `Failed to get access token: ${JSON.stringify(data)}`);
   }
