@@ -1,23 +1,22 @@
 <script lang="ts">
   import '../app.css';
-  import { HouseIcon, MenuIcon, XIcon, LogIn, LogOut, UserCircle } from '@lucide/svelte/icons';
-  import { Accordion, AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
-  import { ClerkProvider, SignedIn, SignedOut, SignInButton, SignOutButton, UserButton } from 'svelte-clerk';
+  import { HouseIcon, MenuIcon, XIcon, UserCircle } from '@lucide/svelte/icons';
+  import { AppBar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
+  import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from 'svelte-clerk';
   import { afterNavigate } from '$app/navigation';
+  import { page } from '$app/state';
   import logo from '$lib/assets/ord-logo.svg';
-  import NavAccordionItem from '$lib/components/nav_accordion_item.svelte';
-  import NavAccordionLink from '$lib/components/nav_accordion_link.svelte';
-  
+  import NavLink from '$lib/components/nav_link.svelte';
+  import { navGroups } from '$lib/nav';
+
   let { children } = $props();
   let drawerState = $state(false);
-  let openNavItems: string[] = $state([]);
 
-  function closeDrawer() {
-    drawerState = false;
-    openNavItems = [];
+  afterNavigate(() => drawerState = false);
+
+  function isActive(url: string): boolean {
+    return page.url.pathname === url || page.url.pathname.startsWith(url + '/');
   }
-
-  afterNavigate(() => closeDrawer());
 </script>
 
 <ClerkProvider
@@ -46,10 +45,7 @@
       <AppBar.Lead class="flex items-center">
         <Dialog
             open={drawerState}
-            onOpenChange={e => {
-              drawerState = e.open;
-              openNavItems = [];
-            }}
+            onOpenChange={e => drawerState = e.open}
         >
           <Dialog.Trigger class="flex items-center gap-2 menu-hover">
             <MenuIcon aria-label="open navigation menu" />
@@ -72,6 +68,7 @@
                          flex
                          flex-col
                          sm:justify-between
+                         sm:gap-6
                          w-screen
                          sm:w-[400px]
                          h-screen
@@ -86,61 +83,44 @@
                          data-[state=open]:opacity-100
                          data-[state=open]:translate-x-0"
               >
-                <div class="flex flex-col gap-3 sm:ml-4 mt-2">
+                <div class="flex flex-col gap-3 sm:ml-4 mt-2 min-h-0">
                   <Dialog.CloseTrigger class="flex items-center gap-2 menu-hover w-min sm:-ml-2">
                     <XIcon size=24 />
                     <span class="text-lg">Close</span>
                   </Dialog.CloseTrigger>
 
-                  <div class="flex flex-col gap-6 ml-4 sm:ml-2">
-                    <div class="flex flex-col gap-3">
-                      <a class="flex items-center gap-2 strong-hover" href="/">
-                        <HouseIcon size=20 />
-                        <div>Home</div>
-                      </a>
-                      <SignedIn>
-                        <SignOutButton class="flex items-center gap-2 strong-hover">
-                          <LogOut size=20 />
-                          <div>Sign Out</div>
-                        </SignOutButton>
-                      </SignedIn>
-                      <SignedOut>
-                        <SignInButton class="flex items-center gap-2 strong-hover">
-                          <LogIn size=20 />
-                          <div>Sign In</div>
-                        </SignInButton>
-                      </SignedOut>
-                    </div>
+                  <div class="flex
+                              flex-col
+                              gap-5
+                              ml-4
+                              sm:ml-2
+                              overflow-y-auto
+                              sm:pb-4
+                              sm:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_1rem),transparent)]">
+                    <a class="flex items-center gap-2 w-fit strong-hover {isActive('/') ? 'text-[var(--strong-color-fg-on-dark)] font-semibold' : ''}" href="/">
+                      <HouseIcon size=20 />
+                      <div>Home</div>
+                    </a>
 
-                    <Accordion value={openNavItems} collapsible onValueChange={e => openNavItems = e.value}>
-                      <NavAccordionItem header="Team Resources" {openNavItems}>
-                        <NavAccordionLink label="A Team Roster" url="/roster-a-team" />
-                        <NavAccordionLink label="B Team Roster" url="/roster-b-team" />
-                        <NavAccordionLink label="Document Links" url="/documents" />
-                      </NavAccordionItem>
-                      <NavAccordionItem header="Training Resources" {openNavItems}>
-                        <NavAccordionLink label="Footage" url="/footage" />
-                      </NavAccordionItem>
-                      <NavAccordionItem header="Skater Resources" {openNavItems}>
-                        <NavAccordionLink label="Skater Vault" url="/skater-vault" />
-                        <NavAccordionLink label="Feedback Log" url="/feedback" />
-                      </NavAccordionItem>
-                      <NavAccordionItem header="Beginners" {openNavItems}>
-                        <NavAccordionLink label="Training Plans" url="/beginner-plans" />
-                        <NavAccordionLink label="Modules" url="/beginner-modules" />
-                        <NavAccordionLink label="Skills Tracking" url="/required-skills" />
-                      </NavAccordionItem>
-                      <NavAccordionItem header="Other Resources" {openNavItems}>
-                        <NavAccordionLink label="WFTDA Rules" url="https://rules.wftda.com" external />
-                        <NavAccordionLink label="Pack Simulator" url="https://nurds.space" external />
-                        <NavAccordionLink label="WFTDA Rankings" url="https://stats.wftda.com/rankings-live/europe" external />
-                        <NavAccordionLink label="Mitt Varsel" url="https://portal.mittvarsel.no/skjema/norges-idrettsforbund/SNPZOBQpD7CUt9Er.1532" external />
-                      </NavAccordionItem>
-                    </Accordion>
-                  </div>  
+                    {#each navGroups as group (group.header)}
+                      <div class="flex flex-col gap-2">
+                        <div class="text-lg font-semibold">{group.header}</div>
+                        <div class="flex flex-col gap-2 ml-2">
+                          {#each group.links as link (link.url)}
+                            <NavLink
+                                label={link.label}
+                                url={link.url}
+                                external={link.external ?? false}
+                                active={isActive(link.url)}
+                            />
+                          {/each}
+                        </div>
+                      </div>
+                    {/each}
+                  </div>
                 </div>
 
-                <div class="flex ml-6 mb-8 max-sm:hidden">
+                <div class="flex shrink-0 ml-6 mb-8 max-sm:hidden">
                   <img class="w-32 h-32" src={logo} alt="Oslo Roller Derby logo" />
                 </div>
               </Dialog.Content>
