@@ -7,23 +7,29 @@
   import type { User } from '$lib/server/users';
   import { formatDateTextWithYear } from '$lib/util/datetime';
 
-  let { dialogState = $bindable(), user, requiredSkill, requiredSkillProgress, form } = $props<{
-      dialogState: boolean,
-      user: User | undefined,
-      requiredSkill: RequiredSkill | undefined,
-      requiredSkillProgress: RequiredSkillProgress | undefined,
-      form: any,
-  }>();
+  let { form } = $props<{ form: any }>();
 
-  let initialProgress = $derived(requiredSkillProgress?.progress ?? 'Not started');
-  let submitting = $state(false);
-  let selected = $derived<ProgressState>(initialProgress);
+  let dialogState = $state(false);
+  let user: User | undefined = $state();
+  let requiredSkill: RequiredSkill | undefined = $state();
+  let requiredSkillProgress: RequiredSkillProgress | undefined = $state();
+  let selected: ProgressState = $state('Not started');
   let newFeedbackText = $state('');
+  let submitting = $state(false);
   let mostRecentFeedback = $derived(requiredSkillProgress?.feedback?.at(-1));
-  let updated = $derived(selected != initialProgress || newFeedbackText.trim() != '');
+  let updated = $derived(selected != requiredSkillProgress?.progress || newFeedbackText.trim() != '');
+
+  export function open(skater: User, skill: RequiredSkill, progress: RequiredSkillProgress) {
+    user = skater;
+    requiredSkill = skill;
+    requiredSkillProgress = progress;
+    selected = progress.progress;
+    newFeedbackText = '';
+    dialogState = true;
+  }
 </script>
 
-<Dialog bind:dialogState openFn={() => form = null} closeFn={() => { selected = initialProgress; newFeedbackText = ''; }}>
+<Dialog bind:dialogState>
   {#snippet content()}
     <form
         method="POST"

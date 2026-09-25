@@ -3,16 +3,12 @@
   import { Portal, Tooltip } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
-  import type { ProgressState, RequiredSkill, RequiredSkillProgress, SkillStage } from '$lib/server/required_skills';
-  import type { User } from '$lib/server/users';
+  import type { ProgressState, SkillStage } from '$lib/server/required_skills';
   import { dropUserIdPrefix } from '$lib/util/users';
 
   let { data, form } = $props();
 
-  let activeUser: User | undefined = $state();
-  let activeSkill: RequiredSkill | undefined = $state();
-  let activeSkillProgress: RequiredSkillProgress | undefined = $state();
-  let dialogState = $state(false);
+  let skillDialog: RequiredSkillDialog;
 
   const STAGES: SkillStage[] = [ 'Fundamentals', 'Basic Contact', 'Controlled Gameplay', 'Full Gameplay' ];
 
@@ -38,7 +34,7 @@
       </div>
       <div class="columns-2 gap-4 max-w-2xl">
         {#each skills as skill, index}
-          <div class="grid grid-cols-[20px_1fr] gap-2 items-center break-inside-avoid">
+          <div class="grid grid-cols-[20px_1fr] gap-2 items-start break-inside-avoid">
             <span class="text-right tabular-nums">{index + 1}.</span>
             <span>{skill.title}</span>
           </div>
@@ -81,12 +77,7 @@
                 <Tooltip openDelay={200} closeOnPointerDown={true}>
                   <Tooltip.Trigger
                       class="dot {classByProgress[progress.progress]}"
-                      onclick={() => {
-                        activeUser = user;
-                        activeSkill = skill;
-                        activeSkillProgress = progress;
-                        dialogState = true;
-                      }}
+                      onclick={() => skillDialog.open(user, skill, progress)}
                   >
                     {index + 1}
                   </Tooltip.Trigger>
@@ -107,11 +98,4 @@
   {/each}
 </div>
 
-<RequiredSkillDialog
-    bind:dialogState
-    user={activeUser}
-    requiredSkill={activeSkill}
-    requiredSkillProgress={activeSkillProgress}
-    {form}
->
-</RequiredSkillDialog>
+<RequiredSkillDialog bind:this={skillDialog} {form} />

@@ -5,7 +5,7 @@ SvelteKit project for the internal ORD website. Hosted as a Cloudflare worker wi
 To run locally with automatic reload on local changes:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Production version hosted at https://internal.oslorollerderby.workers.dev.
