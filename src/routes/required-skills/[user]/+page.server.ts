@@ -1,8 +1,8 @@
 import type { Actions } from './$types';
 import { error } from '@sveltejs/kit';
 import { requestAccess } from '$lib/server/request_access';
-import { loadRequiredSkillProgress, loadRequiredSkills } from '$lib/server/required_skills';
-import { checkAccessAnyRequired } from '$lib/server/roles';
+import { loadRequiredSkillProgress, loadRequiredSkills, updateRequiredSkillProgress } from '$lib/server/required_skills';
+import { checkAccess, checkAccessAnyRequired } from '$lib/server/roles';
 import { getUser, usersCache } from '$lib/server/users';
 import { addUserIdPrefix } from '$lib/util/users';
 
@@ -12,7 +12,6 @@ export async function load({ locals, params, platform }) {
   const actorId = locals.auth().userId;
   const userId = addUserIdPrefix(params.user);
 
-  // Only coaches can view a different user's skills page.
   if (actorId != userId && !roles.includes('coach')) {
     error(404, 'User not found');
   }
@@ -42,10 +41,29 @@ export async function load({ locals, params, platform }) {
   }
   
   return {
-    user_name: user.name,
+    user: user,
+    can_edit_progress: roles.includes('coach') && user.roles.includes('beginner'),
     required_skills: Map.groupBy(requiredSkills, skill => skill.stage),
     required_skill_progress: requiredSkillProgress,
   };
 }
 
-export const actions = { requestaccess: requestAccess } satisfies Actions;
+export const actions = {
+  requestaccess: requestAccess,
+  updateprogress: updateProgress,
+} satisfies Actions;
+
+async function updateProgress(req: WrappedRequest) {
+  checkAccess(req.locals, 'coach');
+  const data = await req.request.formData();
+
+  await updateRequiredSkillProgress(
+      req.locals.auth().userId,
+      data.get('userId')?.toString()!,
+      data.get('skill')?.toString()!,
+      data.get('progress')?.toString(),
+      data.get('feedback')?.toString().trim(),
+      usersCache(req.platform),
+  );
+  return { success: true };
+}

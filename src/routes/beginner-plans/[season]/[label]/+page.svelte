@@ -43,7 +43,7 @@
 <div class="flex gap-2 text-2xl">
   <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
   {#if !data.training_plan.visible}
-    <div class="italic text-[var(--error-color)]">(hidden)</div>
+    <div class="italic text-(--error-color)">(hidden)</div>
   {/if}
 </div>
 <div class="subheading">{data.training_plan.date_text}</div>
@@ -51,11 +51,11 @@
 <FeedbackDialog label="Give feedback on the training plan" labelClasses="text-sm italic" {form} formId="training-plan" />
 
 <div class="flex gap-2">
-  <button type="button" class="flex justify-center items-center gap-2 w-[160px] text-sm p-2 button-style" onclick={showAllDetailed}>
+  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-style" onclick={showAllDetailed}>
     <Plus size={20} />
     <div class="mr-2">All Detailed</div>
   </button>
-  <button type="button" class="flex justify-center items-center gap-2 w-[160px] text-sm p-2 button-style" onclick={showAllShort}>
+  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-style" onclick={showAllShort}>
     <Minus size={20} />
     <div class="mr-2">All Short</div>
   </button>

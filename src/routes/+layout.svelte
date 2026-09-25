@@ -55,12 +55,13 @@
             <Dialog.Backdrop
                 class="fixed
                        inset-0
-                       bg-[var(--faded-backdrop-color)]
+                       bg-(--faded-backdrop-color)
                        transition
                        transition-discrete
                        duration-200
                        starting:data-[state=open]:opacity-0
-                       data-[state=open]:opacity-100"
+                       data-[state=open]:opacity-100
+                       data-[state=closed]:opacity-0"
             />
             <Dialog.Positioner class="fixed inset-0">
               <Dialog.Content
@@ -70,7 +71,7 @@
                          sm:justify-between
                          sm:gap-6
                          w-screen
-                         sm:w-[400px]
+                         sm:w-100
                          h-screen
                          px-4
                          py-2
@@ -81,7 +82,9 @@
                          starting:data-[state=open]:opacity-0
                          starting:data-[state=open]:-translate-x-full
                          data-[state=open]:opacity-100
-                         data-[state=open]:translate-x-0"
+                         data-[state=open]:translate-x-0
+                         data-[state=closed]:opacity-0
+                         data-[state=closed]:-translate-x-full"
               >
                 <div class="flex flex-col gap-3 sm:ml-4 mt-2 min-h-0">
                   <Dialog.CloseTrigger class="flex items-center gap-2 menu-hover w-min sm:-ml-2">
@@ -96,8 +99,8 @@
                               sm:ml-2
                               overflow-y-auto
                               sm:pb-4
-                              sm:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_1rem),transparent)]">
-                    <a class="flex items-center gap-2 w-fit strong-hover {isActive('/') ? 'text-[var(--strong-color-fg-on-dark)] font-semibold' : ''}" href="/">
+                              sm:mask-[linear-gradient(to_bottom,black_calc(100%-1rem),transparent)]">
+                    <a class="flex items-center gap-2 w-fit strong-hover {isActive('/') ? 'text-(--strong-color-fg-on-dark) font-semibold' : ''}" href="/">
                       <HouseIcon size=20 />
                       <div>Home</div>
                     </a>
@@ -150,7 +153,7 @@
         </SignedIn>
         <SignedOut>
           <SignInButton>
-            <div class="w-[52px] h-[52px] menu-hover">
+            <div class="w-13 h-13 menu-hover">
               <UserCircle size=28 />
             </div>
           </SignInButton>
@@ -159,7 +162,7 @@
     </AppBar.Toolbar>
   </AppBar>
 
-  <div class="w-full sm:w-[600px] md:w-[700px] lg:w-[800px] xl:w-[1000px] flex flex-col gap-4 px-6 sm:mx-auto mt-5 mb-20">
+  <div class="w-full sm:w-150 md:w-175 lg:w-200 xl:w-250 flex flex-col gap-4 px-6 sm:mx-auto mt-5 mb-20">
     {@render children()}
   </div>
 </ClerkProvider>

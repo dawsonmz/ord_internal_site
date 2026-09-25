@@ -1,35 +1,46 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import { Dot } from '@lucide/svelte/icons';
+  import { Dot, Pencil } from '@lucide/svelte/icons';
   import AnimatedDots from '$lib/components/animated_dots.svelte';
   import Dialog from '$lib/components/dialog.svelte';
   import type { ProgressState, RequiredSkill, RequiredSkillProgress } from '$lib/server/required_skills';
   import type { User } from '$lib/server/users';
   import { formatDateTextWithYear } from '$lib/util/datetime';
 
-  let { form } = $props<{ form: any }>();
+  let { form, user, skill, progress, showTrigger=false } = $props<{
+    form: any,
+    user?: User,
+    skill?: RequiredSkill,
+    progress?: RequiredSkillProgress,
+    showTrigger?: boolean,
+  }>();
 
   let dialogState = $state(false);
-  let user: User | undefined = $state();
-  let requiredSkill: RequiredSkill | undefined = $state();
-  let requiredSkillProgress: RequiredSkillProgress | undefined = $state();
   let selected: ProgressState = $state('Not started');
   let newFeedbackText = $state('');
   let submitting = $state(false);
-  let mostRecentFeedback = $derived(requiredSkillProgress?.feedback?.at(-1));
-  let updated = $derived(selected != requiredSkillProgress?.progress || newFeedbackText.trim() != '');
+  let mostRecentFeedback = $derived(progress?.feedback?.at(-1));
+  let updated = $derived(selected != progress?.progress || newFeedbackText.trim() != '');
 
-  export function open(skater: User, skill: RequiredSkill, progress: RequiredSkillProgress) {
-    user = skater;
-    requiredSkill = skill;
-    requiredSkillProgress = progress;
-    selected = progress.progress;
+  function reset() {
+    selected = progress?.progress ?? 'Not started';
     newFeedbackText = '';
+  }
+
+  export function open() {
+    reset();
     dialogState = true;
   }
 </script>
 
-<Dialog bind:dialogState>
+{#snippet pencilTrigger()}
+  <div class="flex items-center block-hover">
+    <Pencil size={16} />
+    <span class="sr-only">Edit progress</span>
+  </div>
+{/snippet}
+
+<Dialog bind:dialogState openFn={reset} trigger={showTrigger ? pencilTrigger : null}>
   {#snippet content()}
     <form
         method="POST"
@@ -50,7 +61,7 @@
       <div class="flex flex-col gap-3">
         <!-- Skill & skater heading -->
         <div>
-          <span class="font-bold">{requiredSkill?.title}</span>
+          <span class="font-bold">{skill?.title}</span>
           <span>for {user?.name}</span>
         </div>
         
@@ -121,7 +132,7 @@
           <textarea
               name="feedback"
               bind:value={newFeedbackText}
-              class="textarea resize-none text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+              class="textarea resize-none text-sm bg-white dark:bg-(--dark-color) py-2"
               rows=6
               maxlength=3000
           ></textarea>
@@ -130,16 +141,16 @@
 
       <div class="flex gap-2 mt-4">
         <input type="hidden" name="userId" value={user?.user_id} />
-        <input type="hidden" name="skill" value={requiredSkill?.slug} />
+        <input type="hidden" name="skill" value={skill?.slug} />
         <input type="hidden" name="progress" value={selected} />
-        <button type="submit" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" disabled={submitting || !updated}>
+        <button type="submit" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" disabled={submitting || !updated}>
           {#if submitting}
             <AnimatedDots />
           {:else}
             Save
           {/if}
         </button>
-        <button type="button" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" onclick={() => dialogState = false}>
+        <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={() => dialogState = false}>
           Cancel
         </button>
       </div>

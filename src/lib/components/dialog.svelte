@@ -36,22 +36,23 @@
     <Dialog.Backdrop
         class="fixed
                inset-0
-               bg-[var(--faded-backdrop-color)]
+               bg-(--faded-backdrop-color)
                transition
                transition-discrete
                duration-200
                starting:data-[state=open]:opacity-0
-               data-[state=open]:opacity-100"
+               data-[state=open]:opacity-100
+               data-[state=closed]:opacity-0"
     />
-    <Dialog.Positioner class="fixed inset-0 flex justify-center items-center">
+    <Dialog.Positioner class="fixed inset-y-0 left-0 w-screen flex justify-center items-center">
       <Dialog.Content
           class="rounded-md
                  shadow-2xl
                  w-screen
-                 sm:w-[480px]
+                 sm:w-120
                  min-height
                  main-style
-                 dark:border-[1px]
+                 dark:border
                  p-6
                  transition
                  transition-discrete
@@ -59,7 +60,8 @@
                  starting:data-[state=open]:opacity-0
                  starting:data-[state=open]:translate-y-15
                  data-[state=open]:opacity-100
-                 data-[state=open]:translate-y-0"
+                 data-[state=open]:translate-y-0
+                 data-[state=closed]:opacity-0"
       >
         {@render content()}
       </Dialog.Content>

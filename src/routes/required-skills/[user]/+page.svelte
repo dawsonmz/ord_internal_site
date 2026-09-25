@@ -1,13 +1,14 @@
 <script lang="ts">
   import { Dot } from '@lucide/svelte/icons';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
+  import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
   import type { ProgressState, SkillStage } from '$lib/server/required_skills';
   import { formatDateTextWithYear } from '$lib/util/datetime';
 
-  let { data } = $props();
+  let { data, form } = $props();
 
   // If the user's name is too long, it can break how the breadcrumbs are displayed.
-  const truncatedName = data.user_name.length > 30 ? `${data.user_name.substring(0, 27)}...` : data.user_name;
+  const truncatedName = $derived(data.user.name.length > 30 ? `${data.user.name.substring(0, 27)}...` : data.user.name);
   const STAGES: SkillStage[] = [ 'Fundamentals', 'Basic Contact', 'Controlled Gameplay', 'Full Gameplay' ];
 
   const classByProgress: Record<ProgressState, string> = {
@@ -26,7 +27,7 @@
 </Crumb>
 
 <div class="font-semibold text-2xl">
-  {data.user_name}
+  {data.user.name}
 </div>
 
 <div class="flex flex-col gap-4">
@@ -37,10 +38,15 @@
         <div class="font-semibold text-xl">{stage}</div>
         {#each skills as skill (skill.slug)}
           {@const skillProgress = data.required_skill_progress[skill.slug]}
-          <div class="flex flex-col gap-4 border-1 border-(--light-color) bg-white dark:bg-(--dark-color) rounded-md shadow-md p-4">
+          <div class="flex flex-col gap-4 border border-(--light-color) bg-white dark:bg-(--dark-color) rounded-md shadow-md p-4">
             <div class="flex justify-between">
-              <div class="font-semibold">
-                {skill.title}
+              <div class="flex items-center gap-4">
+                <div class="font-semibold">
+                  {skill.title}
+                </div>
+                {#if data.can_edit_progress}
+                  <RequiredSkillDialog user={data.user} {skill} progress={skillProgress} {form} showTrigger={true} />
+                {/if}
               </div>
               <div class="progress-badge {classByProgress[skillProgress.progress]}">
                 {skillProgress.progress}
@@ -72,7 +78,7 @@
                          shadow-sm
                          px-2
                          py-1
-                         text-[var(--very-light-color)]
+                         text-(--very-light-color)
                          w-min"
                   style={`background-color: ${skill.module_tag.color}`}
                   href="/beginner-modules?main_tag={skill.module_tag.slug}"

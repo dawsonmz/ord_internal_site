@@ -1,5 +1,7 @@
+import { error } from '@sveltejs/kit';
 import { getCollectionGroupDocuments, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
 import { type ModuleTag } from '$lib/server/modules';
+import { getUser } from '$lib/server/users';
 import { sanityClient } from '$lib/util/sanity';
 
 export type SkillStage = 'Fundamentals' | 'Basic Contact' | 'Controlled Gameplay' | 'Full Gameplay';
@@ -98,11 +100,39 @@ function buildSkillProgressMap(userId: string, skillProgressDocuments: any[]): R
 }
 
 export async function updateRequiredSkillProgress(
+    actorId: string,
     userId: string,
     skillSlug: string,
-    progress?: ProgressState,
-    feedback?: { author_name: string, text: string },
+    progress: string | undefined,
+    feedback: string | undefined,
+    cache: KVNamespace,
 ) {
+  const [ user, requiredSkills ] = await Promise.all(
+      [
+        getUser(userId, cache),
+        loadRequiredSkills(),
+      ]
+  );
+
+  // Verify that the user whose progress is being updated is in fact a beginner.
+  if (!user.roles.includes('beginner')) {
+    error(400, `User ${userId} is not a beginner`);
+  }
+
+  // Verify that progress is a valid value. Undefined is valid if it hasn't been updated.
+  if (progress && !['Not started', 'In progress', 'Completed'].includes(progress)) {
+    error(400, `Invalid progress provided: ${progress}`);
+  }
+
+  // Verify that skill slug is a valid skill.
+  if (!requiredSkills.map(skill => skill.slug).includes(skillSlug)) {
+    error(400, `Invalid skill slug: ${skillSlug}`);
+  }
+
+  if (feedback && feedback.length > 3000) {
+    error(400, `Feedback text too long`);
+  }
+
   const fieldUpdates = [];
 
   if (progress) {
@@ -110,10 +140,15 @@ export async function updateRequiredSkillProgress(
   }
 
   if (feedback) {
-    const existingFeedbackDocument = await getDocument(
+    const [ actor, existingFeedbackDocument ] = await Promise.all(
         [
-          { collection: 'user', document_id: userId },
-          { collection: 'skill', document_id: skillSlug },
+          getUser(actorId, cache),
+          getDocument(
+              [
+                { collection: 'user', document_id: userId },
+                { collection: 'skill', document_id: skillSlug },
+              ]
+          ),
         ]
     );
 
@@ -123,8 +158,8 @@ export async function updateRequiredSkillProgress(
         mapValue: {
           fields: {
             timestamp: { stringValue: new Date().toISOString() },
-            author_name: { stringValue: feedback.author_name },
-            text: { stringValue: feedback.text },
+            author_name: { stringValue: actor.name },
+            text: { stringValue: feedback },
           },
         },
       },

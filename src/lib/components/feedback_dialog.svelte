@@ -6,10 +6,9 @@
 
   let { triggerClasses='', label='', labelClasses='', iconSize=24, context=null, form, formId='default' } = $props();
 
-  const currentPage = page.url.pathname == '/' ? 'home' : page.url.pathname;
-  if (context == null) {
-    context = `Current page: ${currentPage}`;
-  }
+  let resolvedContext = $derived(
+      context ?? `Current page: ${page.url.pathname == '/' ? 'home' : page.url.pathname}`
+  );
 </script>
 
 <FormDialog {form} {formId} formAction="?/sitefeedback" openFn={() => form = null}>
@@ -32,23 +31,23 @@
   {#snippet formContent()}
     <label class="label mt-4">
       <span class="label-text text-base">Name or contact (optional):</span>
-      <input type="text" name="contact" class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2" maxlength=128 />
+      <input type="text" name="contact" class="input text-sm bg-white dark:bg-(--dark-color) py-2" maxlength=128 />
     </label>
 
     <label class="label mt-4">
       <span class="label-text text-base mt-2">Regarding:</span>
-      <div class="input text-sm py-2">{context}</div>
-      <input type="hidden" name="context" value={context} />
+      <div class="input text-sm py-2">{resolvedContext}</div>
+      <input type="hidden" name="context" value={resolvedContext} />
     </label>
 
     <label class="label mt-2">
       <span class="label-text text-base">Comment:</span>
       {#if form?.formId == formId && form.errors?.text}
-        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.text}</span>
+        <span class="text-sm font-semibold text-(--error-color)">* {form.errors.text}</span>
       {/if}
       <textarea
           name="text"
-          class="textarea resize-none text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+          class="textarea resize-none text-sm bg-white dark:bg-(--dark-color) py-2"
           rows=6
           maxlength=1024
       ></textarea>

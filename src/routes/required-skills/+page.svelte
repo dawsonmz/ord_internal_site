@@ -3,12 +3,14 @@
   import { Portal, Tooltip } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
-  import type { ProgressState, SkillStage } from '$lib/server/required_skills';
+  import type { ProgressState, RequiredSkill, RequiredSkillProgress, SkillStage } from '$lib/server/required_skills';
+  import type { User } from '$lib/server/users';
   import { dropUserIdPrefix } from '$lib/util/users';
 
   let { data, form } = $props();
 
   let skillDialog: RequiredSkillDialog;
+  let target: { user: User, skill: RequiredSkill, progress: RequiredSkillProgress } | undefined = $state.raw();
 
   const STAGES: SkillStage[] = [ 'Fundamentals', 'Basic Contact', 'Controlled Gameplay', 'Full Gameplay' ];
 
@@ -77,7 +79,10 @@
                 <Tooltip openDelay={200} closeOnPointerDown={true}>
                   <Tooltip.Trigger
                       class="dot {classByProgress[progress.progress]}"
-                      onclick={() => skillDialog.open(user, skill, progress)}
+                      onclick={() => {
+                        target = { user, skill, progress };
+                        skillDialog.open();
+                      }}
                   >
                     {index + 1}
                   </Tooltip.Trigger>
@@ -98,4 +103,10 @@
   {/each}
 </div>
 
-<RequiredSkillDialog bind:this={skillDialog} {form} />
+<RequiredSkillDialog
+    bind:this={skillDialog}
+    user={target?.user}
+    skill={target?.skill}
+    progress={target?.progress}
+    {form}
+/>
