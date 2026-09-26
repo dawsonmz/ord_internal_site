@@ -1,17 +1,16 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import { Dot, Pencil } from '@lucide/svelte/icons';
+  import { Pencil } from '@lucide/svelte/icons';
   import AnimatedDots from '$lib/components/animated_dots.svelte';
   import Dialog from '$lib/components/dialog.svelte';
-  import type { ProgressState, RequiredSkill, RequiredSkillProgress } from '$lib/server/required_skills';
+  import type { ProgressState, RequiredSkill } from '$lib/server/required_skills';
   import type { User } from '$lib/server/users';
-  import { formatDateTextWithYear } from '$lib/util/datetime';
 
   let { form, user, skill, progress, showTrigger=false } = $props<{
     form: any,
     user?: User,
     skill?: RequiredSkill,
-    progress?: RequiredSkillProgress,
+    progress?: ProgressState,
     showTrigger?: boolean,
   }>();
 
@@ -19,11 +18,10 @@
   let selected: ProgressState = $state('Not started');
   let newFeedbackText = $state('');
   let submitting = $state(false);
-  let mostRecentFeedback = $derived(progress?.feedback?.at(-1));
-  let updated = $derived(selected != progress?.progress || newFeedbackText.trim() != '');
+  let updated = $derived(selected != progress || newFeedbackText.trim() != '');
 
   function reset() {
-    selected = progress?.progress ?? 'Not started';
+    selected = progress ?? 'Not started';
     newFeedbackText = '';
   }
 
@@ -101,29 +99,6 @@
           </div>
         </div>
 
-        <!-- Feedback display -->
-        <div class="flex flex-col gap-1">
-          <div class="font-light text-sm">
-            MOST RECENT FEEDBACK
-          </div>
-          {#if mostRecentFeedback}
-            <div class="text-display-box">
-              <div class="flex items-center text-xs font-semibold">
-                <div>{formatDateTextWithYear(mostRecentFeedback.timestamp)}</div>
-                <Dot />
-                <div>{mostRecentFeedback.author_name}</div>
-              </div>
-              <div class="text-sm whitespace-pre-line">
-                {mostRecentFeedback.text}
-              </div>
-            </div>
-          {:else}
-            <div class="text-sm italic mt-1">
-              No feedback found
-            </div>
-          {/if}
-        </div>
-
         <!-- Feedback input -->
         <div class="flex flex-col gap-2">
           <div class="font-light text-sm">
@@ -142,15 +117,25 @@
       <div class="flex gap-2 mt-4">
         <input type="hidden" name="userId" value={user?.user_id} />
         <input type="hidden" name="skill" value={skill?.slug} />
-        <input type="hidden" name="progress" value={selected} />
-        <button type="submit" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" disabled={submitting || !updated}>
+        {#if selected != progress}
+          <input type="hidden" name="progress" value={selected} />
+        {/if}
+        <button
+            type="submit"
+            class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style"
+            disabled={submitting || !updated}
+        >
           {#if submitting}
             <AnimatedDots />
           {:else}
             Save
           {/if}
         </button>
-        <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={() => dialogState = false}>
+        <button
+            type="button"
+            class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style"
+            onclick={() => dialogState = false}
+        >
           Cancel
         </button>
       </div>

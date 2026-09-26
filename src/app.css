@@ -433,7 +433,7 @@ ol.text-list li, .rich-text ol li {
   font-variant-numeric: tabular-nums;
 }
 
-.dot {
+.progress-dot {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -462,17 +462,17 @@ ol.text-list li, .rich-text ol li {
   }
 }
 
-.dot.not-started {
+.progress-dot.not-started {
   background: var(--not-started-dot-color);
   color: var(--not-started-text-color);
 }
 
-.dot.in-progress {
+.progress-dot.in-progress {
   background: var(--in-progress-dot-color);
   color: var(--in-progress-text-color);
 }
 
-.dot.completed {
+.progress-dot.completed {
   background: var(--completed-dot-color);
   color: var(--completed-text-color);
 }

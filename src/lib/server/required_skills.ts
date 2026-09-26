@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getCollectionGroupDocuments, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
+import { type FieldUpdate, getCollectionGroupDocuments, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
 import { type ModuleTag } from '$lib/server/modules';
 import { getUser } from '$lib/server/users';
 import { sanityClient } from '$lib/util/sanity';
@@ -26,7 +26,9 @@ export interface RequiredSkillProgress {
 export interface RequiredSkillFeedback {
   timestamp: string,
   author_name: string,
-  text: string,
+  previous_progress?: ProgressState,
+  progress?: ProgressState,
+  text?: string,
 }
 
 export async function loadRequiredSkills(): Promise<RequiredSkill[]> {
@@ -49,31 +51,7 @@ export async function loadRequiredSkills(): Promise<RequiredSkill[]> {
 }
 
 export async function loadRequiredSkillProgress(userId: string): Promise<Record<string, RequiredSkillProgress>> {
-  return buildSkillProgressMap(
-      userId,
-      await getDocuments([{ collection: 'user', document_id: userId }], 'skill'),
-  );
-}
-
-export async function loadRequiredSkillProgressForAll(userIds: string[]): Promise<Map<string, Record<string, RequiredSkillProgress>>> {
-  const documentsByUser = Map.groupBy(
-      await getCollectionGroupDocuments('skill'),
-      (doc: any) => doc.name.split('/').at(-3) as string,
-  );
-
-  const result = new Map<string, Record<string, RequiredSkillProgress>>();
-  userIds.forEach(
-      userId => {
-        // All users should be mapped, even if there aren't any documents present (i.e. new user).
-        const skillDocuments = documentsByUser.get(userId) ?? [];
-        result.set(userId, buildSkillProgressMap(userId, skillDocuments));
-      }
-  );
-
-  return result;
-}
-
-function buildSkillProgressMap(userId: string, skillProgressDocuments: any[]): Record<string, RequiredSkillProgress> {
+  const skillProgressDocuments = await getDocuments([{ collection: 'user', document_id: userId }], 'skill');
   return Object.fromEntries(
       skillProgressDocuments.map(
           document => {
@@ -89,7 +67,9 @@ function buildSkillProgressMap(userId: string, skillProgressDocuments: any[]): R
                     (feedback: any) => ({
                       timestamp: feedback.mapValue.fields.timestamp.stringValue,
                       author_name: feedback.mapValue.fields.author_name.stringValue,
-                      text: feedback.mapValue.fields.text.stringValue,
+                      previous_progress: feedback.mapValue.fields.previous_progress?.stringValue,
+                      progress: feedback.mapValue.fields.progress?.stringValue,
+                      text: feedback.mapValue.fields.text?.stringValue,
                     })
                 ),
               },
@@ -97,6 +77,34 @@ function buildSkillProgressMap(userId: string, skillProgressDocuments: any[]): R
           }
       )
   );
+}
+
+export async function loadRequiredSkillProgressForAll(userIds: string[]): Promise<Map<string, Record<string, ProgressState>>> {
+  const documentsByUser = Map.groupBy(
+      await getCollectionGroupDocuments('skill'),
+      (doc: any) => doc.name.split('/').at(-3) as string,
+  );
+
+  const result = new Map<string, Record<string, ProgressState>>();
+  userIds.forEach(
+      userId => {
+        // All users should be mapped, even if there aren't any documents present (i.e. new user).
+        const skillDocuments = documentsByUser.get(userId) ?? [];
+        result.set(
+            userId,
+            Object.fromEntries(
+                skillDocuments.map(
+                    document => [
+                        document.name.split('/').at(-1),
+                        document.fields.progress?.stringValue ?? 'Not started',
+                    ]
+                )
+            ),
+        );
+      }
+  );
+
+  return result;
 }
 
 export async function updateRequiredSkillProgress(
@@ -133,53 +141,54 @@ export async function updateRequiredSkillProgress(
     error(400, `Feedback text too long`);
   }
 
-  const fieldUpdates = [];
+  const skillPath = [
+    { collection: 'user', document_id: userId },
+    { collection: 'skill', document_id: skillSlug },
+  ];
+  const [ actor, existingDocument ] = await Promise.all(
+      [
+        getUser(actorId, cache),
+        getDocument(skillPath),
+      ]
+  );
 
-  if (progress) {
-    fieldUpdates.push({ field: 'progress', value: { stringValue: progress } });
+  const previousProgress = existingDocument?.fields.progress?.stringValue ?? 'Not started';
+  const progressChanged = !!progress && progress != previousProgress;
+  if (!progressChanged && !feedback) {
+    return;
+  }
+
+  const fieldUpdates: FieldUpdate[] = [];
+  const entryFields: Record<string, any> = {
+    timestamp: { stringValue: new Date().toISOString() },
+    author_name: { stringValue: actor.name },
+  };
+
+  if (progressChanged) {
+    fieldUpdates.push(
+        {
+          field: 'progress',
+          value: { stringValue: progress },
+        }
+    );
+    entryFields.previous_progress = { stringValue: previousProgress };
+    entryFields.progress = { stringValue: progress };
   }
 
   if (feedback) {
-    const [ actor, existingFeedbackDocument ] = await Promise.all(
-        [
-          getUser(actorId, cache),
-          getDocument(
-              [
-                { collection: 'user', document_id: userId },
-                { collection: 'skill', document_id: skillSlug },
-              ]
-          ),
-        ]
-    );
+    entryFields.text = { stringValue: feedback };
+  }
 
-    const feedbackArray = [
-      ...(existingFeedbackDocument?.fields.feedback?.arrayValue?.values ?? []),
+  const feedbackArray = [
+    ...(existingDocument?.fields.feedback?.arrayValue?.values ?? []),
+    { mapValue: { fields: entryFields } },
+  ];
+  fieldUpdates.push(
       {
-        mapValue: {
-          fields: {
-            timestamp: { stringValue: new Date().toISOString() },
-            author_name: { stringValue: actor.name },
-            text: { stringValue: feedback },
-          },
-        },
-      },
-    ];
-  
-    fieldUpdates.push(
-        {
-          field: 'feedback',
-          value: { arrayValue: { values: feedbackArray } },
-        }
-    );
-  }
+        field: 'feedback',
+        value: { arrayValue: { values: feedbackArray } },
+      }
+  );
 
-  if (fieldUpdates.length) {
-    await patchDocument(
-        [
-          { collection: 'user', document_id: userId },
-          { collection: 'skill', document_id: skillSlug },
-        ],
-        fieldUpdates,
-    );
-  }
+  await patchDocument(skillPath, fieldUpdates);
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Dot } from '@lucide/svelte/icons';
+  import { ArrowRight, Dot } from '@lucide/svelte/icons';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
   import type { ProgressState, SkillStage } from '$lib/server/required_skills';
@@ -45,7 +45,7 @@
                   {skill.title}
                 </div>
                 {#if data.can_edit_progress}
-                  <RequiredSkillDialog user={data.user} {skill} progress={skillProgress} {form} showTrigger={true} />
+                  <RequiredSkillDialog user={data.user} {skill} progress={skillProgress.progress} {form} showTrigger={true} />
                 {/if}
               </div>
               <div class="progress-badge {classByProgress[skillProgress.progress]}">
@@ -93,15 +93,32 @@
               </div>
               {#if skillProgress.feedback.length}
                 {#each skillProgress.feedback.toReversed() as entry}
-                  <div class="text-display-box">
+                  <div class="flex flex-col gap-2 text-display-box">
                     <div class="flex items-center text-xs font-semibold">
                       <div>{formatDateTextWithYear(entry.timestamp)}</div>
                       <Dot />
                       <div>{entry.author_name}</div>
                     </div>
-                    <div class="text-sm whitespace-pre-line">
-                      {entry.text}
-                    </div>
+                    {#if entry.progress}
+                      <div class="flex items-center gap-1">
+                        <span class="sr-only">Progress:</span>
+                        {#if entry.previous_progress}
+                          <div class="progress-badge {classByProgress[entry.previous_progress]}">
+                            {entry.previous_progress}
+                          </div>
+                          <ArrowRight size={18} />
+                          <span class="sr-only">to</span>
+                        {/if}
+                        <div class="progress-badge {classByProgress[entry.progress]}">
+                          {entry.progress}
+                        </div>
+                      </div>
+                    {/if}
+                    {#if entry.text}
+                      <div class="text-sm whitespace-pre-line">
+                        {entry.text}
+                      </div>
+                    {/if}
                   </div>
                 {/each}
               {:else}

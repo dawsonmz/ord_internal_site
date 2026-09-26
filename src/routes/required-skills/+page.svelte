@@ -3,14 +3,14 @@
   import { Portal, Tooltip } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
-  import type { ProgressState, RequiredSkill, RequiredSkillProgress, SkillStage } from '$lib/server/required_skills';
+  import type { ProgressState, RequiredSkill, SkillStage } from '$lib/server/required_skills';
   import type { User } from '$lib/server/users';
   import { dropUserIdPrefix } from '$lib/util/users';
 
   let { data, form } = $props();
 
   let skillDialog: RequiredSkillDialog;
-  let target: { user: User, skill: RequiredSkill, progress: RequiredSkillProgress } | undefined = $state.raw();
+  let target: { user: User, skill: RequiredSkill, progress: ProgressState } | undefined = $state.raw();
 
   const STAGES: SkillStage[] = [ 'Fundamentals', 'Basic Contact', 'Controlled Gameplay', 'Full Gameplay' ];
 
@@ -49,7 +49,7 @@
 <div class="flex flex-col gap-4">
   <div class="font-bold text-lg">Skaters</div>
   {#each data.users as user (user.user_id)}
-    <div class="flex flex-col gap-3 border-1 border-(--light-color) bg-white dark:bg-(--dark-color) rounded-md shadow-md p-3">
+    <div class="flex flex-col gap-3 border border-(--light-color) bg-white dark:bg-(--dark-color) rounded-md shadow-md p-3">
       <div>
         <a class="flex justify-between strong-hover" href="/required-skills/{dropUserIdPrefix(user.user_id)}">
           <div class="font-semibold">
@@ -68,17 +68,10 @@
             </div>
             <div class="flex flex-wrap gap-1.5">
               {#each skills as skill, index (skill.slug)}
-                {@const progress = data.required_skill_progress.get(user.user_id)?.[skill.slug]
-                    ?? {
-                      user_id: user.user_id,
-                      skill_slug: skill.slug,
-                      progress: 'Not started',
-                      feedback: [],
-                    }
-                }
+                {@const progress = data.required_skill_progress.get(user.user_id)?.[skill.slug] ?? 'Not started'}
                 <Tooltip openDelay={200} closeOnPointerDown={true}>
                   <Tooltip.Trigger
-                      class="dot {classByProgress[progress.progress]}"
+                      class="progress-dot {classByProgress[progress]}"
                       onclick={() => {
                         target = { user, skill, progress };
                         skillDialog.open();
