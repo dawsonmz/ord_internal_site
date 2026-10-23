@@ -4,27 +4,28 @@ import { env } from '$env/dynamic/private';
 
 const notificationsAddress = 'notifications@oslorollerderby.com';
 var notificationEmailer: Resend | null = null;
+const escapeAllTags: sanitizeHtml.IOptions = { allowedTags: [], allowedAttributes: {}, disallowedTagsMode: 'escape' };
 
 export async function sendAccessRequest(userId: string, name: string | null, context: string) {
-  const sanitizedName = name ? sanitizeHtml(name) : '(no name)';
+  const sanitizedName = name ? sanitizeHtml(name, escapeAllTags) : '(no name)';
   await sendNotification(
     `Access request for ${userId}`,
-    `<p>${userId} (${sanitizedName}) is requesting access on page ${context}.</p>`,
+    `<p>${userId} (${sanitizedName}) is requesting access on page ${sanitizeHtml(context, escapeAllTags)}.</p>`,
   );
 }
 
 export async function sendSiteFeedbackNotification(context: string, text: string, contact: string | undefined) {
   await sendNotification(
       `Feedback submitted on '${context}'`,
-      `<p>Contact: ${contact?.length ? contact! : '(none)'}</p><p>${sanitizeHtml(text)}</p>`
+      `<p>Contact: ${contact?.length ? sanitizeHtml(contact, escapeAllTags) : '(none)'}</p><p>${sanitizeHtml(text, escapeAllTags)}</p>`
   );
 }
 
 export async function sendNumberRequestNotification(name: string, number: string, contact: string) {
-  const sanitizedName = sanitizeHtml(name);
+  const sanitizedName = sanitizeHtml(name, escapeAllTags);
   await sendNotification(
       `Number request submitted for '${number} ${sanitizedName}'`,
-      `<p>Contact: ${sanitizeHtml(contact)}</p><p>Name: ${sanitizedName}</p><p>Number: ${number}</p>`
+      `<p>Contact: ${sanitizeHtml(contact, escapeAllTags)}</p><p>Name: ${sanitizedName}</p><p>Number: ${number}</p>`
   );
 }
 

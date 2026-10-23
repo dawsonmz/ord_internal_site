@@ -1,8 +1,10 @@
 import { fail } from '@sveltejs/kit';
 import { sendSiteFeedbackNotification } from '$lib/server/emailer';
+import { checkAuthenticated } from '$lib/server/roles';
 import { missingError } from '$lib/util/validation';
 
 export async function submitSiteFeedback(req: WrappedRequest) {
+  checkAuthenticated(req.locals);
   const data = await req.request.formData();
 
   const formId = data.get('formId')?.toString();
