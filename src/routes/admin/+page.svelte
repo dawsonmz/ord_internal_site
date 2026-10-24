@@ -7,6 +7,7 @@
 
   let { data, form } = $props();
 
+  // svelte-ignore state_referenced_locally
   let editedRoles: Record<string, Role[]> = $state(
       Object.fromEntries(data.users.map(user => [ user.user_id, [ ...user.roles ] ]))
   );

@@ -18,13 +18,13 @@
   let userParam = $state('');
 
   let isSelf = $derived(data.actor_id == data.user_id);
-  let allowFeedbackATeam = $state(data.actor_allowance.allow_feedback_a_team);
-  let allowFeedbackBTeam = $state(data.actor_allowance.allow_feedback_b_team);
+  let allowFeedbackATeam = $state(false);
+  let allowFeedbackBTeam = $state(false);
 
   // This second set of state variables is used to track the persisted values, so we can
   // indicate to the form action handler if an update is actually needed.
-  let storedAllowA = $state(data.actor_allowance.allow_feedback_a_team);
-  let storedAllowB = $state(data.actor_allowance.allow_feedback_b_team);
+  let storedAllowA = $derived(data.actor_allowance.allow_feedback_a_team);
+  let storedAllowB = $derived(data.actor_allowance.allow_feedback_b_team);
   let changedAllowance = $derived(allowFeedbackATeam != storedAllowA || allowFeedbackBTeam != storedAllowB);
 
   const feedbackTypes = [ 'A Team', 'B Team', 'Self' ];
@@ -35,10 +35,14 @@
     viewSkaterDialogState = false;
   }
 
-  function closeSettingsDialog() {
-    settingsDialogState = false;
+  function openSettingsDialog() {
+    form = null;
     allowFeedbackATeam = storedAllowA;
     allowFeedbackBTeam = storedAllowB;
+  }
+
+  function closeSettingsDialog() {
+    settingsDialogState = false;
   }
 
   beforeNavigate(
@@ -228,7 +232,7 @@
   {/if}
 
   <!-- Form for updating feedback allowance -->
-  <Dialog bind:dialogState={settingsDialogState} openFn={() => form = null} closeFn={closeSettingsDialog}>
+  <Dialog bind:dialogState={settingsDialogState} openFn={openSettingsDialog}>
     {#snippet trigger()}
       <div class="flex gap-2 block-hover items-center w-[190px]">
         {#if form?.formId == settingsFormId && form?.success}
@@ -256,8 +260,6 @@
 
                 if (form?.formId == settingsFormId && form?.success) {
                   settingsDialogState = false;
-                  storedAllowA = allowFeedbackATeam;
-                  storedAllowB = allowFeedbackBTeam;
                 }
               };
             }

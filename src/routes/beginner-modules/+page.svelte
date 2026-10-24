@@ -13,7 +13,7 @@
   let filterUrl = $derived(`${page.url.pathname}${tagParam ? `?tag=${tagParam}` : ''}`);
 
   let openItems: string[] = $state([]);
-  let tabStates = $state(new Array<string>(data.modules.length).fill('Short'));
+  let tabStates = $derived(new Array<string>(data.modules.length).fill('Short'));
 
   function openAllModules() {
     openItems = [];
