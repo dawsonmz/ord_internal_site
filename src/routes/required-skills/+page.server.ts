@@ -13,10 +13,10 @@ export async function load({ locals, platform }) {
   }
   const cache = usersCache(platform);
 
-  // All users with the beginner role are loaded here. Graduated beginners can also view their own
-  // historical feedback, but coaches only need to see active beginners.
+  // Only active beginners are loaded here. Graduated beginners can still view their own page, but
+  // coaches only need an overview of active beginners.
   const users = (await getAllUsers(cache))
-      .filter(user => user.roles.includes('beginner'))
+      .filter(user => user.roles.includes('beginner') && !user.roles.includes('graduated_beginner'))
       .sort((lhs, rhs) => lhs.name.localeCompare(rhs.name));
   const [ requiredSkills, requiredSkillProgress ] = await Promise.all(
       [

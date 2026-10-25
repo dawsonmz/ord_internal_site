@@ -122,9 +122,9 @@ export async function updateRequiredSkillProgress(
       ]
   );
 
-  // Verify that the user whose progress is being updated is in fact a beginner.
-  if (!user.roles.includes('beginner')) {
-    error(400, `User ${userId} is not a beginner`);
+  // Verify that the user whose progress is being updated is a beginner or graduated beginner.
+  if (!user.roles.includes('beginner') && !user.roles.includes('graduated_beginner')) {
+    error(400, `User ${userId} is not a beginner or graduated beginner`);
   }
 
   // Verify that progress is a valid value. Undefined is valid if it hasn't been updated.

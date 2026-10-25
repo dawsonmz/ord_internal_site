@@ -1,17 +1,15 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import { ClipboardPen } from '@lucide/svelte/icons';
   import AnimatedDots from '$lib/components/animated_dots.svelte';
   import Dialog from '$lib/components/dialog.svelte';
   import type { ProgressState, RequiredSkill } from '$lib/server/required_skills';
   import type { User } from '$lib/server/users';
 
-  let { form, user, skill, progress, showTrigger=false }: {
+  let { form, user, skill, progress }: {
     form: any,
     user?: User,
     skill?: RequiredSkill,
     progress?: ProgressState,
-    showTrigger?: boolean,
   } = $props();
 
   let dialogState = $state(false);
@@ -31,14 +29,7 @@
   }
 </script>
 
-{#snippet iconTrigger()}
-  <div class="flex items-center block-hover">
-    <ClipboardPen size={16} />
-    <span class="sr-only">Edit progress</span>
-  </div>
-{/snippet}
-
-<Dialog bind:dialogState openFn={reset} trigger={showTrigger ? iconTrigger : null}>
+<Dialog bind:dialogState>
   {#snippet content()}
     <form
         method="POST"

@@ -36,6 +36,19 @@ export function formatDateTextWithYear(date: string): string {
   );
 }
 
+export function formatDateNumeric(date: string): string {
+  // Using nb-NO formatting for dd.mm.yyyy.
+  return new Date(date).toLocaleDateString(
+      'nb-NO',
+      {
+        timeZone: 'Europe/Oslo',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      },
+  );
+}
+
 export function formatDateTextWithWeekdayAndYear(date: string): string {
   // Using en-GB formatting for English day-of-week and month names.
   const dateObject = new Date(date);

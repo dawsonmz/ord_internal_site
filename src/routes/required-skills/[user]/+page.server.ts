@@ -42,7 +42,7 @@ export async function load({ locals, params, platform }) {
   
   return {
     user: user,
-    can_edit_progress: roles.includes('coach') && user.roles.includes('beginner'),
+    can_edit_progress: roles.includes('coach'),
     required_skills: Map.groupBy(requiredSkills, skill => skill.stage),
     required_skill_progress: requiredSkillProgress,
   };
