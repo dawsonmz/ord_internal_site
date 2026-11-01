@@ -2,7 +2,7 @@
 
 ## Workflow
 
-For any coding task — feature work, refactoring, debugging, architecture, or bare "implement X" requests — Claude must consult the `programming-workflow` skill before proceeding. It enforces a design-first discussion, incremental user-driven progress, and no unprompted file edits. Follow its phases unless the user explicitly asks to skip the design phase.
+For any coding task — feature work, refactoring, debugging, architecture, or bare "implement X" requests — Claude must consult the `programming-workflow` skill before proceeding. It enforces a design-first discussion, incremental progress, and no unprompted file edits. Follow its phases unless the user explicitly asks to skip the design phase.
 
 ## Overview
 
@@ -14,26 +14,15 @@ Internal site for Oslo Roller Derby (ORD). Built with SvelteKit, deployed to Clo
 - **Team resources**: Links to game and scrimmage footage for both teams. Will eventually include playbooks with team strategies, as well as drills for strategy development.
 - **Beginners training plans**: Detailed lesson plans used to run beginners training sessions.
 - **Beginners modules**: Individual drills categorized by tags which are used to compose training plans.
-- **Required skill tracking**: Implementation currently in progress. Tracking of skills required to pass the beginners course on an individual basis, so that coaches can give beginners direct and transparent feedback on what skills need progress.
+- **Required skill tracking**: Tracking of skills required to pass the beginners course on an individual basis, so that coaches can give beginners direct and transparent feedback on what skills need progress.
 - **Feedback**: Historical log of feedback provided from team captains to team members, or from team members to themselves.
 - **Useful resources**: Links to important team documents and general information.
 
 ## Ongoing Projects
 
-### Required Skills
+### Playbooks
 
-Coaches track beginner skaters' progress on a curriculum of required skills, and leave per-skill feedback. Beginners graduate to team membership once they've completed the curriculum.
-
-#### Data model
-
-- Code: src/lib/server/required_skills.ts
-- RequiredSkill: catalog entry from Sanity, general description of a required skill
-- RequiredSkillProgress: per-user, per-skill state stored in Firestore under user/{userId}/skill/{skillSlug}
-
-#### Route structure
-
-- /required-skills: coach view, showing an overview of all beginners' summarized progress. Requires coach role.
-- /required-skills/{userId}: individual skater view, showing more detailed skill description, progress notes, and feedback. Beginners visiting /required-skills will be redirected here based on their own userId.
+To be filled out.
 
 ## Architecture
 

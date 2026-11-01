@@ -24,7 +24,16 @@ function resourcePath(path: CollectionAndDocument[]): string {
   if (!path.length) {
     return firestoreBase();
   }
-  return `${firestoreBase()}/${path.map(pair => `${pair.collection}/${pair.document_id}`).join('/')}`;
+  const segments = path.map(
+      pair => {
+        // URL parsing resolves dot segments, and Firestore treats %2F as a separator.
+        if (['', '.', '..'].includes(pair.document_id) || pair.document_id.includes('/')) {
+          error(400, 'Invalid document ID');
+        }
+        return `${pair.collection}/${encodeURIComponent(pair.document_id)}`;
+      }
+  );
+  return `${firestoreBase()}/${segments.join('/')}`;
 }
 
 export async function getDocument(path: CollectionAndDocument[]): Promise<any | null> {

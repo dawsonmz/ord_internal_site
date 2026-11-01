@@ -133,6 +133,9 @@ async function writeFeedback(req: WrappedRequest) {
   if (fromUser != req.locals.auth().userId) {
     error(403, 'Unauthorized resource');
   }
+  if (context == 'Self' && userId != fromUser) {
+    error(403, 'Unauthorized resource');
+  }
   const cache = usersCache(req.platform);
   const actor = await getUser(fromUser, cache);
 
