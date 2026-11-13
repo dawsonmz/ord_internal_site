@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit';
 import { type FieldUpdate, getCollectionGroupDocuments, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
 import { type ModuleTag } from '$lib/server/modules';
+import { getSanityClient } from '$lib/server/sanity';
 import { getUser } from '$lib/server/users';
-import { sanityClient } from '$lib/util/sanity';
 
 export type SkillStage = 'Fundamentals' | 'Basic Contact' | 'Controlled Gameplay' | 'Full Gameplay';
 export type ProgressState = 'Not started' | 'In progress' | 'Completed';
@@ -32,7 +32,7 @@ export interface RequiredSkillFeedback {
 }
 
 export async function loadRequiredSkills(): Promise<RequiredSkill[]> {
-  const requiredSkills = await sanityClient.option.fetch(
+  const requiredSkills = await getSanityClient().fetch(
       `*[_type == "required_skill"] | order(orderRank asc) {
         stage,
         title,

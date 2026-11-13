@@ -1,4 +1,4 @@
-import { sanityClient } from '$lib/util/sanity';
+import { getSanityClient } from '$lib/server/sanity';
 
 export interface ModuleTag {
   name: string,
@@ -21,7 +21,7 @@ export interface Module {
 }
 
 export async function loadModuleTags(moduleType: string): Promise<ModuleTag[]> {
-  return await sanityClient.option.fetch(
+  return await getSanityClient().fetch(
       `*[_type == "module_tag" && module_type == $module_type && slug.current != "routine"] | order(orderRank asc) {
         name,
         "slug": slug.current,
@@ -47,7 +47,7 @@ export async function loadModules(
     params.query_tag = tag;
   }
 
-  return await sanityClient.option.fetch(
+  return await getSanityClient().fetch(
       `*[_type == "module" && type == $module_type && main_tag->slug.current != "routine" ${tagFilter}] | order(${orderBy}) {
         type,
         title,

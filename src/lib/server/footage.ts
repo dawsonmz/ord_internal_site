@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
+import { getSanityClient } from '$lib/server/sanity';
 import { formatDateText } from '$lib/util/datetime';
-import { sanityClient } from '$lib/util/sanity';
 
 export interface FootageSeason {
   name: string,
@@ -24,7 +24,7 @@ interface Footage {
  * @returns Names and slugs of all seasons that have footage, in season order
  */
 export async function loadSeasonsWithFootage(): Promise<FootageSeason[]> {
-  return await sanityClient.option.fetch(
+  return await getSanityClient().fetch(
       `*[_type == "season" && count(*[_type == "footage" && season._ref == ^._id]) > 0] | order(orderRank asc) {
         name,
         "slug": slug.current,
@@ -37,7 +37,7 @@ export async function loadSeasonsWithFootage(): Promise<FootageSeason[]> {
  * @returns Map with all footage for a given season, keyed by footage type
  */
 export async function loadFootage(season: string): Promise<Map<string, Footage[]>> {
-  const footageData = await sanityClient.option.fetch(
+  const footageData = await getSanityClient().fetch(
       `*[_type == "footage" && season->slug.current == $season] | order(orderRank asc) {
         title,
         event,

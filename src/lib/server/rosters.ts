@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { sanityClient } from '$lib/util/sanity';
+import { getSanityClient } from '$lib/server/sanity';
 
 interface Roster {
   name: string,
@@ -22,7 +22,7 @@ interface SkaterNumber {
  * @returns The roster with the specified identifier.
  */
 export async function loadRoster(identifier: string): Promise<Roster> {
-  const rosterData: Roster[] = await sanityClient.option.fetch(
+  const rosterData: Roster[] = await getSanityClient().fetch(
     `*[_type == "roster" && slug.current == $identifier] {
       name,
       short_name,

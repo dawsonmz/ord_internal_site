@@ -1,4 +1,4 @@
-import { sanityClient } from '$lib/util/sanity';
+import { getSanityClient } from '$lib/server/sanity';
 
 export interface Post {
   type: string,
@@ -12,7 +12,7 @@ export interface Post {
 
 export async function loadPosts(type: string, showHidden: boolean): Promise<Post[]> {
   const visibleFilter = showHidden ? '' : '&& visible';
-  return await sanityClient.option.fetch(
+  return await getSanityClient().fetch(
     `*[_type == "post" && type == $type ${visibleFilter}] | order(date desc) {
       title,
       "slug": slug.current,
@@ -26,7 +26,7 @@ export async function loadPosts(type: string, showHidden: boolean): Promise<Post
 }
 
 export async function getLatestPostDate(type: string): Promise<string | null> {
-  const results = await sanityClient.option.fetch(
+  const results = await getSanityClient().fetch(
       `*[_type == "post" && type == $type] | order(date desc) {
         date,
       } [0..0]`,

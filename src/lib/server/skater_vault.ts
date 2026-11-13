@@ -1,4 +1,4 @@
-import { sanityClient } from '$lib/util/sanity';
+import { getSanityClient } from '$lib/server/sanity';
 
 interface SkaterNumber {
   skater_number: string,
@@ -12,7 +12,7 @@ interface SkaterNumber {
  * @returns All skater numbers and derby names ordered in increasing order by number. Excludes those with temporary names.
  */
 export async function loadSkaterVault(): Promise<SkaterNumber[]> {
-  const skaterNumberData: SkaterNumber[] = await sanityClient.option.fetch(
+  const skaterNumberData: SkaterNumber[] = await getSanityClient().fetch(
     `*[_type == "skater_number" && temporary == false] | order(skater_number asc)`
   );
 

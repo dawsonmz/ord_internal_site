@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { Module } from '$lib/server/modules';
+import { getSanityClient } from '$lib/server/sanity';
 import { formatDateText, formatDateTextFromDate, formatTimeText } from '$lib/util/datetime';
-import { sanityClient } from '$lib/util/sanity';
 
 export interface TrainingPlanSeason {
   name: string,
@@ -44,7 +44,7 @@ interface TrainingPlan {
  */
 export async function loadSeasonsWithTrainingPlans(showHidden: boolean): Promise<TrainingPlanSeason[]> {
   const visibleFilter = showHidden ? '' : '&& visible';
-  return await sanityClient.option.fetch(
+  return await getSanityClient().fetch(
       `*[_type == "season" && count(*[_type == "training_plan" && season._ref == ^._id ${visibleFilter}]) > 0] | order(orderRank asc) {
         name,
         "slug": slug.current,
@@ -59,7 +59,7 @@ export async function loadSeasonsWithTrainingPlans(showHidden: boolean): Promise
  */
 export async function loadTrainingPlanSummaries(seasonSlug: string, showHidden: boolean): Promise<SeasonWithTrainingSummaries> {
   const visibleFilter = showHidden ? '' : '&& visible';
-  const seasonData: SeasonWithTrainingSummaries[] = await sanityClient.option.fetch(
+  const seasonData: SeasonWithTrainingSummaries[] = await getSanityClient().fetch(
     `*[_type == "season" && slug.current == $season] {
       name,
       "slug": slug.current,
@@ -91,7 +91,7 @@ export async function loadTrainingPlanSummaries(seasonSlug: string, showHidden: 
  */
 export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string, showHidden: boolean): Promise<TrainingPlan> {
   const visibleFilter = showHidden ? '' : '&& visible';
-  const trainingPlanData: TrainingPlan[] = await sanityClient.option.fetch(
+  const trainingPlanData: TrainingPlan[] = await getSanityClient().fetch(
       `*[_type == "training_plan" && season->slug.current == $season && slug.current == $training_label ${visibleFilter}] {
         training_label,
         "season": season->name,
