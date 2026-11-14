@@ -33,6 +33,11 @@ export const navGroups: NavGroup[] = [
   {
     header: 'Training',
     links: [
+      // {
+      //   label: 'Playbook',
+      //   url: '/playbook',
+      //   description: 'Plays and strategies with animated diagrams, notes, and drills.',
+      // },
       {
         label: 'Footage',
         url: '/footage',

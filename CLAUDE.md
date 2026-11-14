@@ -11,18 +11,19 @@ Internal site for Oslo Roller Derby (ORD). Built with SvelteKit, deployed to Clo
 ## Features
  
 - **Team information**: Roster lists and skater names and numbers.
-- **Team resources**: Links to game and scrimmage footage for both teams. Will eventually include playbooks with team strategies, as well as drills for strategy development.
+- **Playbook**: Collection of plays and strategies currently being practiced by the team. Includes descriptions, animated diagrams, and relevant drills. The scenario list is defined as a constant both here and in ord_internal_studio, and both must be kept in sync.
+- **Footage**: Links to footage on YouTube and Twitch of games and scrimmages.
 - **Beginners training plans**: Detailed lesson plans used to run beginners training sessions.
 - **Beginners modules**: Individual drills categorized by tags which are used to compose training plans.
 - **Required skill tracking**: Tracking of skills required to pass the beginners course on an individual basis, so that coaches can give beginners direct and transparent feedback on what skills need progress.
 - **Feedback**: Historical log of feedback provided from team captains to team members, or from team members to themselves.
 - **Useful resources**: Links to important team documents and general information.
 
-## Ongoing Projects
+## Useful for later
 
-### Playbooks
+If PowerPoint exported videos do not have sufficient keyframes, use this to modify the video:
 
-To be filled out.
+`ffmpeg -i export.mp4 -c:v libx264 -pix_fmt yuv420p -crf 20 -g 6 -keyint_min 6 -sc_threshold 0 -bf 0 -movflags +faststart -an play.mp4`
 
 ## Architecture
 
