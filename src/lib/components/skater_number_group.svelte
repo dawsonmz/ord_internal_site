@@ -10,15 +10,15 @@
     <div class="flex items-center gap-3">
       <div class="text-center
                   font-semibold
-                  w-[56px]
+                  w-14
                   rounded-sm
                   shadow-sm
-                  bg-[var(--light-color)]
-                  dark:text-[var(--dark-color)]"
+                  bg-(--light-color)
+                  dark:text-(--dark-color)"
       >
         {skaterNumber.skater_number ?? ''}
       </div>
-      <div class="text-base w-[180px]">{skaterNumber.derby_name}</div>
+      <div class="text-base w-45">{skaterNumber.derby_name}</div>
     </div>
   {/each}
 </div>

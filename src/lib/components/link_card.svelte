@@ -8,10 +8,10 @@
     href={current ? undefined : url}
     aria-current={current ? 'page' : undefined}
     class="{current
-             ? 'bg-[var(--light-color)] dark:text-[var(--dark-color)] *:opacity-60'
-             : 'transition-colors ease-[cubic-bezier(0,0,0.2,1)] duration-200 hover:bg-[var(--light-color)] dark:hover:text-[var(--dark-color)]'}
-           border-1
-           border-[var(--light-color)]
+             ? 'bg-(--light-color) dark:text-(--dark-color) *:opacity-60'
+             : 'transition-colors ease-out duration-200 hover:bg-(--light-color) dark:hover:text-(--dark-color)'}
+           border
+           border-(--light-color)
            rounded-sm
            sm:rounded-md
            shadow-md
@@ -24,7 +24,7 @@
     <ArrowRight class="inline size-5" />
     <div class="text-xl font-semibold">{title}</div>
     {#if hiddenTag}
-      <div class="italic text-[var(--error-color)]">(hidden)</div>
+      <div class="italic text-(--error-color)">(hidden)</div>
     {/if}
   </div>
   {#if subtitle}

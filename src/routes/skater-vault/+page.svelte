@@ -49,12 +49,12 @@
     <label class="label mt-4">
       <span class="label-text text-base">Derby name:</span>
       {#if form?.formId == formId && form.errors?.name}
-        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.name}</span>
+        <span class="text-sm font-semibold text-(--error-color)">* {form.errors.name}</span>
       {/if}
       <input
           type="text"
           name="name"
-          class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+          class="input text-sm bg-white dark:bg-(--dark-color) py-2"
           maxlength=64
       />
     </label>
@@ -62,12 +62,12 @@
     <label class="label mt-4">
       <span class="label-text text-base mt-2">Number:</span>
       {#if form?.formId == formId && form.errors?.number}
-        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.number}</span>
+        <span class="text-sm font-semibold text-(--error-color)">* {form.errors.number}</span>
       {/if}
       <input
           type="text"
           name="number"
-          class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+          class="input text-sm bg-white dark:bg-(--dark-color) py-2"
           maxlength=10
       />
     </label>
@@ -75,7 +75,7 @@
     <label class="label mt-4">
       <span class="label-text text-base mt-2">Contact email:</span>
       {#if form?.formId == formId && form.errors?.contact}
-        <span class="text-sm font-semibold text-[var(--error-color)]">* {form.errors.contact}</span>
+        <span class="text-sm font-semibold text-(--error-color)">* {form.errors.contact}</span>
       {/if}
       {#if data.email}
         <div class="input text-sm py-2">{data.email}</div>
@@ -84,7 +84,7 @@
         <input
             type="text"
             name="contact"
-            class="input text-sm bg-white dark:bg-[var(--dark-color)] py-2"
+            class="input text-sm bg-white dark:bg-(--dark-color) py-2"
             maxlength=128
         />
       {/if}
@@ -95,7 +95,7 @@
 <div class="max-w-2xl flex flex-col gap-2">
   <input
       type="text"
-      class="input bg-white dark:bg-[var(--dark-color)]"
+      class="input bg-white dark:bg-(--dark-color)"
       placeholder="Search for number or name"
       bind:value={query}
   />
@@ -105,11 +105,11 @@
         <div class="flex items-center gap-3 break-inside-avoid mb-3">
           <div class="text-center
                       font-semibold
-                      w-[56px]
+                      w-14
                       rounded-sm
                       shadow-sm
-                      bg-[var(--light-color)]
-                      dark:text-[var(--dark-color)]"
+                      bg-(--light-color)
+                      dark:text-(--dark-color)"
           >
             {skaterNumber.skater_number ?? ""}
           </div>

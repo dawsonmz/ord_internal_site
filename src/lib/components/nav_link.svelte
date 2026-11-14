@@ -4,7 +4,7 @@
   let { label, url, external=false, active=false } = $props();
 </script>
 
-<a class="flex items-center gap-2 w-fit strong-hover {active ? 'text-[var(--strong-color-fg-on-dark)] font-semibold' : ''}"
+<a class="flex items-center gap-2 w-fit strong-hover {active ? 'text-(--strong-color-fg-on-dark) font-semibold' : ''}"
    href={url}
    target={external ? '_blank' : null}
 >

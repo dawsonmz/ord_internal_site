@@ -33,8 +33,8 @@
                      rounded-sm
                      shadow-sm
                      p-2
-                     w-[280px]
-                     dark:border-1
+                     w-70
+                     dark:border
                      dark:border-color-[var(--very-light-color)]"
           >
             {@render description()}

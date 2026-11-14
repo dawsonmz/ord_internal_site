@@ -69,7 +69,7 @@
       <Tabs.List class="mt-2">
         <TabControl value="Diagram" isSelected={view == 'Diagram'} />
         <TabControl value="Animation" isSelected={view == 'Animation'} />
-        <Tabs.Indicator class="border-y w-[90px]" />
+        <Tabs.Indicator class="border-y w-24" />
       </Tabs.List>
     {/if}
   </Tabs>

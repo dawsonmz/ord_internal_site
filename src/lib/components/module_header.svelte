@@ -18,7 +18,7 @@
                  shadow-sm
                  px-2
                  py-1
-                 text-[var(--very-light-color)]"
+                 text-(--very-light-color)"
           style={`background-color: ${tag.color}`}
       >
         {tag.name}

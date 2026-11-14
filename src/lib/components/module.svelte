@@ -39,7 +39,7 @@
     {#if module.advanced_text}
       <TabControl value='Advanced' isSelected={isAdvanced} />
     {/if}
-    <Tabs.Indicator class="border-y-[1px] w-[90px]" />
+    <Tabs.Indicator class="border-y w-24" />
   </Tabs.List>
 
   <Tabs.Content value='Short'>

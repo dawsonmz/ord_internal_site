@@ -16,7 +16,7 @@
   <Tabs.List class="mb-4">
     <TabControl value='Norsk' isSelected={tabState == 'Norsk'} />
     <TabControl value='English' isSelected={tabState == 'English'} />
-    <Tabs.Indicator class="border-y-[1px] w-[90px]" />
+    <Tabs.Indicator class="border-y w-24" />
   </Tabs.List>
   <Tabs.Content value='Norsk'>
     <div class="flex flex-col gap-3">

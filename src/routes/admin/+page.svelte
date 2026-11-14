@@ -109,7 +109,7 @@
     <div class="flex gap-3 mt-4 items-center">
       <button
           type="submit"
-          class="flex justify-center items-center min-w-[100px] h-[32px] text-sm p-2 button-style"
+          class="flex justify-center items-center min-w-25 h-8 text-sm p-2 button-style"
           disabled={submitting || dirty.length == 0}
       >
         {#if submitting}

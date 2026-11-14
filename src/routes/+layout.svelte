@@ -146,7 +146,7 @@
                   colorRing: 'var(--menu-dark-color)',
                 },
                 elements: {
-                  userButtonBox: 'w-[52px] h-[52px] menu-hover',
+                  userButtonBox: 'w-13 h-13 menu-hover',
                 },
               }}
           />

@@ -30,14 +30,14 @@
       <input type="hidden" name="formId" value={formId} />
       {@render formContent()}
       <div class="flex gap-2 mt-4">
-        <button type="submit" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" disabled={submitting}>
+        <button type="submit" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" disabled={submitting}>
           {#if submitting}
             <AnimatedDots />
           {:else}
             Submit
           {/if}
         </button>
-        <button type="button" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" onclick={() => dialogState = false}>
+        <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={() => dialogState = false}>
           Cancel
         </button>
       </div>

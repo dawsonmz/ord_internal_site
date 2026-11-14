@@ -85,9 +85,9 @@ html {
  * rounded-md
  * p-3
  * transition-colors
- * ease-[cubic-bezier(0,0,0.2,1)]
+ * ease-out
  * duration-150
- * hover:bg-[var(--semi-dark-color)]
+ * hover:bg-(--semi-dark-color)
  */
 .menu-hover {
   border-radius: var(--radius-md);
@@ -107,20 +107,20 @@ html {
 
 /**
  * Tailwind classes:
- * border-1
+ * border
  * border-(--light-color)
  * bg-(--light-color)
- * dark:bg-[var(--dark-color)]
+ * dark:bg-(--dark-color)
  * rounded-md
  * shadow-md
  * transition-colors
- * ease-[cubic-bezier(0,0,0.2,1)]
+ * ease-out
  * duration-200
- * hover:bg-[var(--semi-light-color)]
- * hover:border-[var(--semi-light-color)]
- * dark:hover:text-[var(--dark-color)]
- * active:bg-[var(--strong-color)]
- * active:border-[var(--strong-color)]
+ * hover:bg-(--semi-light-color)
+ * hover:border-(--semi-light-color)
+ * dark:hover:text-(--dark-color)
+ * active:bg-(--strong-color)
+ * active:border-(--strong-color)
  */
 .button-style {
   border-style: var(--tw-border-style);
@@ -166,11 +166,11 @@ html {
  * py-1
  * -ml-2
  * transition-colors
- * ease-[cubic-bezier(0,0,0.2,1)]
+ * ease-out
  * duration-200
- * hover:bg-[var(--light-color)]
- * hover:text-[var(--dark-color)]
- * dark:hover:text-[var(--dark-color)]
+ * hover:bg-(--light-color)
+ * hover:text-(--dark-color)
+ * dark:hover:text-(--dark-color)
  * hover:shadow-sm
  */
 .block-hover {

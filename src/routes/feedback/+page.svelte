@@ -83,8 +83,8 @@
                            rounded-sm
                            shadow-sm
                            p-2
-                           w-[280px]
-                           dark:border-1
+                           w-70
+                           dark:border
                            dark:border-color-(--very-light-color)"
                 >
                   Self registered feedback is only visible to you.
@@ -119,7 +119,7 @@
   <!-- Form for writing feedback -->
   <FormDialog {form} formId={feedbackFormId} formAction="?/skaterfeedback" openFn={() => form = null}>
     {#snippet trigger()}
-      <div class="flex gap-2 block-hover items-center w-[190px]">
+      <div class="flex gap-2 block-hover items-center w-48">
         {#if form?.formId == feedbackFormId && form?.success}
           <AnimatedCheck color="green" />
         {:else}
@@ -196,7 +196,7 @@
   {#if data.a_team_users.length || data.b_team_users.length}
     <Dialog bind:dialogState={viewSkaterDialogState} openFn={() => form = null}>
       {#snippet trigger()}
-        <div class="flex gap-2 block-hover items-center w-[190px]">
+        <div class="flex gap-2 block-hover items-center w-48">
           <UserSearch />
           <div>View skater</div>
         </div>
@@ -224,8 +224,8 @@
           {/if}
         </select>
         <div class="flex gap-2 mt-4">
-          <a class="flex justify-center items-center button-style text-sm w-[80px] h-[32px] p-2" href="/feedback{userParam ? `?user=${userParam}` : ''}">Go</a>
-          <button type="button" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" onclick={() => viewSkaterDialogState = false}>Cancel</button>
+          <a class="flex justify-center items-center button-style text-sm w-20 h-8 p-2" href="/feedback{userParam ? `?user=${userParam}` : ''}">Go</a>
+          <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={() => viewSkaterDialogState = false}>Cancel</button>
         </div>
       {/snippet}
     </Dialog>
@@ -234,7 +234,7 @@
   <!-- Form for updating feedback allowance -->
   <Dialog bind:dialogState={settingsDialogState} openFn={openSettingsDialog}>
     {#snippet trigger()}
-      <div class="flex gap-2 block-hover items-center w-[190px]">
+      <div class="flex gap-2 block-hover items-center w-48">
         {#if form?.formId == settingsFormId && form?.success}
           <AnimatedCheck color="green" />
         {:else}
@@ -274,7 +274,7 @@
             <label class="inline-block cursor-pointer" for="allowA">
               <input id="allowA" name="allowA" class="toggle-input" type="checkbox" bind:checked={allowFeedbackATeam} />
               <div class="toggle-slider"></div>
-              <div class="w-[40px]"></div>
+              <div class="w-10"></div>
             </label>
             <div class="text-sm">
               A team feedback (currently: <strong>
@@ -291,7 +291,7 @@
             <label class="inline-block cursor-pointer" for="allowB">
               <input id="allowB" name="allowB" class="toggle-input" type="checkbox" bind:checked={allowFeedbackBTeam} />
               <div class="toggle-slider"></div>
-              <div class="w-[40px]"></div>
+              <div class="w-10"></div>
             </label>
             <div class="text-sm">
               B team feedback (currently: <strong>
@@ -306,14 +306,14 @@
           </div>
         </div>
         <div class="flex gap-2 mt-5">
-          <button type="submit" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" disabled={submitting || !changedAllowance}>
+          <button type="submit" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" disabled={submitting || !changedAllowance}>
             {#if submitting}
               <AnimatedDots />
             {:else}
               Save
             {/if}
           </button>
-          <button type="button" class="flex justify-center items-center w-[80px] h-[32px] text-sm p-2 button-style" onclick={closeSettingsDialog}>
+          <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={closeSettingsDialog}>
             Cancel
           </button>
         </div>

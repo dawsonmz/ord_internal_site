@@ -35,7 +35,7 @@
     </div>
     <div class="text-md italic">By {post.author}</div>
     {#if !post.visible}
-      <div class="italic text-[var(--error-color)]">(hidden)</div>
+      <div class="italic text-(--error-color)">(hidden)</div>
     {/if}
     <div class="rich-text mt-4">
       <PortableText value={post.post} {components} />
