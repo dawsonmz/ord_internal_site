@@ -8,6 +8,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Tabs.Indicator is positioned from the triggers' offsetLeft, so the list must be their
+ * offsetParent or the indicator drifts on window resize.
+ */
+[data-scope='tabs'][data-part='list'] {
+  position: relative;
+}
+
 :root {
   --very-light-color: #FFF6E0;
   --light-color: #FFEEC7;
