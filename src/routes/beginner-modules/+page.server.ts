@@ -1,7 +1,5 @@
-import type { Actions } from './$types';
 import { checkAuthenticated } from '$lib/server/roles';
 import { loadModules, loadModuleTags } from '$lib/server/modules';
-import { submitSiteFeedback } from '$lib/server/site_feedback';
 
 export async function load({ locals, url }) {
   checkAuthenticated(locals);
@@ -23,5 +21,3 @@ export async function load({ locals, url }) {
     narrow: true,
   };
 }
-
-export const actions = { sitefeedback: submitSiteFeedback } satisfies Actions;

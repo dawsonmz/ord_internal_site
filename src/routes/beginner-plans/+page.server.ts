@@ -1,12 +1,11 @@
 import { checkAuthenticated } from '$lib/server/roles';
 import { loadSeasonsWithTrainingPlans, loadTrainingPlanSummaries } from '$lib/server/training_plans';
 
-export async function load({ locals, url }) {
+export async function load({ locals }) {
   checkAuthenticated(locals);
-  const showHidden = url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true';
 
-  const seasons = await loadSeasonsWithTrainingPlans(showHidden);
-  const season = seasons.length ? await loadTrainingPlanSummaries(seasons[0].slug, showHidden) : null;
+  const seasons = await loadSeasonsWithTrainingPlans();
+  const season = seasons.length ? await loadTrainingPlanSummaries(seasons[0].slug) : null;
 
   return { seasons, season };
 }

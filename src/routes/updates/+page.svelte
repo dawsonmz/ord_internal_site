@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { page } from '$app/state';
   import { Dot, Link } from '@lucide/svelte/icons';
   import { PortableText } from '@portabletext/svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
@@ -7,8 +6,6 @@
   import { formatDateTextWithWeekdayAndYear } from '$lib/util/datetime';
 
   let { data } = $props();
-  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
-  const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
 
   const components = { types: { image: PortablePostImage } };
 </script>
@@ -34,14 +31,11 @@
         {formatDateTextWithWeekdayAndYear(post.date)}
       </div>
       <Dot />
-      <a class="strong-hover" href="/updates{hiddenQuery}#{post.slug}">
+      <a class="strong-hover" href="/updates#{post.slug}">
         <Link size={20}/>
       </a>
     </div>
     <div class="text-md italic">By {post.author}</div>
-    {#if !post.visible}
-      <div class="italic text-(--error-color)">(hidden)</div>
-    {/if}
     <div class="rich-text mt-4">
       <PortableText value={post.post} {components} />
     </div>

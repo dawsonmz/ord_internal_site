@@ -1,13 +1,13 @@
 <script lang="ts">
   import { afterNavigate, goto } from '$app/navigation';
   import { page } from '$app/state';
-  import { ChevronDown, ChevronUp, Minus, Plus, X } from '@lucide/svelte/icons';
+  import { ChevronDown, ChevronsDownUp, ChevronsUpDown, ChevronUp, X } from '@lucide/svelte/icons';
   import { Accordion } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import Module from '$lib/components/module.svelte';
   import ModuleHeader from '$lib/components/module_header.svelte';
 
-  let { data, form } = $props();
+  let { data } = $props();
 
   let tagParam = $derived(
       (page.url.searchParams.get('main_tag') || page.url.searchParams.get('tag'))?.trim().toLowerCase() ?? ''
@@ -86,11 +86,11 @@
 </h2>
 <div class="flex gap-2 mb-2">
   <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={openAllModules}>
-    <Plus size={20} />
+    <ChevronsUpDown size={20} />
     <div class="mr-2">Expand All</div>
   </button>
   <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={closeAllModules}>
-    <Minus size={20} />
+    <ChevronsDownUp size={20} />
     <div class="mr-2">Collapse All</div>
   </button>
 </div>
@@ -124,7 +124,7 @@
       </Accordion.ItemTrigger>
       
       <Accordion.ItemContent class="mx-1 mt-4">
-        <Module module={module} {tabStates} {index} {form} />
+        <Module module={module} {tabStates} {index} />
       </Accordion.ItemContent>
     </Accordion.Item>
   {/each}

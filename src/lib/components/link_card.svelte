@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ArrowRight, Pin } from '@lucide/svelte/icons';
 
-  let { title, subtitle='', description='', url, hiddenTag=false, current=false, width=null } = $props();
+  let { title, subtitle='', description='', url, current=false, width=null } = $props();
 </script>
 
 <svelte:element this={current ? 'div' : 'a'}
@@ -25,9 +25,6 @@
       <ArrowRight class="inline size-5" />
     {/if}
     <div class="text-xl font-semibold">{title}</div>
-    {#if hiddenTag}
-      <div class="italic text-(--error-color)">(hidden)</div>
-    {/if}
   </div>
   {#if subtitle}
     <div class="text-sm subheading mt-2">{subtitle}</div>

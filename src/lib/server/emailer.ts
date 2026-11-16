@@ -14,13 +14,6 @@ export async function sendAccessRequest(userId: string, name: string | null, con
   );
 }
 
-export async function sendSiteFeedbackNotification(context: string, text: string, contact: string | undefined) {
-  await sendNotification(
-      `Feedback submitted on '${context}'`,
-      `<p>Contact: ${contact?.length ? sanitizeHtml(contact, escapeAllTags) : '(none)'}</p><p>${sanitizeHtml(text, escapeAllTags)}</p>`
-  );
-}
-
 export async function sendNumberRequestNotification(name: string, number: string, contact: string) {
   const sanitizedName = sanitizeHtml(name, escapeAllTags);
   await sendNotification(

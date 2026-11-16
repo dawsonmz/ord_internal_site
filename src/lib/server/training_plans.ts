@@ -19,7 +19,6 @@ interface TrainingPlanSummary {
   slug: string,
   date_time: string,
   summary: string,
-  visible: boolean,
 
   // Computed fields:
   date_text: string,
@@ -30,7 +29,6 @@ interface TrainingPlan {
   season: string,
   date_time: string,
   summary: string,
-  visible: boolean,
   omit_timestamps: boolean,
   modules: Module[],
 
@@ -39,13 +37,11 @@ interface TrainingPlan {
 }
 
 /**
- * @param showHidden If true, considers all training plans, including those not marked visible
  * @returns Names and slugs of all seasons that have training plans, in season order
  */
-export async function loadSeasonsWithTrainingPlans(showHidden: boolean): Promise<TrainingPlanSeason[]> {
-  const visibleFilter = showHidden ? '' : '&& visible';
+export async function loadSeasonsWithTrainingPlans(): Promise<TrainingPlanSeason[]> {
   return await getSanityClient().fetch(
-      `*[_type == "season" && count(*[_type == "training_plan" && season._ref == ^._id ${visibleFilter}]) > 0] | order(orderRank asc) {
+      `*[_type == "season" && count(*[_type == "training_plan" && season._ref == ^._id]) > 0] | order(orderRank asc) {
         name,
         "slug": slug.current,
       }`
@@ -54,21 +50,18 @@ export async function loadSeasonsWithTrainingPlans(showHidden: boolean): Promise
 
 /**
  * @param seasonSlug Slug for the season being loaded, e.g. 'spring2025'
- * @param showHidden If true, shows all training plans, including those not marked visible
  * @returns The season's name, slug, and training plan summaries
  */
-export async function loadTrainingPlanSummaries(seasonSlug: string, showHidden: boolean): Promise<SeasonWithTrainingSummaries> {
-  const visibleFilter = showHidden ? '' : '&& visible';
+export async function loadTrainingPlanSummaries(seasonSlug: string): Promise<SeasonWithTrainingSummaries> {
   const seasonData: SeasonWithTrainingSummaries[] = await getSanityClient().fetch(
     `*[_type == "season" && slug.current == $season] {
       name,
       "slug": slug.current,
-      "training_plans": *[_type == "training_plan" && season._ref == ^._id ${visibleFilter}] | order(date_time desc, _createdAt desc) {
+      "training_plans": *[_type == "training_plan" && season._ref == ^._id] | order(date_time desc, _createdAt desc) {
         training_label,
         "slug": slug.current,
         date_time,
         summary,
-        visible,
       },
     }`,
     { season: seasonSlug }
@@ -86,18 +79,15 @@ export async function loadTrainingPlanSummaries(seasonSlug: string, showHidden: 
 /**
  * @param seasonSlug Slug for the season being loaded, e.g. 'spring2025'
  * @param trainingSlug Slug for the training plan for the specific training being loaded, unique within the season
- * @param showHidden If true, shows all training plans, including those not marked visible
  * @returns The training in the specified season with the specified training label
  */
-export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string, showHidden: boolean): Promise<TrainingPlan> {
-  const visibleFilter = showHidden ? '' : '&& visible';
+export async function loadTrainingPlan(seasonSlug: string, trainingSlug: string): Promise<TrainingPlan> {
   const trainingPlanData: TrainingPlan[] = await getSanityClient().fetch(
-      `*[_type == "training_plan" && season->slug.current == $season && slug.current == $training_label ${visibleFilter}] {
+      `*[_type == "training_plan" && season->slug.current == $season && slug.current == $training_label] {
         training_label,
         "season": season->name,
         date_time,
         summary,
-        visible,
         omit_timestamps,
         modules[]-> {
           type,

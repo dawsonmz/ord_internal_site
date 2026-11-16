@@ -2,11 +2,10 @@
   import { Dot } from '@lucide/svelte/icons';
   import { PortableText } from '@portabletext/svelte';
   import { Tabs } from '@skeletonlabs/skeleton-svelte';
-  import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import PortableModuleImage from '$lib/components/portable_text/portable_module_image.svelte';
   import TabControl from '$lib/components/tab_control.svelte';
 
-  let { module, tabStates, index, form } = $props();
+  let { module, tabStates, index } = $props();
 
   let isShort = $derived(tabStates[index] == 'Short');
   let isDetailed = $derived(tabStates[index] == 'Detailed');
@@ -20,9 +19,7 @@
     <div>{module.start_time}</div>
     <Dot />
   {/if}
-  <div>{module.minutes} min</div>
-  <Dot />
-  <FeedbackDialog context="Module: {module.title}" {form} formId="module-{index}" />
+  <div>{module.minutes} minutes</div>
 </div>
 <Tabs
     value={tabStates[index]}

@@ -2,13 +2,10 @@
   import { page } from '$app/state';
   import { Minus, Plus } from '@lucide/svelte/icons';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
-  import FeedbackDialog from '$lib/components/feedback_dialog.svelte';
   import Module from '$lib/components/module.svelte';
   import ModuleHeader from '$lib/components/module_header.svelte';
 
-  let { data, form } = $props();
-  const showHidden = $derived(page.url.searchParams.get('show-hidden')?.trim().toLowerCase() == 'true');
-  const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
+  let { data } = $props();
 
   const modules = $derived(data.training_plan?.modules ?? []);
   let tabStates = $derived(new Array<string>(modules.length).fill('Short'));
@@ -37,36 +34,30 @@
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
-  <CrumbLink href="/beginner-plans{hiddenQuery}">Beginner Plans</CrumbLink>
+  <CrumbLink href="/beginner-plans">Beginner Plans</CrumbLink>
   <CrumbSeparator />
-  <CrumbLink href="/beginner-plans/{page.params.season}{hiddenQuery}">{data.training_plan.season}</CrumbLink>
+  <CrumbLink href="/beginner-plans/{page.params.season}">{data.training_plan.season}</CrumbLink>
   <CrumbSeparator />
   <CrumbPage>{data.training_plan.training_label}</CrumbPage>
 </Crumb>
 
-<div class="flex gap-2 text-2xl">
-  <h1 class="font-semibold">Beginners Training {data.training_plan.training_label}</h1>
-  {#if !data.training_plan.visible}
-    <div class="italic text-(--error-color)">(hidden)</div>
-  {/if}
-</div>
+<h1 class="text-2xl font-semibold">Beginners Training {data.training_plan.training_label}</h1>
 <div class="subheading">{data.training_plan.date_text}</div>
 <div>{data.training_plan.summary}</div>
-<FeedbackDialog label="Give feedback on the training plan" labelClasses="text-sm italic" {form} formId="training-plan" />
 
 <div class="flex gap-2">
-  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={showAllDetailed}>
-    <Plus size={20} />
-    <div class="mr-2">All Detailed</div>
-  </button>
   <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={showAllShort}>
     <Minus size={20} />
     <div class="mr-2">All Short</div>
+  </button>
+  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={showAllDetailed}>
+    <Plus size={20} />
+    <div class="mr-2">All Detailed</div>
   </button>
 </div>
 {#each modules as module, index}
   <div class="top-faded-border">
     <ModuleHeader baseClasses="mb-1" {module} />
-    <Module {module} {tabStates} {index} {form} />
+    <Module {module} {tabStates} {index} />
   </div>
 {/each}

@@ -2,7 +2,7 @@
   import LinkCard from '$lib/components/link_card.svelte';
 
   // Seasons are ordered newest first; the newest season's page is the index page itself.
-  let { seasons, currentSlug, baseUrl, urlSuffix='' } = $props();
+  let { seasons, currentSlug, baseUrl } = $props();
 </script>
 
 {#if seasons.length}
@@ -11,7 +11,7 @@
     {#each seasons as season}
       <LinkCard
           title={season.name}
-          url={season.slug == seasons[0].slug ? `${baseUrl}${urlSuffix}` : `${baseUrl}/${season.slug}${urlSuffix}`}
+          url={season.slug == seasons[0].slug ? baseUrl : `${baseUrl}/${season.slug}`}
           current={season.slug == currentSlug}
           width={180}
       />
