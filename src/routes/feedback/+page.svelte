@@ -233,14 +233,14 @@
             <div class="toggle-slider"></div>
             <div class="w-10 shrink-0"></div>
             <div class="text-sm">
-              A team feedback (currently: <strong>
+              A team feedback: <strong>
               {#if submitting}
                 <em>saving...</em>
               {:else if allowFeedbackATeam}
                 ALLOW
               {:else}
                 DO NOT ALLOW
-              {/if}</strong>)
+              {/if}</strong>
             </div>
           </label>
           <label class="flex gap-1 py-1 cursor-pointer" for="allowB">
@@ -248,14 +248,14 @@
             <div class="toggle-slider"></div>
             <div class="w-10 shrink-0"></div>
             <div class="text-sm">
-              B team feedback (currently: <strong>
+              B team feedback: <strong>
               {#if submitting}
                 <em>saving...</em>
               {:else if allowFeedbackBTeam}
                 ALLOW
               {:else}
                 DO NOT ALLOW
-              {/if}</strong>)
+              {/if}</strong>
             </div>
           </label>
         </div>

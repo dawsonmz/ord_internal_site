@@ -65,8 +65,9 @@
                 class="progress-option"
                 onclick={() => selected = 'Not started'}
                 data-state={selected == 'Not started' ? 'selected' : undefined}
+                aria-pressed={selected == 'Not started'}
             >
-              <span class="dialog-dot" style="background: var(--not-started-dot-color);"></span>
+              <span class="dialog-dot not-started"></span>
               Not started
             </button>
             <button
@@ -74,8 +75,9 @@
                 class="progress-option"
                 onclick={() => selected = 'In progress'}
                 data-state={selected == 'In progress' ? 'selected' : undefined}
+                aria-pressed={selected == 'In progress'}
             >
-              <span class="dialog-dot" style="background: var(--in-progress-dot-color);"></span>
+              <span class="dialog-dot in-progress"></span>
               In progress
             </button>
             <button
@@ -83,8 +85,9 @@
                 class="progress-option"
                 onclick={() => selected = 'Completed'}
                 data-state={selected == 'Completed' ? 'selected' : undefined}
+                aria-pressed={selected == 'Completed'}
             >
-              <span class="dialog-dot" style="background: var(--completed-dot-color);"></span>
+              <span class="dialog-dot completed"></span>
               Complete
             </button>
           </div>

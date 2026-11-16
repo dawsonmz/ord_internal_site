@@ -31,15 +31,18 @@ html {
   --faded-light-color: color-mix(in oklab, var(--light-color) 20%, transparent);
   --faded-backdrop-color: color-mix(in oklab, var(--dark-color) 50%, transparent);
 
-  --not-started-dot-color: #D4D4D4;
+  --not-started-border-color: #8A8A8A;
   --not-started-text-color: #555555;
   --in-progress-dot-color: #F2C14E;
   --in-progress-text-color: #5A3E00;
-  --completed-dot-color: #B0E8B0;
-  --completed-text-color: #1F5A1F;
+  --completed-dot-color: #1F5A1F;
+  --completed-text-color: #F1FAF1;
 
   @media (prefers-color-scheme: dark) {
     --strong-color-fg: var(--strong-color-fg-on-dark);
+    --not-started-text-color: #BDBDBD;
+    --completed-dot-color: #B0E8B0;
+    --completed-text-color: #1F5A1F;
   }
 }
 
@@ -283,7 +286,14 @@ html {
 }
 
 .toggle-input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  &:focus-visible + .toggle-slider {
+    outline: 2px solid var(--strong-color);
+    outline-offset: 2px;
+  }
 
   &:checked + .toggle-slider {
     background-color: var(--strong-color);
@@ -490,14 +500,14 @@ ol.text-list li, .rich-text ol li {
   --tw-duration: 150ms;
   transition-duration: 150ms;
 
-  &:hover {
+  &:hover, &:focus-visible {
     outline: 2px solid;
     outline-color: var(--strong-color);
   }
 }
 
 .progress-dot.not-started {
-  background: var(--not-started-dot-color);
+  border: 1.5px dashed var(--not-started-border-color);
   color: var(--not-started-text-color);
 }
 
@@ -516,6 +526,18 @@ ol.text-list li, .rich-text ol li {
   height: 12px;
   border-radius: 50%;
   display: inline-block;
+}
+
+.dialog-dot.not-started {
+  border: 1.5px dashed var(--not-started-border-color);
+}
+
+.dialog-dot.in-progress {
+  background: var(--in-progress-dot-color);
+}
+
+.dialog-dot.completed {
+  background: var(--completed-dot-color);
 }
 
 .progress-option {
@@ -538,11 +560,14 @@ ol.text-list li, .rich-text ol li {
 }
 
 .progress-option[data-state="selected"] {
-  border-color: var(--semi-dark-color);
+  border-color: var(--dark-color);
+  box-shadow: inset 0 0 0 1px var(--dark-color);
   background: #F5F5F5;
+  font-weight: 600;
 
   @media (prefers-color-scheme: dark) {
     border-color: var(--very-light-color);
+    box-shadow: inset 0 0 0 1px var(--very-light-color);
     background: var(--dark-color);
   }
 }
@@ -551,12 +576,16 @@ ol.text-list li, .rich-text ol li {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 3px 8px;
+  padding: 2px 8.5px;
+  border: 1.5px solid transparent;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
-  background: var(--not-started-dot-color);
+}
+
+.progress-badge.not-started {
+  border: 1.5px dashed var(--not-started-border-color);
   color: var(--not-started-text-color);
 }
 

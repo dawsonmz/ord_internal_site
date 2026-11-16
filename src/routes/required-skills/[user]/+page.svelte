@@ -48,11 +48,11 @@
              text-sm
              font-semibold
              bg-[#E6F6E3]
-             border-(--completed-dot-color)
-             text-(--completed-text-color)
+             border-[#B0E8B0]
+             text-[#1F5A1F]
              dark:bg-[#1B2E1D]
              dark:border-[#3D6B41]
-             dark:text-(--completed-dot-color)"
+             dark:text-[#B0E8B0]"
   >
     <GraduationCap size={20} class="shrink-0 text-[#2F7D32] dark:text-[#8FD18F]" />
     <span>You've graduated from the beginners program!</span>
@@ -80,7 +80,7 @@
                   </div>
                   {#if lastUpdated}
                     <div class="text-sm muted-text">
-                      Last updated {formatDateNumeric(lastUpdated)}
+                      Updated {formatDateNumeric(lastUpdated)}
                     </div>
                   {/if}
                 </div>

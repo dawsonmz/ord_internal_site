@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { ArrowRight } from '@lucide/svelte/icons';
+  import { ArrowRight, Pin } from '@lucide/svelte/icons';
 
   let { title, subtitle='', description='', url, hiddenTag=false, current=false, width } = $props();
 </script>
@@ -8,20 +8,22 @@
     href={current ? undefined : url}
     aria-current={current ? 'page' : undefined}
     class="{current
-             ? 'bg-(--light-color) dark:text-(--dark-color) *:opacity-60'
-             : 'transition-colors ease-out duration-200 hover:bg-(--light-color) dark:hover:text-(--dark-color)'}
+             ? 'bg-(--light-color) dark:text-(--dark-color) border-l-4 border-l-(--strong-color) pl-2.25 sm:pl-3.25'
+             : 'shadow-md sm:shadow-lg transition-colors ease-out duration-200 hover:bg-(--light-color) dark:hover:text-(--dark-color)'}
            border
            border-(--light-color)
            rounded-sm
            sm:rounded-md
-           shadow-md
-           sm:shadow-lg
            p-3
            sm:p-4"
     style="width: {width}px"
 >
   <div class="flex items-center gap-2">
-    <ArrowRight class="inline size-5" />
+    {#if current}
+      <Pin class="inline size-5" />
+    {:else}
+      <ArrowRight class="inline size-5" />
+    {/if}
     <div class="text-xl font-semibold">{title}</div>
     {#if hiddenTag}
       <div class="italic text-(--error-color)">(hidden)</div>
