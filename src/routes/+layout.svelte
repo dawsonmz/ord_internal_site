@@ -72,7 +72,7 @@
                          sm:gap-6
                          w-screen
                          sm:w-100
-                         h-screen
+                         h-dvh
                          px-4
                          py-2
                          sm:py-6
@@ -98,8 +98,8 @@
                               ml-4
                               sm:ml-2
                               overflow-y-auto
-                              sm:pb-4
-                              sm:mask-[linear-gradient(to_bottom,black_calc(100%-1rem),transparent)]">
+                              pb-4
+                              mask-[linear-gradient(to_bottom,black_calc(100%-1rem),transparent)]">
                     <a class="flex items-center gap-2 w-fit strong-hover {isActive('/') ? 'text-(--strong-color-fg-on-dark) font-semibold' : ''}" href="/">
                       <HouseIcon size=20 />
                       <div>Home</div>

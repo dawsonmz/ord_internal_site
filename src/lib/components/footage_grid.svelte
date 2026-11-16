@@ -31,7 +31,7 @@
               <div class="subheading">{entry.event ?? entry.type}</div>
               <div class="muted-text">{entry.date_text}</div>
               {#if entry.id}
-                <a class="rounded-md dark:border w-max"
+                <a class="rounded-md dark:border w-max mt-auto"
                   href="https://youtube.com/watch?v={entry.id}{entry.start_seconds ? `&t=${entry.start_seconds}` : ''}"
                   target="_blank"
                 >
