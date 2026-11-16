@@ -5,7 +5,7 @@
   import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from 'svelte-clerk';
   import { afterNavigate } from '$app/navigation';
   import { page } from '$app/state';
-  import logo from '$lib/assets/ord-logo.svg';
+  import logo from '$lib/assets/ord-logo.png';
   import NavLink from '$lib/components/nav_link.svelte';
   import { navGroups } from '$lib/nav';
 
@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="flex shrink-0 ml-6 mb-8 max-sm:hidden">
-                  <img class="w-32 h-32" src={logo} alt="Oslo Roller Derby logo" />
+                  <img class="w-32 h-32 object-contain" src={logo} alt="Oslo Roller Derby logo" />
                 </div>
               </Dialog.Content>
             </Dialog.Positioner>
@@ -132,9 +132,7 @@
         </Dialog>
       </AppBar.Lead>
       <AppBar.Headline>
-        <a href="/" class="invisible sm:visible">
-          <img class="w-16 h-16 sm:w-24 sm:h-24" src={logo} alt="Oslo Roller Derby logo" />
-        </a>
+        <a href="/" class="hidden sm:block text-lg font-semibold menu-hover">Oslo Roller Derby</a>
       </AppBar.Headline>
       <AppBar.Trail class="flex items-center pl-14">
         <SignedIn>

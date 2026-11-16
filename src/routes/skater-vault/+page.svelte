@@ -16,13 +16,17 @@
   const formId = 'number-request';
 </script>
 
+<svelte:head>
+  <title>Skater Vault · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Skater Vault</CrumbPage>
 </Crumb>
 
-<div class="text-xl font-semibold">Skater Vault</div>
+<h1 class="text-2xl font-semibold">Skater Vault</h1>
 <div class="text-sm">
   Search for skater numbers and derby names registered with ORD, or reserve your own.
 </div>

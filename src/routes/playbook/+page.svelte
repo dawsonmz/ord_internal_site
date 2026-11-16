@@ -5,12 +5,17 @@
   let { data } = $props();
 </script>
 
+<svelte:head>
+  <title>Playbook · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Playbook</CrumbPage>
 </Crumb>
 
+<h1 class="text-2xl font-semibold">Playbook</h1>
 <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm md:hidden">
   {#each data.scenarios as scenario}
     <a class="link underline" href="#{scenario.slug}">{scenario.name} plays</a>
@@ -20,7 +25,7 @@
 <div class="flex flex-col gap-8">
   {#each data.scenarios as scenario}
     <div id={scenario.slug} class="flex flex-col gap-3 scroll-mt-4">
-      <div class="text-xl font-semibold bottom-faded-border">{scenario.name}</div>
+      <h2 class="text-xl font-semibold bottom-faded-border">{scenario.name}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {#each scenario.plays as play}
           <a

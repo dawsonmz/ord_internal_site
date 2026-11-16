@@ -23,6 +23,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Required Skills: {data.user.name} · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -31,9 +35,9 @@
   <CrumbPage>{truncatedName}</CrumbPage>
 </Crumb>
 
-<div class="font-semibold text-2xl">
+<h1 class="font-semibold text-2xl">
   {data.user.name}
-</div>
+</h1>
 
 {#if data.user.roles.includes('graduated_beginner')}
   <div
@@ -64,7 +68,7 @@
     {@const skills = data.required_skills.get(stage)}
     {#if skills}
       <div class="flex flex-col gap-3">
-        <div class="font-semibold text-xl">{stage}</div>
+        <h2 class="font-semibold text-xl">{stage}</h2>
         {#each skills as skill (skill.slug)}
           {@const skillProgress = data.required_skill_progress[skill.slug]}
           {@const lastUpdated = skillProgress.feedback.at(-1)?.timestamp}

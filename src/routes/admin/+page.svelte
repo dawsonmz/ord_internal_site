@@ -42,6 +42,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Admin · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -49,7 +53,7 @@
 </Crumb>
 
 <div class="flex flex-col gap-4">
-  <div class="text-2xl font-semibold">User Roles</div>
+  <h1 class="text-2xl font-semibold">User Roles</h1>
 
   <form
       method="POST"

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ArrowRight, Pin } from '@lucide/svelte/icons';
 
-  let { title, subtitle='', description='', url, hiddenTag=false, current=false, width } = $props();
+  let { title, subtitle='', description='', url, hiddenTag=false, current=false, width=null } = $props();
 </script>
 
 <svelte:element this={current ? 'div' : 'a'}
@@ -16,7 +16,7 @@
            sm:rounded-md
            p-3
            sm:p-4"
-    style="width: {width}px"
+    style={width ? `width: ${width}px` : null}
 >
   <div class="flex items-center gap-2">
     {#if current}

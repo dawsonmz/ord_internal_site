@@ -4,7 +4,7 @@
 
 <div class="flex flex-col gap-3 text-lg">
   {#if heading}
-    <div class="text-md font-semibold">{heading}</div>
+    <h2 class="text-md font-semibold">{heading}</h2>
   {/if}
   {#each skaterNumbers as skaterNumber}
     <div class="flex items-center gap-3">

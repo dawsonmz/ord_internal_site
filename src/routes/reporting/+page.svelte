@@ -6,6 +6,10 @@
   let tabState = $state('Norsk');
 </script>
 
+<svelte:head>
+  <title>Reporting Incidents · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -20,9 +24,9 @@
   </Tabs.List>
   <Tabs.Content value='Norsk'>
     <div class="flex flex-col gap-3">
-      <div class="font-semibold text-xl">
+      <h1 class="text-2xl font-semibold">
         Varsling i Oslo Roller Derby
-      </div>
+      </h1>
 
       <div class="text-lg subheading">
         Sist oppdatert: 20.3.2026
@@ -178,9 +182,9 @@
   </Tabs.Content>
   <Tabs.Content value='English'>
     <div class="flex flex-col gap-3">
-      <div class="font-semibold text-xl">
+      <h1 class="text-2xl font-semibold">
         Reporting Incidents in Oslo Roller Derby
-      </div>
+      </h1>
 
       <div class="text-lg subheading">
         Last updated: 20.3.2026

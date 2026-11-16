@@ -30,12 +30,17 @@
   afterNavigate(() => closeAllModules());
 </script>
 
+<svelte:head>
+  <title>Beginner Modules · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Beginner Modules</CrumbPage>
 </Crumb>
 
+<h1 class="text-2xl font-semibold">Beginner Modules</h1>
 <div>
   These are the individual modules used to assemble beginners training plans.
 </div>
@@ -70,7 +75,7 @@
   </button>
 </div>
 
-<div class="text-lg mt-4">
+<h2 class="text-lg mt-4">
   {#if data.filter_tag && data.main_tag_only}
     Modules primarily focused on: <span class="font-semibold">{data.filter_tag.name}</span>
   {:else if data.filter_tag}
@@ -78,7 +83,7 @@
   {:else}
     All Beginner Modules
   {/if}
-</div>
+</h2>
 <div class="flex gap-2 mb-2">
   <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={openAllModules}>
     <Plus size={20} />

@@ -13,17 +13,22 @@
   const components = { types: { image: PortablePostImage } };
 </script>
 
+<svelte:head>
+  <title>Updates · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Updates</CrumbPage>
 </Crumb>
 
+<h1 class="sr-only">Updates</h1>
 <div class="flex flex-col gap-1 bottom-faded-border">
   {#each data.posts as post}
-    <div id={post.slug} class="text-2xl sm:text-3xl font-semibold">
+    <h2 id={post.slug} class="text-2xl sm:text-3xl font-semibold">
       {post.title}
-    </div>
+    </h2>
     <div class="flex gap-1 items-center">
       <div class="text-lg sm:text-xl subheading">
         {formatDateTextWithWeekdayAndYear(post.date)}

@@ -55,6 +55,10 @@
   );
 </script>
 
+<svelte:head>
+  <title>Feedback Log · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -62,7 +66,7 @@
 </Crumb>
 
 <div class="flex flex-col gap-3 mb-2">
-  <div class="text-2xl font-semibold">Feedback Log</div>
+  <h1 class="text-2xl font-semibold">Feedback Log</h1>
   <div class="text-lg">{data.user_name}</div>
 </div>
 
@@ -280,7 +284,7 @@
   {@const feedbackEntries = data.feedback_entries.get(feedbackType)}
   {#if feedbackEntries}
     <div class="flex flex-col gap-2 mb-2">
-      <div class="flex gap-4 items-center text-xl font-semibold bottom-faded-border">
+      <h2 class="flex gap-4 items-center text-xl font-semibold bottom-faded-border">
         {feedbackType}
         {#if feedbackType == 'Self'}
           <Popover>
@@ -305,7 +309,7 @@
             </Portal>
           </Popover>
         {/if}
-      </div>
+      </h2>
       {#each feedbackEntries as feedback}
         <div class="text-display-box flex flex-col gap-2 my-1">
           <div class="flex items-center font-semibold">

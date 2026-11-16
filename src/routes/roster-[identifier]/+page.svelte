@@ -6,13 +6,17 @@
   const roster = $derived(data.roster);
 </script>
 
+<svelte:head>
+  <title>{roster.short_name} Roster · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>{roster.short_name}</CrumbPage>
 </Crumb>
 
-<div class="text-xl font-semibold">{roster.name}</div>
+<h1 class="text-2xl font-semibold">{roster.name}</h1>
 <div class="text-lg subheading">{roster.season}</div>
 
 <div class="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-y-8">

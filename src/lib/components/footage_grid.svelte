@@ -23,7 +23,7 @@
     {@const footageEntries = footage.get(footageType)}
     {#if footageEntries}
       <div class="flex flex-col gap-3">
-        <div class="text-xl font-semibold bottom-faded-border">{footageType}</div>
+        <h2 class="text-xl font-semibold bottom-faded-border">{footageType}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-x-12">
           {#each footageEntries as entry}
             <div class="flex flex-col gap-2">

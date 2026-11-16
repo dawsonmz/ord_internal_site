@@ -21,19 +21,25 @@
   };
 </script>
 
+<svelte:head>
+  <title>Required Skills · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>Required Skills</CrumbPage>
 </Crumb>
 
+<h1 class="text-2xl font-semibold">Required Skills Tracking</h1>
+
 {#each STAGES as stage}
   {@const skills = data.required_skills.get(stage)}
   {#if skills}
     <div class="flex flex-col gap-3">
-      <div class="font-bold text-lg">
+      <h2 class="font-bold text-lg">
         {stage}
-      </div>
+      </h2>
       <div class="columns-2 gap-4 max-w-2xl">
         {#each skills as skill, index}
           <div class="grid grid-cols-[20px_1fr] gap-2 items-start break-inside-avoid">
@@ -47,7 +53,7 @@
 {/each}
 
 <div class="flex flex-col gap-4">
-  <div class="font-bold text-lg">Skaters</div>
+  <h2 class="font-bold text-lg">Skaters</h2>
   {#each data.users as user (user.user_id)}
     <div class="flex flex-col gap-3 border border-(--light-color) bg-white dark:bg-(--dark-color) rounded-md shadow-md p-3">
       <div>

@@ -3,6 +3,6 @@
 </script>
 
 <div class="w-fit">
-  <div class="text-xl font-semibold mb-2">{header}</div>
+  <h2 class="text-xl font-semibold mb-2">{header}</h2>
   {@render children()}
 </div>

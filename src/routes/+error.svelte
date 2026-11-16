@@ -22,12 +22,17 @@
   }
 </script>
 
+<svelte:head>
+  <title>{header} · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
   <CrumbPage>{header}</CrumbPage>
 </Crumb>
 
+<h1 class="text-2xl font-semibold">{header}</h1>
 {#if page.status == 401}
   <div>Please sign in to access this page.</div>
   <SignInButton class="flex justify-center items-center gap-2 w-36 text-sm px-2 button-primary">

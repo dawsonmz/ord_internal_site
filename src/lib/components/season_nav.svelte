@@ -6,7 +6,7 @@
 </script>
 
 {#if seasons.length}
-  <div class="text-2xl font-semibold">All Seasons</div>
+  <h2 class="text-2xl font-semibold">All Seasons</h2>
   <div class="flex flex-wrap gap-4 sm:gap-6">
     {#each seasons as season}
       <LinkCard

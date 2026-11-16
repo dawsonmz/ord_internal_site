@@ -23,6 +23,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Playbook: {play.title} · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -34,7 +38,7 @@
 </Crumb>
 
 <div>
-  <div class="text-2xl font-semibold">{play.title}</div>
+  <h1 class="text-2xl font-semibold">{play.title}</h1>
   <div class="subheading">{play.scenario_name} · {play.configuration}</div>
 </div>
 
@@ -83,7 +87,7 @@
       {/if}
 
       {#if play.drills?.length}
-        <div class="text-xl font-semibold mt-2 xl:first:mt-0">Drills</div>
+        <h2 class="text-xl font-semibold mt-2 xl:first:mt-0">Drills</h2>
         {#each play.drills as drill, index}
           <div class={index > 0 ? 'top-faded-border' : ''}>
             <div class="font-semibold">{drill.title}</div>

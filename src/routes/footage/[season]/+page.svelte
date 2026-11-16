@@ -6,6 +6,10 @@
   let { data } = $props();
 </script>
 
+<svelte:head>
+  <title>Footage: {data.season.name} · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -14,7 +18,7 @@
   <CrumbPage>{data.season.name}</CrumbPage>
 </Crumb>
 
-<div class="text-2xl font-semibold">{data.season.name}</div>
+<h1 class="text-2xl font-semibold">{data.season.name}</h1>
 <div class="mb-6">
   <FootageGrid footage={data.footage} />
 </div>

@@ -9,6 +9,10 @@
   const hiddenQuery = $derived(showHidden ? '?show-hidden=true' : '');
 </script>
 
+<svelte:head>
+  <title>Beginner Plans: {data.season.name} · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -17,7 +21,7 @@
   <CrumbPage>{data.season.name}</CrumbPage>
 </Crumb>
 
-<div class="text-2xl font-semibold">{data.season.name}</div>
+<h1 class="text-2xl font-semibold">{data.season.name}</h1>
 <div class="mb-6">
   <TrainingPlanGrid season={data.season} urlSuffix={hiddenQuery} />
 </div>

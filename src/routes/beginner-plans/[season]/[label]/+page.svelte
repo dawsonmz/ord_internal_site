@@ -30,6 +30,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Beginners Training {data.training_plan.training_label} · Oslo Roller Derby</title>
+</svelte:head>
+
 <Crumb>
   <CrumbHome />
   <CrumbSeparator />
@@ -41,7 +45,7 @@
 </Crumb>
 
 <div class="flex gap-2 text-2xl">
-  <div class="font-semibold">Beginners Training {data.training_plan.training_label}</div>
+  <h1 class="font-semibold">Beginners Training {data.training_plan.training_label}</h1>
   {#if !data.training_plan.visible}
     <div class="italic text-(--error-color)">(hidden)</div>
   {/if}
