@@ -85,6 +85,8 @@ export async function load({ locals, url, platform }) {
 
     a_team_users: aTeamUsers,
     b_team_users: bTeamUsers,
+
+    narrow: true,
   };
 }
 

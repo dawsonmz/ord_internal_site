@@ -28,15 +28,13 @@
 </div>
 <FormDialog {form} {formId} formAction="?/requestnumber" openFn={() => form = null}>
   {#snippet trigger()}
-    <div class="flex items-center gap-2 block-hover w-fit">
+    <div class="flex justify-center items-center gap-2 px-3 py-1 text-sm button-secondary">
       {#if form?.formId == formId && form?.success}
-        <AnimatedCheck color="green" />
+        <AnimatedCheck color="green" size={20} />
       {:else}
-        <Send size=24 />
+        <Send size={20} />
       {/if}
-      <div class="text-md font-semibold">
-        Register your derby name and number
-      </div>
+      <div>Register your derby name and number</div>
     </div>
   {/snippet}
   {#snippet header()}

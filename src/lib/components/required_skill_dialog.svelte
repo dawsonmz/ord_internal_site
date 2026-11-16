@@ -56,7 +56,7 @@
         
         <!-- Progress options -->
         <div class="flex flex-col gap-2">
-          <div class="font-light text-sm">
+          <div class="muted-text text-sm">
             PROGRESS
           </div>
           <div class="flex gap-2 justify-between text-sm">
@@ -92,7 +92,7 @@
 
         <!-- Feedback input -->
         <div class="flex flex-col gap-2">
-          <div class="font-light text-sm">
+          <div class="muted-text text-sm">
             ADD FEEDBACK
           </div>
           <textarea
@@ -113,7 +113,7 @@
         {/if}
         <button
             type="submit"
-            class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style"
+            class="flex justify-center items-center w-20 text-sm px-2 button-primary"
             disabled={submitting || !updated}
         >
           {#if submitting}
@@ -124,7 +124,7 @@
         </button>
         <button
             type="button"
-            class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style"
+            class="flex justify-center items-center w-20 text-sm px-2 button-secondary"
             onclick={() => dialogState = false}
         >
           Cancel

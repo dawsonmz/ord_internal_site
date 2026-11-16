@@ -29,7 +29,7 @@
             <div class="flex flex-col gap-2">
               <div class="text-lg font-semibold">{entry.title}</div>
               <div class="subheading">{entry.event ?? entry.type}</div>
-              <div class="subheading-light">{entry.date_text}</div>
+              <div class="muted-text">{entry.date_text}</div>
               {#if entry.id}
                 <a class="rounded-md dark:border w-max"
                   href="https://youtube.com/watch?v={entry.id}{entry.start_seconds ? `&t=${entry.start_seconds}` : ''}"

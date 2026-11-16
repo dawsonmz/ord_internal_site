@@ -79,7 +79,7 @@
                     {skill.title}
                   </div>
                   {#if lastUpdated}
-                    <div class="text-xs font-light text-(--dark-color)/63 dark:text-(--very-light-color)/63">
+                    <div class="text-sm muted-text">
                       Last updated {formatDateNumeric(lastUpdated)}
                     </div>
                   {/if}
@@ -115,7 +115,7 @@
               <div>{skill.importance}</div>
 
               <div>
-                <div class="font-light text-sm">
+                <div class="muted-text text-sm">
                   KEY POINTS
                 </div>
                 <ul class="text-list mt-1">
@@ -126,7 +126,7 @@
               </div>
 
               <div>
-                <div class="font-light text-sm mb-1.5">
+                <div class="muted-text text-sm mb-1.5">
                   RELATED DRILLS
                 </div>
                 <a
@@ -147,13 +147,13 @@
               </div>
 
               <div class="flex flex-col gap-2">
-                <div class="font-light text-sm">
+                <div class="muted-text text-sm">
                   FEEDBACK
                 </div>
                 {#if skillProgress.feedback.length}
                   {#each skillProgress.feedback.toReversed() as entry}
                     <div class="flex flex-col gap-2 text-display-box">
-                      <div class="flex items-center text-xs font-semibold">
+                      <div class="flex items-center text-sm muted-text">
                         <div>{formatDateTextWithYear(entry.timestamp)}</div>
                         <Dot />
                         <div>{entry.author_name}</div>
@@ -174,14 +174,14 @@
                         </div>
                       {/if}
                       {#if entry.text}
-                        <div class="text-sm whitespace-pre-line">
+                        <div class="whitespace-pre-line">
                           {entry.text}
                         </div>
                       {/if}
                     </div>
                   {/each}
                 {:else}
-                  <div class="font-light text-sm italic">
+                  <div class="muted-text text-sm italic">
                     No feedback yet.
                   </div>
                 {/if}

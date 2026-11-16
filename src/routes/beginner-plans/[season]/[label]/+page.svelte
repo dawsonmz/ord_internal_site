@@ -51,11 +51,11 @@
 <FeedbackDialog label="Give feedback on the training plan" labelClasses="text-sm italic" {form} formId="training-plan" />
 
 <div class="flex gap-2">
-  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-style" onclick={showAllDetailed}>
+  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={showAllDetailed}>
     <Plus size={20} />
     <div class="mr-2">All Detailed</div>
   </button>
-  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-style" onclick={showAllShort}>
+  <button type="button" class="flex justify-center items-center gap-2 w-40 text-sm p-2 button-secondary" onclick={showAllShort}>
     <Minus size={20} />
     <div class="mr-2">All Short</div>
   </button>

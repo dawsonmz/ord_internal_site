@@ -63,10 +63,10 @@
         {@const skills = data.required_skills.get(stage)}
         {#if skills}
           <div class="flex flex-col gap-2">
-            <div class="font-light text-xs uppercase">
+            <div class="muted-text text-xs uppercase">
               {stage}
             </div>
-            <div class="flex flex-wrap gap-1.5">
+            <div class="flex flex-wrap gap-2">
               {#each skills as skill, index (skill.slug)}
                 {@const progress = data.required_skill_progress.get(user.user_id)?.[skill.slug] ?? 'Not started'}
                 <Tooltip openDelay={200} closeOnPointerDown={true}>

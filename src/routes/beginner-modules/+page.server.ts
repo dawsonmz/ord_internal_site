@@ -20,6 +20,7 @@ export async function load({ locals, url }) {
     filter_tag: effectiveTag ? moduleTags.find(tag => tag.slug == effectiveTag) ?? null : null,
     main_tag_only: !!mainTagParam,
     modules,
+    narrow: true,
   };
 }
 

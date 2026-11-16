@@ -28,7 +28,7 @@
 
   <div class="sm:col-span-2 md:col-span-3">
     <div class="text-xl font-semibold mb-2">Website Updates</div>
-    <div class="subheading mb-2">Latest update post: {data.latest_update_date}</div>
+    <div class="subheading mb-2">Latest: {data.latest_update_date}</div>
     <PageLink url="/updates">
       {#snippet text()}
         Read about changes to the website here!

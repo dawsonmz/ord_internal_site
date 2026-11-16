@@ -3,7 +3,7 @@
   import AnimatedDots from '$lib/components/animated_dots.svelte';
   import Dialog from '$lib/components/dialog.svelte';
 
-  let { form, formId='default', formAction, openFn=null, trigger, header, formContent } = $props();
+  let { form, formId='default', formAction, openFn=null, submitDisabled=false, trigger, header, formContent } = $props();
   let dialogState = $state(false);
   let submitting = $state(false);
 </script>
@@ -30,14 +30,14 @@
       <input type="hidden" name="formId" value={formId} />
       {@render formContent()}
       <div class="flex gap-2 mt-4">
-        <button type="submit" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" disabled={submitting}>
+        <button type="submit" class="flex justify-center items-center w-20 text-sm px-2 button-primary" disabled={submitting || submitDisabled}>
           {#if submitting}
             <AnimatedDots />
           {:else}
             Submit
           {/if}
         </button>
-        <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={() => dialogState = false}>
+        <button type="button" class="flex justify-center items-center w-20 text-sm px-2 button-secondary" onclick={() => dialogState = false}>
           Cancel
         </button>
       </div>

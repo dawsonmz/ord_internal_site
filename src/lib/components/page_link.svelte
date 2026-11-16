@@ -22,8 +22,8 @@
   </a>
   {#if description}
     <Popover>
-      <Popover.Trigger>
-        <Info class="strong-hover" size=16 />
+      <Popover.Trigger class="p-2 -m-2 strong-hover">
+        <Info size=16 />
       </Popover.Trigger>
       <Portal>
         <Popover.Positioner>

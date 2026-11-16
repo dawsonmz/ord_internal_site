@@ -69,7 +69,7 @@
     <div class="overflow-x-auto">
       <table class="border-collapse">
         <thead>
-          <tr class="text-xs uppercase font-light">
+          <tr class="text-xs uppercase muted-text">
             <th class="text-left p-2">Name</th>
             {#each ROLES as role}
               <th class="p-2 capitalize w-32 align-bottom">{roleLabel(role)}</th>
@@ -83,7 +83,7 @@
             <tr class="border-t border-(--light-color)">
               <td class="p-2 font-medium whitespace-nowrap">
                 {user.name}
-                {#if isSelf}<span class="text-xs font-light ml-1">(you)</span>{/if}
+                {#if isSelf}<span class="text-xs muted-text ml-1">(you)</span>{/if}
                 {#if failureMessage}
                   <div class="text-xs text-red-600">{failureMessage}</div>
                 {/if}
@@ -109,7 +109,7 @@
     <div class="flex gap-3 mt-4 items-center">
       <button
           type="submit"
-          class="flex justify-center items-center min-w-25 h-8 text-sm p-2 button-style"
+          class="flex justify-center items-center min-w-25 text-sm px-2 button-primary"
           disabled={submitting || dirty.length == 0}
       >
         {#if submitting}

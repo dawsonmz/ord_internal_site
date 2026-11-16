@@ -115,26 +115,18 @@ html {
 
 /**
  * Tailwind classes:
+ * min-h-10
  * border
- * border-(--light-color)
- * bg-(--light-color)
- * dark:bg-(--dark-color)
  * rounded-md
  * shadow-md
  * transition-colors
  * ease-out
  * duration-200
- * hover:bg-(--semi-light-color)
- * hover:border-(--semi-light-color)
- * dark:hover:text-(--dark-color)
- * active:bg-(--strong-color)
- * active:border-(--strong-color)
  */
-.button-style {
+.button-primary, .button-secondary {
+  min-height: calc(var(--spacing) * 10);
   border-style: var(--tw-border-style);
   border-width: 1px;
-  border-color: var(--light-color);
-  background-color: var(--light-color);
   border-radius: var(--radius-md);
   --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
   box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -145,25 +137,61 @@ html {
   transition-timing-function: cubic-bezier(0,0,0.2,1);
   --tw-duration: 200ms;
   transition-duration: 200ms;
+}
 
-  &:hover {
+.button-primary {
+  background-color: var(--dark-color);
+  border-color: var(--dark-color);
+  color: var(--very-light-color);
+
+  &:hover:not(:disabled) {
     @media (hover: hover) {
-      background-color: var(--semi-light-color);
-      border-color: var(--semi-light-color);
+      background-color: var(--semi-dark-color);
+      border-color: var(--semi-dark-color);
     }
   }
-  &:active {
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--very-light-color);
+    border-color: var(--very-light-color);
+    color: var(--dark-color);
+
+    &:hover:not(:disabled) {
+      @media (hover: hover) {
+        background-color: var(--light-color);
+        border-color: var(--light-color);
+      }
+    }
+  }
+  &:active:not(:disabled) {
     background-color: var(--strong-color);
     border-color: var(--strong-color);
+    color: var(--dark-color);
+  }
+}
+
+.button-secondary {
+  background-color: var(--light-color);
+  border-color: var(--faded-dark-color);
+
+  &:hover:not(:disabled) {
+    @media (hover: hover) {
+      background-color: var(--semi-light-color);
+    }
   }
   @media (prefers-color-scheme: dark) {
     background-color: var(--dark-color);
+    border-color: var(--light-color);
 
-    &:hover {
+    &:hover:not(:disabled) {
       @media (hover: hover) {
+        border-color: var(--semi-light-color);
         color: var(--dark-color);
       }
     }
+  }
+  &:active:not(:disabled) {
+    background-color: var(--strong-color);
+    border-color: var(--strong-color);
   }
 }
 
@@ -184,7 +212,7 @@ html {
 .block-hover {
   border-radius: var(--radius-sm);
   padding-inline: calc(var(--spacing) * 2);
-  padding-block: calc(var(--spacing) * 1);
+  padding-block: calc(var(--spacing) * 2);
   margin-left: calc(var(--spacing) * -2);
   transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
   --tw-ease: cubic-bezier(0,0,0.2,1);
@@ -234,14 +262,12 @@ html {
   }
 }
 
-.subheading {
-  font-weight: 600;
-  color: color-mix(in srgb, currentColor 63%, transparent);
+.muted-text, .subheading {
+  color: color-mix(in srgb, currentColor 66%, transparent);
 }
 
-.subheading-light {
-  font-weight: 300;
-  color: color-mix(in srgb, currentColor 63%, transparent);
+.subheading {
+  font-weight: 600;
 }
 
 .text-display-box {
@@ -442,8 +468,8 @@ ol.text-list li, .rich-text ol li {
 }
 
 .progress-dot {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   flex-shrink: 0;
   display: inline-flex;

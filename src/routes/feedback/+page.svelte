@@ -16,6 +16,7 @@
   let settingsDialogState = $state(false);
   let submitting = $state(false);
   let userParam = $state('');
+  let feedbackText = $state('');
 
   let isSelf = $derived(data.actor_id == data.user_id);
   let allowFeedbackATeam = $state(false);
@@ -49,6 +50,7 @@
       () => {
         closeViewSkaterDialog();
         closeSettingsDialog();
+        feedbackText = '';
       }
   );
 </script>
@@ -64,68 +66,23 @@
   <div class="text-lg">{data.user_name}</div>
 </div>
 
-{#each feedbackTypes as feedbackType}
-  {@const feedbackEntries = data.feedback_entries.get(feedbackType)}
-  {#if feedbackEntries}
-    <div class="flex flex-col gap-2 mb-2">
-      <div class="flex gap-4 items-center text-xl font-semibold bottom-faded-border">
-        {feedbackType}
-        {#if feedbackType == 'Self'}
-          <Popover>
-            <Popover.Trigger>
-              <Info class="hover:text-(--strong-color) active:text-(--strong-color)" size=16 />
-            </Popover.Trigger>
-            <Portal>
-              <Popover.Positioner>
-                <Popover.Content
-                    class="menu-colors
-                           text-sm
-                           rounded-sm
-                           shadow-sm
-                           p-2
-                           w-70
-                           dark:border
-                           dark:border-color-(--very-light-color)"
-                >
-                  Self registered feedback is only visible to you.
-                </Popover.Content>
-              </Popover.Positioner>
-            </Portal>
-          </Popover>
-        {/if}
-      </div>
-      {#each feedbackEntries as feedback}
-        <div class="text-display-box flex flex-col gap-2 my-1">
-          <div class="flex items-center font-semibold">
-            <div>{feedback.date}</div>
-            <Dot />
-            <div>{feedback.from_name}</div>
-          </div>
-          <div class="whitespace-pre-line">
-            {feedback.text}
-          </div>
-        </div>
-      {/each}
-    </div>
-  {/if}
-{/each}
-
-{#if !feedbackTypes.some(type => data.feedback_entries.has(type))}
-  <div class="mb-2">No feedback found.</div>
-{/if}
-
-<div class="flex flex-col gap-4">
-  <div class="text-2xl font-semibold">Actions</div>
+<div class="flex flex-wrap gap-2 mb-2">
   <!-- Form for writing feedback -->
-  <FormDialog {form} formId={feedbackFormId} formAction="?/skaterfeedback" openFn={() => form = null}>
+  <FormDialog
+      {form}
+      formId={feedbackFormId}
+      formAction="?/skaterfeedback"
+      openFn={() => form = null}
+      submitDisabled={feedbackText.trim() == ''}
+  >
     {#snippet trigger()}
-      <div class="flex gap-2 block-hover items-center w-48">
+      <div class="flex justify-center items-center gap-2 w-36 px-3 py-1 text-sm button-secondary">
         {#if form?.formId == feedbackFormId && form?.success}
-          <AnimatedCheck color="green" />
+          <AnimatedCheck color="green" size={20} />
         {:else}
-          <MessageSquareHeart />
+          <MessageSquareHeart size={20} />
         {/if}
-        <div>Write feedback</div>
+        <div>Add feedback</div>
       </div>
     {/snippet}
     {#snippet header()}
@@ -137,7 +94,7 @@
         {#if data.a_team_users.length || data.b_team_users.length}
           <div class="text-sm mt-2">
             To write feedback for another skater, click on <span class="font-semibold">View skater</span>
-            and then select <span class="font-semibold">Write feedback</span>.
+            and then select <span class="font-semibold">Add feedback</span>.
           </div>
         {/if}
       {/if}
@@ -183,6 +140,7 @@
           {/if}
           <textarea
               name="text"
+              bind:value={feedbackText}
               class="textarea resize-none text-sm bg-white dark:bg-(--dark-color) py-2"
               rows=12
               maxlength=3000
@@ -196,8 +154,8 @@
   {#if data.a_team_users.length || data.b_team_users.length}
     <Dialog bind:dialogState={viewSkaterDialogState} openFn={() => form = null}>
       {#snippet trigger()}
-        <div class="flex gap-2 block-hover items-center w-48">
-          <UserSearch />
+        <div class="flex justify-center items-center gap-2 w-36 px-3 py-1 text-sm button-secondary">
+          <UserSearch size={20} />
           <div>View skater</div>
         </div>
       {/snippet}
@@ -206,7 +164,7 @@
         <div class="text-sm mt-2">
           View and write feedback for another skater. Only users who have agreed to receive feedback that type will be viewable.
         </div>
-        <select id="user-pick" bind:value={userParam} class="input text-sm bg-white dark:bg-(--dark-color) mt-2">
+        <select id="user-pick" bind:value={userParam} class="input text-sm bg-white dark:bg-(--dark-color) py-2 mt-2">
           <option value="">View self</option>
           {#if data.a_team_users.length}
             <optgroup label="A Team">
@@ -224,8 +182,8 @@
           {/if}
         </select>
         <div class="flex gap-2 mt-4">
-          <a class="flex justify-center items-center button-style text-sm w-20 h-8 p-2" href="/feedback{userParam ? `?user=${userParam}` : ''}">Go</a>
-          <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={() => viewSkaterDialogState = false}>Cancel</button>
+          <a class="flex justify-center items-center button-primary text-sm w-20 px-2" href="/feedback{userParam ? `?user=${userParam}` : ''}">Go</a>
+          <button type="button" class="flex justify-center items-center w-20 text-sm px-2 button-secondary" onclick={() => viewSkaterDialogState = false}>Cancel</button>
         </div>
       {/snippet}
     </Dialog>
@@ -234,13 +192,13 @@
   <!-- Form for updating feedback allowance -->
   <Dialog bind:dialogState={settingsDialogState} openFn={openSettingsDialog}>
     {#snippet trigger()}
-      <div class="flex gap-2 block-hover items-center w-48">
+      <div class="flex justify-center items-center gap-2 w-36 px-3 py-1 text-sm button-secondary">
         {#if form?.formId == settingsFormId && form?.success}
-          <AnimatedCheck color="green" />
+          <AnimatedCheck color="green" size={20} />
         {:else}
-          <Settings2 />
+          <Settings2 size={20} />
         {/if}
-        <div>Feedback settings</div>
+        <div>Settings</div>
       </div>
     {/snippet}
     {#snippet content()}
@@ -269,13 +227,11 @@
         <input type="hidden" name="actorName" value={data.actor_name} />
         <input type="hidden" name="storedAllowA" value={storedAllowA} />
         <input type="hidden" name="storedAllowB" value={storedAllowB} />
-        <div class="flex flex-col gap-2 mt-3">
-          <div class="flex gap-1">
-            <label class="inline-block cursor-pointer" for="allowA">
-              <input id="allowA" name="allowA" class="toggle-input" type="checkbox" bind:checked={allowFeedbackATeam} />
-              <div class="toggle-slider"></div>
-              <div class="w-10"></div>
-            </label>
+        <div class="flex flex-col mt-2">
+          <label class="flex gap-1 py-1 cursor-pointer" for="allowA">
+            <input id="allowA" name="allowA" class="toggle-input" type="checkbox" bind:checked={allowFeedbackATeam} />
+            <div class="toggle-slider"></div>
+            <div class="w-10 shrink-0"></div>
             <div class="text-sm">
               A team feedback (currently: <strong>
               {#if submitting}
@@ -286,13 +242,11 @@
                 DO NOT ALLOW
               {/if}</strong>)
             </div>
-          </div>
-          <div class="flex gap-1">
-            <label class="inline-block cursor-pointer" for="allowB">
-              <input id="allowB" name="allowB" class="toggle-input" type="checkbox" bind:checked={allowFeedbackBTeam} />
-              <div class="toggle-slider"></div>
-              <div class="w-10"></div>
-            </label>
+          </label>
+          <label class="flex gap-1 py-1 cursor-pointer" for="allowB">
+            <input id="allowB" name="allowB" class="toggle-input" type="checkbox" bind:checked={allowFeedbackBTeam} />
+            <div class="toggle-slider"></div>
+            <div class="w-10 shrink-0"></div>
             <div class="text-sm">
               B team feedback (currently: <strong>
               {#if submitting}
@@ -303,17 +257,17 @@
                 DO NOT ALLOW
               {/if}</strong>)
             </div>
-          </div>
+          </label>
         </div>
-        <div class="flex gap-2 mt-5">
-          <button type="submit" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" disabled={submitting || !changedAllowance}>
+        <div class="flex gap-2 mt-4">
+          <button type="submit" class="flex justify-center items-center w-20 text-sm px-2 button-primary" disabled={submitting || !changedAllowance}>
             {#if submitting}
               <AnimatedDots />
             {:else}
               Save
             {/if}
           </button>
-          <button type="button" class="flex justify-center items-center w-20 h-8 text-sm p-2 button-style" onclick={closeSettingsDialog}>
+          <button type="button" class="flex justify-center items-center w-20 text-sm px-2 button-secondary" onclick={closeSettingsDialog}>
             Cancel
           </button>
         </div>
@@ -321,3 +275,53 @@
     {/snippet}
   </Dialog>
 </div>
+
+{#each feedbackTypes as feedbackType}
+  {@const feedbackEntries = data.feedback_entries.get(feedbackType)}
+  {#if feedbackEntries}
+    <div class="flex flex-col gap-2 mb-2">
+      <div class="flex gap-4 items-center text-xl font-semibold bottom-faded-border">
+        {feedbackType}
+        {#if feedbackType == 'Self'}
+          <Popover>
+            <Popover.Trigger class="p-2 -m-2 hover:text-(--strong-color) active:text-(--strong-color)">
+              <Info size=16 />
+            </Popover.Trigger>
+            <Portal>
+              <Popover.Positioner>
+                <Popover.Content
+                    class="menu-colors
+                           text-sm
+                           rounded-sm
+                           shadow-sm
+                           p-2
+                           w-70
+                           dark:border
+                           dark:border-color-(--very-light-color)"
+                >
+                  Self registered feedback is only visible to you.
+                </Popover.Content>
+              </Popover.Positioner>
+            </Portal>
+          </Popover>
+        {/if}
+      </div>
+      {#each feedbackEntries as feedback}
+        <div class="text-display-box flex flex-col gap-2 my-1">
+          <div class="flex items-center font-semibold">
+            <div>{feedback.date}</div>
+            <Dot />
+            <div>{feedback.from_name}</div>
+          </div>
+          <div class="whitespace-pre-line">
+            {feedback.text}
+          </div>
+        </div>
+      {/each}
+    </div>
+  {/if}
+{/each}
+
+{#if !feedbackTypes.some(type => data.feedback_entries.has(type))}
+  <div class="mb-2">No feedback found.</div>
+{/if}

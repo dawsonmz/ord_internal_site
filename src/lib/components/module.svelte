@@ -43,20 +43,20 @@
   </Tabs.List>
 
   <Tabs.Content value='Short'>
-    <div class="rich-text text-sm">
+    <div class="rich-text">
       <PortableText value={module.short_text} {components} />
     </div>
   </Tabs.Content>
   {#if module.detailed_text}
     <Tabs.Content value='Detailed'>
-      <div class="rich-text text-sm">
+      <div class="rich-text">
         <PortableText value={module.detailed_text} {components} />
       </div>
     </Tabs.Content>
   {/if}
   {#if module.advanced_text}
     <Tabs.Content value='Advanced'>
-      <div class="rich-text text-sm">
+      <div class="rich-text">
         <PortableText value={module.advanced_text} {components} />
       </div>
     </Tabs.Content>

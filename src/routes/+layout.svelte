@@ -162,7 +162,7 @@
     </AppBar.Toolbar>
   </AppBar>
 
-  <div class="w-full sm:w-150 md:w-175 lg:w-200 xl:w-250 flex flex-col gap-4 px-6 sm:mx-auto mt-5 mb-20">
+  <div class="w-full sm:w-150 md:w-175 {page.data.narrow ? '' : 'lg:w-200 xl:w-250'} flex flex-col gap-4 px-6 sm:mx-auto mt-5 mb-20">
     {@render children()}
   </div>
 </ClerkProvider>

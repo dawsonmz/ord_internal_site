@@ -2,5 +2,5 @@ import { loadPosts } from '$lib/server/posts';
 
 export async function load({ url }) {
   const showHiddenParam = url.searchParams.get('show-hidden')?.trim().toLowerCase();
-  return { posts: await loadPosts('Update', showHiddenParam == 'true') };
+  return { posts: await loadPosts('Update', showHiddenParam == 'true'), narrow: true };
 }

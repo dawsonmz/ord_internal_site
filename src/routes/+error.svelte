@@ -29,9 +29,10 @@
 </Crumb>
 
 {#if page.status == 401}
-  <SignInButton class="flex items-center gap-2 block-hover w-max">
-    <LogIn size={24} />
-    <div>Please sign in to access this page.</div>
+  <div>Please sign in to access this page.</div>
+  <SignInButton class="flex justify-center items-center gap-2 w-36 text-sm px-2 button-primary">
+    <LogIn size={20} />
+    <span class="font-semibold">Sign in</span>
   </SignInButton>
 {:else if page.status == 403}
   <div>Your user account does not have access to this page.</div>
@@ -49,7 +50,7 @@
       }
   >
     <input type="hidden" name="context" value={page.route.id} />
-    <button type="submit" class="flex justify-center items-center w-36 h-9 text-sm p-2 button-style" disabled={submitting}>
+    <button type="submit" class="flex justify-center items-center w-36 text-sm px-2 button-primary" disabled={submitting}>
       {#if submitting}
         <AnimatedDots />
       {:else}

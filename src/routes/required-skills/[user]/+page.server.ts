@@ -45,6 +45,7 @@ export async function load({ locals, params, platform }) {
     can_edit_progress: roles.includes('coach'),
     required_skills: Map.groupBy(requiredSkills, skill => skill.stage),
     required_skill_progress: requiredSkillProgress,
+    narrow: true,
   };
 }
 
