@@ -1,9 +1,10 @@
 <script lang="ts">
   import { ChevronRight } from '@lucide/svelte';
+  import { REQUIRED_SKILL_STAGES } from '@ord/shared';
   import { Portal, Tooltip } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
-  import type { ProgressState, RequiredSkill, SkillStage } from '$lib/server/required_skills';
+  import type { ProgressState, RequiredSkill } from '$lib/server/required_skills';
   import type { User } from '$lib/server/users';
   import { dropUserIdPrefix } from '$lib/util/users';
 
@@ -11,8 +12,6 @@
 
   let skillDialog: RequiredSkillDialog;
   let target: { user: User, skill: RequiredSkill, progress: ProgressState } | undefined = $state.raw();
-
-  const STAGES: SkillStage[] = [ 'Fundamentals', 'Basic Contact', 'Controlled Gameplay', 'Full Gameplay' ];
 
   const classByProgress: Record<ProgressState, string> = {
     'Not started': 'not-started',
@@ -33,7 +32,7 @@
 
 <h1 class="text-2xl font-semibold">Required Skills Tracking</h1>
 
-{#each STAGES as stage}
+{#each REQUIRED_SKILL_STAGES as stage}
   {@const skills = data.required_skills.get(stage)}
   {#if skills}
     <div class="flex flex-col gap-3">
@@ -65,7 +64,7 @@
         </a>
       </div>
 
-      {#each STAGES as stage}
+      {#each REQUIRED_SKILL_STAGES as stage}
         {@const skills = data.required_skills.get(stage)}
         {#if skills}
           <div class="flex flex-col gap-2">

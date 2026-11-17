@@ -1,14 +1,14 @@
+import { type RequiredSkillStage } from '@ord/shared';
 import { error } from '@sveltejs/kit';
 import { type FieldUpdate, getCollectionGroupDocuments, getDocument, getDocuments, patchDocument } from '$lib/server/firestore';
 import { type ModuleTag } from '$lib/server/modules';
 import { getSanityClient } from '$lib/server/sanity';
 import { getUser } from '$lib/server/users';
 
-export type SkillStage = 'Fundamentals' | 'Basic Contact' | 'Controlled Gameplay' | 'Full Gameplay';
 export type ProgressState = 'Not started' | 'In progress' | 'Completed';
 
 export interface RequiredSkill {
-  stage: SkillStage,
+  stage: RequiredSkillStage,
   title: string,
   slug: string,
   importance: string,

@@ -1,3 +1,14 @@
+export const REQUIRED_SKILL_STAGES = [
+  'Fundamentals',
+  'Advanced Skills',
+  'Basic Contact',
+  'Rules and Safety',
+  'Controlled Gameplay',
+  'Full Gameplay',
+] as const;
+
+export type RequiredSkillStage = typeof REQUIRED_SKILL_STAGES[number];
+
 export const PLAY_SCENARIOS = [
   { slug: 'jam-start', name: 'Jam Start' },
   { slug: 'mid-jam', name: 'Mid-Jam' },

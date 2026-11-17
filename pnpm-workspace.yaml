@@ -1,3 +1,6 @@
+packages:
+  - shared
+
 engineStrict: true
 
 # Dependency build scripts are blocked unless explicitly allowed here.

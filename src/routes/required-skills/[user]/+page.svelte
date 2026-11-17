@@ -1,9 +1,10 @@
 <script lang="ts">
   import { ArrowRight, ChevronDown, ChevronUp, ClipboardPen, Dot, GraduationCap } from '@lucide/svelte/icons';
+  import { REQUIRED_SKILL_STAGES } from '@ord/shared';
   import { Accordion } from '@skeletonlabs/skeleton-svelte';
   import { Crumb, CrumbHome, CrumbLink, CrumbPage, CrumbSeparator } from '$lib/components/breadcrumb/index';
   import RequiredSkillDialog from '$lib/components/required_skill_dialog.svelte';
-  import type { ProgressState, RequiredSkill, SkillStage } from '$lib/server/required_skills';
+  import type { ProgressState, RequiredSkill } from '$lib/server/required_skills';
   import { formatDateNumeric, formatDateTextWithYear } from '$lib/util/datetime';
 
   let { data, form } = $props();
@@ -14,7 +15,6 @@
 
   // If the user's name is too long, it can break how the breadcrumbs are displayed.
   const truncatedName = $derived(data.user.name.length > 30 ? `${data.user.name.substring(0, 27)}...` : data.user.name);
-  const STAGES: SkillStage[] = [ 'Fundamentals', 'Basic Contact', 'Controlled Gameplay', 'Full Gameplay' ];
 
   const classByProgress: Record<ProgressState, string> = {
     'Not started': 'not-started',
@@ -64,7 +64,7 @@
 {/if}
 
 <Accordion value={openItems} multiple onValueChange={e => openItems = e.value} class="flex flex-col gap-4">
-  {#each STAGES as stage}
+  {#each REQUIRED_SKILL_STAGES as stage}
     {@const skills = data.required_skills.get(stage)}
     {#if skills}
       <div class="flex flex-col gap-3">

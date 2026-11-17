@@ -1,6 +1,6 @@
+import { PLAY_SCENARIOS } from '@ord/shared';
 import { error } from '@sveltejs/kit';
 import { getSanityClient } from '$lib/server/sanity';
-import { PLAY_SCENARIOS } from '$lib/util/plays';
 
 interface PlaySummary {
   title: string,

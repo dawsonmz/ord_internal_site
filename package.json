@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.503.0",
+		"@ord/shared": "workspace:*",
 		"@portabletext/svelte": "^3.0.1",
 		"@sanity/client": "^7.27.0",
 		"@sanity/image-url": "^1.2.0",
