@@ -1,5 +1,9 @@
 packages:
   - shared
+  - studio
+
+# Studio dependency changes should not touch the site's lockfile or trigger site builds.
+sharedWorkspaceLockfile: false
 
 engineStrict: true
 

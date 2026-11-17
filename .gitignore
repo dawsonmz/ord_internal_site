@@ -7,6 +7,8 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
+/studio/dist
+*.tsbuildinfo
 
 # OS
 .DS_Store
@@ -19,6 +21,8 @@ Thumbs.db
 !.env.example
 !.env.test
 .dev.vars*
+*.local
+*.pem
 
 # Vite
 vite.config.js.timestamp-*
@@ -30,3 +34,8 @@ vite.config.ts.timestamp-*
 # Emulator
 **/firebase-export-*/**
 **/firestore-data/**
+
+# Sanity
+/studio/.sanity
+/studio/backups/
+/studio/migrations/

@@ -6,12 +6,14 @@ For any coding task — feature work, refactoring, debugging, architecture, or b
 
 ## Overview
 
-Internal site for Oslo Roller Derby (ORD). Built with SvelteKit, deployed to Cloudflare Workers.
+Internal site for Oslo Roller Derby (ORD). Built on SvelteKit, deployed to Cloudflare Workers.
+
+Sanity Studio located under `studio` for the database serving content to the ORD internal site. Built on React, hosted by Sanity, and deployed via GitHub Actions.
 
 ## Features
  
 - **Team information**: Roster lists and skater names and numbers.
-- **Playbook**: Collection of plays and strategies currently being practiced by the team. Includes descriptions, animated diagrams, and relevant drills. The scenario list is defined as a constant both here and in ord_internal_studio, and both must be kept in sync.
+- **Playbook**: Collection of plays and strategies currently being practiced by the team. Includes descriptions, animated diagrams, and relevant drills.
 - **Footage**: Links to footage on YouTube and Twitch of games and scrimmages.
 - **Beginners training plans**: Detailed lesson plans used to run beginners training sessions.
 - **Beginners modules**: Individual drills categorized by tags which are used to compose training plans.
