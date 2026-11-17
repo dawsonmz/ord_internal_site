@@ -1,13 +1,6 @@
 import { defineField, defineType } from 'sanity';
+import { PLAY_SCENARIOS } from '@ord/shared';
 import { AutoFilledSlugInput } from '../components/autoFilledSlugInput';
-
-export const playScenarios = [
-  { title: 'Jam Start', value: 'jam-start' },
-  { title: 'Mid-Jam', value: 'mid-jam' },
-  { title: 'Scoring Pass', value: 'scoring-pass' },
-  { title: 'Power Start', value: 'power-start' },
-  { title: 'Power Mid-Jam', value: 'power-mid-jam' },
-];
 
 export const playType = defineType({
   name: 'play',
@@ -38,7 +31,7 @@ export const playType = defineType({
       title: 'Scenario',
       type: 'string',
       options: {
-        list: playScenarios,
+        list: PLAY_SCENARIOS.map(({ slug, name }) => ({ title: name, value: slug })),
       },
       validation: (rule: any) => rule.required(),
     }),

@@ -1,7 +1,7 @@
 import { type SanityClient, useClient } from 'sanity';
 import type { StructureBuilder, StructureResolver, StructureResolverContext } from 'sanity/structure';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
-import { playScenarios } from './schema/playType';
+import { PLAY_SCENARIOS } from '@ord/shared';
 
 const SANITY_CLIENT_API_VERSION = '2025-04-15';
 
@@ -148,14 +148,14 @@ export const structure: StructureResolver = async (
                   S.list()
                       .title('Scenarios')
                       .items([
-                        ...playScenarios.map(
+                        ...PLAY_SCENARIOS.map(
                             scenario =>
                                 orderableDocumentListDeskItem({
                                     type: 'play',
-                                    id: `play-${scenario.value}`,
-                                    title: scenario.title,
+                                    id: `play-${scenario.slug}`,
+                                    title: scenario.name,
                                     filter: '_type == "play" && scenario == $scenario',
-                                    params: { scenario: scenario.value },
+                                    params: { scenario: scenario.slug },
                                     S,
                                     context,
                                 })

@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity';
+import { REQUIRED_SKILL_STAGES } from '@ord/shared';
 import { AutoFilledSlugInput } from '../components/autoFilledSlugInput';
 import { RequiredSkillModuleTagListInput } from '../components/moduleTagListInput';
 
@@ -13,14 +14,7 @@ export const requiredSkillType = defineType({
       description: 'Which stage the skill is categorized in',
       type: 'string',
       options: {
-        list: [
-          { title: 'Fundamentals', value: 'Fundamentals' },
-          { title: 'Advanced Skills', value: 'Advanced Skills' },
-          { title: 'Basic Contact', value: 'Basic Contact' },
-          { title: 'Rules and Safety', value: 'Rules and Safety' },
-          { title: 'Controlled Gameplay', value: 'Controlled Gameplay' },
-          { title: 'Full Gameplay', value: 'Full Gameplay' },
-        ],
+        list: [...REQUIRED_SKILL_STAGES],
       },
     }),
     defineField({

@@ -15,6 +15,7 @@
     "sanity"
   ],
   "dependencies": {
+    "@ord/shared": "workspace:*",
     "@sanity/orderable-document-list": "^2.0.29",
     "@sanity/ui": "^3.1.14",
     "@sanity/uuid": "^3.0.2",
